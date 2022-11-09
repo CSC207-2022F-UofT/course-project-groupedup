@@ -18,7 +18,7 @@ public class User {
     // maps username (key) to user ID (value) maybe not in here but somewhere else store
     private static HashMap<Integer, String> UserIDMap;
 
-    public User(String username, String password, String name, String email, UserPublicProfile publicProile){
+    public User(String username, String password, String name, String email, UserPublicProfile publicProfile){
         // will look into java builtin later
         Random rand = new Random();
         Integer id = (Integer) rand.nextInt();
@@ -32,7 +32,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.email = email;
-        this.publicProfile = publicProile;
+        this.publicProfile = publicProfile;
     }
 
     public int getID(){

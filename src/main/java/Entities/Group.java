@@ -7,7 +7,7 @@ public class Group {
     private User groupLeader;
     private static HashMap<Integer, String> groupIDMap; // maps groupID to the groupName
     private int groupID;
-    private HashMap<String, User> groupMembers;
+    private HashMap<Integer, User> groupMembers;
     //maps UserID to User object,
     private String courseCode;
     private String description;
@@ -24,7 +24,8 @@ public class Group {
         groupIDMap.put(id, groupName);
         this.groupID = id;
         this.memberRequests = new HashMap<>();
-        this.groupMembers = {groupLeader.getUserID(), groupLeader};
+        this.groupMembers = new HashMap<>();
+        groupMembers.put(groupLeader.getID(), groupLeader);
         this.groupLeader = groupLeader;
         this.courseCode = "";
         this.description = description;
