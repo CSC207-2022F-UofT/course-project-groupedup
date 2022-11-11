@@ -1,13 +1,13 @@
 package Entities;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Random;
+        import java.util.List;
+        import java.util.HashMap;
+        import java.util.Random;
 
 public class Group {
     private User groupLeader;
     private static HashMap<Integer, String> groupIDMap; // maps groupID to the groupName
     private int groupID;
-    private HashMap<String, User> groupMembers;
+    private HashMap<Integer, User> groupMembers;
     //maps UserID to User object,
     private String courseCode;
     private String description;
@@ -18,13 +18,14 @@ public class Group {
     public Group(User groupLeader, String groupName, String description){
         Random rand = new Random();
         Integer id = rand.nextInt();
-        while (groupIDMap.containsValue(id)){
+        while (groupIDMap.containsKey(id)){
             id = rand.nextInt();
         }
         groupIDMap.put(id, groupName);
         this.groupID = id;
         this.memberRequests = new HashMap<>();
-        this.groupMembers = {groupLeader.getUserID(), groupLeader};
+        this.groupMembers = new HashMap<>();
+        groupMembers.put(groupLeader.getID(), groupLeader);
         this.groupLeader = groupLeader;
         this.courseCode = "";
         this.description = description;
@@ -96,6 +97,14 @@ public class Group {
 
     public void setGroupName(String name){
         this.groupName = name;
+    }
+
+    public void removeFromRequests(User user) {
+        memberRequests.remove(user.getID());
+    }
+
+    public void addMember(User user) {
+        groupMembers.put(user.getID(), user);
     }
 
 }
