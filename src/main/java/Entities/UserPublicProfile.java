@@ -1,6 +1,5 @@
 package Entities;
 import java.util.HashMap;
-
 public class UserPublicProfile {
     private String biography;
     private HashMap<String, String> preferences;
