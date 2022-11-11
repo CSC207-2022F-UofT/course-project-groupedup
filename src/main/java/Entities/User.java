@@ -65,11 +65,11 @@ public class User {
 //    }
 
     public void addGroup(Group group) {
-        this.groups.put(group.getID(), group);
+        this.groups.put(group.getGroupID(), group);
     }
 
     public void removeFromApplications(Group group) {
-        this.applicationsList.remove(group.getID());
+        this.applicationsList.remove(group.getGroupID());
     }
 }
 
