@@ -1,19 +1,31 @@
 package ApplyToGroup;
+
+import Entities.Group;
+import Entities.User;
+
 public class ApplyToGroupResponseModel {
 
-    private final String username;
-    private final String groupName;
+    private User user;
+    private Group group;
 
-    public ApplyToGroupResponseModel(String username, String groupName) {
+    public ApplyToGroupResponseModel(User user, Group group) {
 
-        this.username = username;
-        this.groupName = groupName;
+        this.user = user;
+        this.group = group;
+    }
+    public User getUser() {
+        return user;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUser(User user) {
+        this.user = user;
     }
-    public String getGroupName() {
-        return groupName;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
