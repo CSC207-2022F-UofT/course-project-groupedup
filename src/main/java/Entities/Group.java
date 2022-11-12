@@ -99,12 +99,12 @@ public class Group {
         this.groupName = name;
     }
 
-    public void removeFromRequests(User user) {
-        memberRequests.remove(user.getID());
-    }
-
     public void addMember(User user) {
         groupMembers.put(user.getID(), user);
+    }
+
+    public void removeFromRequests(User user) {
+        memberRequests.remove(user.getID());
     }
 
 }

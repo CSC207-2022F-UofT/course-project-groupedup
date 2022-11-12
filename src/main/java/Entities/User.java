@@ -64,12 +64,13 @@ public class User {
 //        this.password = password;
 //    }
 
+    public void removeFromApplications(Group group) {
+        this.applicationsList.remove(group.getGroupID());
+    }
     public void addGroup(Group group) {
         this.groups.put(group.getGroupID(), group);
     }
 
-    public void removeFromApplications(Group group) {
-        this.applicationsList.remove(group.getGroupID());
-    }
+
 }
 
