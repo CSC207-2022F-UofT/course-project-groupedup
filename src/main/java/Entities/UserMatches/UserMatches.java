@@ -4,8 +4,9 @@ import Entities.Group;
 import Entities.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
+//This is probably going to have Current User rather than User
 /**
  * General Description:
  * This Class is used to match and update the user's scores. It will not be saved as each time we refresh the screen
@@ -42,11 +43,14 @@ public class UserMatches implements MatchingAlgorithm {
     //Match the groups and Rank them!
     @Override
     public void match() {
+
         for (Group g : this.groups) {
             GroupScore gS = new GroupScore(this.u, g);
             this.matches.add(gS);
         }
-        this.matches.sort(null);
+        Collections.sort(this.matches, Collections.reverseOrder()); //Orders greatest to least
+        //this.matches.sort(null);
+
     }
 
 

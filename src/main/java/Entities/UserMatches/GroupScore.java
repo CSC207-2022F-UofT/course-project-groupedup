@@ -58,7 +58,6 @@ public class GroupScore implements Comparable<GroupScore> {
         double count = 0.0;
         double total = 0.0;
         UserPublicProfile u = this.user.getPublicProfile();
-        //I need getPreferences for both Users and Groups
         HashMap<String, String> userPref = u.getPreferences();
         HashMap<String, String> groupPref = this.group.getPreferences();
         for (String keyUser: userPref){
