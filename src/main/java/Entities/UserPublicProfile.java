@@ -7,7 +7,7 @@ public class UserPublicProfile {
         HashMap<String, String> preferences = new HashMap<>();
         /*Prefilling in the preferences*/
         preferences.put("Work Hours", "");
-        preferences.put("Remote or In-person", "");
+        preferences.put("Meeting Env", "");
         this.preferences = preferences;
     }
 
