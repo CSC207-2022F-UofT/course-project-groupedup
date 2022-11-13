@@ -1,6 +1,8 @@
-package LeaveGroup;
+package Screens;
 
-//TODO: refactor class into screens package (once UI is made)
+import LeaveGroup.LeaveGroupInputBoundary;
+import LeaveGroup.LeaveGroupRequestModel;
+import LeaveGroup.LeaveGroupResponseModel;
 
 public class LeaveGroupController {
     final LeaveGroupInputBoundary userInput;
