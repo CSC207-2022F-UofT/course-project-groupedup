@@ -4,11 +4,12 @@ import Entities.Group;
 import Entities.User;
 
 public interface PendingListDsGateway {
-    User getUser(Integer id);
-    Group getGroup(Integer id);
+    User getUser(String username);
+    Group getGroup(String groupName);
+
 
     // duplicate from Aarya's DS gateway
-    boolean userExistsByID(Integer id);
+    boolean userExistsByUsername(String username);
 
-    // boolean groupExistsByID(Integer id);
+    // boolean groupExistsByGroupName(String groupName);
 }

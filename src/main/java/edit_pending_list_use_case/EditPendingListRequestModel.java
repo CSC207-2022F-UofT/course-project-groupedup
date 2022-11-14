@@ -2,22 +2,22 @@ package edit_pending_list_use_case;
 
 public class EditPendingListRequestModel {
 
-    private final Integer userID;
-    private final Integer groupID;
+    private final String username;
+    private final String groupName;
     private final boolean pendingStatus;
 
-    public EditPendingListRequestModel(Integer userID, Integer groupID, boolean pendingStatus) {
-        this.userID = userID;
-        this.groupID = groupID;
+    public EditPendingListRequestModel(String username, String groupName, boolean pendingStatus) {
+        this.username = username;
+        this.groupName = groupName;
         this.pendingStatus = pendingStatus;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public String getUsername() {
+        return username;
     }
 
-    public Integer getGroupID() {
-        return groupID;
+    public String getGroupName() {
+        return groupName;
     }
 
     public boolean getPendingStatus() {
