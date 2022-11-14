@@ -6,28 +6,29 @@ import Entities.User;
 public class EditPendingListInteractor implements EditPendingListInputBoundary {
 
     final PendingListDsGateway dsGateway;
-    final PendingListPresenter presenter;
+    final EditPendingListPresenter presenter;
 
-    public EditPendingListInteractor(PendingListDsGateway dsGateway, PendingListPresenter presenter) {
+    public EditPendingListInteractor(PendingListDsGateway dsGateway, EditPendingListPresenter presenter) {
         this.dsGateway = dsGateway;
         this.presenter = presenter;
     }
 
+    @Override
     public EditPendingListResponseModel addOrRemoveUser(EditPendingListRequestModel requestModel) {
-        Integer userID = requestModel.getUserID();
-        Integer groupID = requestModel.getGroupID();
+        String username = requestModel.getUsername();
+        String groupName = requestModel.getGroupName();
         boolean pendingStatus = requestModel.getPendingStatus();
 
-        if(!dsGateway.userExistsByID(userID)) {return presenter.prepareFailView("User does not exist.");}
+        if(!dsGateway.userExistsByID(username)) {return presenter.prepareFailView("User does not exist.");}
 
         // TODO: this shouldn't be possible, maybe make it an exception instead of presenting it to the user?
-        // if(!dsGateway.groupExistsByID(groupID)) {return presenter.prepareFailView("Group does not exist.");}
+        // if(!dsGateway.groupExistsByID(groupName)) {return presenter.prepareFailView("Group does not exist.");}
 
-        User user = PendingListDsGateway.getUser(userID);
-        Group group = PendingListDsGateway.getGroup(groupID);
+        User user = PendingListDsGateway.getUser(username);
+        Group group = PendingListDsGateway.getGroup(groupName);
 
         if (!group.getMemberRequests().containsValue(user)) {
-            return PendingListPresenter.prepareFailView("This user has cancelled their join request.");
+            return EditPendingListPresenter.prepareFailView("This user has cancelled their join request.");
         }
 
         // TODO: this might also be an exception
