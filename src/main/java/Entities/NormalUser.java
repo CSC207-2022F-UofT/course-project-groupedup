@@ -14,8 +14,8 @@ public class NormalUser implements Serializable, ObjectMap, User {
     private String name;
     private final String username;
     private String password;
-    private HashMap<Integer, Group> groups;
-    private HashMap<Integer, Group> applicationsList;
+    private HashMap<String, Group> groups;
+    private HashMap<String, Group> applicationsList;
     private UserPublicProfile publicProfile;
     private String email;
 
@@ -42,10 +42,10 @@ public class NormalUser implements Serializable, ObjectMap, User {
     public String getEmail(){
         return this.email;
     }
-    public HashMap<Integer, Group> getGroups(){
+    public HashMap<String, Group> getGroups(){
         return this.groups;
     }
-    public HashMap<Integer, Group> getApplicationsList(){
+    public HashMap<String, Group> getApplicationsList(){
         return this.applicationsList;
     }
     public UserPublicProfile getUserPublicProfile() { return this.publicProfile; }

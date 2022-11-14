@@ -8,7 +8,7 @@ public interface User extends Serializable {
     public String getPassword();
     public String getName();
     public String getEmail();
-    public HashMap<Integer, Group> getGroups();
-    public HashMap<Integer, Group> getApplicationsList();
+    public HashMap<String, Group> getGroups();
+    public HashMap<String, Group> getApplicationsList();
     public UserPublicProfile getUserPublicProfile();
 }
