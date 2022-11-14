@@ -18,14 +18,14 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
 
     @Override
     public ApplyToGroupResponseModel create(ApplyToGroupRequestModel requestModel) {
-        if (!applyToGroupDsGateway.userExistsByID(user.getID())) {
+        if (!applyToGroupDsGateway.userExistsByName(user.getUsername())) {
             return applyToGroupPresenter.prepareFailView("User does not exist.");
         }
-        if (!applyToGroupDsGateway.groupExistsByID(requestModel.getGroupID())) {
+        if (!applyToGroupDsGateway.groupExistsByName(requestModel.getGroupName())) {
             return applyToGroupPresenter.prepareFailView("Group does not exist.");
         }
 
-        Group group = applyToGroupDsGateway.getGroup(requestModel.getGroupID());
+        Group group = applyToGroupDsGateway.getGroup(requestModel.getGroupName());
 
         if (group.getGroupMembers().containsValue(user)) {
             return applyToGroupPresenter.prepareFailView("User is already in group.");
@@ -43,7 +43,7 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
             return applyToGroupPresenter.prepareFailView("User has already applied to the group.");
         }
 
-        if (group.getGroupLeader().getID() == user.getID()) {
+        if (group.getGroupLeader().getUsername().equals(user.getUsername())) {
             return applyToGroupPresenter.prepareFailView("User is group leader.");
         }
 
