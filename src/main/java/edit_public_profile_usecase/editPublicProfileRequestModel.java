@@ -3,16 +3,27 @@ package edit_public_profile_usecase;
 import java.util.HashMap;
 
 public class editPublicProfileRequestModel {
+    private Integer userId;
     private String bio;
     private String timeCommitment;
     private String location;
     private String meetingTime;
 
-    public editPublicProfileRequestModel(String bio, String timeCommitment, String location, String meetingTime) {
+    public editPublicProfileRequestModel(Integer userId, String bio, String timeCommitment, String location, String meetingTime) {
+        this.userId = userId;
         this.bio = bio;
         this.timeCommitment = timeCommitment;
         this.location = location;
         this.meetingTime = meetingTime;
+    }
+
+
+    public Integer getUserID() {
+        return this.userId;
+    }
+
+    public void setUserID(Integer userId) {
+        this.userId = userId;
     }
 
     public String getBio() {

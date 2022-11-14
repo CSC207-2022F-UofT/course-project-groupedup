@@ -1,9 +1,7 @@
 package edit_public_profile_usecase;
 
-public class editPublicProfileDSGateway {
-    private Integer userID;
-
-    editPublicProfileDSGateway(Integer userID) {
-        this.userID = userID;
-    }
+public interface editPublicProfileDSGateway {
+    boolean existsByUserId(Integer userID);
+    void findUser(Integer userID);
+    void savePublicProfile(editPublicProfileDsRequestModel requestModel);
 }

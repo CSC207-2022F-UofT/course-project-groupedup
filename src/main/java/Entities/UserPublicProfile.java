@@ -6,8 +6,9 @@ public class UserPublicProfile {
     public UserPublicProfile(){
         HashMap<String, String> preferences = new HashMap<>();
         /*Prefilling in the preferences*/
-        preferences.put("Work Hours", "");
-        preferences.put("Meeting Env", "");
+        preferences.put("timeCommitment", "");
+        preferences.put("location", "");
+        preferences.put("meetingTime", "");
         this.preferences = preferences;
     }
 
