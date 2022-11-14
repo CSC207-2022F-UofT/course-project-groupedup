@@ -1,7 +1,8 @@
 package edit_public_profile_usecase;
+import Entities.User;
 
 public interface editPublicProfileDSGateway {
-    boolean existsByUserId(Integer userID);
-    void findUser(Integer userID);
-    void savePublicProfile(editPublicProfileDsRequestModel requestModel);
+    boolean existsByUsername(String username);
+    User findUser(String username);
+    void saveUser(editPublicProfileDsRequestModel requestModel);
 }

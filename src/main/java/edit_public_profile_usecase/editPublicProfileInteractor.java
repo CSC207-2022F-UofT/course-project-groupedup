@@ -1,27 +1,55 @@
 package edit_public_profile_usecase;
 
+import Entities.User;
+
 public class editPublicProfileInteractor implements editPublicProfileInputBoundary{
     final editPublicProfileDSGateway profileDSGateway;
     final editPublicProfilePresenter profilePresenter;
+    final String username;
 
-    public editPublicProfileInteractor(editPublicProfileDSGateway profileDSGateway, editPublicProfilePresenter profilePresenter) {
+    public editPublicProfileInteractor(String username, editPublicProfileDSGateway profileDSGateway, editPublicProfilePresenter profilePresenter) {
+        this.username = username;
         this.profileDSGateway = profileDSGateway;
         this.profilePresenter = profilePresenter;
     }
 
     @Override
-    public editPublicProfileResponseModel create(editPublicProfileRequestModel requestModel) {
-        /*Pass or fail message (I don't know if we want to let them leave their preferences blank or not)*/
-        if (requestModel.getBio().equals("")) {
-            return profilePresenter.prepareFailView("Edits were unsuccessful, profile bio is empty.");
+    public editPublicProfileResponseModel saveEdits(editPublicProfileRequestModel requestModel) {
+        /*Creating a failed response model*/
+        editPublicProfileResponseModel profileFailedResponseModel = new editPublicProfileResponseModel(
+                requestModel.getPreferences(),
+                requestModel.getBio(), "");
+
+        /*Returning a failed view when preferences is left blank*/
+        for (String p: requestModel.getPreferences().values()) {
+            if (p.equals("")) {
+                profileFailedResponseModel.setMessage("Preferences is left blank.");
+                return profilePresenter.prepareFailView(profileFailedResponseModel);
+            }
         }
 
-        editPublicProfileDsRequestModel profileDsModel = new editPublicProfileDsRequestModel(requestModel.getUserID());
-        profileDSGateway.savePublicProfile(profileDsModel);
+        /*Returning a failed view when profile bio is left blank*/
+        if (requestModel.getBio().equals("")) {
+            profileFailedResponseModel.setMessage("Biography was left blank.");
+            return profilePresenter.prepareFailView(profileFailedResponseModel);
+        }
 
+        /*Set user's profile and saving user*/
+        if (profileDSGateway.existsByUsername(this.username)) {
+            User user = profileDSGateway.findUser(this.username);
+            user.getPublicProfile().setPreferences(requestModel.getPreferences());
+            user.getPublicProfile().setBiography(requestModel.getBio());
+            //TODO: save user in repo
+        } else {
+            /*If the user is not found.*/
+            profileFailedResponseModel.setMessage("User was not found. Please log back in.");
+            return profilePresenter.prepareFailView(profileFailedResponseModel);
+        }
+
+        /*If all checks pass, send new changes back to presenter.*/
         editPublicProfileResponseModel profileResponseModel = new editPublicProfileResponseModel(
                 requestModel.getPreferences(),
-                requestModel.getBio());
+                requestModel.getBio(), "Edits successfully saved.");
 
         return profilePresenter.prepareSuccessView(profileResponseModel);
     }

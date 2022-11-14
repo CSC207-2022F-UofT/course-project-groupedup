@@ -1,17 +1,17 @@
 package edit_public_profile_usecase;
 
 public class editPublicProfileDsRequestModel {
-    Integer userId;
+    String username;
 
-    public editPublicProfileDsRequestModel(Integer userId) {
-        this.userId = userId;
+    public editPublicProfileDsRequestModel(String username) {
+        this.username = username;
     }
 
-    public Integer getUserId(){
-        return this.userId;
+    public String getUsername(){
+        return this.username;
     }
 
-    public void setUserId(Integer userId){
-        this.userId = userId;
+    public void setUsername(String username){
+        this.username = username;
     }
 }

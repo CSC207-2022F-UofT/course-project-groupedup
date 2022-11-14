@@ -3,35 +3,34 @@ package edit_public_profile_usecase;
 import java.util.HashMap;
 
 public class editPublicProfileRequestModel {
-    private Integer userId;
     private String bio;
+    private String courseCode;
     private String timeCommitment;
     private String location;
     private String meetingTime;
 
-    public editPublicProfileRequestModel(Integer userId, String bio, String timeCommitment, String location, String meetingTime) {
-        this.userId = userId;
+    public editPublicProfileRequestModel(String bio, String courseCode, String timeCommitment, String location, String meetingTime) {
         this.bio = bio;
+        this.courseCode = courseCode;
         this.timeCommitment = timeCommitment;
         this.location = location;
         this.meetingTime = meetingTime;
-    }
-
-
-    public Integer getUserID() {
-        return this.userId;
-    }
-
-    public void setUserID(Integer userId) {
-        this.userId = userId;
     }
 
     public String getBio() {
         return this.bio;
     }
 
-    public void setBio(String Bio) {
+    public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getCourseCode() {
+        return this.courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     public String getTimeCommitment() {
@@ -60,8 +59,9 @@ public class editPublicProfileRequestModel {
 
     public HashMap<String, String> getPreferences() {
         HashMap<String, String> preferences = new HashMap<String, String>();
-        preferences.put("Time Commitment", this.timeCommitment);
-        preferences.put("Location", this.location);
+        preferences.put("courseCode", this.courseCode);
+        preferences.put("timeCommitment", this.timeCommitment);
+        preferences.put("location", this.location);
         preferences.put("meetingTime", this.meetingTime);
 
         return preferences;

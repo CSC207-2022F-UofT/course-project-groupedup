@@ -3,12 +3,14 @@ package edit_public_profile_usecase;
 import java.util.HashMap;
 
 public class editPublicProfileResponseModel {
-    HashMap<String, String> editedPreferences;
-    String editedBio;
+    private HashMap<String, String> editedPreferences;
+    private String editedBio;
+    private String message;
 
-    public editPublicProfileResponseModel(HashMap<String, String> editedPreferences, String editedBio){
+    public editPublicProfileResponseModel(HashMap<String, String> editedPreferences, String editedBio, String message){
         this.editedPreferences = editedPreferences;
         this.editedBio = editedBio;
+        this.message = message;
     }
 
     public String getEditedBio() {
@@ -27,6 +29,15 @@ public class editPublicProfileResponseModel {
     public void setEditedPreferences(HashMap<String, String>  editedPreferences) {
         this.editedPreferences = editedPreferences;
     }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 
 }
 

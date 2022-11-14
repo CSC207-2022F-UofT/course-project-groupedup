@@ -10,4 +10,9 @@ public class editPublicProfileController {
         this.userInput = profileGateway;
     }
 
+    editPublicProfileResponseModel editedChanges(String bio, String courseCode, String timeCommitment, String location, String meetingTime) {
+        editPublicProfileRequestModel requestModel = new editPublicProfileRequestModel(bio, courseCode, timeCommitment, location, meetingTime);
+
+        return userInput.saveEdits(requestModel);
+    }
 }

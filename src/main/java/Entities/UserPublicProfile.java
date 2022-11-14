@@ -3,9 +3,11 @@ import java.util.HashMap;
 public class UserPublicProfile {
     private String biography;
     private HashMap<String, String> preferences;
+
     public UserPublicProfile(){
         HashMap<String, String> preferences = new HashMap<>();
         /*Prefilling in the preferences*/
+        preferences.put("courseCode", "");
         preferences.put("timeCommitment", "");
         preferences.put("location", "");
         preferences.put("meetingTime", "");
