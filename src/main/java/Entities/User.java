@@ -3,6 +3,7 @@ package Entities;
 import java.io.Serializable;
 import java.util.HashMap;
 
+
 public interface User extends Serializable {
     public String getUsername();
     public String getPassword();
