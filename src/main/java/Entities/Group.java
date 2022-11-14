@@ -24,8 +24,7 @@ public class Group {
         groupIDMap.put(id, groupName);
         this.groupID = id;
         this.memberRequests = new HashMap<>();
-        this.groupMembers = new HashMap<>();
-        groupMembers.put(groupLeader.getID(), groupLeader);
+
         this.groupLeader = groupLeader;
         this.courseCode = "";
         this.description = description;
