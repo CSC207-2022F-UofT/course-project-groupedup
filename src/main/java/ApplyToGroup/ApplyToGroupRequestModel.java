@@ -6,14 +6,14 @@ import Entities.User;
 import java.util.HashMap;
 
 public class ApplyToGroupRequestModel {
-    private int groupID;
+    private String groupName;
 
-    public ApplyToGroupRequestModel(Integer groupID) {
-        this.groupID = groupID;
+    public ApplyToGroupRequestModel(String groupName) {
+        this.groupName = groupName;
     }
 
-    public int getGroupID() {
-        return groupID;
+    public String getGroupName() {
+        return groupName;
     }
 
 }
