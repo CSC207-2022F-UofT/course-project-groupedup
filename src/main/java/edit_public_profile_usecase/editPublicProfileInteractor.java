@@ -1,6 +1,6 @@
 package edit_public_profile_usecase;
 
-import Entities.User;
+import Entities.NormalUser;
 
 public class editPublicProfileInteractor implements editPublicProfileInputBoundary{
     final editPublicProfileDSGateway profileDSGateway;
@@ -36,9 +36,9 @@ public class editPublicProfileInteractor implements editPublicProfileInputBounda
 
         /*Set user's profile and saving user*/
         if (profileDSGateway.existsByUsername(this.username)) {
-            User user = profileDSGateway.findUser(this.username);
-            user.getPublicProfile().setPreferences(requestModel.getPreferences());
-            user.getPublicProfile().setBiography(requestModel.getBio());
+            NormalUser user = profileDSGateway.findUser(this.username);
+            user.getUserPublicProfile().setPreferences(requestModel.getPreferences());
+            user.getUserPublicProfile().setBiography(requestModel.getBio());
             //TODO: save user in repo
         } else {
             /*If the user is not found.*/
