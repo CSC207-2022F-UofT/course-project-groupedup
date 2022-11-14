@@ -1,34 +1,31 @@
 package group_creation_use_case;
 
-import Entities.Checker;
 import Entities.Group;
-import Entities.Saver;
 
 public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
-    final Checker groupChecker;
-    final Saver groupSaver;
+    final GroupDSGateway groupDSGateway;
     final GroupRegisterPresenter groupPresenter;
     final GroupFactory groupFactory;
 
-    public GroupRegisterInteractor(Checker groupChecker, Saver groupSaver, GroupRegisterPresenter groupPresenter,
+    public GroupRegisterInteractor(GroupDSGateway groupDSGateway, GroupRegisterPresenter groupPresenter,
                                    GroupFactory groupFactory){
-        this.groupChecker = groupChecker;
+        this.groupDSGateway= groupDSGateway;
         this.groupPresenter = groupPresenter;
         this.groupFactory = groupFactory;
-        this.groupSaver = groupSaver;
 
     }
 
 
     @Override
     public GroupRegisterResponseModel create(GroupRegisterRequestModel requestModel) {
-        if (groupChecker.existsByName(requestModel.getGroupName())){
+        if (groupDSGateway.existsByIdentifier(requestModel.getGroupName())){
             return groupPresenter.prepareFailView("Group already exists.");
         } else if (requestModel.getGroupName() == ""){
             return groupPresenter.prepareFailView("Invalid group name.");
         }
         Group group = groupFactory.create(requestModel.getGroupName());
-        groupSaver.saveToRepo(group);
+        GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
+        groupDSGateway.save(groupDSRequestModel);
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         return groupPresenter.prepareSuccessView(groupResponseModel);
     }

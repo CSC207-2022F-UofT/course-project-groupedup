@@ -40,6 +40,7 @@ public class NewGroupPageScreen extends JFrame implements ActionListener {
 
         this.setContentPane(main);
         this.pack();
+
     }
 
     /**

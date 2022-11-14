@@ -1,13 +1,8 @@
-import Entities.Group;
 import group_creation_screens.*;
-import group_creation_use_case.GroupFactory;
-import group_creation_use_case.GroupRegisterInputBoundary;
-import group_creation_use_case.GroupRegisterInteractor;
-import group_creation_use_case.GroupRegisterPresenter;
+import group_creation_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,13 +12,11 @@ public class Main {
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
 
-        GroupChecker groupChecker = new GroupChecker();
-        GroupSaver groupSaver = new GroupSaver();
+        GroupDSGateway group;
 
         GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
         GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
-                groupChecker, groupSaver, presenter, groupFactory);
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(group, presenter, groupFactory);
         GroupRegisterController userRegisterController = new GroupRegisterController(
                 interactor
         );

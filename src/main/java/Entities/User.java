@@ -1,9 +1,10 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Random;
 
-public class User {
+public class User implements Serializable, ObjectMap{
     //name is whatever appears on screen (actual name)
     //username is login credential
     private String name;
@@ -20,14 +21,15 @@ public class User {
 
     public User(String username, String password, String name, String email, UserPublicProfile publicProfile){
         // will look into java builtin later
-        Random rand = new Random();
-        Integer id = (Integer) rand.nextInt();
-        while (UserIDMap.containsKey(id)){
-            id = rand.nextInt();
-        }
+        //Random rand = new Random();
+        //Integer id = (Integer) rand.nextInt();
+        //while (UserIDMap.containsKey(id)){
+         //   id = rand.nextInt();
+        //}
         // if the loop runs for too long we'll stop it maybe
-        UserIDMap.put(id, username);
-        this.UserID = id;
+        this.UserID = 10;
+        //UserIDMap.put(10, username);
+
         this.username = username;
         this.password = password;
         this.name = name;
