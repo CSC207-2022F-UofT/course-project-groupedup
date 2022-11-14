@@ -12,20 +12,20 @@ public class ApplyToGroupResponseModel {
 
         this.user = user;
         this.group = group;
-    }
-    public User getUser() {
-        return user;
-    }
+    //}
+    //public User getUser() {
+    //    return user;
+    //}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    //public void setUser(User user) {
+     //   this.user = user;
+    //}
 
-    public Group getGroup() {
-        return group;
-    }
+    //public String getGroupName() {
+    //    return group.getGroupName();
+    //}
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
+    //public void setGroupName(String groupName) {
+    //    this.groupName = group;
+    //}
 }

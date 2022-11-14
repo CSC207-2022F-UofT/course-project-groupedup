@@ -8,8 +8,8 @@ public class ApplyToGroupController {
         this.applyToGroupInput = applyGateway;
     }
 
-    ApplyToGroupResponseModel create(Integer groupID) {
-        ApplyToGroupRequestModel requestModel = new ApplyToGroupRequestModel(groupID);
+    ApplyToGroupResponseModel create(String groupName) {
+        ApplyToGroupRequestModel requestModel = new ApplyToGroupRequestModel(groupName);
 
         return applyToGroupInput.create(requestModel);
     }
