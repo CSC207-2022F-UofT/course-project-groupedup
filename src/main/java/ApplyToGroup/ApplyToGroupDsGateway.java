@@ -4,10 +4,10 @@ import Entities.User;
 import Entities.Group;
 
 public interface ApplyToGroupDsGateway {
-    User getUser(int userID);
-    Group getGroup(int groupID);
+    User getUser(String username);
+    Group getGroup(String groupName);
 
     // duplicate from Aarya and Sharon's DsGateways
-    boolean userExistsByID(Integer userID);
-    boolean groupExistsByID(Integer groupID);
+    boolean userExistsByName(String username);
+    boolean groupExistsByName(String groupName);
 }
