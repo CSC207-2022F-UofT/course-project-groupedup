@@ -1,10 +1,9 @@
-package LeaveGroup;
+package CancelApplication;
 
-public class LeaveGroupRequestModel {
+public class CancelApplicationRequestModel {
     private final String username;
     private final String groupname;
-
-    public LeaveGroupRequestModel(String username, String groupname) {
+    public CancelApplicationRequestModel(String username, String groupname) {
         this.username = username;
         this.groupname = groupname;
     }

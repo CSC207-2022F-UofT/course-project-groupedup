@@ -1,6 +1,6 @@
 package LeaveGroup;
 
 public interface LeaveGroupPresenter {
-    LeaveGroupResponseModel prepareSuccessView(LeaveGroupResponseModel userAndGroup);
-    LeaveGroupResponseModel prepareFailView(String error);
+    LeaveGroupResponseModel prepareFailureView(String error);
+    LeaveGroupResponseModel prepareSuccessView(String message);
 }

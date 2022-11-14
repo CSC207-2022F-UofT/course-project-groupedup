@@ -10,15 +10,15 @@ public class User {
     private final String username;
     private final int UserID;
     private String password;
-    private HashMap<Integer, Group> groups;
-    private HashMap<Integer, Group> applicationsList;
+    private HashMap<String, Group> groups;
+    private HashMap<String, Group> applicationsList;
     private UserPublicProfile publicProfile;
     private String email;
 
     // maps username (key) to user ID (value) maybe not in here but somewhere else store
     private static HashMap<Integer, String> UserIDMap;
 
-    public User(String username, String password, String name, String email, UserPublicProfile publicProile){
+    public User(String username, String password, String name, String email, UserPublicProfile publicProfile){
         // will look into java builtin later
         Random rand = new Random();
         Integer id = (Integer) rand.nextInt();
@@ -32,7 +32,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.email = email;
-        this.publicProfile = publicProile;
+        this.publicProfile = publicProfile;
     }
 
     public int getID(){
@@ -50,15 +50,23 @@ public class User {
     public String getEmail(){
         return this.email;
     }
-    public HashMap<Integer, Group> getGroups(){
+    public HashMap<String, Group> getGroups(){
         return this.groups;
     }
-    public HashMap<Integer, Group> getApplicationsList(){
+    public HashMap<String, Group> getApplicationsList(){
         return this.applicationsList;
     }
     public boolean newUserName(String username){
         // return true if username is not found in the map, in other words it is a new username
         return !UserIDMap.containsValue(username);
+    }
+
+    public void removeGroup(String groupname) {
+        this.groups.remove(groupname);
+    }
+
+    public void removeApplication(String groupname) {
+        this.applicationsList.remove(groupname);
     }
 //    public void changePassword(String password){
 //        this.password = password;

@@ -1,9 +1,9 @@
-package LeaveGroup;
+package CancelApplication;
 
 import Entities.Group;
 import Entities.User;
 
-public interface LeaveGroupDsGateway {
+public interface CancelApplicationDsGateway {
     boolean userExists(String username);
     boolean groupExists(String groupname);
     User getUser(String username);

@@ -11,9 +11,9 @@ public class LeaveGroupController {
         this.userInput = actionGateway;
     }
 
-    LeaveGroupResponseModel create(Integer groupID) {
-        LeaveGroupRequestModel requestModel = new LeaveGroupRequestModel(groupID);
+    LeaveGroupResponseModel leaveGroup(String username, String groupname) {
+        LeaveGroupRequestModel requestModel = new LeaveGroupRequestModel(username, groupname);
 
-        return userInput.create(requestModel);
+        return userInput.leaveGroup(requestModel);
     }
 }

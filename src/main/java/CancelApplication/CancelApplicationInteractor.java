@@ -1,24 +1,21 @@
-package LeaveGroup;
+package CancelApplication;
 
 import Entities.Group;
 import Entities.User;
 
-import java.util.Objects;
+public class CancelApplicationInteractor implements CancelApplicationInputBoundary {
 
-public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
+    final CancelApplicationDsGateway dsGateway;
+    final CancelApplicationPresenter presenter;
 
-    final LeaveGroupDsGateway dsGateway;
-    final LeaveGroupPresenter presenter;
-
-    public LeaveGroupInteractor(LeaveGroupDsGateway dsGateway,
-                                LeaveGroupPresenter presenter) {
-
+    public CancelApplicationInteractor(CancelApplicationDsGateway dsGateway,
+                                       CancelApplicationPresenter presenter) {
         this.dsGateway = dsGateway;
         this.presenter = presenter;
     }
 
     @Override
-    public LeaveGroupResponseModel leaveGroup(LeaveGroupRequestModel requestModel) {
+    public CancelApplicationResponseModel cancelApplication(CancelApplicationRequestModel requestModel) {
 
         // should not be possible ... exception instead?
 
@@ -38,16 +35,13 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
         if (!user.getGroups().containsValue(group)) {
             return presenter.prepareFailureView("Group is not in user's list.");
         }
-        if (Objects.equals(group.getGroupLeader().getName(), user.getName())) {
-            return presenter.prepareFailureView("User is group leader.");
-        }
 
-        user.removeGroup(group.getGroupName());
-        group.removeMember(user.getName());
+        user.removeApplication(group.getGroupName());
+        group.removeApplication(user.getUsername());
 
-        dsGateway.updateUser(user.getName());
+        dsGateway.updateUser(user.getUsername());
         dsGateway.updateGroup(group.getGroupName());
 
-        return presenter.prepareSuccessView("User left group.");
+        return presenter.prepareSuccessView("User cancelled application.");
     }
 }

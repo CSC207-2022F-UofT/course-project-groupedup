@@ -1,31 +1,14 @@
 package LeaveGroup;
 
-import Entities.Group;
-import Entities.User;
-
 public class LeaveGroupResponseModel {
-    private User user;
-    private Group group;
 
-    public LeaveGroupResponseModel(User user, Group group) {
+    private final String message;
 
-        this.user = user;
-        this.group = group;
+    public LeaveGroupResponseModel(String message) {
+        this.message = message;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
+    public String getMessage() {
+        return message;
     }
 }

@@ -1,5 +1,5 @@
 package LeaveGroup;
 
 public interface LeaveGroupInputBoundary {
-    LeaveGroupResponseModel create(LeaveGroupRequestModel requestModel);
+    LeaveGroupResponseModel leaveGroup(LeaveGroupRequestModel requestModel);
 }
