@@ -10,22 +10,22 @@ package group_creation_screens;
  */
 class GroupDataMapper {
 
-    String groupname;
+    String groupName;
 
 
     public GroupDataMapper() {
     }
 
-    public GroupDataMapper(String groupname) {
+    public GroupDataMapper(String groupName) {
         super();
-        this.groupname = groupname;
+        this.groupName = groupName;
     }
 
     public String getGroupName() {
-        return groupname;
+        return groupName;
     }
 
     public void setGroupName(String name) {
-        this.groupname = groupname;
+        this.groupName = groupName;
     }
 }

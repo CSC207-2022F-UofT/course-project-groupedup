@@ -6,13 +6,12 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Build the main program window
         JFrame application = new JFrame("Group Creation Screen");
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
 
-        GroupDSGateway group;
+        GroupDSGateway group = new FileGroup();
 
         GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
         GroupFactory groupFactory = new GroupFactory();

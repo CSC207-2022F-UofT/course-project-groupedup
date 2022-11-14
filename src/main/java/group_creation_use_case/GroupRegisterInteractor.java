@@ -20,7 +20,7 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     public GroupRegisterResponseModel create(GroupRegisterRequestModel requestModel) {
         if (groupDSGateway.existsByIdentifier(requestModel.getGroupName())){
             return groupPresenter.prepareFailView("Group already exists.");
-        } else if (requestModel.getGroupName() == ""){
+        } else if (requestModel.getGroupName().equals("")){
             return groupPresenter.prepareFailView("Invalid group name.");
         }
         Group group = groupFactory.create(requestModel.getGroupName());

@@ -55,17 +55,6 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
         try {
             groupRegisterController.create(groupname.getText());
             JOptionPane.showMessageDialog(this, (groupname.getText()) + " was successfully created.");
-            /**
-             * JFrame application = new JFrame("Group Creation Screen");
-             *             CardLayout cardLayout = new CardLayout();
-             *             JPanel screens = new JPanel(cardLayout);
-             *             application.add(screens);
-             *             NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
-             *             screens.add(newGroupPageScreen, "welcome");
-             *             cardLayout.show(screens, "register");
-             *             application.pack();
-             *             application.setVisible(true);
-             */
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

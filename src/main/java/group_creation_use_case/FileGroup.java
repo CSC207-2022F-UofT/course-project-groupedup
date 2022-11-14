@@ -1,34 +1,26 @@
 package group_creation_use_case;
 
 import Entities.Group;
-import Entities.GroupIDMapReadWriter;
 import Entities.GroupReadWriter;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 public class FileGroup implements GroupDSGateway {
-    private HashMap<Integer, String> groupIDMap;
-    private HashMap<Integer, Group> groups;
 
     GroupReadWriter groupReadWriter = new GroupReadWriter();
-    GroupIDMapReadWriter groupIDMapReadWriter = new GroupIDMapReadWriter();
 
-    public FileGroup(HashMap<Integer, String> groupIDMap, HashMap<Integer, Group> groups){
-        this.groupIDMap = groupIDMap;
-        this.groups = groups;
+    public FileGroup(){
     }
 
     @Override
     public void save(GroupRegisterDSRequestModel groupRegisterDSRequestModel) {
         try{
-            this.groups.put(groupRegisterDSRequestModel.getId(), groupRegisterDSRequestModel.getGroup());
-            groupReadWriter.saveToFile("database/group.ser", this.groups);
-
-            this.groupIDMap.put(groupRegisterDSRequestModel.getId(), groupRegisterDSRequestModel.getGroupName());
-
-            groupIDMapReadWriter.saveToFile("database/groupIDMap.ser", this.groupIDMap);
-        }catch (IOException e) {
+            HashMap<String, Group> existingGroups = groupReadWriter.readFromFile("database/group.ser");
+            existingGroups.put(groupRegisterDSRequestModel.getGroupName(), groupRegisterDSRequestModel.getGroup());
+            groupReadWriter.saveToFile("database/group.ser", existingGroups);
+        } catch (IOException | ClassNotFoundException e) {
+            // need to do something for these fails?
             throw new RuntimeException(e);
         }
 
@@ -36,6 +28,11 @@ public class FileGroup implements GroupDSGateway {
 
     @Override
     public boolean existsByIdentifier(String name) {
-        return groupIDMap.containsValue(name);
+        try{
+            HashMap<String, Group> existingGroups = groupReadWriter.readFromFile("database/group.ser");
+            return existingGroups.containsKey(name);
+        } catch (IOException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
     }
 }
