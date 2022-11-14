@@ -12,8 +12,8 @@ public class EditPendingListController {
         this.userInput = actionGateway;
     }
 
-    EditPendingListResponseModel rejectOrAcceptUser(Integer userID, Integer groupID, boolean pendingStatus) {
-        EditPendingListRequestModel requestModel = new EditPendingListRequestModel(userID, groupID, pendingStatus);
+    EditPendingListResponseModel rejectOrAcceptUser(String username, String groupName, boolean pendingStatus) {
+        EditPendingListRequestModel requestModel = new EditPendingListRequestModel(username, groupName, pendingStatus);
 
         return userInput.addOrRemoveUser(requestModel);
     }
