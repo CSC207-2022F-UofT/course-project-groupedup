@@ -18,11 +18,6 @@ class TestSingletonCurrentUser {
         assert currentUser1 == currentUser2;
     }
     @Test
-    public void singletonNoInitialUser() {
-        CurrentUser currentUser1 = CurrentUser.getInstance();
-        assert Objects.isNull(currentUser1.getUser());
-    }
-    @Test
     public void singletonSaveInitialUser() {
         CurrentUser currentUser1 = CurrentUser.getInstance();
         UserPublicProfile testProfile = new UserPublicProfile();

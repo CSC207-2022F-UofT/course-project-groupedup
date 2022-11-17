@@ -10,7 +10,7 @@ import java.util.HashMap;
  * username is login credential
  */
 
-public class NormalUser implements Serializable, ObjectMap, User {
+public class NormalUser implements Serializable, User {
     private String name;
     private final String username;
     private String password;
