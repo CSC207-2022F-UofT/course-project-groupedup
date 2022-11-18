@@ -1,9 +1,9 @@
 package Entities;
+import java.io.Serializable;
 import java.util.HashMap;
-public class UserPublicProfile {
+public class UserPublicProfile implements Serializable {
     private String biography;
     private HashMap<String, String> preferences;
-
     public UserPublicProfile(){
         HashMap<String, String> preferences = new HashMap<>();
         /*Prefilling in the preferences*/
