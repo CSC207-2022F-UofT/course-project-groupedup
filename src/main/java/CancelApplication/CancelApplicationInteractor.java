@@ -6,34 +6,30 @@ import Entities.User;
 public class CancelApplicationInteractor implements CancelApplicationInputBoundary {
 
     final CancelApplicationDsGateway dsGateway;
-    final CancelApplicationPresenter presenter;
+    final CancelApplicationOutputBoundary outputBoundary;
 
     public CancelApplicationInteractor(CancelApplicationDsGateway dsGateway,
-                                       CancelApplicationPresenter presenter) {
+                                       CancelApplicationOutputBoundary outputBoundary) {
         this.dsGateway = dsGateway;
-        this.presenter = presenter;
+        this.outputBoundary = outputBoundary;
     }
 
     @Override
     public CancelApplicationResponseModel cancelApplication(CancelApplicationRequestModel requestModel) {
 
-        // should not be possible ... exception instead?
-
-        if (!dsGateway.userExists(requestModel.getUsername())) {
-            return presenter.prepareFailureView("User does not exist.");
-        }
         if (!dsGateway.groupExists(requestModel.getGroupname())) {
-            return presenter.prepareFailureView("Group does not exist.");
+            return outputBoundary.prepareFailureView("Group does not exist.");
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupname());
 
-        if (!group.getGroupMembers().containsValue(user)) {
-            return presenter.prepareFailureView("User is not in group.");
+        if(!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
+            return outputBoundary.prepareFailureView("User is not in group.");
         }
-        if (!user.getGroups().containsValue(group)) {
-            return presenter.prepareFailureView("Group is not in user's list.");
+
+        if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
+            return outputBoundary.prepareFailureView("Group is not in user's list.");
         }
 
         user.removeApplication(group.getGroupName());
@@ -42,6 +38,9 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
         dsGateway.updateUser(user.getUsername());
         dsGateway.updateGroup(group.getGroupName());
 
-        return presenter.prepareSuccessView("User cancelled application.");
+        CancelApplicationResponseModel responseModel = new CancelApplicationResponseModel(user.getUsername(),
+                group.getGroupName());
+
+        return outputBoundary.prepareSuccessView(responseModel);
     }
 }

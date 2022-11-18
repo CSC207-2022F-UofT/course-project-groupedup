@@ -1,14 +1,19 @@
 package LeaveGroup;
 
 public class LeaveGroupResponseModel {
+    private final String username;
+    private final String groupname;
 
-    private final String message;
-
-    public LeaveGroupResponseModel(String message) {
-        this.message = message;
+    public LeaveGroupResponseModel(String username, String groupname) {
+        this.username = username;
+        this.groupname = groupname;
     }
 
-    public String getMessage() {
-        return message;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getGroupname() {
+        return groupname;
     }
 }

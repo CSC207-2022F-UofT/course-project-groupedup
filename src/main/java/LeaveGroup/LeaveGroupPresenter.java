@@ -1,6 +1,13 @@
 package LeaveGroup;
 
-public interface LeaveGroupPresenter {
-    LeaveGroupResponseModel prepareFailureView(String error);
-    LeaveGroupResponseModel prepareSuccessView(String message);
+public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
+    @Override
+    public LeaveGroupResponseModel prepareFailureView(String error) {
+        return null;
+    }
+
+    @Override
+    public LeaveGroupResponseModel prepareSuccessView(LeaveGroupResponseModel responseModel) {
+        return null;
+    }
 }

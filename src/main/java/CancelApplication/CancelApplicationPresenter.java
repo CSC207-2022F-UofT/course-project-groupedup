@@ -1,6 +1,14 @@
 package CancelApplication;
 
-public interface CancelApplicationPresenter {
-    CancelApplicationResponseModel prepareFailureView(String error);
-    CancelApplicationResponseModel prepareSuccessView(String message);
+public class CancelApplicationPresenter implements CancelApplicationOutputBoundary {
+
+    @Override
+    public CancelApplicationResponseModel prepareFailureView(String error) {
+        return null;
+    }
+
+    @Override
+    public CancelApplicationResponseModel prepareSuccessView(CancelApplicationResponseModel responseModel) {
+        return null;
+    }
 }
