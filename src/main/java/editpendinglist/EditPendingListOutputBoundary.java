@@ -1,6 +1,6 @@
-package edit_pending_list_use_case;
+package editpendinglist;
 
-public interface EditPendingListPresenter {
+public interface EditPendingListOutputBoundary {
     EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel pendingList);
 
     EditPendingListResponseModel prepareFailView(String error);

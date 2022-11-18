@@ -1,8 +1,8 @@
-package edit_pending_list_screens;
+package pendinglistscreens;
 
-import edit_pending_list_use_case.EditPendingListInputBoundary;
-import edit_pending_list_use_case.EditPendingListRequestModel;
-import edit_pending_list_use_case.EditPendingListResponseModel;
+import editpendinglist.EditPendingListInputBoundary;
+import editpendinglist.EditPendingListRequestModel;
+import editpendinglist.EditPendingListResponseModel;
 
 public class EditPendingListController {
 

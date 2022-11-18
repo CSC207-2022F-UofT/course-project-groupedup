@@ -50,8 +50,15 @@ public class NormalUser implements Serializable, User {
     }
     public UserPublicProfile getUserPublicProfile() { return this.publicProfile; }
     // check if valid new username in usecase
-//    public void changePassword(String password){
-//        this.password = password;
-//    }
+    // public void changePassword(String password){
+    // this.password = password;
+    // }
+    public void addGroup(Group group) {
+        this.groups.put(group.getGroupName(), group);
+    }
+
+    public void removeFromApplications(Group group) {
+        this.applicationsList.remove(group.getGroupName());
+    }
 }
 

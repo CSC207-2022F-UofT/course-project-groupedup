@@ -1,4 +1,4 @@
-package edit_pending_list_use_case;
+package editpendinglist;
 
 import Entities.Group;
 import Entities.User;
@@ -6,9 +6,9 @@ import Entities.User;
 public class EditPendingListInteractor implements EditPendingListInputBoundary {
 
     final PendingListDsGateway dsGateway;
-    final EditPendingListPresenter presenter;
+    final EditPendingListOutputBoundary presenter;
 
-    public EditPendingListInteractor(PendingListDsGateway dsGateway, EditPendingListPresenter presenter) {
+    public EditPendingListInteractor(PendingListDsGateway dsGateway, EditPendingListOutputBoundary presenter) {
         this.dsGateway = dsGateway;
         this.presenter = presenter;
     }
@@ -19,7 +19,7 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         String groupName = requestModel.getGroupName();
         boolean pendingStatus = requestModel.getPendingStatus();
 
-        if(!dsGateway.userExistsByID(username)) {return presenter.prepareFailView("User does not exist.");}
+        if(!dsGateway.userExistsByUsername(username)) {return presenter.prepareFailView("User does not exist.");}
 
         // TODO: this shouldn't be possible, maybe make it an exception instead of presenting it to the user?
         // if(!dsGateway.groupExistsByID(groupName)) {return presenter.prepareFailView("Group does not exist.");}
@@ -28,7 +28,7 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         Group group = PendingListDsGateway.getGroup(groupName);
 
         if (!group.getMemberRequests().containsValue(user)) {
-            return EditPendingListPresenter.prepareFailView("This user has cancelled their join request.");
+            return EditPendingListOutputBoundary.prepareFailView("This user has cancelled their join request.");
         }
 
         // TODO: this might also be an exception
@@ -44,7 +44,7 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
             group.addMember(user);
         }
 
-        EditPendingListResponseModel responseModel = new EditPendingListResponseModel();
+        EditPendingListResponseModel responseModel = new EditPendingListResponseModel("YAYYY");
 
         return responseModel;
     }

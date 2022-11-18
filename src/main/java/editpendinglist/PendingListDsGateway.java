@@ -1,4 +1,4 @@
-package edit_pending_list_use_case;
+package editpendinglist;
 
 import Entities.Group;
 import Entities.User;

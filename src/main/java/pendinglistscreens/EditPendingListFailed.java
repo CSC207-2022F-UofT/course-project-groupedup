@@ -1,4 +1,4 @@
-package edit_pending_list_screens;
+package pendinglistscreens;
 
 public class EditPendingListFailed extends RuntimeException {
     public EditPendingListFailed(String error) {

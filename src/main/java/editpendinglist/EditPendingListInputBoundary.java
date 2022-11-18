@@ -1,4 +1,4 @@
-package edit_pending_list_use_case;
+package editpendinglist;
 
 public interface EditPendingListInputBoundary {
     EditPendingListResponseModel addOrRemoveUser(EditPendingListRequestModel requestModel);

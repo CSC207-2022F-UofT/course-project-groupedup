@@ -1,14 +1,10 @@
-package edit_pending_list_screens;
-
-import edit_pending_list_use_case.EditPendingListResponseModel;
-import edit_pending_list_use_case.GetPendingListPresenter;
+package pendinglistscreens;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 
 // TODO: I just realized the existence of the pending list shouldn't rely on my use case happening (i.e., someone
 //  accepts/rejects a member). So, the person who is doing the group UI might need to add a pending list button
@@ -22,18 +18,21 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
 
     JList<String> memberRequests;
     EditPendingListController editPendingListController;
+    ViewPendingListController viewPendingListController;
     DefaultListModel<String> memberRequestsModel;
-    GetPendingListPresenter getPendingListPresenter;
     JButton acceptButton, rejectButton;
+    String groupName;
 
     public PendingListScreen(EditPendingListController editPendingListController,
-                             GetPendingListPresenter getPendingListPresenter) {
+                             ViewPendingListController viewPendingListController) {
         this.editPendingListController = editPendingListController;
 
-        this.getPendingListPresenter = getPendingListPresenter;
+        this.viewPendingListController = viewPendingListController;
+
+
 
         this.memberRequestsModel = new DefaultListModel<String>();
-        for (String username: getPendingListPresenter.getUsernamesList()) {
+        for (String username: viewPendingListController.getUsernames.getUsernamesLis(groupName)) {
             memberRequestsModel.addElement(username);
         }
 
@@ -44,8 +43,6 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
         this.rejectButton = new JButton("✕");
         rejectButton.addActionListener(new RejectListener());
 
-        String username = getPendingListPresenter.getUsername;
-        memberRequestsModel.addElement(username);
     }
 
     @Override
@@ -68,7 +65,7 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
         public void actionPerformed(ActionEvent e) {
             int index = memberRequests.getSelectedIndex();
             String username = memberRequests.getSelectedValue();
-            String groupName = groupResponseModel.getGroupName(); //applyToGroupResponseModel?
+            String groupName = getPendingListPresenter.getGroupName(); //applyToGroupResponseModel?
             // removes accepted member from the pending list UI
             memberRequestsModel.remove(index);
             int numRequests = memberRequestsModel.getSize();
@@ -95,24 +92,7 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
     class RejectListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int index = memberRequests.getSelectedIndex();
-            String username = memberRequests.getSelectedValue();
-            HashMap<String, Integer> usernameToID = groupResponseModel.getUsernameToIdMap; //applyToGroupResponseModel?
-            Integer userID = usernameToID.get(username);
-            Integer groupID = groupResponseModel.getGroupID(); //applyToGroupResponseModel?
-            memberRequestsModel.remove(index);
-            int numRequests = memberRequestsModel.getSize();
-            if (numRequests == 0) {
-                rejectButton.setEnabled(false);
-            } else {
-                if (index == numRequests) {
-                    index--;
-                }
-            }
-            memberRequests.setSelectedIndex(index);
-            memberRequests.ensureIndexIsVisible(index);
 
-            editPendingListController.rejectOrAcceptUser(userID, groupID, false);
         }
     }
 
