@@ -1,15 +1,15 @@
-package edit_public_profile_usecase;
+package edit_user_public_profile_usecase;
 
 import java.util.HashMap;
 
-public class editPublicProfileRequestModel {
+public class editUserPublicProfileRequestModel {
     private String bio;
     private String courseCode;
     private String timeCommitment;
     private String location;
     private String meetingTime;
 
-    public editPublicProfileRequestModel(String bio, String courseCode, String timeCommitment, String location, String meetingTime) {
+    public editUserPublicProfileRequestModel(String bio, String courseCode, String timeCommitment, String location, String meetingTime) {
         this.bio = bio;
         this.courseCode = courseCode;
         this.timeCommitment = timeCommitment;

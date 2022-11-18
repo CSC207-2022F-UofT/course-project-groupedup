@@ -1,9 +1,9 @@
-package edit_public_profile_usecase;
+package edit_user_public_profile_usecase;
 
-public class editPublicProfileDsRequestModel {
+public class editUserPublicProfileDsRequestModel {
     String username;
 
-    public editPublicProfileDsRequestModel(String username) {
+    public editUserPublicProfileDsRequestModel(String username) {
         this.username = username;
     }
 

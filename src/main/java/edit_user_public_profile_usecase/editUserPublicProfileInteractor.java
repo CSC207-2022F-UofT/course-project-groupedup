@@ -1,22 +1,22 @@
-package edit_public_profile_usecase;
+package edit_user_public_profile_usecase;
 
 import Entities.NormalUser;
 
-public class editPublicProfileInteractor implements editPublicProfileInputBoundary{
-    final editPublicProfileDSGateway profileDSGateway;
-    final editPublicProfilePresenter profilePresenter;
+public class editUserPublicProfileInteractor implements editUserPublicProfileInputBoundary {
+    final editUserPublicProfileDSGateway profileDSGateway;
+    final editUserPublicProfilePresenter profilePresenter;
     final String username;
 
-    public editPublicProfileInteractor(String username, editPublicProfileDSGateway profileDSGateway, editPublicProfilePresenter profilePresenter) {
+    public editUserPublicProfileInteractor(String username, editUserPublicProfileDSGateway profileDSGateway, editUserPublicProfilePresenter profilePresenter) {
         this.username = username;
         this.profileDSGateway = profileDSGateway;
         this.profilePresenter = profilePresenter;
     }
 
     @Override
-    public editPublicProfileResponseModel saveEdits(editPublicProfileRequestModel requestModel) {
+    public editUserPublicProfileResponseModel saveEdits(editUserPublicProfileRequestModel requestModel) {
         /*Creating a failed response model*/
-        editPublicProfileResponseModel profileFailedResponseModel = new editPublicProfileResponseModel(
+        editUserPublicProfileResponseModel profileFailedResponseModel = new editUserPublicProfileResponseModel(
                 requestModel.getPreferences(),
                 requestModel.getBio(), "");
 
@@ -47,7 +47,7 @@ public class editPublicProfileInteractor implements editPublicProfileInputBounda
         }
 
         /*If all checks pass, send new changes back to presenter.*/
-        editPublicProfileResponseModel profileResponseModel = new editPublicProfileResponseModel(
+        editUserPublicProfileResponseModel profileResponseModel = new editUserPublicProfileResponseModel(
                 requestModel.getPreferences(),
                 requestModel.getBio(), "Edits successfully saved.");
 

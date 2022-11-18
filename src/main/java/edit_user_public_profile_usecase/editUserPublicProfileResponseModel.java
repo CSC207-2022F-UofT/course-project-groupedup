@@ -1,13 +1,13 @@
-package edit_public_profile_usecase;
+package edit_user_public_profile_usecase;
 
 import java.util.HashMap;
 
-public class editPublicProfileResponseModel {
+public class editUserPublicProfileResponseModel {
     private HashMap<String, String> editedPreferences;
     private String editedBio;
     private String message;
 
-    public editPublicProfileResponseModel(HashMap<String, String> editedPreferences, String editedBio, String message){
+    public editUserPublicProfileResponseModel(HashMap<String, String> editedPreferences, String editedBio, String message){
         this.editedPreferences = editedPreferences;
         this.editedBio = editedBio;
         this.message = message;
