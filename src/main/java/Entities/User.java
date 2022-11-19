@@ -11,6 +11,8 @@ public interface User extends Serializable {
     HashMap<String, Group> getGroups();
     HashMap<String, Group> getApplicationsList();
     UserPublicProfile getUserPublicProfile();
+    void removeApplication(String groupName);
+    void removeGroup(String groupName);
     void addGroup(Group group);
     void removeFromApplications(Group group);
 }
