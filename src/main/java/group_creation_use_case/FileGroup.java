@@ -23,7 +23,6 @@ public class FileGroup implements GroupDSGateway {
             // need to do something for these fails?
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
