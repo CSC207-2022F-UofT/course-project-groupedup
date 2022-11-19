@@ -14,5 +14,4 @@ public interface User extends Serializable {
     void removeApplication(String groupName);
     void removeGroup(String groupName);
     void addGroup(Group group);
-    void removeFromApplications(Group group);
 }

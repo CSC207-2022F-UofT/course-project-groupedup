@@ -48,7 +48,7 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
         }
 
         user.removeApplication(group.getGroupName());
-        group.removeApplication(user.getUsername());
+        group.removeFromRequests(user.getUsername());
 
         dsGateway.updateUser(user.getUsername());
         dsGateway.updateGroup(group.getGroupName());

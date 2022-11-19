@@ -81,10 +81,4 @@ public class NormalGroup implements Serializable, Group {
     public void removeFromRequests(String username) {
         memberRequests.remove(username);
     }
-    @Override
-    public void removeApplication(String username) {
-        this.memberRequests.remove(username);
-    }
-
-
 }
