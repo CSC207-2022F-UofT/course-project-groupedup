@@ -4,13 +4,13 @@ import java.util.HashMap;
 
 public interface Group extends Serializable {
 
-    public String getGroupName();
-    public HashMap<String, User> getGroupMembers(HashMap<String, User> userMap);
+    String getGroupName();
+    HashMap<String, User> getGroupMembers(HashMap<String, User> userMap);
 
-    public HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
+    HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
 
-    public boolean setGroupLeader(String userID);
+    boolean setGroupLeader(String userID);
 
-    public void addMember(User user);
-    public void removeFromRequests(User user);
+    void addMember(User user);
+    void removeFromRequests(User user);
 }

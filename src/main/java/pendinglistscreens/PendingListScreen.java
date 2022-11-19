@@ -24,8 +24,8 @@ public class PendingListScreen extends JFrame implements ListSelectionListener {
         super("Member Requests");
         setLayout(new FlowLayout());
 
-        this.acceptButton = new JButton("✓");
-        this.rejectButton = new JButton("✕");
+        this.acceptButton = new JButton("Accept");
+        this.rejectButton = new JButton("Reject");
 
 
         add(acceptButton);
