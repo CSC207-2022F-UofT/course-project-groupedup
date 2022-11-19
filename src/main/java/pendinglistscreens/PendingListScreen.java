@@ -1,20 +1,15 @@
 package pendinglistscreens;
 
+import editpendinglist.EditPendingListResponseModel;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// TODO: I just realized the existence of the pending list shouldn't rely on my use case happening (i.e., someone
-//  accepts/rejects a member). So, the person who is doing the group UI might need to add a pending list button
-//  onto their screen and send the group's pending list information to the PendingListScreen class because I don't
-//  think I can do that with my use case since my use case only gets triggered when someone is interacting with a
-//  pre-existing pending list(?). I also need the ApplyToGroup use case's presenter to add users to the pending list
-//  UI whenever someone applies to a group. EDIT: it might be sufficient to have ApplyToGroup's use case have a get
-//  group's member request information method in their response model
-
-public class PendingListScreen extends JPanel implements ListSelectionListener {
+public class PendingListScreen extends JFrame implements ListSelectionListener {
 
     JList<String> memberRequests;
     EditPendingListController editPendingListController;
@@ -25,24 +20,30 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
 
     public PendingListScreen(EditPendingListController editPendingListController,
                              ViewPendingListController viewPendingListController) {
+
+        super("Member Requests");
+        setLayout(new FlowLayout());
+
+        this.acceptButton = new JButton("✓");
+        this.rejectButton = new JButton("✕");
+
+
+        add(acceptButton);
+        add(rejectButton);
+
+        acceptButton.addActionListener(new AcceptOrReject());
+        rejectButton.addActionListener(new AcceptOrReject());
+
         this.editPendingListController = editPendingListController;
 
         this.viewPendingListController = viewPendingListController;
 
-
-
-        this.memberRequestsModel = new DefaultListModel<String>();
+        this.memberRequestsModel = new DefaultListModel<>();
         for (String username: viewPendingListController.getUsernames(groupName).getUsernamesList()) {
             memberRequestsModel.addElement(username);
         }
 
-        this.memberRequests = new JList<String>(memberRequestsModel);
-
-        this.acceptButton = new JButton("✓");
-        acceptButton.addActionListener(new AcceptListener());
-        this.rejectButton = new JButton("✕");
-        rejectButton.addActionListener(new RejectListener());
-
+        this.memberRequests = new JList<>(memberRequestsModel);
     }
 
     @Override
@@ -59,39 +60,9 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
         }
     }
 
-    // implements the function of the accept button
-    private class AcceptListener implements ActionListener {
+    private class AcceptOrReject implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            int index = memberRequests.getSelectedIndex();
-            String username = memberRequests.getSelectedValue();
-            // removes accepted member from the pending list UI
-            memberRequestsModel.remove(index);
-            int numRequests = memberRequestsModel.getSize();
-
-            // changes the selected user to the last user on the pending list if the previously removed user was at
-            // the end of the list
-            if (numRequests == 0) {
-                acceptButton.setEnabled(false);
-            } else {
-                if (index == numRequests) {
-                    index--;
-                }
-            }
-            memberRequests.setSelectedIndex(index);
-            memberRequests.ensureIndexIsVisible(index);
-
-            // triggers the editPendingList use case (not sure if this works)
-            editPendingListController.rejectOrAcceptUser(username, groupName, true);
-        }
-    }
-
-    // reject button with the same core functions as the accept button
-    // not sure if there's a way to get rid of the duplicate code between the two buttons
-    // wait I might've found a way
-    private class RejectListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             int index = memberRequests.getSelectedIndex();
             String username = memberRequests.getSelectedValue();
             // removes accepted member from the pending list UI
@@ -112,7 +83,19 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
             memberRequests.ensureIndexIsVisible(index);
 
             // triggers the editPendingList use case (not sure if this works)
-            editPendingListController.rejectOrAcceptUser(username, groupName, false);
+            if (evt.getSource() == acceptButton) {
+                EditPendingListResponseModel accepted = editPendingListController.rejectOrAcceptUser(username,
+                        groupName, true);
+                String user = accepted.getUsername();
+                String group = accepted.getGroupName();
+                JOptionPane.showMessageDialog(null, "Added " + user + " to " + group + ".");
+
+            } else if (evt.getSource() == rejectButton) {
+                EditPendingListResponseModel rejected = editPendingListController.rejectOrAcceptUser(username,
+                        groupName, false);
+                String user = rejected.getUsername();
+                JOptionPane.showMessageDialog(null, "Removed " + user + ".");
+            }
         }
     }
 
