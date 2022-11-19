@@ -60,6 +60,9 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
             group.addMember(username);
         }
 
+        dsGateway.updateUser(username);
+        dsGateway.updateGroup(groupName);
+
         EditPendingListResponseModel responseModel = new EditPendingListResponseModel(username, groupName);
         return presenter.prepareSuccessView(responseModel);
     }
