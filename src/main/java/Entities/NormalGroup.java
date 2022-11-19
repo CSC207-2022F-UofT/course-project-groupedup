@@ -28,9 +28,14 @@ public class NormalGroup implements Serializable, Group {
 //        return groupProfile;
 //    }
 
-    public String getGroupLeaderName() {
+    public String getGroupLeaderUsername() {
 
         return this.groupLeader;
+    }
+
+    @Override
+    public void removeMember(String username) {
+        this.groupMembers.remove(username);
     }
 
     // return a map of actual user objects
@@ -67,6 +72,11 @@ public class NormalGroup implements Serializable, Group {
         }
         this.groupLeader = username;
         return true;
+    }
+
+    @Override
+    public void removeApplication(String username) {
+        this.memberRequests.remove(username);
     }
 
 
