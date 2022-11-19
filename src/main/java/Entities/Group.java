@@ -11,6 +11,6 @@ public interface Group extends Serializable {
 
     boolean setGroupLeader(String userID);
 
-    void addMember(User user);
-    void removeFromRequests(User user);
+    void addMember(String username);
+    void removeFromRequests(String username);
 }

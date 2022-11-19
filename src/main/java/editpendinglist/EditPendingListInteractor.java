@@ -52,12 +52,12 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         // return PendingListPresenter.prepareFailView("This group isn't on the user's application list.");
         // }
 
-        group.removeFromRequests(user);
+        group.removeFromRequests(username);
         user.removeFromApplications(group);
 
         if (pendingStatus) {
             user.addGroup(group);
-            group.addMember(user);
+            group.addMember(username);
         }
 
         EditPendingListResponseModel responseModel = new EditPendingListResponseModel(username, groupName);

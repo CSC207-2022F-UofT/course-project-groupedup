@@ -69,12 +69,12 @@ public class NormalGroup implements Serializable, Group {
         return true;
     }
 
-    public void addMember(User user) {
-        groupMembers.put(user.getUsername(), user.getUsername());
+    public void addMember(String username) {
+        groupMembers.put(username, username);
     }
 
-    public void removeFromRequests(User user) {
-        memberRequests.remove(user.getUsername());
+    public void removeFromRequests(String username) {
+        memberRequests.remove(username);
     }
 
 }
