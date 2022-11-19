@@ -1,6 +1,6 @@
 package ApplyToGroup;
 
 public interface ApplyToGroupInputBoundary {
-    ApplyToGroupResponseModel create(ApplyToGroupRequestModel requestModel);
+    ApplyToGroupResponseModel applyToGroup(ApplyToGroupRequestModel requestModel);
 }
 
