@@ -4,7 +4,6 @@ import ApplyToGroup.ApplyToGroupOutputBoundary;
 import ApplyToGroup.ApplyToGroupResponseModel;
 
 public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
-
     @Override
     public ApplyToGroupResponseModel prepareSuccessView(ApplyToGroupResponseModel user) {
         return null;

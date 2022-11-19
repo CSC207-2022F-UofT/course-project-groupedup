@@ -8,7 +8,6 @@ import java.util.HashMap;
  * Allows users to apply to groups that they are not in and have not already applied to.
  */
 public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
-
     final ApplyToGroupDsGateway applyToGroupDsGateway;
     final ApplyToGroupOutputBoundary applyToGroupOutputBoundary;
 
@@ -64,6 +63,5 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
         ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user.getUsername(),
                 group.getGroupName());
         return applyToGroupOutputBoundary.prepareSuccessView(responseModel);
-
     }
 }

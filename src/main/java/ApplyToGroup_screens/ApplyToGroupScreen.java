@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ApplyToGroupScreen extends JFrame implements ActionListener {
-
     ApplyToGroupController applyToGroupController;
 
     public ApplyToGroupScreen(ApplyToGroupController controller){

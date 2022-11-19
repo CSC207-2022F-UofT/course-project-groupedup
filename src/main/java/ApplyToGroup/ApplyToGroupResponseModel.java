@@ -4,7 +4,6 @@ import Entities.Group;
 import Entities.User;
 
 public class ApplyToGroupResponseModel {
-
     private String username;
     private String groupName;
 

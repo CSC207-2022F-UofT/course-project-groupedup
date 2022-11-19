@@ -9,7 +9,6 @@ import ApplyToGroup.ApplyToGroupResponseModel;
  * Executes the Apply To Group use case.
  */
 public class ApplyToGroupController {
-
     final ApplyToGroupInputBoundary applyToGroupInput;
 
     public ApplyToGroupController(ApplyToGroupInputBoundary applyGateway){

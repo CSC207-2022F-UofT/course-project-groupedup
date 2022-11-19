@@ -17,7 +17,6 @@ public class ApplyToGroupRequestModel {
     public String getUsername() {
         return username;
     }
-
     public String getGroupName() {
         return groupName;
     }

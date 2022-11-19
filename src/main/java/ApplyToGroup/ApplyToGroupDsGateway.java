@@ -29,5 +29,4 @@ public interface ApplyToGroupDsGateway {
      * @param groupName the name of the group
      */
     void updateGroup(String groupName);
-
 }
