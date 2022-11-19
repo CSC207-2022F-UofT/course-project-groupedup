@@ -14,4 +14,5 @@ public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
     public ApplyToGroupResponseModel prepareFailView(String error) {
         return null;
     }
+
 }

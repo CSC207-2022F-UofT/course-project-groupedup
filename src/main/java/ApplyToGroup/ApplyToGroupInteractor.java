@@ -6,53 +6,46 @@ import Entities.CurrentUser;
 public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
 
     final ApplyToGroupDsGateway applyToGroupDsGateway;
-    final ApplyToGroupPresenter applyToGroupPresenter;
-    final User user = CurrentUser.getUser();
+    final ApplyToGroupOutputBoundary applyToGroupOutputBoundary;
+    final User user = CurrentUser.getInstance().getUser();
 
     public ApplyToGroupInteractor(ApplyToGroupDsGateway applyToGroupDsGateway,
-                                ApplyToGroupPresenter applyToGroupPresenter) {
+                                ApplyToGroupOutputBoundary applyToGroupOutputBoundary) {
 
         this.applyToGroupDsGateway = applyToGroupDsGateway;
-        this.applyToGroupPresenter = applyToGroupPresenter;
+        this.applyToGroupOutputBoundary = applyToGroupOutputBoundary;
     }
 
     @Override
-    public ApplyToGroupResponseModel create(ApplyToGroupRequestModel requestModel) {
+    public ApplyToGroupResponseModel applyToGroup(ApplyToGroupRequestModel requestModel) {
         if (!applyToGroupDsGateway.userExistsByName(user.getUsername())) {
-            return applyToGroupPresenter.prepareFailView("User does not exist.");
+            return applyToGroupOutputBoundary.prepareFailView("User does not exist.");
         }
         if (!applyToGroupDsGateway.groupExistsByName(requestModel.getGroupName())) {
-            return applyToGroupPresenter.prepareFailView("Group does not exist.");
+            return applyToGroupOutputBoundary.prepareFailView("Group does not exist.");
         }
 
         Group group = applyToGroupDsGateway.getGroup(requestModel.getGroupName());
 
-        if (group.getGroupMembers().containsValue(user)) {
-            return applyToGroupPresenter.prepareFailView("User is already in group.");
+        if (group.getGroupMembers().containsValue(user) || user.getGroups().containsValue(group) ) {
+            return applyToGroupOutputBoundary.prepareFailView("User is already in group.");
         }
 
-        if (group.getMemberRequests().containsValue(user)) {
-            return applyToGroupPresenter.prepareFailView("User has already applied to the group.");
+        if (group.getMemberRequests().containsValue(user) || user.getApplicationsList().containsValue(group)) {
+            return applyToGroupOutputBoundary.prepareFailView("User has already applied to the group.");
         }
 
-        if (user.getGroups().containsValue(group)) {
-            return applyToGroupPresenter.prepareFailView("Group is already in user's list.");
-        }
-
-        if (user.getApplicationsList().containsValue(group)) {
-            return applyToGroupPresenter.prepareFailView("User has already applied to the group.");
-        }
-
-        if (group.getGroupLeader().getUsername().equals(user.getUsername())) {
-            return applyToGroupPresenter.prepareFailView("User is group leader.");
-        }
 
         user.addApplication(group);
         group.addMemberRequest(user);
 
+        applyToGroupDsGateway.updateUser(user.getUsername());
+        applyToGroupDsGateway.updateGroup(group.getGroupName());
 
-        ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user, group);
-        return applyToGroupPresenter.prepareSuccessView(responseModel);
+
+        ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user.getUsername(),
+                group.getGroupName());
+        return applyToGroupOutputBoundary.prepareSuccessView(responseModel);
 
     }
 }

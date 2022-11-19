@@ -11,7 +11,6 @@ public class ApplyToGroupController {
     public ApplyToGroupController(ApplyToGroupInputBoundary applyGateway){
         this.applyToGroupInput = applyGateway;
     }
-
     ApplyToGroupResponseModel applyToGroup(String username, String groupName) {
         ApplyToGroupRequestModel requestModel = new ApplyToGroupRequestModel(username, groupName);
 
