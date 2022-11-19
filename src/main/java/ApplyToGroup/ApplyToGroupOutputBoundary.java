@@ -1,6 +1,6 @@
 package ApplyToGroup;
 
-public interface ApplyToGroupPresenter {
+public interface ApplyToGroupOutputBoundary {
 
     ApplyToGroupResponseModel prepareSuccessView(ApplyToGroupResponseModel user);
 
