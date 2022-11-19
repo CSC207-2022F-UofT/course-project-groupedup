@@ -11,4 +11,6 @@ public interface User extends Serializable {
     public HashMap<String, Group> getGroups();
     public HashMap<String, Group> getApplicationsList();
     public UserPublicProfile getUserPublicProfile();
+    public void addGroup(Group group);
+    public void removeFromApplications(Group group);
 }

@@ -1,4 +1,5 @@
 package viewpendinglist;
 
-public class ViewPendingListOutputBoundary {
+public interface ViewPendingListOutputBoundary {
+    ViewPendingListResponseModel prepareSuccessView(ViewPendingListResponseModel usernamesList);
 }

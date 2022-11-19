@@ -32,7 +32,7 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
 
 
         this.memberRequestsModel = new DefaultListModel<String>();
-        for (String username: viewPendingListController.getUsernames.getUsernamesLis(groupName)) {
+        for (String username: viewPendingListController.getUsernames(groupName).getUsernamesList()) {
             memberRequestsModel.addElement(username);
         }
 
@@ -60,12 +60,11 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
     }
 
     // implements the function of the accept button
-    class AcceptListener implements ActionListener {
+    private class AcceptListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = memberRequests.getSelectedIndex();
             String username = memberRequests.getSelectedValue();
-            String groupName = getPendingListPresenter.getGroupName(); //applyToGroupResponseModel?
             // removes accepted member from the pending list UI
             memberRequestsModel.remove(index);
             int numRequests = memberRequestsModel.getSize();
@@ -83,16 +82,36 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
             memberRequests.ensureIndexIsVisible(index);
 
             // triggers the editPendingList use case (not sure if this works)
-            editPendingListController.rejectOrAcceptUser(userID, groupID, true);
+            editPendingListController.rejectOrAcceptUser(username, groupName, true);
         }
     }
 
     // reject button with the same core functions as the accept button
     // not sure if there's a way to get rid of the duplicate code between the two buttons
-    class RejectListener implements ActionListener {
+    private class RejectListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            int index = memberRequests.getSelectedIndex();
+            String username = memberRequests.getSelectedValue();
+            // removes accepted member from the pending list UI
+            memberRequestsModel.remove(index);
+            int numRequests = memberRequestsModel.getSize();
 
+            // changes the selected user to the last user on the pending list if the previously removed user was at
+            // the end of the list
+            if (numRequests == 0) {
+                acceptButton.setEnabled(false);
+                rejectButton.setEnabled(false);
+            } else {
+                if (index == numRequests) {
+                    index--;
+                }
+            }
+            memberRequests.setSelectedIndex(index);
+            memberRequests.ensureIndexIsVisible(index);
+
+            // triggers the editPendingList use case (not sure if this works)
+            editPendingListController.rejectOrAcceptUser(username, groupName, false);
         }
     }
 

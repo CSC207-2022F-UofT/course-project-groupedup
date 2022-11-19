@@ -3,24 +3,29 @@ package pendinglistscreens;
 import editpendinglist.EditPendingListResponseModel;
 import editpendinglist.EditPendingListOutputBoundary;
 
-// TODO: I think my response model only needs to return a success/failure message. My use case doesn't return any new
-//  information that the pending list UI needs (i.e., when a user is accepted/rejected, their name immediately
-//  disappears from the pending list UI (which doesn't depend on a response model to happen) and the rest of the work
-//  (removing/adding them to various entity lists) is done behind the scenes
+/**
+ * The presenter for the edit pending list use case.
+ */
 
 public class EditPendingListPresenter implements EditPendingListOutputBoundary {
+
+    // idk why this is necessary, I wish the presenter could just return actual values, someone explain pls
+    // in my case this is completely redundant, for other cases maybe not?
+    /**
+     * @param userAndGroup a response model with the accepted/rejected user and group's names
+     * @return a response model with the accepted/rejected user and group's names
+     */
     @Override
-    public EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel pendingList) {
-        return null;
+    public EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel userAndGroup) {
+        return userAndGroup;
     }
 
     /**
-     *
-     * @param error
-     * @return
+     * @param error the error message explaining why the error occurred
+     * @return an exception
      */
     @Override
     public EditPendingListResponseModel prepareFailView(String error) {
-        return null;
+        throw new EditPendingListFailed(error);
     }
 }
