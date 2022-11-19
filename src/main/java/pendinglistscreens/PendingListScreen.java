@@ -88,6 +88,7 @@ public class PendingListScreen extends JPanel implements ListSelectionListener {
 
     // reject button with the same core functions as the accept button
     // not sure if there's a way to get rid of the duplicate code between the two buttons
+    // wait I might've found a way
     private class RejectListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
