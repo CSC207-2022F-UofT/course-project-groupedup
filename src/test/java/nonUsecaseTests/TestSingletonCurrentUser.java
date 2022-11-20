@@ -1,4 +1,4 @@
-package tutorial;
+package nonUsecaseTests;
 
 import Entities.CurrentUser;
 import Entities.NormalUser;
