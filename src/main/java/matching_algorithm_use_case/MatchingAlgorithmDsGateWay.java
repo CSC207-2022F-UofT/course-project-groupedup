@@ -9,7 +9,6 @@ import java.util.List;
  * An interface to assist the Interactor with acquiring information for the Matching Algorithm Use Case
  */
 public interface MatchingAlgorithmDsGateWay {
-
     /**
      * Get the respective User entity by the username
      * @param username: current User's username

@@ -10,7 +10,7 @@ import java.util.List;
  * The matching algorithm use case interactor. It will get groups from the DsGateWay. If the list of groups
  * is empty it will have the presenter report error. Otherwise, it will make a UserMatches instance to rank the groups
  * according to similarity with the user's preferences. After that, the interactor will make a list of the groups' as
- * Strings and return a success message and the list to Presenter.
+ * Strings and return a success message and the list to Presenter
  * */
 
 public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBoundary{

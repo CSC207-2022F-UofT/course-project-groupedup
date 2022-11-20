@@ -75,8 +75,6 @@ public class UserMatches implements MatchingAlgorithm {
     public void cutByCourseCodeAndMemberList() {
         String target = user.getUserPublicProfile().getPreferences().get("Course Code");
         groups.removeIf(g -> !(target.contains(g.getGroupProfile().getCourseCode())));
-        groups.removeIf(g -> !(g.getGroupMembersUsernames().contains(user.getUsername())));
+        groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(user.getUsername())));
     }
-
-
 }
