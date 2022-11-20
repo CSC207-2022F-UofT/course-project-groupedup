@@ -1,33 +1,46 @@
 package view_user_public_profile_screens;
-import view_user_public_profile_usecase.viewUserPublicProfileResponseModel;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JCheckBoxMenuItem;
 
 public class userPublicProfileScreen extends JFrame implements ActionListener {
     public userPublicProfileScreen(String username, String location, String meetingTime, String timeCommitment) {
-        JLabel title = new JLabel(username + "Public Profile");
+        this.setVisible(true);
+        this.setSize(500,500);
 
-        JButton editPublicProfile = new JButton("Edit public profile");
-        editPublicProfile.addActionListener(this);
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
-        JPanel main = new JPanel();
-        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+        /*Creating the top menu bar*/
+        JPanel northPanel = new JPanel();
+        JLabel title = new JLabel(username + "'s Public Profile");
+        title.setFont(new Font("Serif", Font.PLAIN, 20));
 
-        main.add(title);
-        main.add(message);
-        main.add(buttons);
-        this.setContentPane(main);
+        //TODO: Link screens using buttons
+        JButton edit = new JButton("Edit");
+        JButton exit = new JButton("Exit");
+        northPanel.add(title);
+        northPanel.add(edit);
+        northPanel.add(exit);
+        mainPanel.add(northPanel, BorderLayout.NORTH);
 
-        this.pack();
+
+        /*Creating the public profile*/
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout(3, 1));
+        JLabel locationLabel = new JLabel("Location: " + location, SwingConstants.CENTER);
+        JLabel meetingTimeLabel = new JLabel("Meeting Time: " + meetingTime, SwingConstants.CENTER);
+        JLabel timeCommitmentLabel = new JLabel("Time Commitment: " + timeCommitment, SwingConstants.CENTER);
+        centerPanel.add(locationLabel);
+        centerPanel.add(meetingTimeLabel);
+        centerPanel.add(timeCommitmentLabel);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+
+        this.add(mainPanel);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-    }
+        System.out.println("Click" + e.getActionCommand());
     }
 }
