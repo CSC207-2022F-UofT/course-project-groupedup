@@ -1,20 +1,27 @@
 package edit_user_public_profile_usecase;
-
 import java.util.HashMap;
 
 public class editUserPublicProfileRequestModel {
+    private final String username;
     private String bio;
-    private String courseCode;
+    private String courseCodes;
     private String timeCommitment;
     private String location;
     private String meetingTime;
 
-    public editUserPublicProfileRequestModel(String bio, String courseCode, String timeCommitment, String location, String meetingTime) {
+    public editUserPublicProfileRequestModel(String username, String bio,
+                                             String courseCodes, String timeCommitment,
+                                             String location, String meetingTime) {
+        this.username = username;
         this.bio = bio;
-        this.courseCode = courseCode;
+        this.courseCodes = courseCodes;
         this.timeCommitment = timeCommitment;
         this.location = location;
         this.meetingTime = meetingTime;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 
     public String getBio() {
@@ -25,12 +32,12 @@ public class editUserPublicProfileRequestModel {
         this.bio = bio;
     }
 
-    public String getCourseCode() {
-        return this.courseCode;
+    public void setCoursePreferences(String courseCodes) {
+        this.courseCodes = courseCodes;
     }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
+    public String getCoursePreferences() {
+        return courseCodes;
     }
 
     public String getTimeCommitment() {
@@ -58,11 +65,10 @@ public class editUserPublicProfileRequestModel {
     }
 
     public HashMap<String, String> getPreferences() {
-        HashMap<String, String> preferences = new HashMap<String, String>();
-        preferences.put("courseCode", this.courseCode);
-        preferences.put("timeCommitment", this.timeCommitment);
-        preferences.put("location", this.location);
-        preferences.put("meetingTime", this.meetingTime);
+        HashMap<String, String> preferences = new HashMap<>();
+        preferences.put("Time Commitment", this.timeCommitment);
+        preferences.put("Location", this.location);
+        preferences.put("MeetingTime", this.meetingTime);
 
         return preferences;
     }
