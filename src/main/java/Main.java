@@ -1,8 +1,12 @@
+import MultiUsecaseUtil.SerializeDataAccess;
+import UserRegistrationUsecase.NewUserDSGateway;
+import group_creation_use_case.NewGroupDSGateway;
 import group_creation_screens.*;
 import group_creation_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,11 +15,17 @@ public class Main {
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
 
-        GroupDSGateway group = new FileGroup();
+        SerializeDataAccess dataAccess = null;
+        try {
+            dataAccess = new SerializeDataAccess();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        NewGroupDSGateway newGroup = dataAccess;
 
         GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
         GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(group, presenter, groupFactory);
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
         GroupRegisterController userRegisterController = new GroupRegisterController(
                 interactor
         );
