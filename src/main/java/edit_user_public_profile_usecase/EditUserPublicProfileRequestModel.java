@@ -1,7 +1,7 @@
 package edit_user_public_profile_usecase;
 import java.util.HashMap;
 
-public class editUserPublicProfileRequestModel {
+public class EditUserPublicProfileRequestModel {
     private final String username;
     private String bio;
     private String courseCodes;
@@ -9,7 +9,7 @@ public class editUserPublicProfileRequestModel {
     private String location;
     private String meetingTime;
 
-    public editUserPublicProfileRequestModel(String username, String bio,
+    public EditUserPublicProfileRequestModel(String username, String bio,
                                              String courseCodes, String timeCommitment,
                                              String location, String meetingTime) {
         this.username = username;

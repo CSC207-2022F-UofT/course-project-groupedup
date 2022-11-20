@@ -1,11 +1,11 @@
 package view_user_public_profile_screens;
-import view_user_public_profile_usecase.viewUserPublicProfileOutputBoundary;
-import view_user_public_profile_usecase.viewUserPublicProfileResponseModel;
+import view_user_public_profile_usecase.ViewUserPublicProfileOutputBoundary;
+import view_user_public_profile_usecase.ViewUserPublicProfileResponseModel;
 
 
-public class viewUserPublicProfilePresenter implements viewUserPublicProfileOutputBoundary {
+public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutputBoundary {
     @Override
-    public viewUserPublicProfileResponseModel prepareSuccessView(viewUserPublicProfileResponseModel userPublicProfileInfo) {
+    public ViewUserPublicProfileResponseModel prepareSuccessView(ViewUserPublicProfileResponseModel userPublicProfileInfo) {
         return userPublicProfileInfo;
     }
 

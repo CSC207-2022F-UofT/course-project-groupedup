@@ -1,9 +1,9 @@
 package view_user_public_profile_usecase;
 
-public class viewUserPublicProfileRequestModel {
+public class ViewUserPublicProfileRequestModel {
     private final String username;
 
-    public viewUserPublicProfileRequestModel(String username) {
+    public ViewUserPublicProfileRequestModel(String username) {
         this.username = username;
     }
 

@@ -1,18 +1,18 @@
 package edit_user_public_profile_screens;
-import edit_user_public_profile_usecase.editUserPublicProfileResponseModel;
-import edit_user_public_profile_usecase.editUserPublicProfileRequestModel;
-import edit_user_public_profile_usecase.editUserPublicProfileInputBoundary;
+import edit_user_public_profile_usecase.EditUserPublicProfileResponseModel;
+import edit_user_public_profile_usecase.EditUserPublicProfileRequestModel;
+import edit_user_public_profile_usecase.EditUserPublicProfileInputBoundary;
 
-public class editUserPublicProfileController {
-    final editUserPublicProfileInputBoundary userInput;
+public class EditUserPublicProfileController {
+    final EditUserPublicProfileInputBoundary userInput;
 
-    public editUserPublicProfileController(editUserPublicProfileInputBoundary profileGateway) {
+    public EditUserPublicProfileController(EditUserPublicProfileInputBoundary profileGateway) {
         this.userInput = profileGateway;
     }
 
-    editUserPublicProfileResponseModel editedChanges(String username, String bio, String courseCode,
+    EditUserPublicProfileResponseModel editedChanges(String username, String bio, String courseCode,
                                                      String timeCommitment, String location, String meetingTime) {
-        editUserPublicProfileRequestModel requestModel = new editUserPublicProfileRequestModel(username,
+        EditUserPublicProfileRequestModel requestModel = new EditUserPublicProfileRequestModel(username,
                 bio, courseCode, timeCommitment, location, meetingTime);
 
         return userInput.saveEdits(requestModel);

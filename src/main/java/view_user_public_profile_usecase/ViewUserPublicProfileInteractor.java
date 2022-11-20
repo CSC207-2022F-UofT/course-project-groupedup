@@ -6,17 +6,17 @@ import Entities.User;
 /**
  * The view user public profile use case.
  */
-public class viewUserPublicProfileInteractor implements viewUserPublicProfileInputBoundary{
+public class ViewUserPublicProfileInteractor implements ViewUserPublicProfileInputBoundary {
     final private NewUserDSGateway userDSGateway;
-    final private viewUserPublicProfileOutputBoundary viewUserProfileOutputBoundary;
+    final private ViewUserPublicProfileOutputBoundary viewUserProfileOutputBoundary;
 
     /**
      *
      * @param userDSGateway is the data access interface used to save and find the user's public profile.
      * @param viewUserProfileOutputBoundary is the output boundary implemented by the viewUserPublicProfilePresenter
      */
-    viewUserPublicProfileInteractor(NewUserDSGateway userDSGateway,
-                                    viewUserPublicProfileOutputBoundary viewUserProfileOutputBoundary) {
+    ViewUserPublicProfileInteractor(NewUserDSGateway userDSGateway,
+                                    ViewUserPublicProfileOutputBoundary viewUserProfileOutputBoundary) {
         this.userDSGateway = userDSGateway;
         this.viewUserProfileOutputBoundary = viewUserProfileOutputBoundary;
     }
@@ -27,13 +27,13 @@ public class viewUserPublicProfileInteractor implements viewUserPublicProfileInp
      * @return the user's public profile information.
      */
     @Override
-    public viewUserPublicProfileResponseModel showUserProfile(viewUserPublicProfileRequestModel requestModel) {
+    public ViewUserPublicProfileResponseModel showUserProfile(ViewUserPublicProfileRequestModel requestModel) {
         /*Find User*/
         String username = requestModel.getUsername();
 
         User user = userDSGateway.loadUsers().get(username);
 
-        viewUserPublicProfileResponseModel successViewResponseModel = new viewUserPublicProfileResponseModel(
+        ViewUserPublicProfileResponseModel successViewResponseModel = new ViewUserPublicProfileResponseModel(
                 user.getUserPublicProfile().getPreferences(),
                 user.getUserPublicProfile().getCoursePreferences(),
                 user.getUserPublicProfile().getBiography());

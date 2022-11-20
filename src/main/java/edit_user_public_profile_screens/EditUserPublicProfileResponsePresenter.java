@@ -1,16 +1,16 @@
 package edit_user_public_profile_screens;
-import edit_user_public_profile_usecase.editUserPublicProfileOutputBoundary;
-import edit_user_public_profile_usecase.editUserPublicProfileResponseModel;
+import edit_user_public_profile_usecase.EditUserPublicProfileOutputBoundary;
+import edit_user_public_profile_usecase.EditUserPublicProfileResponseModel;
 
 
-public class editUserPublicProfileResponsePresenter implements editUserPublicProfileOutputBoundary {
+public class EditUserPublicProfileResponsePresenter implements EditUserPublicProfileOutputBoundary {
     @Override
-    public editUserPublicProfileResponseModel prepareSuccessView(editUserPublicProfileResponseModel EditedChanges) {
+    public EditUserPublicProfileResponseModel prepareSuccessView(EditUserPublicProfileResponseModel EditedChanges) {
         return EditedChanges;
     }
 
     @Override
-    public editUserPublicProfileResponseModel prepareFailView(editUserPublicProfileResponseModel FailedChanges) {
+    public EditUserPublicProfileResponseModel prepareFailView(EditUserPublicProfileResponseModel FailedChanges) {
         return FailedChanges;
     }
 }

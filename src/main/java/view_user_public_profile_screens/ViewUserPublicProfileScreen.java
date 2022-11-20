@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class userPublicProfileScreen extends JFrame implements ActionListener {
-    public userPublicProfileScreen(String username, String location, String meetingTime, String timeCommitment) {
+public class ViewUserPublicProfileScreen extends JFrame implements ActionListener {
+    public ViewUserPublicProfileScreen(String username, String location, String meetingTime, String timeCommitment) {
         this.setVisible(true);
         this.setSize(500,500);
 

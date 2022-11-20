@@ -1,21 +1,19 @@
 package view_user_public_profile_screens;
 
-import view_user_public_profile_usecase.viewUserPublicProfileInputBoundary;
-import view_user_public_profile_usecase.viewUserPublicProfileResponseModel;
-import view_user_public_profile_usecase.viewUserPublicProfileRequestModel;
+import view_user_public_profile_usecase.ViewUserPublicProfileInputBoundary;
+import view_user_public_profile_usecase.ViewUserPublicProfileResponseModel;
+import view_user_public_profile_usecase.ViewUserPublicProfileRequestModel;
 
-import java.util.HashMap;
+public class ViewUserPublicProfileController {
+    final ViewUserPublicProfileInputBoundary viewInput;
 
-public class viewUserPublicProfileController {
-    final viewUserPublicProfileInputBoundary viewInput;
-
-    public viewUserPublicProfileController(viewUserPublicProfileInputBoundary viewInput) {
+    public ViewUserPublicProfileController(ViewUserPublicProfileInputBoundary viewInput) {
         this.viewInput = viewInput;
     }
 
-    viewUserPublicProfileResponseModel viewProfile(String username) {
+    ViewUserPublicProfileResponseModel viewProfile(String username) {
 
-        viewUserPublicProfileRequestModel requestModel = new viewUserPublicProfileRequestModel(username);
+        ViewUserPublicProfileRequestModel requestModel = new ViewUserPublicProfileRequestModel(username);
 
         return viewInput.showUserProfile(requestModel);
 

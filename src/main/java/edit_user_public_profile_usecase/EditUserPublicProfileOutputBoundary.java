@@ -1,7 +1,7 @@
 package edit_user_public_profile_usecase;
 
-public interface editUserPublicProfileOutputBoundary {
-        editUserPublicProfileResponseModel prepareSuccessView(editUserPublicProfileResponseModel EditedChanges);
+public interface EditUserPublicProfileOutputBoundary {
+        EditUserPublicProfileResponseModel prepareSuccessView(EditUserPublicProfileResponseModel EditedChanges);
 
-        editUserPublicProfileResponseModel prepareFailView(editUserPublicProfileResponseModel FailedChanges);
+        EditUserPublicProfileResponseModel prepareFailView(EditUserPublicProfileResponseModel FailedChanges);
 }

@@ -6,12 +6,12 @@ import UserRegistrationUsecase.NewUserDSGateway;
 /**
  * The edit user's public profile use case.
  */
-public class editUserPublicProfileInteractor implements editUserPublicProfileInputBoundary {
+public class EditUserPublicProfileInteractor implements EditUserPublicProfileInputBoundary {
     final private NewUserDSGateway userDSGateway;
-    final private editUserPublicProfileOutputBoundary profileOutputBoundary;
+    final private EditUserPublicProfileOutputBoundary profileOutputBoundary;
 
-    public editUserPublicProfileInteractor(NewUserDSGateway userDSGateway,
-                                           editUserPublicProfileOutputBoundary profileOutputBoundary) {
+    public EditUserPublicProfileInteractor(NewUserDSGateway userDSGateway,
+                                           EditUserPublicProfileOutputBoundary profileOutputBoundary) {
         this.userDSGateway = userDSGateway;
         this.profileOutputBoundary = profileOutputBoundary;
     }
@@ -22,9 +22,9 @@ public class editUserPublicProfileInteractor implements editUserPublicProfileInp
      * @return the new edited changes to the public profile.
      */
     @Override
-    public editUserPublicProfileResponseModel saveEdits(editUserPublicProfileRequestModel requestModel) {
+    public EditUserPublicProfileResponseModel saveEdits(EditUserPublicProfileRequestModel requestModel) {
         /*Creating a failed response model*/
-        editUserPublicProfileResponseModel profileFailedResponseModel = new editUserPublicProfileResponseModel(
+        EditUserPublicProfileResponseModel profileFailedResponseModel = new EditUserPublicProfileResponseModel(
                 requestModel.getPreferences(),
                 requestModel.getCoursePreferences(),
                 requestModel.getBio(),
@@ -60,7 +60,7 @@ public class editUserPublicProfileInteractor implements editUserPublicProfileInp
             user.getUserPublicProfile().setBiography(requestModel.getBio());
 
             /*Send new changes back to output boundary.*/
-            editUserPublicProfileResponseModel profileResponseModel = new editUserPublicProfileResponseModel(
+            EditUserPublicProfileResponseModel profileResponseModel = new EditUserPublicProfileResponseModel(
                     requestModel.getPreferences(),
                     requestModel.getCoursePreferences(),
                     requestModel.getBio(),
