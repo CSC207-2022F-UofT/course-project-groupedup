@@ -5,10 +5,12 @@ public class EditGroupProfileResponseModel {
 
     HashMap<String, String> editedPreferences;
     String editedDescription;
+    String error;
 
-    public EditGroupProfileResponseModel(HashMap<String, String> editedPreferences, String editedDescription){
+    public EditGroupProfileResponseModel(HashMap<String, String> editedPreferences, String editedDescription, String error){
         this.editedPreferences = editedPreferences;
         this.editedDescription = editedDescription;
+        this.error = error;
     }
 
     public String getEditedDescription() {
@@ -28,4 +30,11 @@ public class EditGroupProfileResponseModel {
         this.editedPreferences = editedPreferences;
     }
 
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return this.error;
+    }
 }

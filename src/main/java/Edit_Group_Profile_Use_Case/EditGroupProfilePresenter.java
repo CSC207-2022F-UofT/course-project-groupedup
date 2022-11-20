@@ -4,5 +4,5 @@ public interface EditGroupProfilePresenter {
 
     EditGroupProfileResponseModel prepareSuccessView(EditGroupProfileResponseModel newChanges);
 
-    EditGroupProfileResponseModel prepareFailView(String error);
+    EditGroupProfileResponseModel prepareFailView(EditGroupProfileResponseModel error);
 }

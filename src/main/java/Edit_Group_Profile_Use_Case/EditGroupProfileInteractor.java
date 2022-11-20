@@ -13,16 +13,17 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
     @Override
     public EditGroupProfileResponseModel create(EditGroupProfileRequestModel requestModel) {
         /*Pass or fail message (I don't know if we want to let them leave their preferences blank or not)*/
-        if (requestModel.getDescription().equals("")) {
-            return profilePresenter.prepareFailView("Edits were unsuccessful, profile description is empty.");
+        EditGroupProfileResponseModel editFailResponseModel =
+                new EditGroupProfileResponseModel(requestModel.getPreferences(), requestModel.getDescription(), "");
+
+        if (!requestModel.setCourseCode(requestModel.getCourseCode())) {
+            editFailResponseModel.setError("Invalid Course Code Entered.");
+            return profilePresenter.prepareFailView(editFailResponseModel);
         }
 
-        if (requestModel.setCourseCode(requestModel.getCourseCode()) == false) {
-            return profilePresenter.prepareFailView("Edits were unsuccessful, course code is invalid.");
-        }
-
-        if (requestModel.setMeetingTime(requestModel.getMeetingTime()) == false) {
-            return profilePresenter.prepareFailView("Edits were unsuccessful, meeting time is invalid (must be a day of the week).");
+        if (!requestModel.setMeetingTime(requestModel.getMeetingTime())) {
+            editFailResponseModel.setError("Invalid Meeting Time Entered.");
+            return profilePresenter.prepareFailView(editFailResponseModel);
         }
 
 
@@ -31,7 +32,8 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
         EditGroupProfileResponseModel profileResponseModel = new EditGroupProfileResponseModel(
                 requestModel.getPreferences(),
-                requestModel.getDescription());
+                requestModel.getDescription(),
+                "");
 
         return profilePresenter.prepareSuccessView(profileResponseModel);
     }
