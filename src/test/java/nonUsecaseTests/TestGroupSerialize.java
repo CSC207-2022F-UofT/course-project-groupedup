@@ -76,7 +76,6 @@ public class TestGroupSerialize implements NewGroupDSGateway {
             throw new RuntimeException(e);
         }
         // check if the file is empty, cannot read a hashmap if file is empty
-        // code contain error, we'll see
         if (ReadFromInput.equals("")){
             groups = new HashMap<String, Group>();
         }
