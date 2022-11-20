@@ -63,8 +63,5 @@ public class NormalUser implements Serializable, User {
 //    public void changePassword(String password){
 //        this.password = password;
 //    }
-    public void addApplication(Group group){
-        this.applicationsList.put(group.getGroupName(), group);
-    }
 }
 
