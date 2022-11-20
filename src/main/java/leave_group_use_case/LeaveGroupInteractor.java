@@ -1,4 +1,4 @@
-package LeaveGroup;
+package leave_group_use_case;
 
 import Entities.Group;
 import Entities.User;
@@ -51,7 +51,8 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
         }
 
         if (Objects.equals(group.getGroupLeaderUsername(), user.getUsername())) {
-            return outputBoundary.prepareFailureView("User is group leader.");
+            return outputBoundary.prepareFailureView("Oops! You're Group Leader for this group." +
+                    "Please transfer leadership or delete group before leaving.");
         }
 
         user.removeGroup(group.getGroupName());

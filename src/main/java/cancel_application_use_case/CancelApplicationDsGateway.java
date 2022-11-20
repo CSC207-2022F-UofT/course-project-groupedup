@@ -1,4 +1,4 @@
-package CancelApplication;
+package cancel_application_use_case;
 
 import Entities.Group;
 import Entities.User;

@@ -1,8 +1,8 @@
-package Screens;
+package leave_group_screens;
 
-import LeaveGroup.LeaveGroupInputBoundary;
-import LeaveGroup.LeaveGroupRequestModel;
-import LeaveGroup.LeaveGroupResponseModel;
+import leave_group_use_case.LeaveGroupInputBoundary;
+import leave_group_use_case.LeaveGroupRequestModel;
+import leave_group_use_case.LeaveGroupResponseModel;
 
 /**
  * Executes the leaveGroup use case.

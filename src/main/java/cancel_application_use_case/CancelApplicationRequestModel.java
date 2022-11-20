@@ -1,6 +1,6 @@
-package CancelApplication;
+package cancel_application_use_case;
 
-public class CancelApplicationResponseModel {
+public class CancelApplicationRequestModel {
     private final String username;
     private final String groupname;
 
@@ -8,7 +8,7 @@ public class CancelApplicationResponseModel {
      * @param username the username of the current user
      * @param groupname the groupname of the group for which the user is cancelling their application
      */
-    public CancelApplicationResponseModel(String username, String groupname) {
+    public CancelApplicationRequestModel(String username, String groupname) {
         this.username = username;
         this.groupname = groupname;
     }

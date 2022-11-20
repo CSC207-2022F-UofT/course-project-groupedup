@@ -1,4 +1,4 @@
-package LeaveGroup;
+package leave_group_use_case;
 
 public class LeaveGroupResponseModel {
     private final String username;

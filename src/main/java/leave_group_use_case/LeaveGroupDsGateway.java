@@ -1,4 +1,4 @@
-package LeaveGroup;
+package leave_group_use_case;
 
 import Entities.Group;
 import Entities.User;

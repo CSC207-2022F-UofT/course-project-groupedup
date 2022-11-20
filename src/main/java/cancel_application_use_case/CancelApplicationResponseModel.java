@@ -1,14 +1,14 @@
-package LeaveGroup;
+package cancel_application_use_case;
 
-public class LeaveGroupRequestModel {
+public class CancelApplicationResponseModel {
     private final String username;
     private final String groupname;
 
     /**
      * @param username the username of the current user
-     * @param groupname the groupname of the group the user is leaving
+     * @param groupname the groupname of the group for which the user is cancelling their application
      */
-    public LeaveGroupRequestModel(String username, String groupname) {
+    public CancelApplicationResponseModel(String username, String groupname) {
         this.username = username;
         this.groupname = groupname;
     }
