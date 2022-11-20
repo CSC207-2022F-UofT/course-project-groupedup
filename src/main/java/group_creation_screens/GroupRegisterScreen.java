@@ -15,7 +15,11 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
     GroupRegisterController groupRegisterController;
 
     /**
-     * A window with a title and a JButton.
+     * The main Group Register Screen where the User who is logged in can enter the name of the
+     * group they want to create and can press a register button to create the group.
+     * Error messages pop up if an exception is thrown. A message also pops up upon successful
+     * creation of the group. If the User wants to return to the previous screen, the cancel
+     * button will take them back.
      */
     public GroupRegisterScreen(GroupRegisterController controller) {
 
@@ -48,6 +52,8 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
 
     /**
      * React to a button click that results in evt.
+     * If the group was successfully created, the controller will trigger the group creation use case.
+     * Otherwise, an exception will be thrown.
      */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());

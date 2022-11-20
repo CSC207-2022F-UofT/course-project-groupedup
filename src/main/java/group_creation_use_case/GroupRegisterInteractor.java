@@ -4,10 +4,10 @@ import Entities.Group;
 
 public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     final GroupDSGateway groupDSGateway;
-    final GroupRegisterPresenter groupPresenter;
+    final GroupRegisterOutputBoundary groupPresenter;
     final GroupFactory groupFactory;
 
-    public GroupRegisterInteractor(GroupDSGateway groupDSGateway, GroupRegisterPresenter groupPresenter,
+    public GroupRegisterInteractor(GroupDSGateway groupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
         this.groupDSGateway= groupDSGateway;
         this.groupPresenter = groupPresenter;
@@ -15,6 +15,12 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 
     }
 
+    /**
+     * Executes the Group Creation Use Case. Will create a Group and store it in the database
+     * if the Group doesn't already exist.
+     * @param requestModel
+     * @return
+     */
 
     @Override
     public GroupRegisterResponseModel create(GroupRegisterRequestModel requestModel) {

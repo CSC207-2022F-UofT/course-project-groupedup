@@ -1,3 +1,5 @@
+package test_database;
+
 import Entities.*;
 import org.junit.jupiter.api.Test;
 

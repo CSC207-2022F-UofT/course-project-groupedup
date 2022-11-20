@@ -6,19 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewGroupPageScreen extends JFrame implements ActionListener {
-    /**
-     * The username chosen by the user
-     */
     JTextField groupname = new JTextField(15);
     /**
-     * A window with a title and a JButton.
+     * After successful creation of a group, this page will display the newly created Group.
+     * The User can then click on the 'Edit Group Information' button if they want to edit
+     * the group's profile and add more details. Otherwise, they can click the 'Home Page'
+     * button and go back to the home page.
      */
     public NewGroupPageScreen() {
 
         JLabel title = new JLabel("New Group");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton homePage = new JButton("HomePage");
+        JButton homePage = new JButton("Home Page");
         JButton editGroup = new JButton("Edit Group Information");
 
         groupname.setEditable(false);

@@ -14,9 +14,18 @@ public class GroupRegisterDSRequestModel {
         this.groupName = groupName;
     }
 
+    /**
+     *
+     * @return the Group
+     */
     public Group getGroup() {
         return group;
     }
+
+    /**
+     *
+     * @return the Group's name
+     */
     public String getGroupName() {
         return groupName;
     }

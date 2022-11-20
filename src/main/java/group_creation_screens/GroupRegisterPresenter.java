@@ -1,8 +1,8 @@
 package group_creation_screens;
-import group_creation_use_case.GroupRegisterPresenter;
+import group_creation_use_case.GroupRegisterOutputBoundary;
 import group_creation_use_case.GroupRegisterResponseModel;
 
-public class GroupRegisterResponseFormatter implements GroupRegisterPresenter{
+public class GroupRegisterPresenter implements GroupRegisterOutputBoundary {
     /**
      *
      * @param response takes the response model data and presents it in the UI upon success

@@ -13,7 +13,7 @@ public class Main {
 
         GroupDSGateway group = new FileGroup();
 
-        GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter();
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(group, presenter, groupFactory);
         GroupRegisterController userRegisterController = new GroupRegisterController(

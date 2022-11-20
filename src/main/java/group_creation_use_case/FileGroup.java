@@ -13,6 +13,10 @@ public class FileGroup implements GroupDSGateway {
     public FileGroup(){
     }
 
+    /**
+     * Saves a Group to the database.
+     * @param groupRegisterDSRequestModel the group information to save.
+     */
     @Override
     public void save(GroupRegisterDSRequestModel groupRegisterDSRequestModel) {
         try{
@@ -26,11 +30,16 @@ public class FileGroup implements GroupDSGateway {
 
     }
 
+    /**
+     *
+     * @param groupName The unique groupname identifier.
+     * @return whether the Group exists or not.
+     */
     @Override
-    public boolean existsByIdentifier(String name) {
+    public boolean existsByIdentifier(String groupName) {
         try{
             HashMap<String, Group> existingGroups = groupReadWriter.readFromFile("database/group.ser");
-            return existingGroups.containsKey(name);
+            return existingGroups.containsKey(groupName);
         } catch (IOException | ClassNotFoundException e){
             throw new RuntimeException(e);
         }
