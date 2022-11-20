@@ -7,6 +7,10 @@ public class EditGroupProfileDsRequestModel {
         this.groupName = groupName;
     }
 
+    /**
+     *
+     * @return the group name
+     */
     public String getGroupName(){
         return this.groupName;
     }
