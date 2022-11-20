@@ -12,9 +12,9 @@ public class EditGroupProfileController {
         this.groupInput = profileGateway;
     }
 
-    EditGroupProfileResponseModel create(String groupName, String description, String timeCommitment, String location, String meetingTime, String courseCode) {
+    EditGroupProfileResponseModel editedChanges(String groupName, String description, String timeCommitment, String location, String meetingTime, String courseCode) {
         EditGroupProfileRequestModel requestModel = new EditGroupProfileRequestModel(groupName, description, timeCommitment, location, meetingTime, courseCode);
-        return groupInput.create(requestModel);
+        return groupInput.editGroup(requestModel);
     }
 }
 

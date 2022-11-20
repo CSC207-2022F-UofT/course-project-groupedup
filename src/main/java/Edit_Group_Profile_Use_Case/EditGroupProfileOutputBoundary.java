@@ -1,8 +1,8 @@
 package Edit_Group_Profile_Use_Case;
 
-public interface EditGroupProfilePresenter {
+public interface EditGroupProfileOutputBoundary {
 
     EditGroupProfileResponseModel prepareSuccessView(EditGroupProfileResponseModel newChanges);
 
-    EditGroupProfileResponseModel prepareFailView(EditGroupProfileResponseModel error);
+    EditGroupProfileResponseModel prepareFailView(String error);
 }

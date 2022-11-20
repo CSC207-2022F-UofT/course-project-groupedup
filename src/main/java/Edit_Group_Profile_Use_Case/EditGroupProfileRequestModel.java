@@ -20,6 +20,10 @@ public class EditGroupProfileRequestModel {
     }
 
 
+    /**
+     *
+     * @return the group name.
+     */
     public String getGroupName() {
         return this.groupName;
     }
@@ -28,34 +32,22 @@ public class EditGroupProfileRequestModel {
         this.groupName = groupName;
     }
 
-    public boolean setCourseCode(String courseCode) {
-        if (validateCourseCode(courseCode)) {
-            this.courseCode = courseCode;
-            return true;
-        }
-        return false;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
+    /**
+     *
+     * @return the group's selected course code.
+     */
     public String getCourseCode() {
         return this.courseCode;
     }
 
-    public boolean validateCourseCode(String courseCode) {
-        char[] letters = courseCode.substring(0, 3).toCharArray();
-        char[] numbers = courseCode.substring(3, 6).toCharArray();
-        for (char c : letters) {
-            if (!Character.isLetter(c)) {
-                return false;
-            }
-        }
-        for (char c : numbers) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return courseCode.length() == 6;
-    }
-
+    /**
+     *
+     * @return the group description.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -64,6 +56,10 @@ public class EditGroupProfileRequestModel {
         this.description = description;
     }
 
+    /**
+     *
+     * @return the group's time commitment (hours per week)
+     */
     public String getTimeCommitment() {
         return this.timeCommitment;
     }
@@ -72,6 +68,10 @@ public class EditGroupProfileRequestModel {
         this.timeCommitment = timeCommitment;
     }
 
+    /**
+     *
+     * @return the group's meeting location (online or in-person)
+     */
     public String getLocation() {
         return this.location;
     }
@@ -80,20 +80,16 @@ public class EditGroupProfileRequestModel {
         this.location = location;
     }
 
+    /**
+     *
+     * @return the group's meeting time (day of the week?)
+     */
     public String getMeetingTime() {
         return this.meetingTime;
     }
 
-    public boolean setMeetingTime(String meetingTime) {
-        if (validateMeetingTime(meetingTime)) {
-            this.meetingTime = meetingTime;
-            return true;
-        }
-        return false;
-    }
-    public boolean validateMeetingTime(String meetingTime) {
-        ArrayList<String> daysOfWeek = new ArrayList<String>();
-        return daysOfWeek.contains(meetingTime);
+    public void setMeetingTime(String meetingTime) {
+        this.meetingTime = meetingTime;
     }
 
     public HashMap<String, String> getPreferences() {
@@ -105,4 +101,5 @@ public class EditGroupProfileRequestModel {
 
         return preferences;
     }
+
 }
