@@ -5,7 +5,7 @@ package matching_algorithm_use_case;
 public interface MatchingAlgorithmOutputBoundary {
 
     /**
-     * Send the response model (success message and ordered lists) to the screens
+     * Send the response model (success message and ordered list) to the screens
      * @param responseModel: Update message and ordered List of Groups as Strings
      * @return an instance of the Matching Algorithm response model
      */

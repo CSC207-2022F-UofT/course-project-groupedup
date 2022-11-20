@@ -19,7 +19,7 @@ import java.util.List;
  *
  * METHOD DESCRIPTIONS:
  * match(): Will parse through the groups, create a GroupScore instance, and add it to matches. As GroupScore has a
- * compareTo() method, we can do this.matches.sort(null) to sort the list.
+ * compareTo() method, we can do this.matches.sort(null) to sort the list
  *
  * updateMatches(): calls the match() if we want to update the matches before
  *

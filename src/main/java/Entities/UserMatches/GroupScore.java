@@ -14,7 +14,7 @@ import java.util.HashMap;
  * ATTRIBUTES:
  * user: the Current User
  * group: the Group being compared
- * score: the similarity score between User and Group calculated using the method calculateSimilarity()
+ * score: the similarity score between User and Group
  *
  * METHOD DESCRIPTIONS:
  * compareTo(): compares the score of this and another GroupScore

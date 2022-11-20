@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface MatchingAlgorithmDsGateWay {
     /**
-     * Get the respective User entity by the username
+     * Get the respective User entity by username
      * @param username: current User's username
      * @return the respective User
      */
