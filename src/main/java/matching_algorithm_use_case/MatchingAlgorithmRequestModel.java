@@ -1,27 +1,21 @@
 package matching_algorithm_use_case;
-// Is this even necessary? since when the button is pressed we will instead call the interactor automatically
-// ya know?? ***Ask TA
+
+/**
+ * The Matching Algorithm Request Model. Here we store the information we got from the User/screens. For this use case
+ * specifically, we only need the current User's username.
+ */
 public class MatchingAlgorithmRequestModel {
-    private Boolean refresh;
-    private Boolean findGroups;
+    private String username;
 
-    public MatchingAlgorithmRequestModel(Boolean r, Boolean fG){
-        this.refresh = r;
-        this.findGroups = fG;
+    public MatchingAlgorithmRequestModel(String username){
+        this.username = username;
     }
 
-    public Boolean getRefresh() {
-        return this.refresh;}
-
-    public Boolean getFindGroups() {
-        return this.findGroups;
+    public String getUsername(){
+        return this.username;
     }
 
-    void setRefresh(Boolean r){
-        this.refresh = r;
-    }
-
-    void setFindGroups(Boolean fG){
-        this.findGroups = fG;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

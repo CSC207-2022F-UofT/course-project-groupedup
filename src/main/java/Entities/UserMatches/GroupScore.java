@@ -1,6 +1,7 @@
 package Entities.UserMatches;
 
 import Entities.Group;
+import Entities.GroupProfile;
 import Entities.User;
 import Entities.UserPublicProfile;
 
@@ -27,9 +28,9 @@ public class GroupScore implements Comparable<GroupScore> {
     private final Group group;
     private final Double score;
 
-    public GroupScore(User u, Group g){
-        this.user = u;
-        this.group = g;
+    public GroupScore(User user, Group group){
+        this.user = user;
+        this.group = group;
         this.score = this.calculateSimilarity();
     }
     public Group getGroup(){
@@ -40,7 +41,7 @@ public class GroupScore implements Comparable<GroupScore> {
     }
 
     /**
-     *
+     * compares the score of this and another GroupScore
      * @param other the object to be compared.
      * @return whether this.score is less (-1), greater (1) or equal (0) to o.getScore()
      */
@@ -54,16 +55,23 @@ public class GroupScore implements Comparable<GroupScore> {
             return 0;
         }
     }
+    /**
+     * calculates and returns the similarity score based on the UserPublicProfile preferences
+     * of user and the preferences of group
+     * @return the similarity score
+     */
     public Double calculateSimilarity(){
         double count = 0.0;
         double total = 0.0;
-        UserPublicProfile u = this.user.getPublicProfile();
+        UserPublicProfile u = this.user.getUserPublicProfile();
         HashMap<String, String> userPref = u.getPreferences();
-        HashMap<String, String> groupPref = this.group.getPreferences();
-        for (String keyUser: userPref){
-            for (String keyGroup: groupPref){
+        GroupProfile g = this.group.getGroupProfile();
+
+        HashMap<String, String> groupPref = g.getPreferences();
+        for (String keyUser: userPref.keySet()){
+            for (String keyGroup: groupPref.keySet()){
                 if (keyUser.equals(keyGroup)){
-                    if(userPref[keyUser].equals(groupPref[groupPref])){
+                    if(userPref.get(keyUser).equals(groupPref.get(keyGroup))){
                         count += 1;
                     }
                 }
@@ -72,8 +80,9 @@ public class GroupScore implements Comparable<GroupScore> {
         }
         return count / total;
     }
-}
-
-
 
 }
+
+
+
+

@@ -2,20 +2,27 @@ package matching_algorithm_use_case;
 
 import java.util.List;
 
+/**
+ * The response model for the Matching Algorithm Use Case. Assists in storing the responses from the interactor.
+ */
 public class MatchingAlgorithmResponseModel {
-    String updateMessage;
-    List<String> groupToStringList;
+    String updateMatchesMessage;
+    List<String> matchesAsStringList;
 
-    public MatchingAlgorithmResponseModel(String uM, List<String> g){
-        this.updateMessage = uM;
-        this.groupToStringList = g;
+    public MatchingAlgorithmResponseModel(String updateMessage, List<String> matches){
+        this.updateMatchesMessage = updateMessage;
+        this.matchesAsStringList = matches;
+    }
+
+    public String getUpdateMessage() {
+        return updateMatchesMessage;
     }
 
     public List<String> getGroups(){
-        return this.groupToStringList;
+        return this.matchesAsStringList;
     }
 
-    public void setGroups(List<String> g){
-        this.groupToStringList = g;
+    public void setGroups(List<String> matches){
+        this.matchesAsStringList = matches;
     }
 }

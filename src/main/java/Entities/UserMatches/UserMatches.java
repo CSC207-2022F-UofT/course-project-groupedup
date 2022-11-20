@@ -6,14 +6,14 @@ import Entities.User;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-//This is probably going to have Current User rather than User
+
 /**
  * General Description:
  * This Class is used to match and update the user's scores. It will not be saved as each time we refresh the screen
  * or press "find groups" we will re-calculate the score. So, hence does not need to be saved or serialized.
  *
  * ATTRIBUTES:
- * u: the current user
+ * user: the current user
  * matches: a list of GroupScore class instances
  * groups: the groups from the repository
  *
@@ -24,32 +24,38 @@ import java.util.List;
  * updateMatches(): calls the match() if we want to update the matches before
  *
  * getMatches(): returns the ordered list of Groups without Score
+ *
+ * cutByCourseCodeAndMemberList(): Removes all groups that are not a part of the User's preferred course code or if
+ * the User is already a part of the group
  */
 public class UserMatches implements MatchingAlgorithm {
-    private User u;
+    private User user;
+
     private List<GroupScore> matches = new ArrayList<>();
 
     //All the groups in the Repository
     private List<Group> groups;
 
     public UserMatches(User user, List<Group> groups) {
-        this.u = user;
-        //Sort the matches
-        this.match();
+        this.user = user;
         this.groups = groups;
+        //Narrow down the groups
+        cutByCourseCodeAndMemberList();
+        //Sort the matches
+        match();
     }
 
-
-    //Match the groups and Rank them!
+    /**
+     * Match the groups and rank them!
+     */
     @Override
     public void match() {
 
         for (Group g : this.groups) {
-            GroupScore gS = new GroupScore(this.u, g);
-            this.matches.add(gS);
+            GroupScore groupScore = new GroupScore(this.user, g);
+            this.matches.add(groupScore);
         }
-        Collections.sort(this.matches, Collections.reverseOrder()); //Orders greatest to least
-        //this.matches.sort(null);
+        this.matches.sort(Collections.reverseOrder()); //Orders greatest to least
 
     }
 
@@ -61,5 +67,16 @@ public class UserMatches implements MatchingAlgorithm {
         }
         return g;
     }
+
+    /**
+     * Removes all groups that are not a part of the User's preferred course code or
+     * if the User is already a part of the group
+     */
+    public void cutByCourseCodeAndMemberList() {
+        String target = user.getUserPublicProfile().getPreferences().get("Course Code");
+        groups.removeIf(g -> !(target.contains(g.getGroupProfile().getCourseCode())));
+        groups.removeIf(g -> !(g.getGroupMembersUsernames().contains(user.getUsername())));
+    }
+
 
 }

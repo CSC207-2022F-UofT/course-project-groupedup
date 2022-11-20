@@ -7,35 +7,39 @@ import Entities.UserMatches.UserMatches;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Description: The matching algorithm use case interactor. It will get groups from the DsGateWay. If the list of groups
+ * The matching algorithm use case interactor. It will get groups from the DsGateWay. If the list of groups
  * is empty it will have the presenter report error. Otherwise, it will make a UserMatches instance to rank the groups
  * according to similarity with the user's preferences. After that, the interactor will make a list of the groups' as
  * Strings and return a success message and the list to Presenter.
- *
  * */
 
 public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBoundary{
 
-    final MatchingAlgorithmPresenter matchingAlgorithmPresenter;
+    final MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary;
     final MatchingAlgorithmDsGateWay matchingAlgorithmDsGateWay;
-    final User currentUser;
 
-    public MatchingAlgorithmInteractor(MatchingAlgorithmPresenter presenter,
+    public MatchingAlgorithmInteractor(MatchingAlgorithmOutputBoundary presenter,
                                        MatchingAlgorithmDsGateWay dsGateWay, User user){
-        this.matchingAlgorithmPresenter = presenter;
+        this.matchingAlgorithmOutputBoundary = presenter;
         this.matchingAlgorithmDsGateWay = dsGateWay;
-        this.currentUser = user;
 
     }
 
+    /**
+     * matchGroups() has the purpose of interacting with the entities, and provide appropriate return value for the
+     * Matching Algorithm Use Case
+     * @param requestModel: gets the current User's username
+     * @return fail or success message Output Boundary
+     */
     @Override
-    public MatchingAlgorithmResponseModel create(MatchingAlgorithmRequestModel requestModel) {
-            //This might change based on serialization
-            //If we decide to do a csv, this might be a list of strings and I will have to manually make the groups
-            //so would probably need a GroupFactory interface
+    public MatchingAlgorithmResponseModel matchGroups(MatchingAlgorithmRequestModel requestModel) {
+            User currentUser = matchingAlgorithmDsGateWay.getUserByName(requestModel.getUsername());
             List<Group> groups = matchingAlgorithmDsGateWay.getGroups();
+            //Check if there are any groups in the repo
+
             if (groups.isEmpty()) {
-                return matchingAlgorithmPresenter.prepareFailView("No Matches Found");
+                //Fail: no groups to match with
+                return matchingAlgorithmOutputBoundary.prepareFailView("No Matches Found");
             }
             UserMatches userMatches = new UserMatches(currentUser, groups);
             groups = userMatches.getMatches();
@@ -43,9 +47,10 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
             for (Group g : groups) {
                 groupsAsString.add(g.toString());
             }
+            //Success: matches have been successfully calculated, and are returned
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
                     new MatchingAlgorithmResponseModel("Matches Updated", groupsAsString);
 
-            return matchingAlgorithmPresenter.prepareSuccessView(matchingAlgorithmResponseModel);
+            return matchingAlgorithmOutputBoundary.prepareSuccessView(matchingAlgorithmResponseModel);
     }
 }
