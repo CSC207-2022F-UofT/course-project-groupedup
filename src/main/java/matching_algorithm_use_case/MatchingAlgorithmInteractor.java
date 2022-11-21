@@ -1,8 +1,8 @@
 package matching_algorithm_use_case;
 
-import entities.Group;
-import entities.User;
-import entities.user_matches.UserMatches;
+import Entities.Group;
+import Entities.User;
+import Entities.user_matches.UserMatches;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
     }
 
     /**
-     * matchGroups() has the purpose of interacting with the entities, and provide appropriate return value for the
+     * matchGroups() has the purpose of interacting with the Entities, and provide appropriate return value for the
      * Matching Algorithm Use Case
      * @param requestModel: gets the current User's username
      * @return fail or success message Output Boundary

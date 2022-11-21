@@ -1,7 +1,7 @@
 package matching_algorithm_use_case;
 
-import entities.Group;
-import entities.User;
+import Entities.Group;
+import Entities.User;
 
 import java.util.HashMap;
 
@@ -18,7 +18,7 @@ public interface MatchingAlgorithmDsGateWay {
 
     /**
      * Get list of all groups from repo
-     * @return List of group entities
+     * @return List of group Entities
      */
     HashMap<String, Group> loadGroups();
 
