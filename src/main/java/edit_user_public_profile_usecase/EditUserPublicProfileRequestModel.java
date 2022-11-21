@@ -68,7 +68,7 @@ public class EditUserPublicProfileRequestModel {
         HashMap<String, String> preferences = new HashMap<>();
         preferences.put("Time Commitment", this.timeCommitment);
         preferences.put("Location", this.location);
-        preferences.put("MeetingTime", this.meetingTime);
+        preferences.put("Meeting Time", this.meetingTime);
 
         return preferences;
     }
