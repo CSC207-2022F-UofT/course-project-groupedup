@@ -10,15 +10,15 @@ import java.util.HashMap;
 /**
  * General Description:
  * This class is used to store the User, Group, and their similarity score
- *
+ * <p>
  * ATTRIBUTES:
  * user: the Current User
  * group: the Group being compared
  * score: the similarity score between User and Group
- *
+ * <p>
  * METHOD DESCRIPTIONS:
  * compareTo(): compares the score of this and another GroupScore
- *
+ * <p>
  * calculateSimilarity(): calculates and returns the similarity score based on the UserPublicProfile preferences
  * of user and the preferences of group
  */
@@ -41,7 +41,7 @@ public class GroupScore implements Comparable<GroupScore> {
     }
 
     /**
-     * compares the score of this and another GroupScore
+     * Compares the score of this and another GroupScore
      * @param other the object to be compared.
      * @return whether this.score is less (-1), greater (1) or equal (0) to o.getScore()
      */
