@@ -17,6 +17,7 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 ## What we still have to do
 - [ ] Implement and connect screens
 - [ ] Use Case testing
+- [ ] View Group Profile  
 
 ## Instructions
 Since UI is unfinished, it will not run. But you can check out our individual use cases ;).
