@@ -27,5 +27,5 @@ Since UI is unfinished, it will not run. But you can check out our individual us
 
 ## Workflow Documents
 With our workflow documents, you can see our many pull requests, their assignees, reviewers, and progress. We use this to see which pull requests are ready for review and which are just to submit progress on features.
-
 ## Application Plan:
+https://drive.google.com/file/d/18PkmSlkVMP6b8YZGq7eBeu2o6UZ3q98n/view?usp=drivesdk
