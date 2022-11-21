@@ -17,7 +17,8 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 ## What we still have to do
 - [ ] Implement and connect screens
 - [ ] Use Case testing
-- [ ] View Group Profile  
+- [ ] View Group Profile (will be implemented with the Edit Group Profile)
+- [ ] Delete Group (will be implemented when the only person in the group requests to leave)
 
 ## Instructions
 Since UI is unfinished, it will not run. But you can check out our individual use cases ;).
