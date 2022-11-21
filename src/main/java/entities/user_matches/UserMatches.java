@@ -1,7 +1,7 @@
-package Entities.UserMatches;
+package entities.user_matches;
 
-import Entities.Group;
-import Entities.User;
+import entities.Group;
+import entities.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

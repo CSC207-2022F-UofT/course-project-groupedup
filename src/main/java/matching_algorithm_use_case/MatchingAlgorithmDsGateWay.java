@@ -1,7 +1,7 @@
 package matching_algorithm_use_case;
 
-import Entities.Group;
-import Entities.User;
+import entities.Group;
+import entities.User;
 
 import java.util.HashMap;
 

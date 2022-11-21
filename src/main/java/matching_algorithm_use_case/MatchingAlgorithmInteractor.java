@@ -1,15 +1,15 @@
 package matching_algorithm_use_case;
 
-import Entities.Group;
-import Entities.User;
-import Entities.UserMatches.UserMatches;
+import entities.Group;
+import entities.User;
+import entities.user_matches.UserMatches;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 /**
  * The matching algorithm use case interactor. It will get groups from the DsGateWay. If the list of groups
- * is empty it will have the presenter report error. Otherwise, it will make a UserMatches instance to rank the groups
+ * is empty it will have the presenter report error. Otherwise, it will make a user_matches instance to rank the groups
  * according to similarity with the user's preferences. Next, the interactor will take the matches as strings
  * and return a success message and the list to Presenter
  * */

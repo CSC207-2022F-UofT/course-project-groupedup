@@ -1,4 +1,4 @@
-package Entities.UserMatches;
+package entities.user_matches;
 
 /**
  * Interface for the Matching Algorithm just in case we need to implement it in a different way

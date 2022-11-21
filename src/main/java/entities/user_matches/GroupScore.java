@@ -1,9 +1,9 @@
-package Entities.UserMatches;
+package entities.user_matches;
 
-import Entities.Group;
-import Entities.GroupProfile;
-import Entities.User;
-import Entities.UserPublicProfile;
+import entities.Group;
+import entities.GroupProfile;
+import entities.User;
+import entities.UserPublicProfile;
 
 import java.util.HashMap;
 
