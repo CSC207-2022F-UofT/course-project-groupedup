@@ -1,4 +1,4 @@
-package ApplyToGroup;
+package apply_to_group_use_case;
 
 import Entities.User;
 import Entities.Group;

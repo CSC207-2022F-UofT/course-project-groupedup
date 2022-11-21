@@ -1,7 +1,7 @@
-package ApplyToGroup_screens;
+package apply_to_group_screens;
 
-import ApplyToGroup.ApplyToGroupOutputBoundary;
-import ApplyToGroup.ApplyToGroupResponseModel;
+import apply_to_group_use_case.ApplyToGroupOutputBoundary;
+import apply_to_group_use_case.ApplyToGroupResponseModel;
 
 public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
     @Override

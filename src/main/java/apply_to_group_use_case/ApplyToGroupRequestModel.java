@@ -1,9 +1,4 @@
-package ApplyToGroup;
-
-import Entities.Group;
-import Entities.User;
-
-import java.util.HashMap;
+package apply_to_group_use_case;
 
 public class ApplyToGroupRequestModel {
     private final String username;

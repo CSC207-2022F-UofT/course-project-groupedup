@@ -1,7 +1,4 @@
-package ApplyToGroup;
-
-import Entities.Group;
-import Entities.User;
+package apply_to_group_use_case;
 
 public class ApplyToGroupResponseModel {
     private String username;

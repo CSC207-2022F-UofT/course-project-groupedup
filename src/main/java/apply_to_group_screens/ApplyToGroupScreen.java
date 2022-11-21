@@ -1,4 +1,4 @@
-package ApplyToGroup_screens;
+package apply_to_group_screens;
 
 import javax.swing.*;
 import java.awt.*;
