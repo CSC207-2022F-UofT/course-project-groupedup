@@ -5,6 +5,7 @@ import Entities.User;
 import Entities.UserMatches.UserMatches;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 /**
  * The matching algorithm use case interactor. It will get groups from the DsGateWay. If the list of groups
@@ -19,7 +20,7 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
     final MatchingAlgorithmDsGateWay matchingAlgorithmDsGateWay;
 
     public MatchingAlgorithmInteractor(MatchingAlgorithmOutputBoundary presenter,
-                                       MatchingAlgorithmDsGateWay dsGateWay, User user){
+                                       MatchingAlgorithmDsGateWay dsGateWay){
         this.matchingAlgorithmOutputBoundary = presenter;
         this.matchingAlgorithmDsGateWay = dsGateWay;
 
@@ -33,21 +34,19 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
      */
     @Override
     public MatchingAlgorithmResponseModel matchGroups(MatchingAlgorithmRequestModel requestModel) {
-            User currentUser = matchingAlgorithmDsGateWay.getUserByName(requestModel.getUsername());
-            List<Group> groups = matchingAlgorithmDsGateWay.getGroups();
-            //Check if there are any groups in the repo
+            User currentUser = matchingAlgorithmDsGateWay.loadUser(requestModel.getUsername());
+            HashMap<String, Group> groupMap = matchingAlgorithmDsGateWay.loadGroups();
 
+            List<Group> groups = (List<Group>) groupMap.values();
             if (groups.isEmpty()) {
-                //Fail: no groups to match with
                 return matchingAlgorithmOutputBoundary.prepareFailView("No Matches Found");
             }
             UserMatches userMatches = new UserMatches(currentUser, groups);
-            groups = userMatches.getMatches();
+            groups = userMatches.getMatchesWithoutScore();
             List<String> groupsAsString = new ArrayList<>();
             for (Group g : groups) {
                 groupsAsString.add(g.toString());
             }
-            //Success: matches have been successfully calculated, and are returned
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
                     new MatchingAlgorithmResponseModel("Matches Updated", groupsAsString);
 

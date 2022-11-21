@@ -14,7 +14,7 @@ public interface MatchingAlgorithmOutputBoundary {
     /**
      * Send the error message to the screens through the MatchingAlgorithmResponseModel
      * @param error: Error message
-     * @return error message
+     * @return error message to be thrown
      */
     MatchingAlgorithmResponseModel prepareFailView(String error);
 }
