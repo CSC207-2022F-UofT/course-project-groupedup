@@ -2,12 +2,22 @@ package edit_user_public_profile_usecase;
 
 import java.util.HashMap;
 
+/**
+ * Edit user public profile response model.
+ */
 public class EditUserPublicProfileResponseModel {
     private HashMap<String, String> editedPreferences;
     private String coursePreferences;
     private String editedBio;
     private String message;
 
+    /**
+     *
+     * @param editedPreferences User's edited preferences.
+     * @param coursePreferences User's edited course preferences.
+     * @param editedBio User's edited bio.
+     * @param message Success/failure message.
+     */
     public EditUserPublicProfileResponseModel(HashMap<String, String> editedPreferences,
                                               String coursePreferences,
                                               String editedBio,

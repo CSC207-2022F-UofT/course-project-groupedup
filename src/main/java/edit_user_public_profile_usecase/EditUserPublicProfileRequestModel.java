@@ -1,6 +1,9 @@
 package edit_user_public_profile_usecase;
 import java.util.HashMap;
 
+/**
+ * The data that is being bundled for the edit user public profile use case.
+ */
 public class EditUserPublicProfileRequestModel {
     private final String username;
     private String bio;
@@ -9,6 +12,15 @@ public class EditUserPublicProfileRequestModel {
     private String location;
     private String meetingTime;
 
+    /**
+     *
+     * @param username the user's username.
+     * @param bio the user's profile's biography.
+     * @param courseCodes the user's preferred courses.
+     * @param timeCommitment the user's preferred time commitment.
+     * @param location the user's preferred location.
+     * @param meetingTime the user's preferred meeting time.
+     */
     public EditUserPublicProfileRequestModel(String username, String bio,
                                              String courseCodes, String timeCommitment,
                                              String location, String meetingTime) {
