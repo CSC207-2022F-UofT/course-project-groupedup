@@ -36,4 +36,6 @@ public interface Group extends Serializable {
     void removeApplication(String username);
     String getGroupLeaderUsername();
     void removeMember(String username);
+    public HashMap<String, String> getGroupMembersUsernames();
+    public HashMap<String, String> getMemberRequestsUsernames();
 }
