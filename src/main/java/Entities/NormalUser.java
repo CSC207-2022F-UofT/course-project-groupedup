@@ -10,7 +10,6 @@ import java.util.HashMap;
  * username is login credential
  */
 
-public class NormalUser implements Serializable, ObjectMap, User {
     private String name;
     private final String username;
     private String password;
@@ -49,6 +48,7 @@ public class NormalUser implements Serializable, ObjectMap, User {
         return this.applicationsList;
     }
     public UserPublicProfile getUserPublicProfile() { return this.publicProfile; }
+
     // check if valid new username in usecase
 //    public void changePassword(String password){
 //        this.password = password;
