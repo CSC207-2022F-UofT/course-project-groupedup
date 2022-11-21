@@ -1,16 +1,15 @@
 package edit_user_public_profile_usecase;
 
 import Entities.User;
-import UserRegistrationUsecase.NewUserDSGateway;
 
 /**
  * The edit user's public profile use case.
  */
 public class EditUserPublicProfileInteractor implements EditUserPublicProfileInputBoundary {
-    final private NewUserDSGateway userDSGateway;
+    final private EditUserPublicProfileDSGateway userDSGateway;
     final private EditUserPublicProfileOutputBoundary profileOutputBoundary;
 
-    public EditUserPublicProfileInteractor(NewUserDSGateway userDSGateway,
+    public EditUserPublicProfileInteractor(EditUserPublicProfileDSGateway userDSGateway,
                                            EditUserPublicProfileOutputBoundary profileOutputBoundary) {
         this.userDSGateway = userDSGateway;
         this.profileOutputBoundary = profileOutputBoundary;
@@ -52,12 +51,16 @@ public class EditUserPublicProfileInteractor implements EditUserPublicProfileInp
 
 
         /*If all checks fail, find User to save new edits*/
-        if (userDSGateway.userIdentifierExists(requestModel.getUsername())) {
-            User user = userDSGateway.loadUsers().get(requestModel.getUsername());
+        if (userDSGateway.userExists(requestModel.getUsername())) {
+            User user = userDSGateway.findUser(requestModel.getUsername());
 
             user.getUserPublicProfile().setPreferences(requestModel.getPreferences());
             user.getUserPublicProfile().setCoursePreferences(requestModel.getCoursePreferences());
             user.getUserPublicProfile().setBiography(requestModel.getBio());
+
+            EditUserPublicProfileDSRequestModel DSRequestModel = new EditUserPublicProfileDSRequestModel(
+                    requestModel.getUsername(), user);
+            userDSGateway.saveUser(DSRequestModel);
 
             /*Send new changes back to output boundary.*/
             EditUserPublicProfileResponseModel profileResponseModel = new EditUserPublicProfileResponseModel(

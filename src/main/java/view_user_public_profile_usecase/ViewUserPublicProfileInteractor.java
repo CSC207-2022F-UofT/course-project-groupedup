@@ -1,13 +1,11 @@
 package view_user_public_profile_usecase;
-
-import UserRegistrationUsecase.NewUserDSGateway;
 import Entities.User;
 
 /**
  * The view user public profile use case.
  */
 public class ViewUserPublicProfileInteractor implements ViewUserPublicProfileInputBoundary {
-    final private NewUserDSGateway userDSGateway;
+    final private ViewUserPublicProfileDSGateway userDSGateway;
     final private ViewUserPublicProfileOutputBoundary viewUserProfileOutputBoundary;
 
     /**
@@ -15,7 +13,7 @@ public class ViewUserPublicProfileInteractor implements ViewUserPublicProfileInp
      * @param userDSGateway is the data access interface used to save and find the user's public profile.
      * @param viewUserProfileOutputBoundary is the output boundary implemented by the viewUserPublicProfilePresenter
      */
-    ViewUserPublicProfileInteractor(NewUserDSGateway userDSGateway,
+    ViewUserPublicProfileInteractor(ViewUserPublicProfileDSGateway userDSGateway,
                                     ViewUserPublicProfileOutputBoundary viewUserProfileOutputBoundary) {
         this.userDSGateway = userDSGateway;
         this.viewUserProfileOutputBoundary = viewUserProfileOutputBoundary;
@@ -31,7 +29,7 @@ public class ViewUserPublicProfileInteractor implements ViewUserPublicProfileInp
         /*Find User*/
         String username = requestModel.getUsername();
 
-        User user = userDSGateway.loadUsers().get(username);
+        User user = userDSGateway.findUser(username);
 
         ViewUserPublicProfileResponseModel successViewResponseModel = new ViewUserPublicProfileResponseModel(
                 user.getUserPublicProfile().getPreferences(),
