@@ -23,6 +23,8 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 ## Instructions
 Since UI is unfinished, it will not run. But you can check out our individual use cases ;).
 
+- Group Creation Use Case Tests: to run the test, just the click "run test with code coverage" button.
+
 ## Workflow Documents
 With our workflow documents, you can see our many pull requests, their assignees, reviewers, and progress. We use this to see which pull requests are ready for review and which are just to submit progress on features.
 
