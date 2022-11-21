@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public interface Group extends Serializable {
 
-    String getGroupName();
-    HashMap<String, User> getGroupMembers(HashMap<String, User> userMap);
+
+
 
     HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
 

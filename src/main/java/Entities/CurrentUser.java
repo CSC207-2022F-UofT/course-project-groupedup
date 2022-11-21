@@ -7,7 +7,9 @@ package Entities;
  */
 public class CurrentUser {
     private static CurrentUser currentUser = null;
+
     private User user;
+
 
     private CurrentUser(){}
     public static CurrentUser getInstance(){
