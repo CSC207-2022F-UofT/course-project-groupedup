@@ -2,14 +2,17 @@ package group_creation_use_case;
 
 import Entities.Group;
 
+import java.io.IOException;
+
 public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
-    final GroupDSGateway groupDSGateway;
     final GroupRegisterOutputBoundary groupPresenter;
     final GroupFactory groupFactory;
 
-    public GroupRegisterInteractor(GroupDSGateway groupDSGateway, GroupRegisterOutputBoundary groupPresenter,
+    final NewGroupDSGateway newGroupDSGateway;
+
+    public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
-        this.groupDSGateway= groupDSGateway;
+        this.newGroupDSGateway = newGroupDSGateway;
         this.groupPresenter = groupPresenter;
         this.groupFactory = groupFactory;
 
@@ -24,14 +27,14 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 
     @Override
     public GroupRegisterResponseModel create(GroupRegisterRequestModel requestModel) {
-        if (groupDSGateway.existsByIdentifier(requestModel.getGroupName())){
+        if (newGroupDSGateway.groupIdentifierExists(requestModel.getGroupName())){
             return groupPresenter.prepareFailView("Group already exists.");
         } else if (requestModel.getGroupName().equals("")){
             return groupPresenter.prepareFailView("Invalid group name.");
         }
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
-        groupDSGateway.save(groupDSRequestModel);
+        newGroupDSGateway.saveNewGroups(groupDSRequestModel);
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         return groupPresenter.prepareSuccessView(groupResponseModel);
     }

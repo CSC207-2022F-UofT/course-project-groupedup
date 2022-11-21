@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public interface Group extends Serializable {
+
     /**
      *
      * @return the group's unique group name
@@ -32,4 +33,7 @@ public interface Group extends Serializable {
     //public GroupProfile getProfile();
 
 
+    void removeApplication(String username);
+    String getGroupLeaderUsername();
+    void removeMember(String username);
 }

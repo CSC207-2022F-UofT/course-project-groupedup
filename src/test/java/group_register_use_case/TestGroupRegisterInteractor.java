@@ -12,7 +12,7 @@ class TestGroupRegisterInteractor {
 
     @Test
     void test_use_case_success() {
-        GroupDSGateway groupRepository = new InMemoryFileGroup();
+        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
         CurrentUser currentUser1 = CurrentUser.getInstance();
         UserPublicProfile testProfile = new UserPublicProfile();
         User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
@@ -22,7 +22,7 @@ class TestGroupRegisterInteractor {
             @Override
             public GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel group) {
                 assertEquals("Sohee's study group", group.getGroupName());
-                assertTrue(groupRepository.existsByIdentifier("Sohee's study group"));
+                assertTrue(groupRepository.groupIdentifierExists("Sohee's study group"));
                 return null;
             }
 
@@ -48,7 +48,7 @@ class TestGroupRegisterInteractor {
 
     @Test
     void test_use_case_group_exists() {
-        GroupDSGateway groupRepository = new InMemoryFileGroup();
+        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
         CurrentUser currentUser1 = CurrentUser.getInstance();
         UserPublicProfile testProfile = new UserPublicProfile();
         User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
@@ -77,13 +77,13 @@ class TestGroupRegisterInteractor {
         Group group = new NormalGroup("Sohee's study group");
         GroupRegisterDSRequestModel existingData = new GroupRegisterDSRequestModel(group,group.getGroupName());
 
-        groupRepository.save(existingData);
+        groupRepository.saveNewGroups(existingData);
 
         interactor.create(inputData);
     }
     @Test
     void test_use_case_group_name_empty() {
-        GroupDSGateway groupRepository = new InMemoryFileGroup();
+        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
         CurrentUser currentUser1 = CurrentUser.getInstance();
         UserPublicProfile testProfile = new UserPublicProfile();
         User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",

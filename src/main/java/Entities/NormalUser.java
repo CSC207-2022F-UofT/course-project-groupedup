@@ -49,6 +49,16 @@ public class NormalUser implements Serializable, User {
         return this.applicationsList;
     }
     public UserPublicProfile getUserPublicProfile() { return this.publicProfile; }
+
+    @Override
+    public void removeApplication(String groupName) {
+        this.applicationsList.remove(groupName);
+    }
+
+    @Override
+    public void removeGroup(String groupname) {
+        this.groups.remove(groupname);
+    }
     // check if valid new username in usecase
 //    public void changePassword(String password){
 //        this.password = password;

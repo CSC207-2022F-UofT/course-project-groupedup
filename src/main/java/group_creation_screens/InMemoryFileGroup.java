@@ -1,12 +1,13 @@
 package group_creation_screens;
 
-import group_creation_use_case.GroupDSGateway;
+import Entities.Group;
 import group_creation_use_case.GroupRegisterDSRequestModel;
+import group_creation_use_case.NewGroupDSGateway;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryFileGroup implements GroupDSGateway {
+public class InMemoryFileGroup implements NewGroupDSGateway {
     private Map<String, GroupRegisterDSRequestModel> groups = new HashMap<>();
 
     /**
@@ -14,8 +15,13 @@ public class InMemoryFileGroup implements GroupDSGateway {
      * @param groupRegisterDSRequestModel the data to save
      */
     @Override
-    public void save(GroupRegisterDSRequestModel groupRegisterDSRequestModel) {
+    public void saveNewGroups(GroupRegisterDSRequestModel groupRegisterDSRequestModel) {
         groups.put(groupRegisterDSRequestModel.getGroupName(), groupRegisterDSRequestModel);
+    }
+
+    @Override
+    public HashMap<String, Group> loadGroups() {
+        return null;
     }
 
     /**
@@ -25,7 +31,7 @@ public class InMemoryFileGroup implements GroupDSGateway {
      */
 
     @Override
-    public boolean existsByIdentifier(String groupName) {
+    public boolean groupIdentifierExists(String groupName) {
         return groups.containsKey(groupName);
     }
 }

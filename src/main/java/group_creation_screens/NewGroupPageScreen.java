@@ -20,6 +20,7 @@ public class NewGroupPageScreen extends JFrame implements ActionListener {
 
         JButton homePage = new JButton("Home Page");
         JButton editGroup = new JButton("Edit Group Information");
+        JButton pendingList = new JButton("Pending group list");
 
         groupname.setEditable(false);
 

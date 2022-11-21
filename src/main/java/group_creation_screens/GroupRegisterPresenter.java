@@ -10,6 +10,7 @@ public class GroupRegisterPresenter implements GroupRegisterOutputBoundary {
      */
     @Override
     public GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel response) {
+
         return response;
     }
 
