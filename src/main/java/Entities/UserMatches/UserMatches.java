@@ -25,10 +25,12 @@ import java.util.List;
  * <p>
  * getMatchesWithScore(): return matches, List<GroupScore>
  * <p>
- * getMatchesWithoutScore(): returns the ordered list of Groups without Score
+ * getMatchesWithoutScoreAsString(): returns the ordered list of Groups without Score
  * <p>
  * cutByCourseCodeAndMemberList(): Removes all groups that are not a part of the User's preferred course code or if
  * the User is already a part of the group
+ * <p>
+ * matchToString(GroupScore): Turn the respective group score into a presentable String for the interactor
  */
 public class UserMatches implements MatchingAlgorithm {
     private User user;
@@ -70,13 +72,13 @@ public class UserMatches implements MatchingAlgorithm {
     }
 
     /**
-     * Get the matches without the score
+     * Get the matches without the score as a string
      * @return ordered list of groups in matches
      */
-    public List<Group> getMatchesWithoutScore() {
-        List<Group> g = new ArrayList<>(0);
+    public List<String> getMatchesWithoutScoreAsString() {
+        List<String> g = new ArrayList<>(0);
         for (GroupScore gS : this.matches) {
-            g.add(gS.getGroup());
+            g.add(matchToString(gS));
         }
         return g;
     }
@@ -89,5 +91,15 @@ public class UserMatches implements MatchingAlgorithm {
         String target = user.getUserPublicProfile().getCoursePreferences("Course Code");
         groups.removeIf(g -> !(target.contains(g.getGroupProfile().getCourseCode())));
         groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(user.getUsername())));
+    }
+
+    /**
+     * Turn the respective group score into a presentable String for the interactor
+     * @param groupScore: input group score
+     * @return the course code and the group name as a joint string
+     */
+    public String matchToString(GroupScore groupScore){
+        Group group = groupScore.getGroup();
+        return group.getGroupProfile().getCourseCode() + ": " +  group.getGroupName();
     }
 }

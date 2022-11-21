@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * The matching algorithm use case interactor. It will get groups from the DsGateWay. If the list of groups
  * is empty it will have the presenter report error. Otherwise, it will make a UserMatches instance to rank the groups
- * according to similarity with the user's preferences. Next, the interactor will make a list of the groups' as
- * Strings and return a success message and the list to Presenter
+ * according to similarity with the user's preferences. Next, the interactor will take the matches as strings
+ * and return a success message and the list to Presenter
  * */
 
 public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBoundary{
@@ -37,16 +37,14 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
             User currentUser = matchingAlgorithmDsGateWay.loadUser(requestModel.getUsername());
             HashMap<String, Group> groupMap = matchingAlgorithmDsGateWay.loadGroups();
 
-            List<Group> groups = (List<Group>) groupMap.values();
+            List<Group> groups = new ArrayList<>(groupMap.values());
+
             if (groups.isEmpty()) {
                 return matchingAlgorithmOutputBoundary.prepareFailView("No Matches Found");
             }
             UserMatches userMatches = new UserMatches(currentUser, groups);
-            groups = userMatches.getMatchesWithoutScore();
-            List<String> groupsAsString = new ArrayList<>();
-            for (Group g : groups) {
-                groupsAsString.add(g.toString());
-            }
+            List<String> groupsAsString = userMatches.getMatchesWithoutScoreAsString();
+
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
                     new MatchingAlgorithmResponseModel("Matches Updated", groupsAsString);
 
