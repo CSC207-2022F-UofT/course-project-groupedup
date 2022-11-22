@@ -65,9 +65,9 @@ public class GroupScore implements Comparable<GroupScore> {
         double total = 0.0;
         UserPublicProfile u = this.user.getUserPublicProfile();
         HashMap<String, String> userPref = u.getPreferences();
-        GroupProfile g = this.group.getGroupProfile();
-
+        GroupProfile g = this.group.getProfile();
         HashMap<String, String> groupPref = g.getPreferences();
+
         for (String keyUser: userPref.keySet()){
             for (String keyGroup: groupPref.keySet()){
                 if (keyUser.equals(keyGroup)){

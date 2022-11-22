@@ -89,7 +89,7 @@ public class UserMatches implements MatchingAlgorithm {
      */
     public void cutByCourseCodeAndMemberList() {
         String target = user.getUserPublicProfile().getCoursePreferences("Course Code");
-        groups.removeIf(g -> !(target.contains(g.getGroupProfile().getCourseCode())));
+        groups.removeIf(g -> !(target.contains(g.getProfile().getCourseCode())));
         groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(user.getUsername())));
     }
 
@@ -100,6 +100,6 @@ public class UserMatches implements MatchingAlgorithm {
      */
     public String matchToString(GroupScore groupScore){
         Group group = groupScore.getGroup();
-        return group.getGroupProfile().getCourseCode() + ": " +  group.getGroupName();
+        return group.getProfile().getCourseCode() + ": " +  group.getGroupName();
     }
 }
