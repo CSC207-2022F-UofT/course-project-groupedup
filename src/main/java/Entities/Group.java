@@ -30,7 +30,7 @@ public interface Group extends Serializable {
      */
     public boolean setGroupLeader(String username);
 
-    //public GroupProfile getProfile();
+    public GroupProfile getProfile();
 
 
     void removeApplication(String username);
