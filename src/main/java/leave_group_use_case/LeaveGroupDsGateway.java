@@ -4,9 +4,10 @@ import Entities.Group;
 import Entities.User;
 
 public interface LeaveGroupDsGateway {
-    boolean groupExists(String groupname);
+    boolean groupExists(String groupName);
     User getUser(String username);
-    Group getGroup(String groupname);
+    Group getGroup(String groupName);
+    void deleteGroup(String groupName);
 
     /**
      * Updates the current user after user's groups list has changed. Saves to repository.
@@ -16,9 +17,9 @@ public interface LeaveGroupDsGateway {
 
     /**
      * Updates the group after group's members list has changed. Saves to repository.
-     * @param groupname the name of the group
+     * @param groupName the name of the group
      */
-    void updateGroup(String groupname);
+    void updateGroup(String groupName);
     boolean userInGroup(String username, String groupName);
 
     /**

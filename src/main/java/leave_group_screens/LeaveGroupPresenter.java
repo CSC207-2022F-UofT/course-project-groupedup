@@ -26,4 +26,9 @@ public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
     public LeaveGroupResponseModel prepareFailureView(String error) {
         throw new LeaveGroupFailed(error);
     }
+
+    @Override
+    public LeaveGroupResponseModel prepareGroupLeaderView(LeaveGroupResponseModel responseModel) {
+        return null;
+    }
 }

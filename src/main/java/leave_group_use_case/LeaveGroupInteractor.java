@@ -51,8 +51,19 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
         }
 
         if (Objects.equals(group.getGroupLeaderUsername(), user.getUsername())) {
-            return outputBoundary.prepareFailureView("Oops! You're Group Leader for this group." +
-                    "Please transfer leadership or delete group before leaving.");
+            /*if (group.getGroupMembers().size() == 1) {
+                dsGateway.deleteGroup(group.getGroupName());
+                LeaveGroupResponseModel successModel = new LeaveGroupResponseModel(user.getUsername(),
+                        group.getGroupName(), "Deleted Group");
+                return outputBoundary.prepareSuccessView(successModel);
+            }*/
+
+            // will have to confer with sohee on how to get the number of members in a group? because i don't understand
+            // why I need to pass in a hashmap of all users as a parameter.
+
+            LeaveGroupResponseModel groupLeaderModel = new LeaveGroupResponseModel(user.getUsername(),
+                    group.getGroupName(), "Group Leader");
+            return outputBoundary.prepareGroupLeaderView(groupLeaderModel);
         }
 
         user.removeGroup(group.getGroupName());
@@ -62,7 +73,7 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
         dsGateway.updateGroup(group.getGroupName());
 
         LeaveGroupResponseModel responseModel = new LeaveGroupResponseModel(user.getUsername(),
-                group.getGroupName());
+                group.getGroupName(), "Left Group");
 
         return outputBoundary.prepareSuccessView(responseModel);
     }

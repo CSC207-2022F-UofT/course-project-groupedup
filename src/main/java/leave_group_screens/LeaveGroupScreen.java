@@ -5,7 +5,6 @@ import leave_group_use_case.LeaveGroupResponseModel;
 import javax.swing.*;
 
 public class LeaveGroupScreen extends JFrame {
-
     LeaveGroupController leaveGroupController;
     String username;
     String groupName;
@@ -33,10 +32,19 @@ public class LeaveGroupScreen extends JFrame {
 
             String username = leftGroup.getUsername();
             String groupName = leftGroup.getGroupname();
+            String message = leftGroup.getMessage();
+
+            if (message.equals("Group Leader")) {
+                EditGroupProfileController editGroupController = new EditGroupProfileController(...);
+                GroupLeaderFailureScreen groupLeaderScreen = new GroupLeaderFailureScreen(username, groupName,
+                        editGroupController);
+            } else if (message.equals("Deleted Group")) {
+                JOptionPane.showMessageDialog(null, username + " left group " +
+                        groupName + " and the group was deleted.");
+            }
 
             JOptionPane.showMessageDialog(null, username + " left group " +
                     groupName + ".");
         }
     }
 }
-
