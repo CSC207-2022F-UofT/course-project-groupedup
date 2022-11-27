@@ -1,8 +1,8 @@
-package pendinglistscreens;
+package pending_list_screens;
 
-import editpendinglist.EditPendingListInputBoundary;
-import editpendinglist.EditPendingListRequestModel;
-import editpendinglist.EditPendingListResponseModel;
+import edit_pending_list.EditPendingListInputBoundary;
+import edit_pending_list.EditPendingListRequestModel;
+import edit_pending_list.EditPendingListResponseModel;
 
 /**
  * Executes the edit pending list use case.

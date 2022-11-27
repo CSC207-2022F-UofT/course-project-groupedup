@@ -1,13 +1,8 @@
 import Entities.*;
-import MultiUsecaseUtil.SerializeDataAccess;
-import editpendinglist.*;
+import edit_pending_list.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pendinglistscreens.PendingListDataAccess;
-
-import java.util.HashMap;
-
-import static org.junit.Assert.*;
+import pending_list_screens.PendingListDataAccess;
 
 public class EditPendingListInteractorTest {
     @Test

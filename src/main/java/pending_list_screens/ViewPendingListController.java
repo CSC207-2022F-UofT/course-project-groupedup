@@ -1,8 +1,8 @@
-package pendinglistscreens;
+package pending_list_screens;
 
-import viewpendinglist.ViewPendingListInputBoundary;
-import viewpendinglist.ViewPendingListRequestModel;
-import viewpendinglist.ViewPendingListResponseModel;
+import view_pending_list.ViewPendingListInputBoundary;
+import view_pending_list.ViewPendingListRequestModel;
+import view_pending_list.ViewPendingListResponseModel;
 
 /**
  * Executes the view pending list use case.

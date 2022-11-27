@@ -1,4 +1,4 @@
-package editpendinglist;
+package edit_pending_list;
 
 public interface EditPendingListOutputBoundary {
     EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel success);

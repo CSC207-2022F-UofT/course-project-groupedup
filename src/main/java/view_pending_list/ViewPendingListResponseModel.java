@@ -1,4 +1,4 @@
-package viewpendinglist;
+package view_pending_list;
 
 import java.util.ArrayList;
 

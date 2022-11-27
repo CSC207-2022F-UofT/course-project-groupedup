@@ -1,4 +1,4 @@
-package editpendinglist;
+package edit_pending_list;
 
 public class EditPendingListResponseModel {
     // TODO: figure out what parameters are required to create relevant screens

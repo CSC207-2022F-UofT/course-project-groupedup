@@ -1,4 +1,4 @@
-package editpendinglist;
+package edit_pending_list;
 
 import Entities.Group;
 import Entities.User;

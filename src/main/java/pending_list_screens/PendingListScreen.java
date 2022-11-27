@@ -1,6 +1,6 @@
-package pendinglistscreens;
+package pending_list_screens;
 
-import editpendinglist.EditPendingListResponseModel;
+import edit_pending_list.EditPendingListResponseModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

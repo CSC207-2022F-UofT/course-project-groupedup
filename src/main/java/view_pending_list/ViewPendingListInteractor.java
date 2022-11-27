@@ -1,9 +1,7 @@
-package viewpendinglist;
+package view_pending_list;
 
 import Entities.Group;
 import Entities.User;
-import editpendinglist.EditPendingListDsGateway;
-import pendinglistscreens.ViewPendingListPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

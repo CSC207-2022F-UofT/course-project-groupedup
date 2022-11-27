@@ -1,11 +1,10 @@
-package pendinglistscreens;
+package pending_list_screens;
 
 import Entities.Group;
 import Entities.User;
-import editpendinglist.EditPendingListDsGateway;
-import viewpendinglist.ViewPendingListDsGateway;
+import edit_pending_list.EditPendingListDsGateway;
+import view_pending_list.ViewPendingListDsGateway;
 
-import java.io.*;
 import java.util.HashMap;
 
 public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway {
