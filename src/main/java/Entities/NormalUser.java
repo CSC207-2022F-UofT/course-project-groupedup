@@ -28,6 +28,8 @@ public class NormalUser implements Serializable, User {
         this.name = name;
         this.email = email;
         this.publicProfile = publicProfile;
+        this.applicationsList = new HashMap<>();
+        this.groups = new HashMap<>();
     }
 
     public String getUsername(){

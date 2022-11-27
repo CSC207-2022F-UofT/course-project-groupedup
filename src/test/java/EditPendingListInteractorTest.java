@@ -1,70 +1,55 @@
-import Entities.Group;
-import Entities.User;
+import Entities.*;
+import MultiUsecaseUtil.SerializeDataAccess;
 import editpendinglist.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import pendinglistscreens.PendingListDataAccess;
 
 import java.util.HashMap;
 
-public class EditPendingListInteractorTest {
+import static org.junit.Assert.*;
 
+public class EditPendingListInteractorTest {
     @Test
     public void addOrRemoveUser() {
-        EditPendingListDsGateway repository = new EditPendingListDsGateway() {
-            @Override
-            public User getUser(String username) {
-                return null;
-            }
+        String username = "sharonh";
+        String groupName = "csc207";
+        User user = new NormalUser(username, "pw", "Sharon", "syt.hsieh@mail.utoronto.ca",
+                new UserPublicProfile());
 
-            @Override
-            public Group getGroup(String groupName) {
-                return null;
-            }
+        // added this so Group entity doesn't cause an error when setting group leader
+        CurrentUser currentUser1 = CurrentUser.getInstance();
+        UserPublicProfile testProfile = new UserPublicProfile();
+        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+                testProfile);
+        currentUser1.setUser(testUser);
 
-            @Override
-            public HashMap<String, User> getUserMap() {
-                return null;
-            }
+        Group group = new NormalGroup(groupName);
+        EditPendingListDsGateway repository = new PendingListDataAccess(username, user, groupName, group);
+        user.getApplicationsList().put(groupName, group);
+        group.addRequest(username);
 
-            @Override
-            public void updateUser(String username) {
-
-            }
-
-            @Override
-            public void updateGroup(String groupName) {
-
-            }
-
-            @Override
-            public boolean userInGroup(String username, String groupName) {
-                return false;
-            }
-
-            @Override
-            public boolean groupInUser(String groupName, String username) {
-                return false;
-            }
-
-            @Override
-            public boolean userExists(String username) {
-                return false;
-            }
-        };
         EditPendingListOutputBoundary presenter = new EditPendingListOutputBoundary() {
             @Override
-            public EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel pendingList) {
-
+            public EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel responseModel) {
+                String responseGroupName = responseModel.getGroupName();
+                String responseUsername = responseModel.getUsername();
+                Assertions.assertTrue(repository.groupInUser(responseGroupName, responseUsername));
+                Assertions.assertTrue(repository.userInGroup(responseUsername, responseGroupName));
+                Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
+                Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
                 return null;
             }
 
             @Override
             public EditPendingListResponseModel prepareFailView(String error) {
+                Assertions.fail("Use case failure is unexpected.");
                 return null;
             }
         };
 
         EditPendingListInputBoundary interactor = new EditPendingListInteractor(repository, presenter);
-        EditPendingListRequestModel inputData = new EditPendingListRequestModel("sharonh", "csc207",
+        EditPendingListRequestModel inputData = new EditPendingListRequestModel(username, groupName,
                 true);
         interactor.addOrRemoveUser(inputData);
 

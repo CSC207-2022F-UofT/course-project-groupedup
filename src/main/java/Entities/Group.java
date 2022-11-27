@@ -14,4 +14,6 @@ public interface Group extends Serializable {
     void removeMember(String username);
     void addMember(String username);
     void removeFromRequests(String username);
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    void addRequest(String username);
 }

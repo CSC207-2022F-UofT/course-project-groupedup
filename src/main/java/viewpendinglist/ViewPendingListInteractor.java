@@ -35,7 +35,7 @@ public class ViewPendingListInteractor implements ViewPendingListInputBoundary {
     public ViewPendingListResponseModel getUsernamesList(ViewPendingListRequestModel requestModel) {
         String groupName = requestModel.getGroupName();
         Group group = dsGateway.getGroup(groupName);
-        HashMap<String, User> userMap = dsGateway.getUserMap();
+        HashMap<String, User> userMap = dsGateway.loadUsers();
 
         ArrayList<String> usernamesList = new ArrayList<>(group.getMemberRequests(userMap).keySet());
 

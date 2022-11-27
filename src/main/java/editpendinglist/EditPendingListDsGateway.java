@@ -12,7 +12,7 @@ public interface EditPendingListDsGateway {
     /**
      * @return a hashmap of all saved users, mapping username to user object
      */
-    HashMap<String, User> getUserMap();
+    HashMap<String, User> loadUsers();
     // I'm not sure what the parameters for the 2 methods below should be, they might be response models
 
     /**
@@ -28,6 +28,8 @@ public interface EditPendingListDsGateway {
     void updateGroup(String groupName);
     boolean userInGroup(String username, String groupName);
     boolean groupInUser(String groupName, String username);
-    boolean userExists(String username);
+    boolean userInMemberRequests(String username, String groupName);
+    boolean groupInApplications(String groupName, String username);
+    boolean userIdentifierExists(String username);
 
 }

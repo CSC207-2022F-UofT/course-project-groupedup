@@ -11,5 +11,5 @@ public interface ViewPendingListDsGateway {
     /**
      * @return a hashmap of all saved users, mapping username to user object
      */
-    HashMap<String, User> getUserMap();
+    HashMap<String, User> loadUsers();
 }

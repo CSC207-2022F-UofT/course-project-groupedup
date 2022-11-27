@@ -35,13 +35,13 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         String groupName = requestModel.getGroupName();
         boolean pendingStatus = requestModel.getPendingStatus();
 
-        if (!dsGateway.userExists(username)) {
+        if (!dsGateway.userIdentifierExists(username)) {
             return presenter.prepareFailView("This user has deleted their account.");
         }
 
         User user = dsGateway.getUser(username);
         Group group = dsGateway.getGroup(groupName);
-        HashMap<String, User> userMap = dsGateway.getUserMap();
+        HashMap<String, User> userMap = dsGateway.loadUsers();
 
         if (!group.getMemberRequests(userMap).containsValue(user)) {
             return presenter.prepareFailView("This user has cancelled their join request.");
