@@ -17,15 +17,15 @@ public interface EditPendingListDsGateway {
 
     /**
      * Updates the repository with the accepted/rejected user's updated group information
-     * @param username the user's username
+     * @param user the updated user
      */
-    void updateUser(String username);
+    void updateUser(User user);
 
     /**
      * Updates the repository with the group's updated member information
-     * @param groupName the group's name
+     * @param group the updated group
      */
-    void updateGroup(String groupName);
+    void updateGroup(Group group);
     boolean userInGroup(String username, String groupName);
     boolean groupInUser(String groupName, String username);
     boolean userInMemberRequests(String username, String groupName);

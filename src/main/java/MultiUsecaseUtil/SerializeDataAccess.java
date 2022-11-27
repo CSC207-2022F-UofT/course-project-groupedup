@@ -195,11 +195,10 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     }
 
 
-    // TODO: consider making parameter a request model, consider finding another way to do this without duplicate code
-    // if the parameter is a request model, we'll need to make an interface for the request models of all use cases
-    // that use these methods
+    // TODO: consider finding another way to do this without duplicate code?
+    // Also I'm passing in the user itself because it's the only way to access the updated information
     @Override
-    public void updateUser(String username) {
+    public void updateUser(User user) {
         OutputStream file = null;
         try {
             file = new FileOutputStream("database/user.ser");
@@ -213,7 +212,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        User user = getUser(username);
+        String username = user.getUsername();
         // FYI this is the only difference between this and saveNewUser (put -> replace)
         this.userMap.replace(username, user);
         try {
@@ -227,7 +226,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     }
 
     @Override
-    public void updateGroup(String groupName) {
+    public void updateGroup(Group group) {
         OutputStream file = null;
         try {
             file = new FileOutputStream("database/group.ser");
@@ -241,7 +240,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Group group = getGroup(groupName);
+        String groupName = group.getGroupName();
         this.groupMap.replace(groupName, group);
         try {
             output.writeObject(this.groupMap);

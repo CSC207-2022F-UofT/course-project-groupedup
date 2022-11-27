@@ -7,6 +7,10 @@ import view_pending_list.ViewPendingListDsGateway;
 
 import java.util.HashMap;
 
+/**
+ * Simple imitation of SerializeDataAccess used only for the purpose of testing.
+ */
+
 public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway {
 
     private HashMap<String, Group> groupMap;
@@ -40,14 +44,14 @@ public class PendingListDataAccess implements EditPendingListDsGateway, ViewPend
     }
 
     @Override
-    public void updateUser(String username) {
-        User user = getUser(username);
+    public void updateUser(User user) {
+        String username = user.getUsername();
         this.userMap.replace(username, user);
     }
 
     @Override
-    public void updateGroup(String groupName) {
-        Group group = getGroup(groupName);
+    public void updateGroup(Group group) {
+        String groupName = group.getGroupName();
         this.groupMap.replace(groupName, group);
     }
 

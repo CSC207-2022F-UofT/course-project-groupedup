@@ -15,14 +15,15 @@ public class EditPendingListInteractorTest {
                 new UserPublicProfile());
 
         // added this so Group entity doesn't cause an error when setting group leader
-        CurrentUser currentUser1 = CurrentUser.getInstance();
-        UserPublicProfile testProfile = new UserPublicProfile();
+        CurrentUser currentUser = CurrentUser.getInstance();
         User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                testProfile);
-        currentUser1.setUser(testUser);
+                new UserPublicProfile());
+        currentUser.setUser(testUser);
 
         Group group = new NormalGroup(groupName);
         EditPendingListDsGateway repository = new PendingListDataAccess(username, user, groupName, group);
+
+        // imitates ApplyToGroup use case, I'll use Ipek's methods when she merges them
         user.getApplicationsList().put(groupName, group);
         group.addRequest(username);
 
