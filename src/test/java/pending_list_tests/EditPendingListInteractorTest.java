@@ -1,3 +1,5 @@
+package pending_list_tests;
+
 import Entities.*;
 import edit_pending_list.*;
 import org.junit.jupiter.api.Assertions;
