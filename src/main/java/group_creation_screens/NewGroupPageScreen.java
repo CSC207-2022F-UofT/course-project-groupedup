@@ -1,46 +1,53 @@
 package group_creation_screens;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewGroupPageScreen extends JFrame implements ActionListener {
-    JTextField groupname = new JTextField(15);
+public class NewGroupPageScreen implements ActionListener {
+    JFrame frame = new JFrame();
+    String groupname;
+    JButton homePage = new JButton("Home Page");
+    JButton editGroup = new JButton("Edit Group Information");
+    JButton pendingList = new JButton("Pending Group List");
+    JLabel groupNameText = new JLabel();
+    GroupRegisterController groupRegisterController;
+
+
     /**
      * After successful creation of a group, this page will display the newly created Group.
      * The User can then click on the 'Edit Group Information' button if they want to edit
      * the group's profile and add more details. Otherwise, they can click the 'Home Page'
      * button and go back to the home page.
      */
-    public NewGroupPageScreen() {
+    public NewGroupPageScreen(String groupname, GroupRegisterController groupRegisterController) {
+        this.groupname = groupname;
+        this.groupRegisterController = groupRegisterController;
 
-        JLabel title = new JLabel("New Group");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        groupNameText.setText("Group's name: " + groupname);
+        groupNameText.setBounds(100, 50, 200, 40);
+        //groupNameText.setBounds(100, 20, 200, 40);
 
-        JButton homePage = new JButton("Home Page");
-        JButton editGroup = new JButton("Edit Group Information");
-        JButton pendingList = new JButton("Pending group list");
-
-        groupname.setEditable(false);
-
-        JPanel buttons = new JPanel();
-        buttons.add(homePage);
-        buttons.add(editGroup);
-
+        homePage.setBounds(100, 150, 200, 40);
+        homePage.setFocusable(false);
         homePage.addActionListener(this);
+
+        editGroup.setBounds(100, 200, 200, 40);
         editGroup.addActionListener(this);
 
-        JPanel main = new JPanel();
-        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+        pendingList.setBounds(100, 250, 200, 40);
+        pendingList.addActionListener(this);
 
-        main.add(title);
-        main.add(new JLabel("Group name"));
-        main.add(groupname);
-        main.add(buttons);
+        frame.add(groupNameText);
+        frame.add(homePage);
+        frame.add(editGroup);
+        frame.add(pendingList);
 
-        this.setContentPane(main);
-        this.pack();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.setLayout(null);
+        frame.setVisible(true);
 
     }
 
@@ -48,6 +55,22 @@ public class NewGroupPageScreen extends JFrame implements ActionListener {
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
+
         System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource() == homePage){
+            try {
+                HomePage nextScreen = new HomePage(groupRegisterController);
+                frame.dispose();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(frame, e.getMessage());
+            }
+        }
+        else if (evt.getSource() == editGroup){
+
+        }
+        else if (evt.getSource() == pendingList){
+
+        }
     }
 }

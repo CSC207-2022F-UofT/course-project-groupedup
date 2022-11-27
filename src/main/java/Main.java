@@ -10,34 +10,46 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame application = new JFrame("Group Creation Screen");
-        CardLayout cardLayout = new CardLayout();
-        JPanel screens = new JPanel(cardLayout);
-        application.add(screens);
 
-        SerializeDataAccess dataAccess = null;
-        try {
-            dataAccess = new SerializeDataAccess();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        NewGroupDSGateway newGroup = dataAccess;
+        // SerializeDataAccess doesn't seem to be working right now
+        // so im using InMemoryFileGroup right now temporarily
+
+//
+//        SerializeDataAccess dataAccess = null;
+//        try {
+//            dataAccess = new SerializeDataAccess();
+//        } catch (IOException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+
+         NewGroupDSGateway newGroup = new InMemoryFileGroup();
 
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter();
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
-        GroupRegisterController userRegisterController = new GroupRegisterController(
+        GroupRegisterController groupRegisterController = new GroupRegisterController(
                 interactor
         );
 
-        // Build the GUI, plugging in the parts
-        GroupRegisterScreen registerScreen = new GroupRegisterScreen(userRegisterController);
-        screens.add(registerScreen, "welcome");
-        cardLayout.show(screens, "register");
-        application.pack();
-        application.setVisible(true);
+         HomePage test = new HomePage(groupRegisterController);
 
-        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
-        screens.add(newGroupPageScreen, "register");
+
+
+//        registerScreen.pack();
+//        registerScreen.setVisible(true);
+//        JFrame application = new JFrame("GroupedUp");
+//        application.pack();
+//        application.setVisible(true);
+
+
+        // Build the GUI, plugging in the parts
+//        GroupRegisterScreen registerScreen = new GroupRegisterScreen(userRegisterController);
+//        screens.add(registerScreen, "Register Group");
+//        cardLayout.show(screens, "Register Group");
+//        application.pack();
+//        application.setVisible(true);
+//
+//        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
+//        screens.add(newGroupPageScreen, "New Group Page");
     }
 }
