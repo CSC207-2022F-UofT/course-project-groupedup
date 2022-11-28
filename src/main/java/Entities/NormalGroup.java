@@ -74,10 +74,14 @@ public class NormalGroup implements Serializable, Group {
         return true;
     }
 
-    @Override
-    public void removeApplication(String username) {
-        this.memberRequests.remove(username);
+    public void addMember(String username) {
+        groupMembers.put(username, username);
     }
 
+    public void removeFromRequests(String username) {
+        memberRequests.remove(username);
+    }
 
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    public void addRequest(String username) {memberRequests.put(username, username); }
 }

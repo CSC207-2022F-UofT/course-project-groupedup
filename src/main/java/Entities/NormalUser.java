@@ -10,6 +10,7 @@ import java.util.HashMap;
  * username is login credential
  */
 
+public class NormalUser implements Serializable, User {
     private String name;
     private final String username;
     private String password;
@@ -27,6 +28,8 @@ import java.util.HashMap;
         this.name = name;
         this.email = email;
         this.publicProfile = publicProfile;
+        this.applicationsList = new HashMap<>();
+        this.groups = new HashMap<>();
     }
 
     public String getUsername(){
@@ -49,9 +52,20 @@ import java.util.HashMap;
     }
     public UserPublicProfile getUserPublicProfile() { return this.publicProfile; }
 
-    // check if valid new username in usecase
-//    public void changePassword(String password){
-//        this.password = password;
-//    }
-}
+    @Override
+    public void removeApplication(String groupName) {
+        this.applicationsList.remove(groupName);
+    }
 
+    @Override
+    public void removeGroup(String groupName) {
+        this.groups.remove(groupName);
+    }
+    // check if valid new username in usecase
+    // public void changePassword(String password){
+    // this.password = password;
+    // }
+    public void addGroup(Group group) {
+        this.groups.put(group.getGroupName(), group);
+    }
+}
