@@ -9,8 +9,8 @@ public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutp
         return userPublicProfileInfo;
     }
 
-//    @Override
-//    public ViewUserPublicProfileResponseModel prepareFailView(String error) {
-//        //TODO: throw error
-//    }
+    @Override
+    public ViewUserPublicProfileResponseModel prepareFailView(String error) {
+        throw new ViewUserPublicProfileFailed(error);
+    }
 }

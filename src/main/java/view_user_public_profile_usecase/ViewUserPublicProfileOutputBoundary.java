@@ -7,5 +7,5 @@ public interface ViewUserPublicProfileOutputBoundary {
      * @return A view user public profile response model.
      */
     ViewUserPublicProfileResponseModel prepareSuccessView(ViewUserPublicProfileResponseModel viewUserProfileResponse);
-//    ViewUserPublicProfileResponseModel prepareFailView(String message);
+    ViewUserPublicProfileResponseModel prepareFailView(String message);
 }

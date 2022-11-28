@@ -1,12 +1,22 @@
 package edit_user_public_profile_screens;
+import view_user_public_profile_screens.ViewUserPublicProfileScreen;
+import edit_user_public_profile_screens.EditUserPublicProfileController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditUserPublicProfileScreen extends JFrame implements ActionListener{
+    EditUserPublicProfileController controller;
+    JButton submit = new JButton("Submit");
+    JButton exit = new JButton("Exit");
+    JCheckBox locationOption1 = new JCheckBox("Online");
+    JCheckBox locationOption2 = new JCheckBox("In-person");
 
-    public EditUserPublicProfileScreen() {
+
+    public EditUserPublicProfileScreen(EditUserPublicProfileController controller) {
+        this.controller = controller;
         this.setVisible(true);
         this.setSize(500, 500);
 
@@ -17,7 +27,7 @@ public class EditUserPublicProfileScreen extends JFrame implements ActionListene
         JLabel title = new JLabel("Edit User Public Profile");
         menubar.add(title);
 
-        JButton exit = new JButton("Exit");
+        exit.addActionListener(this);
         menubar.add(exit);
 
         main.add(menubar, BorderLayout.NORTH);
@@ -28,8 +38,8 @@ public class EditUserPublicProfileScreen extends JFrame implements ActionListene
 
         JLabel locationLabel = new JLabel("Location: ");
         JPanel locationOptions = new JPanel();
-        JCheckBox locationOption1 = new JCheckBox("Online");
-        JCheckBox locationOption2 = new JCheckBox("In-person");
+//        JCheckBox locationOption1 = new JCheckBox("Online");
+//        JCheckBox locationOption2 = new JCheckBox("In-person");
         locationOptions.add(locationOption1);
         locationOptions.add(locationOption2);
 
@@ -44,7 +54,6 @@ public class EditUserPublicProfileScreen extends JFrame implements ActionListene
 
         JLabel timeCommitmentLabel = new JLabel("Time Commitment: ");
         JPanel timeCommitmentOptions = new JPanel();
-
         ButtonGroup options = new ButtonGroup();
         JRadioButton timeCommitmentOption1 = new JRadioButton("0-2 hours");
         JRadioButton timeCommitmentOption2 = new JRadioButton("2-4 hours");
@@ -67,11 +76,25 @@ public class EditUserPublicProfileScreen extends JFrame implements ActionListene
 
         main.add(preferences, BorderLayout.CENTER);
 
+        submit.addActionListener(this);
+        submit.setBounds(100,100,200,40);
+        main.add(submit, BorderLayout.SOUTH);
+
         this.add(main);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == this.submit){
+            this.dispose();
+            this.controller.editedChanges("test1", "jfdoajf","sjoajfd", "djsaofj",
+                    "fkjdoajfd", "fdnsgjf");
+            new ViewUserPublicProfileScreen("hello", "jfdoajf", "fkjdoajfd", "fdnsgjf");
+        }
 
+        if(e.getSource() == this.exit) {
+            this.dispose();
+            new ViewUserPublicProfileScreen("djsaojfd", "djsoajf", "djsoajf", "kdsaojf");
+        }
     }
 }
