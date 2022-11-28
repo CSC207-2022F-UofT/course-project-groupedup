@@ -3,7 +3,6 @@ package Entities;
 import java.io.Serializable;
 import java.util.HashMap;
 
-
 public interface User extends Serializable {
     String getUsername();
     String getPassword();
@@ -14,4 +13,5 @@ public interface User extends Serializable {
     UserPublicProfile getUserPublicProfile();
     void removeApplication(String groupName);
     void removeGroup(String groupName);
+    void addGroup(Group group);
 }
