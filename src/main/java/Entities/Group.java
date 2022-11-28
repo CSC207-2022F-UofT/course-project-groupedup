@@ -10,13 +10,10 @@ public interface Group extends Serializable {
     HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
 
     boolean setGroupLeader(String userID);
-    void removeApplication(String username);
     String getGroupLeaderUsername();
     void removeMember(String username);
-
-    // duplicate with Sharon's method. added this for my test, will delete once Ipek's PR is merged
-    void addRequest(String username);
-
-    // duplicate with other methods. added this for my test, will delete once other methods are merged
     void addMember(String username);
+    void removeFromRequests(String username);
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    void addRequest(String username);
 }

@@ -5,6 +5,7 @@ import Entities.User;
 import UserRegistrationUsecase.NewUserDSGateway;
 import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
 import cancel_application_use_case.CancelApplicationDsGateway;
+import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
 import leave_group_use_case.LeaveGroupDsGateway;
@@ -27,7 +28,7 @@ import java.util.HashMap;
  */
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, UpdateUserDSGateway,
-        CancelApplicationDsGateway, LeaveGroupDsGateway {
+        CancelApplicationDsGateway, LeaveGroupDsGateway, EditPendingListDsGateway {
 
     private HashMap<String, Group> groupMap;
     private HashMap<String, User> userMap;
@@ -111,18 +112,6 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         }
     }
 
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public User getUser(String username) {
-        return userMap.get(username);
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public Group getGroup(String groupname) {
-        return groupMap.get(groupname);
-    }
-
     @Override
     public void deleteGroup(String groupName) {
         OutputStream file = null;
@@ -148,89 +137,6 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public void updateUser(User user) {
-        OutputStream file = null;
-        try {
-            file = new FileOutputStream("database/user.ser");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
-        try {
-            output = new ObjectOutputStream(buffer);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String username = user.getUsername();
-        // FYI this is the only difference between this and saveNewUser (put -> replace)
-        this.userMap.replace(username, user);
-        try {
-            output.writeObject(this.userMap);
-            output.close();
-            buffer.close();
-            file.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public void updateGroup(Group group) {
-        OutputStream file = null;
-        try {
-            file = new FileOutputStream("database/group.ser");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
-        try {
-            output = new ObjectOutputStream(buffer);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String groupName = group.getGroupName();
-        this.groupMap.replace(groupName, group);
-        try {
-            output.writeObject(this.groupMap);
-            output.close();
-            buffer.close();
-            file.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public boolean userInGroup(String username, String groupName) {
-        return false;
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public boolean groupInUser(String username, String groupName) {
-        return false;
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public boolean userInGroupPendingList(String username, String groupName) {
-        Group group = groupMap.get(groupName);
-        return group.getMemberRequests(userMap).containsKey(username);
-    }
-
-    // duplicate with sharon's method... will remove and refactor once hers is merged
-    @Override
-    public boolean groupInUserApplicationsList(String username, String groupName) {
-        User user = userMap.get(username);
-        return user.getGroups().containsKey(groupName);
     }
 
     @Override
@@ -306,5 +212,97 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         } catch (RuntimeException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userMap.get(username);
+    }
+
+    @Override
+    public Group getGroup(String groupName) {
+        return groupMap.get(groupName);
+    }
+
+
+    // TODO: consider finding another way to do this without duplicate code?
+    // Also I'm passing in the user itself because it's the only way to access the updated information
+    @Override
+    public void updateUser(User user) {
+        OutputStream file = null;
+        try {
+            file = new FileOutputStream("database/user.ser");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        OutputStream buffer = new BufferedOutputStream(file);
+        ObjectOutput output = null;
+        try {
+            output = new ObjectOutputStream(buffer);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String username = user.getUsername();
+        // FYI this is the only difference between this and saveNewUser (put -> replace)
+        this.userMap.replace(username, user);
+        try {
+            output.writeObject(this.userMap);
+            output.close();
+            buffer.close();
+            file.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateGroup(Group group) {
+        OutputStream file = null;
+        try {
+            file = new FileOutputStream("database/group.ser");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        OutputStream buffer = new BufferedOutputStream(file);
+        ObjectOutput output = null;
+        try {
+            output = new ObjectOutputStream(buffer);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String groupName = group.getGroupName();
+        this.groupMap.replace(groupName, group);
+        try {
+            output.writeObject(this.groupMap);
+            output.close();
+            buffer.close();
+            file.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean userInGroup(String username, String groupName) {
+        Group group = getGroup(groupName);
+        return group.getGroupMembers(userMap).containsKey(username);
+    }
+
+    @Override
+    public boolean groupInUser(String groupName, String username) {
+        User user = getUser(username);
+        return user.getGroups().containsKey(groupName);
+    }
+
+    @Override
+    public boolean userInMemberRequests(String username, String groupName) {
+        Group group = getGroup(groupName);
+        return group.getMemberRequests(userMap).containsKey(groupName);
+    }
+
+    @Override
+    public boolean groupInApplications(String groupName, String username) {
+        User user = getUser(username);
+        return user.getApplicationsList().containsKey(groupName);
     }
 }
