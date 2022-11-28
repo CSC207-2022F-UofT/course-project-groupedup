@@ -69,3 +69,4 @@ public class NormalUser implements Serializable, User {
         this.groups.put(group.getGroupName(), group);
     }
 }
+

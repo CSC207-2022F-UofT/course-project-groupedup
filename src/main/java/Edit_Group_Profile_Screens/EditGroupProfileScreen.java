@@ -1,4 +1,7 @@
 package Edit_Group_Profile_Screens;
+import Screens.CancelAppScreen;
+import Screens.LeaveGroupScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class EditGroupProfileScreen extends JFrame implements ActionListener{
     EditGroupProfileController editController;
+    JButton saveEdits = new JButton("Save Edits");
+    JButton exit = new JButton("Exit");
 
     public EditGroupProfileScreen() {
         this.setVisible(true);
@@ -18,10 +23,8 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
          JLabel title = new JLabel("Edit Group Profile");
          menubar.add(title);
 
-         JButton exit = new JButton("Exit");
          menubar.add(exit);
 
-        JButton saveEdits = new JButton("Save Edits");
         menubar.add(saveEdits);
 
          main.add(menubar, BorderLayout.NORTH);
@@ -32,20 +35,20 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
 
         JLabel locationLabel = new JLabel("Location: ");
         JPanel locationOptions = new JPanel();
-        JCheckBox locationOption1 = new JCheckBox("Online");
-        JCheckBox locationOption2 = new JCheckBox("In-person");
+        JRadioButton locationOption1 = new JRadioButton("Online");
+        JRadioButton locationOption2 = new JRadioButton("In-person");
         locationOptions.add(locationOption1);
         locationOptions.add(locationOption2);
 
         JLabel meetingTimeLabel = new JLabel("Meeting Time: ");
         JPanel meetingTimeOptions = new JPanel();
-        JCheckBox meetingTimeOption1 = new JCheckBox("Monday");
-        JCheckBox meetingTimeOption2 = new JCheckBox("Tuesday");
-        JCheckBox meetingTimeOption3 = new JCheckBox("Wednesday");
-        JCheckBox meetingTimeOption4 = new JCheckBox("Thursday");
-        JCheckBox meetingTimeOption5 = new JCheckBox("Friday");
-        JCheckBox meetingTimeOption6 = new JCheckBox("Saturday");
-        JCheckBox meetingTimeOption7 = new JCheckBox("Sunday");
+        JRadioButton meetingTimeOption1 = new JRadioButton("Monday");
+        JRadioButton meetingTimeOption2 = new JRadioButton("Tuesday");
+        JRadioButton meetingTimeOption3 = new JRadioButton("Wednesday");
+        JRadioButton meetingTimeOption4 = new JRadioButton("Thursday");
+        JRadioButton meetingTimeOption5 = new JRadioButton("Friday");
+        JRadioButton meetingTimeOption6 = new JRadioButton("Saturday");
+        JRadioButton meetingTimeOption7 = new JRadioButton("Sunday");
         meetingTimeOptions.add(meetingTimeOption1);
         meetingTimeOptions.add(meetingTimeOption2);
         meetingTimeOptions.add(meetingTimeOption3);
@@ -80,10 +83,24 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
 
         main.add(preferences, BorderLayout.CENTER);
             this.add(main);
+            exit.addActionListener(this);
+            exit.setBounds(5, 5, 5 ,5);
+            this.add(exit);
+            saveEdits.addActionListener(this);
+            saveEdits.setBounds(50, 50, 5 ,5);
+            this.add(saveEdits);
         }
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            System.out.println("Click " + evt.getActionCommand());
-        }
-    }
+            if (evt.getSource() == this.exit) {
+                this.dispose();
+                new LeaveGroupScreen("Julia");
+            }
+            if (evt.getSource() == this.saveEdits) {
+                this.dispose();
+                new CancelAppScreen("Julia");
+            }
+            }
+
+}
