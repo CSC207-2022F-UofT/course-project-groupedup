@@ -7,24 +7,28 @@ import java.awt.event.ActionListener;
 public class EditGroupProfileScreen extends JFrame implements ActionListener{
     EditGroupProfileController editController;
 
-    public EditGroupProfileScreen(EditGroupProfileController editController) {
+    public EditGroupProfileScreen() {
         this.setVisible(true);
-        this.setSize(500, 500);
+        this.setSize(600, 500);
          JPanel main = new JPanel();
          main.setLayout(new BorderLayout());
 
          JPanel menubar = new JPanel();
+         menubar.setPreferredSize(new Dimension(main.getWidth(), 32));
          JLabel title = new JLabel("Edit Group Profile");
          menubar.add(title);
 
          JButton exit = new JButton("Exit");
          menubar.add(exit);
 
+        JButton saveEdits = new JButton("Save Edits");
+        menubar.add(saveEdits);
+
          main.add(menubar, BorderLayout.NORTH);
 
          /*Adding options*/
         JPanel preferences = new JPanel();
-        preferences.setLayout(new GridLayout(0, 2));
+        preferences.setLayout(new BoxLayout(preferences, BoxLayout.Y_AXIS));
 
         JLabel locationLabel = new JLabel("Location: ");
         JPanel locationOptions = new JPanel();
@@ -72,6 +76,7 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
 
         preferences.add(timeCommitmentLabel);
         preferences.add(timeCommitmentOptions);
+
 
         main.add(preferences, BorderLayout.CENTER);
             this.add(main);

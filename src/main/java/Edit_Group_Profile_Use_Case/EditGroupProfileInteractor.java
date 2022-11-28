@@ -1,4 +1,5 @@
 package Edit_Group_Profile_Use_Case;
+import Entities.NormalGroup;
 import Entities.Group;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
         }
 
         if (profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
-            Group group = profileDSGateway.findGroup(requestModel.getGroupName());
+            NormalGroup group = profileDSGateway.findGroup(requestModel.getGroupName());
             // group.getGroupProfile().setPreferences(requestModel.getPreferences());
             // group.getGroupProfile().setCourseCode(requestModel.getCourseCode());
             // group.getGroupProfile().setDescription(requestModel.getDescription());
