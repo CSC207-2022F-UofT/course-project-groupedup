@@ -3,6 +3,7 @@ import UserRegistrationUsecase.NewUserDSGateway;
 import group_creation_use_case.NewGroupDSGateway;
 import group_creation_screens.*;
 import group_creation_use_case.*;
+import Edit_Group_Profile_Screens.EditGroupProfileScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+        /*
         JFrame application = new JFrame("Group Creation Screen");
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
@@ -39,5 +41,9 @@ public class Main {
 
         NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
         screens.add(newGroupPageScreen, "register");
+         */
+
+        EditGroupProfileScreen editGroupProfile = new EditGroupProfileScreen();
+        // screens.add(editGroupProfile, "edit group");
     }
 }
