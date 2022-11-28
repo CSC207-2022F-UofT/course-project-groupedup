@@ -2,19 +2,19 @@ package leave_group_use_case;
 
 public class LeaveGroupRequestModel {
     private final String username;
-    private final String groupname;
+    private final String groupName;
 
     /**
      * @param username the username of the current user
-     * @param groupname the groupname of the group the user is leaving
+     * @param groupName the groupname of the group the user is leaving
      */
-    public LeaveGroupRequestModel(String username, String groupname) {
+    public LeaveGroupRequestModel(String username, String groupName) {
         this.username = username;
-        this.groupname = groupname;
+        this.groupName = groupName;
     }
 
-    public String getGroupname() {
-        return groupname;
+    public String getGroupName() {
+        return groupName;
     }
 
     public String getUsername() {

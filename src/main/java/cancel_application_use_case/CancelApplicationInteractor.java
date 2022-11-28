@@ -32,26 +32,26 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
     @Override
     public CancelApplicationResponseModel cancelApplication(CancelApplicationRequestModel requestModel) {
 
-        if (!dsGateway.groupExists(requestModel.getGroupname())) {
+        if (!dsGateway.groupIdentifierExists(requestModel.getGroupname())) {
             return outputBoundary.prepareFailureView("Group does not exist.");
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupname());
 
-        if(!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
-            return outputBoundary.prepareFailureView("User is not in group.");
+        if (!dsGateway.userInGroupPendingList(user.getUsername(), group.getGroupName())) {
+            return outputBoundary.prepareFailureView("User is not in group's pending list.");
         }
 
-        if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
-            return outputBoundary.prepareFailureView("Group is not in user's list.");
+        if (!dsGateway.groupInUserApplicationsList(user.getUsername(), group.getGroupName())) {
+            return outputBoundary.prepareFailureView("Group is not in user's applications list.");
         }
 
         user.removeApplication(group.getGroupName());
         group.removeApplication(user.getUsername());
 
-        dsGateway.updateUser(user.getUsername());
-        dsGateway.updateGroup(group.getGroupName());
+        dsGateway.updateUser(user);
+        dsGateway.updateGroup(group);
 
         CancelApplicationResponseModel responseModel = new CancelApplicationResponseModel(user.getUsername(),
                 group.getGroupName());

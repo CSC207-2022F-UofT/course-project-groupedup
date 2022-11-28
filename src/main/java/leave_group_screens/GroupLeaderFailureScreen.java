@@ -1,9 +1,11 @@
+/*
 package leave_group_screens;
 
 import leave_group_use_case.LeaveGroupResponseModel;
 
 import javax.swing.*;
 
+*/
 /**
  * OptionDialog JOptionPane shown when the current user tries leaving a group that
  * they are a Group Leader for, or a group that only contains one member.
@@ -17,7 +19,8 @@ import javax.swing.*;
  * I'll need to modify the leave group use case output boundary, interactor, and
  * presenter, as well as coordinate with the edit group use case controller, to
  * make this change. This file is currently empty.
- */
+ *//*
+
 public class GroupLeaderFailureScreen extends JFrame {
     EditGroupProfileController editGroupController;
     String username;
@@ -41,3 +44,4 @@ public class GroupLeaderFailureScreen extends JFrame {
         }
     }
 }
+*/

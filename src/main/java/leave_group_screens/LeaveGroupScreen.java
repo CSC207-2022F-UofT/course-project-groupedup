@@ -27,7 +27,7 @@ public class LeaveGroupScreen extends JFrame {
         }
 
     private void performSelectionChoice(int selectionChoice) {
-        if (selectionChoice == 0) {
+/*        if (selectionChoice == 0) {
             LeaveGroupResponseModel leftGroup = leaveGroupController.leaveGroup(username, groupName);
 
             String username = leftGroup.getUsername();
@@ -45,6 +45,6 @@ public class LeaveGroupScreen extends JFrame {
 
             JOptionPane.showMessageDialog(null, username + " left group " +
                     groupName + ".");
-        }
+        }*/
     }
 }

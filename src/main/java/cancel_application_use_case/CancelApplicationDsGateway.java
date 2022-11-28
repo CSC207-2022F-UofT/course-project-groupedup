@@ -3,30 +3,37 @@ package cancel_application_use_case;
 import Entities.Group;
 import Entities.User;
 
+import java.util.HashMap;
+
 public interface CancelApplicationDsGateway {
-    boolean groupExists(String groupname);
+    boolean groupIdentifierExists(String groupname);
     User getUser(String username);
     Group getGroup(String groupname);
 
     /**
      * Updates the current user after user's applications list has changed. Saves to repository.
-     * @param username the username of the current user
+     * @param user the current user object
      */
-    void updateUser(String username);
+    void updateUser(User user);
 
     /**
      * Updates the group after group's pending applications list has changed. Saves to repository.
-     * @param groupname the name of the group
+     * @param group the group object
      */
-    void updateGroup(String groupname);
-    boolean userInGroup(String username, String groupName);
+    void updateGroup(Group group);
 
     /**
      * @param username the username of the current user
-     * @param groupName the name of the group
-     * @return whether the user's applications list contains the group's name.
+     * @param groupName the group name of the group the user is cancelling their application for
+     * @return whether user is in the group's memberRequests list
      */
-    boolean groupInUser(String username, String groupName);
+    boolean userInGroupPendingList(String username, String groupName);
 
-
+    /**
+     * @param username the username of the current user
+     * @param groupName the group name of the group the user is cancelling their application for
+     * @return whether the group is in the user's applications list
+     */
+    boolean groupInUserApplicationsList(String username, String groupName);
+    HashMap<String, User> loadUsers();
 }

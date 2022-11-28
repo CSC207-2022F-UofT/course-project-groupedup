@@ -38,6 +38,17 @@ public class NormalGroup implements Serializable, Group {
         this.groupMembers.remove(username);
     }
 
+    // duplicate with Sharon's method. added this for my test, will delete once Ipek's PR is merged
+    @Override
+    public void addRequest(String username) {
+        memberRequests.put(username, username);
+    }
+
+    @Override
+    public void addMember(String username) {
+        groupMembers.put(username, username);
+    }
+
     // return a map of actual user objects
 
     /**

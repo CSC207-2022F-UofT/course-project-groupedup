@@ -3,6 +3,7 @@ package leave_group_use_case;
 import Entities.Group;
 import Entities.User;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -35,12 +36,12 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     @Override
     public LeaveGroupResponseModel leaveGroup(LeaveGroupRequestModel requestModel) {
 
-        if (!dsGateway.groupExists(requestModel.getGroupname())) {
+        if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
             return outputBoundary.prepareFailureView("Group does not exist.");
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
-        Group group = dsGateway.getGroup(requestModel.getGroupname());
+        Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
             return outputBoundary.prepareFailureView("User is not in group.");
@@ -51,15 +52,14 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
         }
 
         if (Objects.equals(group.getGroupLeaderUsername(), user.getUsername())) {
-            /*if (group.getGroupMembers().size() == 1) {
+            HashMap<String, User> userMap = new HashMap<>(dsGateway.loadUsers());
+
+            if (group.getGroupMembers(userMap).size() == 1) {
                 dsGateway.deleteGroup(group.getGroupName());
                 LeaveGroupResponseModel successModel = new LeaveGroupResponseModel(user.getUsername(),
                         group.getGroupName(), "Deleted Group");
                 return outputBoundary.prepareSuccessView(successModel);
-            }*/
-
-            // will have to confer with sohee on how to get the number of members in a group? because i don't understand
-            // why I need to pass in a hashmap of all users as a parameter.
+            }
 
             LeaveGroupResponseModel groupLeaderModel = new LeaveGroupResponseModel(user.getUsername(),
                     group.getGroupName(), "Group Leader");
@@ -69,8 +69,8 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
         user.removeGroup(group.getGroupName());
         group.removeMember(user.getUsername());
 
-        dsGateway.updateUser(user.getUsername());
-        dsGateway.updateGroup(group.getGroupName());
+        dsGateway.updateUser(user);
+        dsGateway.updateGroup(group);
 
         LeaveGroupResponseModel responseModel = new LeaveGroupResponseModel(user.getUsername(),
                 group.getGroupName(), "Left Group");

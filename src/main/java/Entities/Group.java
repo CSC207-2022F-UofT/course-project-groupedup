@@ -13,4 +13,10 @@ public interface Group extends Serializable {
     void removeApplication(String username);
     String getGroupLeaderUsername();
     void removeMember(String username);
+
+    // duplicate with Sharon's method. added this for my test, will delete once Ipek's PR is merged
+    void addRequest(String username);
+
+    // duplicate with other methods. added this for my test, will delete once other methods are merged
+    void addMember(String username);
 }

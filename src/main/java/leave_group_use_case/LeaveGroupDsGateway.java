@@ -3,23 +3,25 @@ package leave_group_use_case;
 import Entities.Group;
 import Entities.User;
 
+import java.util.HashMap;
+
 public interface LeaveGroupDsGateway {
-    boolean groupExists(String groupName);
+    boolean groupIdentifierExists(String groupName);
     User getUser(String username);
     Group getGroup(String groupName);
     void deleteGroup(String groupName);
 
     /**
      * Updates the current user after user's groups list has changed. Saves to repository.
-     * @param username the username of the current user
+     * @param user the current user object
      */
-    void updateUser(String username);
+    void updateUser(User user);
 
     /**
      * Updates the group after group's members list has changed. Saves to repository.
-     * @param groupName the name of the group
+     * @param group the group object
      */
-    void updateGroup(String groupName);
+    void updateGroup(Group group);
     boolean userInGroup(String username, String groupName);
 
     /**
@@ -28,4 +30,5 @@ public interface LeaveGroupDsGateway {
      * @return whether the user's members list contains the group's name.
      */
     boolean groupInUser(String username, String groupName);
+    HashMap<String, User> loadUsers();
 }
