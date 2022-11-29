@@ -8,6 +8,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PendingListScreen extends JFrame implements ListSelectionListener {
 
@@ -19,31 +20,50 @@ public class PendingListScreen extends JFrame implements ListSelectionListener {
     String groupName;
 
     public PendingListScreen(EditPendingListController editPendingListController,
-                             ViewPendingListController viewPendingListController) {
+                             ViewPendingListController viewPendingListController, String groupName) {
 
-        super("Member Requests");
-        setLayout(new FlowLayout());
+        setTitle("Member Requests");
+        setSize(300, 300);
+        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
 
         this.acceptButton = new JButton("Accept");
         this.rejectButton = new JButton("Reject");
 
-
-        add(acceptButton);
-        add(rejectButton);
-
-        acceptButton.addActionListener(new AcceptOrReject());
-        rejectButton.addActionListener(new AcceptOrReject());
+        this.acceptButton.addActionListener(new AcceptOrReject());
+        this.rejectButton.addActionListener(new AcceptOrReject());
 
         this.editPendingListController = editPendingListController;
 
         this.viewPendingListController = viewPendingListController;
 
+        this.groupName = groupName;
+
         this.memberRequestsModel = new DefaultListModel<>();
-        for (String username: viewPendingListController.getUsernames(groupName).getUsernamesList()) {
+        ArrayList<String> usernames = viewPendingListController.getUsernames(groupName).getUsernamesList();
+        for (String username: usernames) {
             memberRequestsModel.addElement(username);
         }
 
         this.memberRequests = new JList<>(memberRequestsModel);
+        memberRequests.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        memberRequests.setSelectedIndex(0);
+        memberRequests.addListSelectionListener(this);
+        memberRequests.setVisibleRowCount(5);
+        JScrollPane requestsScrollPane = new JScrollPane(memberRequests);
+
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
+        buttons.add(acceptButton);
+        buttons.add(new JSeparator(SwingConstants.VERTICAL));
+        buttons.add(Box.createHorizontalStrut(5));
+        buttons.add(rejectButton);
+        buttons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        this.add(requestsScrollPane, BorderLayout.CENTER);
+        this.add(buttons, BorderLayout.PAGE_END);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -82,7 +102,7 @@ public class PendingListScreen extends JFrame implements ListSelectionListener {
             memberRequests.setSelectedIndex(index);
             memberRequests.ensureIndexIsVisible(index);
 
-            // triggers the editPendingList use case (not sure if this works)
+            // triggers the editPendingList use case
             if (evt.getSource() == acceptButton) {
                 EditPendingListResponseModel accepted = editPendingListController.rejectOrAcceptUser(username,
                         groupName, true);

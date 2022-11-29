@@ -3,6 +3,7 @@ package pending_list_screens;
 import Entities.Group;
 import Entities.User;
 import edit_pending_list.EditPendingListDsGateway;
+import view_group_members.ViewGroupMembersDsGateway;
 import view_pending_list.ViewPendingListDsGateway;
 
 import java.util.HashMap;
@@ -11,7 +12,8 @@ import java.util.HashMap;
  * Simple imitation of SerializeDataAccess used only for the purpose of testing.
  */
 
-public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway {
+public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway,
+        ViewGroupMembersDsGateway {
 
     private HashMap<String, Group> groupMap;
     private HashMap<String, User> userMap;

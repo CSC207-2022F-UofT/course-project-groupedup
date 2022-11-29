@@ -47,10 +47,13 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
             return presenter.prepareFailView("This user has cancelled their join request.");
         }
 
-        // TODO: this might be an exception
-        // if (!user.getApplicationsList().containsValue(group)) {
-        // return PendingListPresenter.prepareFailView("This group isn't on the user's application list.");
-        // }
+        if (!user.getApplicationsList().containsValue(group)) {
+            throw new RuntimeException("This group is not in this user's application list.");
+        }
+
+        if (dsGateway.groupInUser(groupName, username) || dsGateway.userInGroup(username, groupName)) {
+            throw new RuntimeException("This user is already in this group.");
+        }
 
         group.removeFromRequests(username);
         user.removeApplication(groupName);
