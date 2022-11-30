@@ -17,6 +17,8 @@ public class NormalGroup implements Serializable, Group {
         this.groupMembers = new HashMap<>();
         groupMembers.put(groupLeader, groupLeader);
 
+//        User groupLeader = CurrentUser.getInstance().getUser();
+//        groupLeader.addGroup();
     }
 
     public String getGroupName() {
@@ -36,17 +38,6 @@ public class NormalGroup implements Serializable, Group {
     @Override
     public void removeMember(String username) {
         this.groupMembers.remove(username);
-    }
-
-    // duplicate with Sharon's method. added this for my test, will delete once Ipek's PR is merged
-    @Override
-    public void addRequest(String username) {
-        memberRequests.put(username, username);
-    }
-
-    @Override
-    public void addMember(String username) {
-        groupMembers.put(username, username);
     }
 
     // return a map of actual user objects

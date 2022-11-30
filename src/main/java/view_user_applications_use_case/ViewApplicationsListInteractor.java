@@ -22,19 +22,18 @@ public class ViewApplicationsListInteractor implements ViewApplicationsListInput
         this.presenter = presenter;
     }
 
-
     /**
      * @param requestModel the requestModel for the view user applications list use case
      * @return a list of group names that the user has applied to
      */
     @Override
-    public ViewApplicationsListResponseModel getApplicationsList(ViewApplicationsListRequestModel requestModel) {
+    public void getApplicationsList(ViewApplicationsListRequestModel requestModel) {
         String username = requestModel.getUsername();
         User user = dsGateway.getUser(username);
 
         ArrayList<String> userApplications = new ArrayList<>(user.getApplicationsList().keySet());
         ViewApplicationsListResponseModel applicationsList = new ViewApplicationsListResponseModel(userApplications);
 
-        return presenter.prepareSuccessView(applicationsList);
+        presenter.prepareSuccessView(applicationsList);
     }
 }

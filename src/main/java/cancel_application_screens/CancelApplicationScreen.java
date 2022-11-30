@@ -29,14 +29,8 @@ public class CancelApplicationScreen extends JFrame {
 
     private void performSelectionChoice(int selectionChoice) {
         if (selectionChoice == 0) {
-            CancelApplicationResponseModel cancelledApplication = cancelApplicationController.cancelApplication(username,
+            cancelApplicationController.cancelApplication(username,
                     groupName);
-
-            String username = cancelledApplication.getUsername();
-            String groupName = cancelledApplication.getGroupname();
-
-            JOptionPane.showMessageDialog(null, username + " cancelled application for " +
-                     groupName + ".");
         }
     }
 }

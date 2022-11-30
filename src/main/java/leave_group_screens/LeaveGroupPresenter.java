@@ -3,19 +3,32 @@ package leave_group_screens;
 import leave_group_use_case.LeaveGroupOutputBoundary;
 import leave_group_use_case.LeaveGroupResponseModel;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Presenter class for leave group use case.
  */
 
 public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
+    JPanel screens;
+    CardLayout cardLayout;
+
+
+    public LeaveGroupPresenter(CardLayout cardLayout, JPanel screens) {
+        this.cardLayout = cardLayout;
+        this.screens = screens;
+    }
 
     /**
      * @param userAndGroup response model with current user's username and the group name of the group they left
-     * @return a response model with the current user's username and the group name of the group they left
      */
     @Override
-    public LeaveGroupResponseModel prepareSuccessView(LeaveGroupResponseModel userAndGroup) {
-        return null;
+    public void prepareSuccessView(LeaveGroupResponseModel userAndGroup) {
+        String username = userAndGroup.getUsername();
+        String groupName = userAndGroup.getGroupname();
+
+        cardLayout.show(screens, "ViewApplicationsList");
     }
 
     /**
@@ -23,12 +36,7 @@ public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
      * @return a use case failure exception
      */
     @Override
-    public LeaveGroupResponseModel prepareFailureView(String error) {
+    public void prepareFailureView(String error) {
         throw new LeaveGroupFailed(error);
-    }
-
-    @Override
-    public LeaveGroupResponseModel prepareGroupLeaderView(LeaveGroupResponseModel responseModel) {
-        return null;
     }
 }

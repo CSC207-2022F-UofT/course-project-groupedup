@@ -43,19 +43,12 @@ public class LeaveGroupInteractorTest {
 
         LeaveGroupOutputBoundary presenter = new LeaveGroupOutputBoundary() {
             @Override
-            public LeaveGroupResponseModel prepareFailureView(String error) {
+            public void prepareFailureView(String error) {
                 Assertions.fail("Use case failure is unexpected.");
-                return null;
             }
 
             @Override
-            public LeaveGroupResponseModel prepareGroupLeaderView(LeaveGroupResponseModel responseModel) {
-                Assertions.fail("Unexpected. User is not the group leader.");
-                return null;
-            }
-
-            @Override
-            public LeaveGroupResponseModel prepareSuccessView(LeaveGroupResponseModel responseModel) {
+            public void prepareSuccessView(LeaveGroupResponseModel responseModel) {
                 String responseUsername = responseModel.getUsername();
                 String responseGroupName = responseModel.getGroupname();
 
@@ -63,7 +56,6 @@ public class LeaveGroupInteractorTest {
 
                 Assertions.assertFalse(group.getGroupMembers(repository.loadUsers()).containsKey(responseUsername));
                 Assertions.assertFalse(repository.getUser(responseUsername).getGroups().containsKey(responseGroupName));
-                return null;
             }
         };
 

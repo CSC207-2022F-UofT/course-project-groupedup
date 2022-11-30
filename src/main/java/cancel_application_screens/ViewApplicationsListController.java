@@ -14,10 +14,10 @@ public class ViewApplicationsListController {
         this.userInput = userInput;
     }
 
-    ViewApplicationsListResponseModel viewApplicationsList(String username) {
+    void viewApplicationsList(String username) {
         ViewApplicationsListRequestModel requestModel = new ViewApplicationsListRequestModel(username);
 
-        return userInput.getApplicationsList(requestModel);
+        userInput.getApplicationsList(requestModel);
     }
 
 }

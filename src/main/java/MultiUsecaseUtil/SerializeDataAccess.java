@@ -127,7 +127,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // FYI this is the only difference between this and saveNewGroup (put -> remove)
+        // FYI this is the only difference between this and updateGroup (replace -> remove)
         this.groupMap.remove(groupName);
         try {
             output.writeObject(this.groupMap);

@@ -31,13 +31,12 @@ public class CancelApplicationInteractorTest {
 
         CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
             @Override
-            public CancelApplicationResponseModel prepareFailureView(String error) {
+            public void prepareFailureView(String error) {
                 Assertions.fail("Use case failure is unexpected.");
-                return null;
             }
 
             @Override
-            public CancelApplicationResponseModel prepareSuccessView(CancelApplicationResponseModel responseModel) {
+            public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
                 String responseUsername = responseModel.getUsername();
                 String responseGroupName = responseModel.getGroupname();
 
@@ -46,8 +45,6 @@ public class CancelApplicationInteractorTest {
 
                 Assertions.assertFalse(group.getMemberRequests(repository.loadUsers()).containsKey(username));
                 Assertions.assertFalse(repository.getUser(responseUsername).getApplicationsList().containsKey(responseGroupName));
-
-                return null;
             }
         };
 

@@ -51,13 +51,13 @@ public class CancelApplicationDataAccess implements CancelApplicationDsGateway, 
     }
 
     @Override
-    public boolean userInGroupPendingList(String username, String groupName) {
+    public boolean userInMemberRequests(String username, String groupName) {
         Group group = groupMap.get(groupName);
         return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override
-    public boolean groupInUserApplicationsList(String username, String groupName) {
+    public boolean groupInApplications(String groupName, String username) {
         User user = userMap.get(username);
         return user.getApplicationsList().containsKey(groupName);
     }

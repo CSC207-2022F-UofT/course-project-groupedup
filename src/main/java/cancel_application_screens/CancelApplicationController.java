@@ -19,9 +19,9 @@ public class CancelApplicationController {
      * @param groupname the groupname of the group the user is cancelling an application for
      * @return the response model created by CancelApplicationPresenter
      */
-    CancelApplicationResponseModel cancelApplication(String username, String groupname) {
+    void cancelApplication(String username, String groupname) {
         CancelApplicationRequestModel requestModel = new CancelApplicationRequestModel(username, groupname);
 
-        return userInput.cancelApplication(requestModel);
+        userInput.cancelApplication(requestModel);
     }
 }

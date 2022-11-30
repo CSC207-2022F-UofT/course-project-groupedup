@@ -24,10 +24,6 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway {
         }
     }
 
-    public void addUser(User user) {
-        this.userMap.put(user.getUsername(), user);
-    }
-
     @Override
     public boolean groupIdentifierExists(String groupName) {
         return groupMap.containsKey(groupName);

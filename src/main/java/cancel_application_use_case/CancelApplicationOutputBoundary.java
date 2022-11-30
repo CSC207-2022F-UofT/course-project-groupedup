@@ -1,6 +1,6 @@
 package cancel_application_use_case;
 
 public interface CancelApplicationOutputBoundary {
-    CancelApplicationResponseModel prepareFailureView(String error);
-    CancelApplicationResponseModel prepareSuccessView(CancelApplicationResponseModel responseModel);
+    void prepareFailureView(String error);
+    void prepareSuccessView(CancelApplicationResponseModel responseModel);
 }

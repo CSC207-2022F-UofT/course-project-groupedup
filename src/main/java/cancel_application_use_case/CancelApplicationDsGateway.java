@@ -22,18 +22,7 @@ public interface CancelApplicationDsGateway {
      */
     void updateGroup(Group group);
 
-    /**
-     * @param username the username of the current user
-     * @param groupName the group name of the group the user is cancelling their application for
-     * @return whether user is in the group's memberRequests list
-     */
-    boolean userInGroupPendingList(String username, String groupName);
-
-    /**
-     * @param username the username of the current user
-     * @param groupName the group name of the group the user is cancelling their application for
-     * @return whether the group is in the user's applications list
-     */
-    boolean groupInUserApplicationsList(String username, String groupName);
+    boolean userInMemberRequests(String username, String groupName);
+    boolean groupInApplications(String groupName, String username);
     HashMap<String, User> loadUsers();
 }

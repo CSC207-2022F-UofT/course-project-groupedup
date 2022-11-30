@@ -3,6 +3,7 @@ package leave_group_screens;
 import leave_group_use_case.LeaveGroupResponseModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LeaveGroupScreen extends JFrame {
     LeaveGroupController leaveGroupController;
@@ -27,24 +28,10 @@ public class LeaveGroupScreen extends JFrame {
         }
 
     private void performSelectionChoice(int selectionChoice) {
-/*        if (selectionChoice == 0) {
-            LeaveGroupResponseModel leftGroup = leaveGroupController.leaveGroup(username, groupName);
+        if (selectionChoice == 0) {
+            this.leaveGroupController.leaveGroup(username, groupName);
 
-            String username = leftGroup.getUsername();
-            String groupName = leftGroup.getGroupname();
-            String message = leftGroup.getMessage();
-
-            if (message.equals("Group Leader")) {
-                EditGroupProfileController editGroupController = new EditGroupProfileController(...);
-                GroupLeaderFailureScreen groupLeaderScreen = new GroupLeaderFailureScreen(username, groupName,
-                        editGroupController);
-            } else if (message.equals("Deleted Group")) {
-                JOptionPane.showMessageDialog(null, username + " left group " +
-                        groupName + " and the group was deleted.");
-            }
-
-            JOptionPane.showMessageDialog(null, username + " left group " +
-                    groupName + ".");
-        }*/
+            //launch groups list UI with leftGroup.getUsername() as parameter?
+        }
     }
 }

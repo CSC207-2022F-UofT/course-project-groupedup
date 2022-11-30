@@ -1,5 +1,5 @@
 package cancel_application_use_case;
 
 public interface CancelApplicationInputBoundary {
-    CancelApplicationResponseModel cancelApplication(CancelApplicationRequestModel requestModel);
+    void cancelApplication(CancelApplicationRequestModel requestModel);
 }

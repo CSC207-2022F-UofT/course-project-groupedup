@@ -2,7 +2,6 @@ package leave_group_screens;
 
 import leave_group_use_case.LeaveGroupInputBoundary;
 import leave_group_use_case.LeaveGroupRequestModel;
-import leave_group_use_case.LeaveGroupResponseModel;
 
 /**
  * Executes the leaveGroup use case.
@@ -10,18 +9,17 @@ import leave_group_use_case.LeaveGroupResponseModel;
 public class LeaveGroupController {
     final LeaveGroupInputBoundary userInput;
 
-    public LeaveGroupController(LeaveGroupInputBoundary actionGateway) {
-        this.userInput = actionGateway;
+    public LeaveGroupController(LeaveGroupInputBoundary userInput) {
+        this.userInput = userInput;
     }
 
     /**
      * @param username the username of the current user
      * @param groupname the groupname of the group the user is leaving
-     * @return the response model for the leaveGroupPresenter
      */
-    LeaveGroupResponseModel leaveGroup(String username, String groupname) {
+    public void leaveGroup(String username, String groupname) {
         LeaveGroupRequestModel requestModel = new LeaveGroupRequestModel(username, groupname);
 
-        return userInput.leaveGroup(requestModel);
+        this.userInput.leaveGroup(requestModel);
     }
 }

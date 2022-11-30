@@ -30,21 +30,21 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
      * @return a successView or failView depending on whether the user has cancelled their group application
      */
     @Override
-    public CancelApplicationResponseModel cancelApplication(CancelApplicationRequestModel requestModel) {
+    public void cancelApplication(CancelApplicationRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupname())) {
-            return outputBoundary.prepareFailureView("Group does not exist.");
+            outputBoundary.prepareFailureView("Group does not exist.");
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupname());
 
-        if (!dsGateway.userInGroupPendingList(user.getUsername(), group.getGroupName())) {
-            return outputBoundary.prepareFailureView("User is not in group's pending list.");
+        if (!dsGateway.userInMemberRequests(user.getUsername(), group.getGroupName())) {
+            outputBoundary.prepareFailureView("User is not in group's pending list.");
         }
 
-        if (!dsGateway.groupInUserApplicationsList(user.getUsername(), group.getGroupName())) {
-            return outputBoundary.prepareFailureView("Group is not in user's applications list.");
+        if (!dsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
+            outputBoundary.prepareFailureView("Group is not in user's applications list.");
         }
 
         user.removeApplication(group.getGroupName());
@@ -56,6 +56,6 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
         CancelApplicationResponseModel responseModel = new CancelApplicationResponseModel(user.getUsername(),
                 group.getGroupName());
 
-        return outputBoundary.prepareSuccessView(responseModel);
+        outputBoundary.prepareSuccessView(responseModel);
     }
 }
