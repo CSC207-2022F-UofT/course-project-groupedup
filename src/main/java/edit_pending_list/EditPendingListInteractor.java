@@ -56,7 +56,7 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         user.removeApplication(groupName);
 
         if (pendingStatus) {
-            user.addGroup(group);
+            user.addGroup(groupName);
             group.addMember(username);
         }
 
