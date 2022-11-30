@@ -10,7 +10,10 @@ public interface Group extends Serializable {
     HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
 
     boolean setGroupLeader(String userID);
-    void removeApplication(String username);
     String getGroupLeaderUsername();
     void removeMember(String username);
+    void addMember(String username);
+    void removeFromRequests(String username);
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    void addRequest(String username);
 }

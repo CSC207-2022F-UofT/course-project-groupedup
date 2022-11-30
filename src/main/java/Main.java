@@ -11,6 +11,7 @@ import userloginusecase.LoginDSGateway;
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInteractor;
 import userloginusecase.LoginOutputBoundary;
+import Edit_Group_Profile_Screens.EditGroupProfileScreen;
 
 import javax.swing.*;
 import java.awt.*;
