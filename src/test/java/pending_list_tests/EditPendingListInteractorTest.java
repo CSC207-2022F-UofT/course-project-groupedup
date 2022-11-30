@@ -24,7 +24,7 @@ public class EditPendingListInteractorTest {
         EditPendingListDsGateway repository = new PendingListDataAccess(username, user, groupName, group);
 
         // imitates ApplyToGroup use case, I'll use Ipek's methods when she merges them
-        user.getApplicationsList().put(groupName, group);
+        user.getApplicationsList().put(groupName, groupName);
         group.addRequest(username);
 
         EditPendingListOutputBoundary presenter = new EditPendingListOutputBoundary() {
