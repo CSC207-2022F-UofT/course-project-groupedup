@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pending_list_screens.PendingListDataAccess;
 
+/**
+ * tests for the edit pending list use case
+ */
 public class EditPendingListInteractorTest {
     @Test
     public void addOrRemoveUser() {
