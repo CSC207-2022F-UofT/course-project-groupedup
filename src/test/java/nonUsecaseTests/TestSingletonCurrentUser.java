@@ -1,4 +1,4 @@
-package tutorial;
+package nonUsecaseTests;
 
 import Entities.CurrentUser;
 import Entities.NormalUser;
@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Tests to make sure the singleton class CurrentUser keeps track of the current logged-in user properly
+ */
 class TestSingletonCurrentUser {
 
     @Test
@@ -16,11 +19,6 @@ class TestSingletonCurrentUser {
         CurrentUser currentUser1 = CurrentUser.getInstance();
         CurrentUser currentUser2 = CurrentUser.getInstance();
         assert currentUser1 == currentUser2;
-    }
-    @Test
-    public void singletonNoInitialUser() {
-        CurrentUser currentUser1 = CurrentUser.getInstance();
-        assert Objects.isNull(currentUser1.getUser());
     }
     @Test
     public void singletonSaveInitialUser() {
