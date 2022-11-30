@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * tests to make sure the singleton class CurrentUser keeps track of the current logged-in user properly
+ */
 class TestSingletonCurrentUser {
 
     @Test
