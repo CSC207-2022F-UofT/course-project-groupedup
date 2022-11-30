@@ -1,5 +1,5 @@
 package UserRegistrationUsecase;
 
 public interface UserRegistrationInputBoundary {
-    void create(UserRegistrationInputPackage UserInput);
+    void create(UserRegistrationInputPackage userInput);
 }

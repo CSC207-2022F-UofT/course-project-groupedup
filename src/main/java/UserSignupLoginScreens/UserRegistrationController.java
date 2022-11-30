@@ -9,8 +9,7 @@ public class UserRegistrationController {
     public UserRegistrationController(UserRegistrationInputBoundary userRegistrationInputBoundary){
         this.userRegistrationInputBoundary = userRegistrationInputBoundary;
     }
-    public void create(String username, String password, String repeatPassword, String name, String email){
-        this.userRegistrationInputBoundary.create(new UserRegistrationInputPackage(name, username, password,
-                repeatPassword, email));
+    public void create(UserRegistrationInputPackage inputPackage){
+        this.userRegistrationInputBoundary.create(inputPackage);
     }
 }
