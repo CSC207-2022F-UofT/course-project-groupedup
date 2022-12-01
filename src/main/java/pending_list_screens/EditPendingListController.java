@@ -22,9 +22,9 @@ public class EditPendingListController {
      * @param pendingStatus a boolean indicating whether the user was accepted
      * @return the response model created by EditPendingListPresenter
      */
-    EditPendingListResponseModel rejectOrAcceptUser(String username, String groupName, boolean pendingStatus) {
+    void rejectOrAcceptUser(String username, String groupName, boolean pendingStatus) {
         EditPendingListRequestModel requestModel = new EditPendingListRequestModel(username, groupName, pendingStatus);
 
-        return userInput.addOrRemoveUser(requestModel);
+        userInput.addOrRemoveUser(requestModel);
     }
 }

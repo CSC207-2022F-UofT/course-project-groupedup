@@ -15,11 +15,10 @@ public class ViewPendingListController {
 
     /**
      * @param groupName the name of the group corresponding to the pending list
-     * @return the response model created by ViewPendingListPresenter
      */
-    public ViewPendingListResponseModel getUsernames(String groupName) {
+    public void getUsernames(String groupName) {
         ViewPendingListRequestModel requestModel = new ViewPendingListRequestModel(groupName);
-        return this.groupName.getUsernamesList(requestModel);
+        this.groupName.getUsernamesList(requestModel);
     }
 }
 

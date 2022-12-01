@@ -4,7 +4,10 @@ import Entities.*;
 import edit_pending_list.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pending_list_screens.EditPendingListPresenter;
 import pending_list_screens.PendingListDataAccess;
+
+import java.util.HashMap;
 
 public class EditPendingListInteractorTest {
     @Test
@@ -21,28 +24,39 @@ public class EditPendingListInteractorTest {
         currentUser.setUser(testUser);
 
         Group group = new NormalGroup(groupName);
-        EditPendingListDsGateway repository = new PendingListDataAccess(username, user, groupName, group);
+        HashMap<String, User> userMap = new HashMap<>();
+        userMap.put(username, user);
+        HashMap<String, Group> groupMap = new HashMap<>();
+        groupMap.put(groupName, group);
+        EditPendingListDsGateway repository = new PendingListDataAccess(userMap, groupMap);
 
         // imitates ApplyToGroup use case, I'll use Ipek's methods when she merges them
         user.getApplicationsList().put(groupName, group);
         group.addRequest(username);
 
-        EditPendingListOutputBoundary presenter = new EditPendingListOutputBoundary() {
+        EditPendingListOutputBoundary presenter = new EditPendingListPresenter() {
             @Override
-            public EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel responseModel) {
+            public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
                 String responseGroupName = responseModel.getGroupName();
                 String responseUsername = responseModel.getUsername();
                 Assertions.assertTrue(repository.groupInUser(responseGroupName, responseUsername));
                 Assertions.assertTrue(repository.userInGroup(responseUsername, responseGroupName));
                 Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
                 Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
-                return null;
+            }
+
+            public void prepareRejectedView(EditPendingListResponseModel responseModel) {
+                String responseGroupName = responseModel.getGroupName();
+                String responseUsername = responseModel.getUsername();
+                Assertions.assertTrue(repository.groupInUser(responseGroupName, responseUsername));
+                Assertions.assertTrue(repository.userInGroup(responseUsername, responseGroupName));
+                Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
+                Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
             }
 
             @Override
-            public EditPendingListResponseModel prepareFailView(String error) {
+            public void prepareFailView(String error) {
                 Assertions.fail("Use case failure is unexpected.");
-                return null;
             }
         };
 
@@ -66,28 +80,39 @@ public class EditPendingListInteractorTest {
         currentUser.setUser(testUser);
 
         Group group = new NormalGroup(groupName);
-        EditPendingListDsGateway repository = new PendingListDataAccess(username, user, groupName, group);
+        HashMap<String, User> userMap = new HashMap<>();
+        userMap.put(username, user);
+        HashMap<String, Group> groupMap = new HashMap<>();
+        groupMap.put(groupName, group);
+        EditPendingListDsGateway repository = new PendingListDataAccess(userMap, groupMap);
 
         // imitates ApplyToGroup use case, I'll use Ipek's methods when she merges them
         user.getApplicationsList().put(groupName, group);
         group.addRequest(username);
 
-        EditPendingListOutputBoundary presenter = new EditPendingListOutputBoundary() {
+        EditPendingListOutputBoundary presenter = new EditPendingListPresenter() {
             @Override
-            public EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel responseModel) {
+            public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
                 String responseGroupName = responseModel.getGroupName();
                 String responseUsername = responseModel.getUsername();
                 Assertions.assertFalse(repository.groupInUser(responseGroupName, responseUsername));
                 Assertions.assertFalse(repository.userInGroup(responseUsername, responseGroupName));
                 Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
                 Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
-                return null;
+            }
+
+            public void prepareRejectedView(EditPendingListResponseModel responseModel) {
+                String responseGroupName = responseModel.getGroupName();
+                String responseUsername = responseModel.getUsername();
+                Assertions.assertFalse(repository.groupInUser(responseGroupName, responseUsername));
+                Assertions.assertFalse(repository.userInGroup(responseUsername, responseGroupName));
+                Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
+                Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
             }
 
             @Override
-            public EditPendingListResponseModel prepareFailView(String error) {
+            public void prepareFailView(String error) {
                 Assertions.fail("Use case failure is unexpected.");
-                return null;
             }
         };
 

@@ -1,7 +1,9 @@
 package edit_pending_list;
 
 public interface EditPendingListOutputBoundary {
-    EditPendingListResponseModel prepareSuccessView(EditPendingListResponseModel success);
+    void prepareAcceptedView(EditPendingListResponseModel success);
 
-    EditPendingListResponseModel prepareFailView(String error);
+    void prepareRejectedView(EditPendingListResponseModel success);
+
+    void prepareFailView(String error);
 }

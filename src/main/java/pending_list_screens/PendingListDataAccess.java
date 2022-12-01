@@ -18,11 +18,9 @@ public class PendingListDataAccess implements EditPendingListDsGateway, ViewPend
     private HashMap<String, Group> groupMap;
     private HashMap<String, User> userMap;
 
-    public PendingListDataAccess(String username, User user, String groupName, Group group) {
-        this.groupMap = new HashMap<>();
-        groupMap.put(groupName, group);
-        this.userMap = new HashMap<>();
-        userMap.put(username, user);
+    public PendingListDataAccess(HashMap<String, User> userMap, HashMap<String, Group> groupMap) {
+        this.groupMap = groupMap;
+        this.userMap = userMap;
     }
 
     @Override

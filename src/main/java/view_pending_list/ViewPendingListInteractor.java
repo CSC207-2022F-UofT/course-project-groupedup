@@ -2,6 +2,7 @@ package view_pending_list;
 
 import Entities.Group;
 import Entities.User;
+import pending_list_screens.PendingListScreenBoundary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +28,9 @@ public class ViewPendingListInteractor implements ViewPendingListInputBoundary {
 
     /**
      * @param requestModel the request model for the view pending list use case
-     * @return a list of usernames of the users who've applied to the group
      */
     @Override
-    public ViewPendingListResponseModel getUsernamesList(ViewPendingListRequestModel requestModel) {
+    public void getUsernamesList(ViewPendingListRequestModel requestModel) {
         String groupName = requestModel.getGroupName();
         Group group = dsGateway.getGroup(groupName);
         HashMap<String, User> userMap = dsGateway.loadUsers();
@@ -38,6 +38,6 @@ public class ViewPendingListInteractor implements ViewPendingListInputBoundary {
         ArrayList<String> usernamesList = new ArrayList<>(group.getMemberRequests(userMap).keySet());
 
         ViewPendingListResponseModel responseModel = new ViewPendingListResponseModel(usernamesList);
-        return presenter.prepareSuccessView(responseModel);
+        presenter.prepareSuccessView(responseModel);
     }
 }

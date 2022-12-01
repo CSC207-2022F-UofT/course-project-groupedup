@@ -27,16 +27,15 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
     /**
      * Adds the user and group to the appropriate lists based on whether the user was accepted or rejected.
      * @param requestModel the requestModel for the edit pending list use case
-     * @return a response model
      */
     @Override
-    public EditPendingListResponseModel addOrRemoveUser(EditPendingListRequestModel requestModel) {
+    public void addOrRemoveUser(EditPendingListRequestModel requestModel) {
         String username = requestModel.getUsername();
         String groupName = requestModel.getGroupName();
         boolean pendingStatus = requestModel.getPendingStatus();
 
         if (!dsGateway.userIdentifierExists(username)) {
-            return presenter.prepareFailView("This user has deleted their account.");
+            presenter.prepareFailView("This user has deleted their account.");
         }
 
         User user = dsGateway.getUser(username);
@@ -44,7 +43,7 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         HashMap<String, User> userMap = dsGateway.loadUsers();
 
         if (!group.getMemberRequests(userMap).containsValue(user)) {
-            return presenter.prepareFailView("This user has cancelled their join request.");
+            presenter.prepareFailView("This user has cancelled their join request.");
         }
 
         if (!user.getApplicationsList().containsValue(group)) {
@@ -67,6 +66,10 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         dsGateway.updateGroup(group);
 
         EditPendingListResponseModel responseModel = new EditPendingListResponseModel(username, groupName);
-        return presenter.prepareSuccessView(responseModel);
+        if (pendingStatus) {
+            presenter.prepareAcceptedView(responseModel);
+        } else {
+            presenter.prepareRejectedView(responseModel);
+        }
     }
 }
