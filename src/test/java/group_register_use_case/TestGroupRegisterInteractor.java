@@ -18,29 +18,29 @@ class TestGroupRegisterInteractor {
         User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
                 testProfile);
         currentUser1.setUser(testUser);
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
-            @Override
-            public void prepareSuccessView(GroupRegisterResponseModel group) {
-                assertEquals("Sohee's study group", group.getGroupName());
-                assertTrue(groupRepository.groupIdentifierExists("Sohee's study group"));
-
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                fail("Use case failure is unexpected.");
-
-            }
-        };
-
-        GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
-                groupRepository, presenter, groupFactory);
-
-        GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
-                "Sohee's study group");
-
-        interactor.create(inputData);
+//        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
+//            @Override
+//            public void prepareSuccessView(GroupRegisterResponseModel group) {
+//                assertEquals("Sohee's study group", group.getGroupName());
+//                assertTrue(groupRepository.groupIdentifierExists("Sohee's study group"));
+//
+//            }
+//
+//            @Override
+//            public void prepareFailView(String error) {
+//                fail("Use case failure is unexpected.");
+//
+//            }
+//        };
+//
+//        GroupFactory groupFactory = new GroupFactory();
+//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
+//                groupRepository, presenter, groupFactory);
+//
+//        GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
+//                "Sohee's study group");
+//
+//        interactor.create(inputData);
     }
 
     @Test
@@ -52,31 +52,31 @@ class TestGroupRegisterInteractor {
                 testProfile);
         currentUser1.setUser(testUser);
 
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
-            @Override
-            public void prepareSuccessView(GroupRegisterResponseModel group) {
-                fail("Use case success is unexpected");
-
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                System.out.println(error);
-
-            }
-        };
-
-        GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
-                groupRepository, presenter, groupFactory);
-        GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
-                "Sohee's study group");
-        Group group = new NormalGroup("Sohee's study group");
-        GroupRegisterDSRequestModel existingData = new GroupRegisterDSRequestModel(group,group.getGroupName());
-
-        groupRepository.saveNewGroups(existingData);
-
-        interactor.create(inputData);
+//        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
+//            @Override
+//            public void prepareSuccessView(GroupRegisterResponseModel group) {
+//                fail("Use case success is unexpected");
+//
+//            }
+//
+//            @Override
+//            public void prepareFailView(String error) {
+//                System.out.println(error);
+//
+//            }
+//        };
+//
+//        GroupFactory groupFactory = new GroupFactory();
+//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
+//                groupRepository, presenter, groupFactory);
+//        GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
+//                "Sohee's study group");
+//        Group group = new NormalGroup("Sohee's study group");
+//        GroupRegisterDSRequestModel existingData = new GroupRegisterDSRequestModel(group,group.getGroupName());
+//
+//        groupRepository.saveNewGroups(existingData);
+//
+//        interactor.create(inputData);
     }
     @Test
     void test_use_case_group_name_empty() {
@@ -87,26 +87,26 @@ class TestGroupRegisterInteractor {
                 testProfile);
         currentUser1.setUser(testUser);
 
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
-            @Override
-            public void prepareSuccessView(GroupRegisterResponseModel group) {
-                fail("Use case success is unexpected");
-
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                System.out.println(error);
-
-            }
-        };
-
-        GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
-                groupRepository, presenter, groupFactory);
-        GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
-                "");
-
-        interactor.create(inputData);
+//        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
+//            @Override
+//            public void prepareSuccessView(GroupRegisterResponseModel group) {
+//                fail("Use case success is unexpected");
+//
+//            }
+//
+//            @Override
+//            public void prepareFailView(String error) {
+//                System.out.println(error);
+//
+//            }
+//        };
+//
+//        GroupFactory groupFactory = new GroupFactory();
+//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
+//                groupRepository, presenter, groupFactory);
+//        GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
+//                "");
+//
+//        interactor.create(inputData);
     }
 }
