@@ -45,12 +45,4 @@ public class ViewPendingListTest {
         screen = new PendingListScreen(groupName);
         presenter = new ViewPendingListPresenter(screen);
     }
-
-    @Test
-    public void testGetUserNamesList() {
-        interactor = new ViewPendingListInteractor(repository, presenter);
-        ViewPendingListRequestModel inputData = new ViewPendingListRequestModel(groupName);
-        interactor.getUsernamesList(inputData);
-        // wtf do I assert here
-    }
 }
