@@ -7,15 +7,21 @@ import java.util.List;
  */
 public class MatchingAlgorithmResponseModel {
     String updateMatchesMessage;
+    String username;
     List<String> matchesAsStringList;
 
-    public MatchingAlgorithmResponseModel(String updateMessage, List<String> matches){
+    public MatchingAlgorithmResponseModel(String updateMessage, String username, List<String> matches){
         this.updateMatchesMessage = updateMessage;
+        this.username = username;
         this.matchesAsStringList = matches;
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+
     public String getUpdateMessage() {
-        return updateMatchesMessage;
+        return this.updateMatchesMessage;
     }
 
     public List<String> getGroups(){

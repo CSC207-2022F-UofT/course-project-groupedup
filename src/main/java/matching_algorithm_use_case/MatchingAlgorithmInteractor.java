@@ -1,8 +1,6 @@
 package matching_algorithm_use_case;
 
-import Entities.Group;
-import Entities.User;
-import Entities.user_matches.UserMatches;
+import Entities.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,24 +28,25 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
      * matchGroups() has the purpose of interacting with the Entities, and provide appropriate return value for the
      * Matching Algorithm Use Case
      * @param requestModel: gets the current User's username
-     * @return fail or success message Output Boundary
      */
     @Override
-    public MatchingAlgorithmResponseModel matchGroups(MatchingAlgorithmRequestModel requestModel) {
+    public void matchGroups(MatchingAlgorithmRequestModel requestModel) {
             User currentUser = matchingAlgorithmDsGateWay.loadUser(requestModel.getUsername());
             HashMap<String, Group> groupMap = matchingAlgorithmDsGateWay.loadGroups();
 
             List<Group> groups = new ArrayList<>(groupMap.values());
 
             if (groups.isEmpty()) {
-                return matchingAlgorithmOutputBoundary.prepareFailView("No Matches Found");
+                matchingAlgorithmOutputBoundary.prepareFailView("No Matches Found");
             }
-            UserMatches userMatches = new UserMatches(currentUser, groups);
-            List<String> groupsAsString = userMatches.getMatchesWithoutScoreAsString();
+            MatchingAlgorithmStrategy matchingAlgorithmStrategy = new ReverseOrderStandardMatching();
+            UserMatches userMatches = new UserMatches(currentUser, groups, matchingAlgorithmStrategy);
+            List<String> groupsAsString = userMatches.getMatches();
 
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
-                    new MatchingAlgorithmResponseModel("Matches Updated", groupsAsString);
+                    new MatchingAlgorithmResponseModel("Matches Updated",requestModel.getUsername(),
+                            groupsAsString);
 
-            return matchingAlgorithmOutputBoundary.prepareSuccessView(matchingAlgorithmResponseModel);
+                matchingAlgorithmOutputBoundary.prepareSuccessView(matchingAlgorithmResponseModel);
     }
 }

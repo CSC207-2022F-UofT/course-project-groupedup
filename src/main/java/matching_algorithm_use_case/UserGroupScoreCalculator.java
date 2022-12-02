@@ -1,4 +1,4 @@
-package Entities.user_matches;
+package matching_algorithm_use_case;
 
 import Entities.Group;
 import Entities.GroupProfile;
@@ -17,18 +17,18 @@ import java.util.HashMap;
  * score: the similarity score between User and Group
  * <p>
  * METHOD DESCRIPTIONS:
- * compareTo(): compares the score of this and another GroupScore
+ * compareTo(): compares the score of this and another UserGroupScoreCalculator
  * <p>
  * calculateSimilarity(): calculates and returns the similarity score based on the UserPublicProfile preferences
  * of user and the preferences of group
  */
 
-public class GroupScore implements Comparable<GroupScore> {
+public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalculator>{
     private final User user;
     private final Group group;
     private final Double score;
 
-    public GroupScore(User user, Group group){
+    public UserGroupScoreCalculator(User user, Group group){
         this.user = user;
         this.group = group;
         this.score = this.calculateSimilarity();
@@ -41,12 +41,12 @@ public class GroupScore implements Comparable<GroupScore> {
     }
 
     /**
-     * Compares the score of this and another GroupScore
+     * Compares the score of this and another UserGroupScoreCalculator
      * @param other the object to be compared.
      * @return whether this.score is less (-1), greater (1) or equal (0) to o.getScore()
      */
     @Override
-    public int compareTo(GroupScore other) {
+    public int compareTo(UserGroupScoreCalculator other) {
         if(this.score < other.getScore()){
             return -1;
         }else if(this.score > other.getScore()) {
@@ -81,6 +81,21 @@ public class GroupScore implements Comparable<GroupScore> {
         return count / total;
     }
 
+    /**
+     * Turn the respective group score into a presentable String for the interactor
+     * @return the course code and the group name as a joint string
+     */
+    @Override
+    public String toString() {
+        return group.getProfile().getCourseCode() + ": " +  group.getGroupName();
+    }
+
+    /**
+     * Turn the respective group into a presentable String for the interactor with the Score
+     * @return the score, course code, and the group name as a joint string
+     */
+    public String toStringWithScore() {return score + " " + group.getProfile().getCourseCode() + ": "
+            + group.getGroupName(); }
 }
 
 
