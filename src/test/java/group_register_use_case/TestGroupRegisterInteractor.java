@@ -1,23 +1,23 @@
-package group_register_use_case;
-
-import Entities.*;
-import group_creation_screens.GroupRegisterPresenter;
-import group_creation_use_case.*;
-import org.junit.jupiter.api.Test;
-import group_creation_screens.InMemoryFileGroup;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class TestGroupRegisterInteractor {
-
-    @Test
-    void test_use_case_success() {
-        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
-        CurrentUser currentUser1 = CurrentUser.getInstance();
-        UserPublicProfile testProfile = new UserPublicProfile();
-        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                testProfile);
-        currentUser1.setUser(testUser);
+//package group_register_use_case;
+//
+//import Entities.*;
+//import group_creation_screens.GroupRegisterPresenter;
+//import group_creation_use_case.*;
+//import org.junit.jupiter.api.Test;
+//import group_creation_screens.InMemoryFileGroup;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//
+//class TestGroupRegisterInteractor {
+//
+//    @Test
+//    void test_use_case_success() {
+//        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
+//        CurrentUser currentUser1 = CurrentUser.getInstance();
+//        UserPublicProfile testProfile = new UserPublicProfile();
+//        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+//                testProfile);
+//        currentUser1.setUser(testUser);
 //        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
 //            @Override
 //            public void prepareSuccessView(GroupRegisterResponseModel group) {
@@ -41,16 +41,16 @@ class TestGroupRegisterInteractor {
 //                "Sohee's study group");
 //
 //        interactor.create(inputData);
-    }
-
-    @Test
-    void test_use_case_group_exists() {
-        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
-        CurrentUser currentUser1 = CurrentUser.getInstance();
-        UserPublicProfile testProfile = new UserPublicProfile();
-        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                testProfile);
-        currentUser1.setUser(testUser);
+//    }
+//
+//    @Test
+//    void test_use_case_group_exists() {
+//        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
+//        CurrentUser currentUser1 = CurrentUser.getInstance();
+//        UserPublicProfile testProfile = new UserPublicProfile();
+//        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+//                testProfile);
+//        currentUser1.setUser(testUser);
 
 //        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
 //            @Override
@@ -77,15 +77,15 @@ class TestGroupRegisterInteractor {
 //        groupRepository.saveNewGroups(existingData);
 //
 //        interactor.create(inputData);
-    }
-    @Test
-    void test_use_case_group_name_empty() {
-        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
-        CurrentUser currentUser1 = CurrentUser.getInstance();
-        UserPublicProfile testProfile = new UserPublicProfile();
-        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                testProfile);
-        currentUser1.setUser(testUser);
+//    }
+//    @Test
+//    void test_use_case_group_name_empty() {
+//        NewGroupDSGateway groupRepository = new InMemoryFileGroup();
+//        CurrentUser currentUser1 = CurrentUser.getInstance();
+//        UserPublicProfile testProfile = new UserPublicProfile();
+//        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+//                testProfile);
+//        currentUser1.setUser(testUser);
 
 //        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
 //            @Override
@@ -108,5 +108,5 @@ class TestGroupRegisterInteractor {
 //                "");
 //
 //        interactor.create(inputData);
-    }
-}
+//    }
+//}
