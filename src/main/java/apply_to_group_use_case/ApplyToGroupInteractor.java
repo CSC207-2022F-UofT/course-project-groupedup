@@ -54,8 +54,8 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
             return applyToGroupOutputBoundary.prepareFailView("User has already applied to the group.");
         }
 
-        user.addApplication(group);
-        group.addMemberRequest(user);
+        user.addApplication(group.getGroupName());
+        group.addMemberRequest(user.getUsername());
 
         applyToGroupDsGateway.updateUser(user.getUsername());
         applyToGroupDsGateway.updateGroup(group.getGroupName());
