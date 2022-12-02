@@ -10,4 +10,5 @@ import Entities.UserPublicProfile;
 public interface UserFactory {
     public User create(String username, String password, String name, String email,
                        UserPublicProfile publicProfile);
+    public boolean checkValidPassword(String password);
 }

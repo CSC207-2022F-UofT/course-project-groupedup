@@ -13,4 +13,9 @@ public class NormalUserFactory implements UserFactory {
     public User create(String username, String password, String name, String email, UserPublicProfile publicProfile) {
         return new NormalUser(username, password, name, email, publicProfile);
     }
+
+    @Override
+    public boolean checkValidPassword(String password) {
+        return password.length() > 5;
+    }
 }
