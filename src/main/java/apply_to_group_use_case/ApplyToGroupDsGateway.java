@@ -5,6 +5,10 @@ import Entities.Group;
 
 import java.util.HashMap;
 
+/**
+ * The data access interface for the Apply to Group use case
+ */
+
 public interface ApplyToGroupDsGateway {
     User getUser(String username);
     Group getGroup(String groupName);

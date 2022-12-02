@@ -29,7 +29,7 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
      */
 
     @Override
-    public ApplyToGroupResponseModel applyToGroup(ApplyToGroupRequestModel requestModel) {
+    public void applyToGroup(ApplyToGroupRequestModel requestModel) {
 
         User user = applyToGroupDsGateway.getUser(requestModel.getUsername());
         Group group = applyToGroupDsGateway.getGroup(requestModel.getGroupName());
@@ -39,19 +39,19 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
         // Checks if the user and the group exists, might be redundant or not.
         // The decision depends on whether we want to implement additional checks or not.
         if (!applyToGroupDsGateway.userExistsByName(user.getUsername())) {
-            return applyToGroupOutputBoundary.prepareFailView("User does not exist.");
+            applyToGroupOutputBoundary.prepareFailView("User does not exist.");
         }
         if (!applyToGroupDsGateway.groupExistsByName(requestModel.getGroupName())) {
-            return applyToGroupOutputBoundary.prepareFailView("Group does not exist.");
+            applyToGroupOutputBoundary.prepareFailView("Group does not exist.");
         }
 
         // Checks if the user is already a member of the group, or has applied, waiting for a response.
         if (group.getGroupMembers(userMap).containsValue(user) || user.getGroups().containsValue(group) ) {
-            return applyToGroupOutputBoundary.prepareFailView("User is already in group.");
+            applyToGroupOutputBoundary.prepareFailView("User is already in group.");
         }
 
         if (group.getMemberRequests(userMap).containsValue(user) || user.getApplicationsList().containsValue(group)) {
-            return applyToGroupOutputBoundary.prepareFailView("User has already applied to the group.");
+            applyToGroupOutputBoundary.prepareFailView("User has already applied to the group.");
         }
 
         user.addApplication(group.getGroupName());
@@ -62,6 +62,6 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
 
         ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user.getUsername(),
                 group.getGroupName());
-        return applyToGroupOutputBoundary.prepareSuccessView(responseModel);
+        applyToGroupOutputBoundary.prepareSuccessView(responseModel);
     }
 }

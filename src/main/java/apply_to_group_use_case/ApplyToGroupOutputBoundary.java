@@ -1,7 +1,9 @@
 package apply_to_group_use_case;
-
+/**
+ * The output boundary interface for the Apply to Group use case
+ */
 public interface ApplyToGroupOutputBoundary {
-    ApplyToGroupResponseModel prepareSuccessView(ApplyToGroupResponseModel user);
-    ApplyToGroupResponseModel prepareFailView(String error);
+    void prepareSuccessView(ApplyToGroupResponseModel user);
+    void prepareFailView(String error);
 
 }
