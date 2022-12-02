@@ -9,12 +9,14 @@ import java.awt.event.ActionListener;
 
 public class EditGroupProfileScreen extends JFrame implements ActionListener{
     EditGroupProfileController editController;
+    String groupName;
     JButton saveEdits = new JButton("Save Edits");
     JButton exit = new JButton("Exit");
 
-    public EditGroupProfileScreen() {
+    public EditGroupProfileScreen(String groupName) {
         this.setVisible(true);
-        this.setSize(600, 500);
+        this.setSize(700, 700);
+        this.groupName = groupName;
          JPanel main = new JPanel();
          main.setLayout(new BorderLayout());
 
@@ -25,13 +27,15 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
 
          menubar.add(exit);
 
-        menubar.add(saveEdits);
+         menubar.add(saveEdits);
 
          main.add(menubar, BorderLayout.NORTH);
 
          /*Adding options*/
         JPanel preferences = new JPanel();
         preferences.setLayout(new BoxLayout(preferences, BoxLayout.Y_AXIS));
+
+        JTextField description = new JTextField("Description");
 
         JLabel locationLabel = new JLabel("Location: ");
         JPanel locationOptions = new JPanel();
@@ -71,6 +75,7 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
         options.add(timeCommitmentOption2);
         options.add(timeCommitmentOption3);
 
+
         preferences.add(locationLabel);
         preferences.add(locationOptions);
 
@@ -80,27 +85,29 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
         preferences.add(timeCommitmentLabel);
         preferences.add(timeCommitmentOptions);
 
+        preferences.add(description);
+
 
         main.add(preferences, BorderLayout.CENTER);
             this.add(main);
-            exit.addActionListener(this);
-            exit.setBounds(5, 5, 5 ,5);
-            this.add(exit);
             saveEdits.addActionListener(this);
-            saveEdits.setBounds(50, 50, 5 ,5);
-            this.add(saveEdits);
+            saveEdits.setBounds(5, 5, 5 ,5);
+
         }
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (evt.getSource() == this.exit) {
-                this.dispose();
-                new LeaveGroupScreen("Julia");
-            }
             if (evt.getSource() == this.saveEdits) {
-                this.dispose();
-                new CancelAppScreen("Julia");
+                try{
+                    JOptionPane.showMessageDialog(this, (groupName + " preferences were successfully saved."));
+                    //this.dispose();
+                    //EditGroupProfileScreen newScreen = new EditGroupProfileScreen(groupName);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                }
+
             }
+
             }
 
 }
