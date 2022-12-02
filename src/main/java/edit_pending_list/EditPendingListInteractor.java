@@ -3,8 +3,6 @@ package edit_pending_list;
 import Entities.Group;
 import Entities.User;
 
-import java.util.HashMap;
-
 /**
  * The edit pending list use case.
  * Allows group leaders to accept or reject users who've applied to their group.
@@ -34,19 +32,22 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         String groupName = requestModel.getGroupName();
         boolean pendingStatus = requestModel.getPendingStatus();
 
+        if (!dsGateway.groupIdentifierExists(groupName)) {
+            throw new RuntimeException("This group doesn't exist.");
+        }
+
         if (!dsGateway.userIdentifierExists(username)) {
-            presenter.prepareFailView("This user has deleted their account.");
+            presenter.prepareFailView("This user no longer exists.");
         }
 
         User user = dsGateway.getUser(username);
         Group group = dsGateway.getGroup(groupName);
-        HashMap<String, User> userMap = dsGateway.loadUsers();
 
-        if (!group.getMemberRequests(userMap).containsValue(user)) {
+        if (!dsGateway.userInMemberRequests(username, groupName)) {
             presenter.prepareFailView("This user has cancelled their join request.");
         }
 
-        if (!user.getApplicationsList().containsValue(group)) {
+        if (!dsGateway.groupInApplications(groupName, username)) {
             throw new RuntimeException("This group is not in this user's application list.");
         }
 
@@ -58,7 +59,7 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         user.removeApplication(groupName);
 
         if (pendingStatus) {
-            user.addGroup(group);
+            user.addGroup(groupName);
             group.addMember(username);
         }
 

@@ -12,12 +12,19 @@ import java.util.ArrayList;
 
 public class ViewPendingListPresenter implements ViewPendingListOutputBoundary {
 
-    PendingListScreenBoundary screen;
+    private final PendingListScreenBoundary screen;
 
+    /**
+     * @param screen the initial empty pending list screen
+     */
     public ViewPendingListPresenter(PendingListScreenBoundary screen) {
         this.screen = screen;
     }
 
+    /**
+     * Initializes a JList and DefaultListModel of the list of users in the group's member requests
+     * @param usernamesList a response model containing the list of users in the group's member requests
+     */
     public void prepareSuccessView(ViewPendingListResponseModel usernamesList) {
         DefaultListModel<String> memberRequestsModel = new DefaultListModel<>();
         ArrayList<String> usernames = usernamesList.getUsernamesList();
@@ -34,13 +41,5 @@ public class ViewPendingListPresenter implements ViewPendingListOutputBoundary {
         screen.setMemberRequests(memberRequests);
         screen.setMemberRequestsModel(memberRequestsModel);
     }
-
-//    public void setScreen(PendingListScreenBoundary screen) {
-//        this.screen = screen;
-//    }
-
-//    public PendingListScreenBoundary getScreen() {
-//        return screen;
-//    }
 
 }

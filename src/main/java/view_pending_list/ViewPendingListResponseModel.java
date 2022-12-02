@@ -2,6 +2,10 @@ package view_pending_list;
 
 import java.util.ArrayList;
 
+/**
+ * The response model for the view pending list use case.
+ */
+
 public class ViewPendingListResponseModel {
     ArrayList<String> usernamesList;
 

@@ -17,38 +17,9 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-//        JFrame application = new JFrame("Group Creation Screen");
-//        CardLayout cardLayout = new CardLayout();
-//        JPanel screens = new JPanel(cardLayout);
-//        application.add(screens);
-//
-//        SerializeDataAccess dataAccess = null;
-//        try {
-//            dataAccess = new SerializeDataAccess();
-//        } catch (IOException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        NewGroupDSGateway newGroup = dataAccess;
-//
-//        GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
-//        GroupFactory groupFactory = new GroupFactory();
-//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
-//        GroupRegisterController userRegisterController = new GroupRegisterController(
-//                interactor
-//        );
-//
-//        // Build the GUI, plugging in the parts
-//        GroupRegisterScreen registerScreen = new GroupRegisterScreen(userRegisterController);
-//        screens.add(registerScreen, "welcome");
-//        cardLayout.show(screens, "register");
-//        application.pack();
-//        application.setVisible(true);
-//
-//        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
-//        screens.add(newGroupPageScreen, "register");
 
         String groupName = "csc207";
-        String username = "sharonh";
+        String username = "sharon";
         String username1 = "aarya";
 
         User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
@@ -64,8 +35,8 @@ public class Main {
         group.addRequest(username);
         group.addRequest(username1);
 
-        user.getApplicationsList().put(groupName, group);
-        user1.getApplicationsList().put(groupName, group);
+        user.getApplicationsList().put(groupName, groupName);
+        user1.getApplicationsList().put(groupName, groupName);
 
         HashMap<String, User> userMap = new HashMap<>();
         userMap.put(username, user);
@@ -96,15 +67,13 @@ public class Main {
         pendingListScreenBoundary.setEditPendingListController(editPendingListController);
         pendingListScreenBoundary.view();
 
-        //ViewGroupMembersDsGateway dsGateway2 = new PendingListDataAccess(userMap, groupMap);
-        //ViewGroupMembersOutputBoundary presenter3 = new ViewGroupMembersPresenter();
-        //ViewGroupMembersInputBoundary viewGroupMembersInputBoundary = new ViewGroupMembersInteractor(
-                //dsGateway2, presenter3);
-        //ViewGroupMembersController viewGroupMembersController = new ViewGroupMembersController(
-               // viewGroupMembersInputBoundary);
-
-        //PendingListScreen pendingList = new PendingListScreen(editPendingListController, viewPendingListController,
-                //groupName);
-        //GroupMembersScreen groupMembers = new GroupMembersScreen(viewGroupMembersController, groupName);
+//        ViewGroupMembersDsGateway dsGateway2 = new PendingListDataAccess(userMap, groupMap);
+//        ViewGroupMembersOutputBoundary presenter3 = new ViewGroupMembersPresenter();
+//        ViewGroupMembersInputBoundary viewGroupMembersInputBoundary = new ViewGroupMembersInteractor(
+//                dsGateway2, presenter3);
+//        ViewGroupMembersController viewGroupMembersController = new ViewGroupMembersController(
+//                viewGroupMembersInputBoundary);
+//
+//        GroupMembersScreen groupMembers = new GroupMembersScreen(viewGroupMembersController, groupName);
     }
 }

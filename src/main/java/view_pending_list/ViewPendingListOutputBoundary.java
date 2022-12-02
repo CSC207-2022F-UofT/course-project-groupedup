@@ -1,12 +1,9 @@
 package view_pending_list;
 
-import pending_list_screens.PendingListScreen;
-import pending_list_screens.PendingListScreenBoundary;
+/**
+ * The output boundary interface for the view pending list use case.
+ */
 
 public interface ViewPendingListOutputBoundary {
     void prepareSuccessView(ViewPendingListResponseModel usernamesList);
-
-//    PendingListScreenBoundary getScreen();
-//
-//    void setScreen(PendingListScreenBoundary screen);
 }

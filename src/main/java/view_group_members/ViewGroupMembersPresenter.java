@@ -1,4 +1,4 @@
-package pending_list_screens;
+package view_group_members;
 
 import view_group_members.ViewGroupMembersOutputBoundary;
 import view_group_members.ViewGroupMembersResponseModel;

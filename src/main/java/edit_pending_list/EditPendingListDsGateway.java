@@ -5,6 +5,10 @@ import Entities.User;
 
 import java.util.HashMap;
 
+/**
+ * The data access interface for the edit pending list use case.
+ */
+
 public interface EditPendingListDsGateway {
     User getUser(String username);
     Group getGroup(String groupName);
@@ -31,5 +35,6 @@ public interface EditPendingListDsGateway {
     boolean userInMemberRequests(String username, String groupName);
     boolean groupInApplications(String groupName, String username);
     boolean userIdentifierExists(String username);
+    boolean groupIdentifierExists(String groupName);
 
 }

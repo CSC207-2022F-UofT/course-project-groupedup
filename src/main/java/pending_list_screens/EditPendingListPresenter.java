@@ -11,6 +11,10 @@ import javax.swing.*;
 
 public class EditPendingListPresenter implements EditPendingListOutputBoundary {
 
+    /**
+     * Shows a message confirming that the user was successfully accepted
+     * @param success a response model containing the group's and accepted user's information
+     */
     @Override
     public void prepareAcceptedView(EditPendingListResponseModel success) {
         String user = success.getUsername();
@@ -18,6 +22,10 @@ public class EditPendingListPresenter implements EditPendingListOutputBoundary {
         JOptionPane.showMessageDialog(null, "Added " + user + " to " + group + ".");
     }
 
+    /**
+     * Shows a message confirming that the user was successfully rejected
+     * @param success a response model containing the group's and rejected user's information
+     */
     @Override
     public void prepareRejectedView(EditPendingListResponseModel success) {
         String user = success.getUsername();

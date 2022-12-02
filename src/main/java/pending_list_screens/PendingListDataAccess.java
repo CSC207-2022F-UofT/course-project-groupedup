@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway,
         ViewGroupMembersDsGateway {
 
-    private HashMap<String, Group> groupMap;
-    private HashMap<String, User> userMap;
+    public HashMap<String, Group> groupMap;
+    public HashMap<String, User> userMap;
 
     public PendingListDataAccess(HashMap<String, User> userMap, HashMap<String, Group> groupMap) {
         this.groupMap = groupMap;
@@ -26,6 +26,11 @@ public class PendingListDataAccess implements EditPendingListDsGateway, ViewPend
     @Override
     public boolean userIdentifierExists(String username) {
         return this.userMap.containsKey(username);
+    }
+
+    @Override
+    public boolean groupIdentifierExists(String groupName) {
+        return this.groupMap.containsKey(groupName);
     }
 
     @Override
@@ -70,7 +75,7 @@ public class PendingListDataAccess implements EditPendingListDsGateway, ViewPend
     @Override
     public boolean userInMemberRequests(String username, String groupName) {
         Group group = getGroup(groupName);
-        return group.getMemberRequests(userMap).containsKey(groupName);
+        return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override

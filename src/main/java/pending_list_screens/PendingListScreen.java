@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The pending list screen.
+ */
+
 public class PendingListScreen extends JFrame implements PendingListScreenBoundary, ListSelectionListener {
 
     JList<String> memberRequests;
@@ -16,38 +20,14 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
     JButton acceptButton, rejectButton;
     String groupName;
 
-//    public PendingListScreen(EditPendingListController editPendingListController,
-//                             ViewPendingListController viewPendingListController, String groupName) {
-        public PendingListScreen(String groupName) {
+    public PendingListScreen(String groupName) {
 
         setTitle("Member Requests");
         setSize(300, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
 
         this.groupName = groupName;
         this.setVisible(false);
-
-//        this.editPendingListController = editPendingListController;
-//        this.viewPendingListController = viewPendingListController;
-
-//        this.memberRequestsModel = new DefaultListModel<>();
-//        ArrayList<String> usernames = viewPendingListController.getUsernames(groupName).getUsernamesList();
-//        for (String username: usernames) {
-//            memberRequestsModel.addElement(username);
-//        }
-//
-//        this.memberRequests = new JList<>(memberRequestsModel);
-//        memberRequests.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        memberRequests.setSelectedIndex(0);
-//        memberRequests.addListSelectionListener(this);
-//        memberRequests.setVisibleRowCount(5);
-//        JScrollPane requestsScrollPane = new JScrollPane(memberRequests);
-//
-//        this.add(requestsScrollPane, BorderLayout.CENTER);
-//        viewPendingListController.getUsernames(groupName);
-
-
     }
 
     @Override
@@ -66,7 +46,7 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
     @Override
     public void setMemberRequests(JList<String> memberRequestsList) {
-        this.memberRequests = memberRequestsList;
+            this.memberRequests = memberRequestsList;
     }
 
     @Override
@@ -123,12 +103,10 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
         public void actionPerformed(ActionEvent evt) {
             int index = memberRequests.getSelectedIndex();
             String username = memberRequests.getSelectedValue();
-            // removes accepted member from the pending list UI
+
             memberRequestsModel.remove(index);
             int numRequests = memberRequestsModel.getSize();
 
-            // changes the selected user to the last user on the pending list if the previously removed user was at
-            // the end of the list
             if (numRequests == 0) {
                 acceptButton.setEnabled(false);
                 rejectButton.setEnabled(false);
@@ -140,7 +118,6 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
             memberRequests.setSelectedIndex(index);
             memberRequests.ensureIndexIsVisible(index);
 
-            // triggers the editPendingList use case
             if (evt.getSource() == acceptButton) {
                 editPendingListController.rejectOrAcceptUser(username, groupName, true);
 
