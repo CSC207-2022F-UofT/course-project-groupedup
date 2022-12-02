@@ -9,9 +9,10 @@ public class GroupRegisterController {
 
     public GroupRegisterController(GroupRegisterInputBoundary groupInput){ this.groupInput = groupInput;}
 
-    GroupRegisterResponseModel create(String groupName){
+
+    void create(String groupName){
         GroupRegisterRequestModel requestModel = new GroupRegisterRequestModel(groupName);
-        return groupInput.create(requestModel);
+        groupInput.create(requestModel);
     }
 
 }
