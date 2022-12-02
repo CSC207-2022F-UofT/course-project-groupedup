@@ -1,100 +1,81 @@
-import Entities.*;
-import cancel_application_screens.*;
-import cancel_application_use_case.CancelApplicationDsGateway;
-import cancel_application_use_case.CancelApplicationInputBoundary;
-import cancel_application_use_case.CancelApplicationInteractor;
-import cancel_application_use_case.CancelApplicationOutputBoundary;
-import view_user_applications_use_case.ViewApplicationsListDsGateway;
-import view_user_applications_use_case.ViewApplicationsListInputBoundary;
-import view_user_applications_use_case.ViewApplicationsListInteractor;
-import view_user_applications_use_case.ViewApplicationsListOutputBoundary;
 
-import java.util.HashMap;
+import Entities.CurrentUser;
+import Entities.NormalUser;
+import Entities.User;
+import Entities.UserPublicProfile;
+import Entities.AllControllers;
+import MultiUsecaseUtil.SerializeDataAccess;
+import Screens.*;
+import UserSignupLoginScreens.*;
+import UserRegistrationUsecase.*;
+import UserSignupLoginScreens.UserRegistrationController;
+import UserSignupLoginScreens.UserRegistrationPresenter;
+import group_creation_screens.*;
+import group_creation_use_case.*;
+import userloginusecase.LoginDSGateway;
+import userloginusecase.LoginInputBoundary;
+import userloginusecase.LoginInteractor;
+import userloginusecase.LoginOutputBoundary;
+import Edit_Group_Profile_Screens.EditGroupProfileScreen;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
 
-//        // Build the main program window
-//        JFrame application = new JFrame("GroupedUp");
-//        CardLayout cardLayout = new CardLayout();
-//        JPanel screens = new JPanel(cardLayout);
-//        application.add(screens);
+        JFrame application = new JFrame("Grouped Up");
+        CardLayout cardLayout = new CardLayout();
+        JPanel screens = new JPanel(cardLayout);
+        application.add(screens);
+
+
+//            SerializeDataAccess dataAccess = new SerializeDataAccess();
+//            UserRegistrationOutputBoundary userRegistrationPresenter = new UserRegistrationPresenter();
+//            UserFactory normalUserFactory = new NormalUserFactory();
+//            UserRegistrationInputBoundary userRegistrationInteractor = new UserRegistrationInteractor(
+//                    normalUserFactory, dataAccess, userRegistrationPresenter);
+//            UserRegistrationController userRegistrationController = new UserRegistrationController(
+//                    userRegistrationInteractor);
+        NewGroupDSGateway dataAccess = new InMemoryFileGroup();
+
+        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
+        GroupFactory groupFactory = new GroupFactory();
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
+        GroupRegisterController groupRegisterController = new GroupRegisterController(
+                interactor);
+
 //
-//        // Create the parts to plug into the Use Case+Entities engine
-//        SerializeDataAccess dataAccess = new SerializeDataAccess();
-//
-//        LeaveGroupOutputBoundary leaveGroupPresenter = new LeaveGroupPresenter(cardLayout, screens);
-//        LeaveGroupInputBoundary inputBoundary = new LeaveGroupInteractor(dataAccess, leaveGroupPresenter);
-//        LeaveGroupController leaveGroupController = new LeaveGroupController(inputBoundary);
-//
-//        CancelApplicationOutputBoundary cancelApplicationPresenter = new CancelApplicationPresenter();
-//        CancelApplicationInputBoundary cancelApplicationInputBoundary = new CancelApplicationInteractor(dataAccess, cancelApplicationPresenter);
-//        CancelApplicationController cancelApplicationController = new CancelApplicationController(cancelApplicationInputBoundary);
 //
 //        LoginOutputBoundary loginPresenter = new LoginPresenter();
 //        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
 //        LoginController loginController = new LoginController(loginInteractor);
-//
-//        // Build the GUI, plugging in the parts
-//        LeaveGroupScreen leaveGroupScreen =  new LeaveGroupScreen(
-//                "aarya",
-//                "aarya's group",
-//                leaveGroupController);
-//        LoginScreen loginScreen = new LoginScreen();
-//        screens.add(leaveGroupScreen, "Leave Group");
-//        screens.add(loginScreen, "Login");
-//        cardLayout.show(screens, "Leave Group");
-//        application.setVisible(true);
 
-        String groupName = "PAUL FAN CLUB";
-        String groupName2 = "236 pset pals";
-        String groupName3 = "multivariable calcoholics";
-        String username = "paul gries";
-        String username2 = "aarya";
+        // this part is just to activate the group creation use case, can remove later
+        // setting up a fake 'logged in' user
+        CurrentUser currentUser1 = CurrentUser.getInstance();
+        UserPublicProfile testProfile = new UserPublicProfile();
+        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+                testProfile);
+        currentUser1.setUser(testUser);
 
-        User user = new NormalUser(username, "pw", "Paul", "paul@gmail.com",
-                new UserPublicProfile());
-        User user2 = new NormalUser(username2, "pw", "Aarya", "aarya@gmail.com",
-                new UserPublicProfile());
+        HomePage homepageTest = new HomePage(cardLayout, screens);
 
-        CurrentUser currentUser = CurrentUser.getInstance();
-        currentUser.setUser(user);
-        Group group = new NormalGroup(groupName);
-        Group group2 = new NormalGroup(groupName2);
-        currentUser.setUser(user2);
-        Group group3 = new NormalGroup(groupName3);
+        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
+        screens.add(homepageTest, "homepageScreen");
+        screens.add(groupRegisterScreen, "groupRegisterScreen");
+        cardLayout.show(screens, "hompageScreen");
+        application.pack();
+        application.setVisible(true);
 
-        group.addRequest(username2);
-        group2.addRequest(username2);
-        user2.getApplicationsList().put(groupName, groupName);
-        user2.getApplicationsList().put(groupName2, groupName2);
 
-        HashMap<String, User> userMap = new HashMap<>();
-        userMap.put(username, user);
-        userMap.put(username2, user2);
 
-        HashMap<String, Group> groupMap = new HashMap<>();
-        groupMap.put(groupName, group);
-        groupMap.put(groupName2, group2);
-        groupMap.put(groupName3, group3);
-
-        ViewApplicationsListDsGateway viewAppDsGateway = new CancelApplicationDataAccess(userMap, groupMap);
-        CancelApplicationDsGateway cancelAppDsGateway = new CancelApplicationDataAccess(userMap, groupMap);
-
-        CancelApplicationOutputBoundary cancelAppPresenter = new CancelApplicationPresenter();
-        CancelApplicationInputBoundary cancelAppInputBoundary = new CancelApplicationInteractor(cancelAppDsGateway, cancelAppPresenter);
-        CancelApplicationController cancelAppController = new CancelApplicationController(cancelAppInputBoundary);
-
-        ApplicationsListScreenBoundary applicationsListScreenBoundary = new ApplicationsListScreen(username2);
-
-        ViewApplicationsListOutputBoundary viewAppListPresenter = new ViewApplicationsListPresenter(applicationsListScreenBoundary);
-        ViewApplicationsListInputBoundary viewAppListInputBoundary = new ViewApplicationsListInteractor(viewAppDsGateway, viewAppListPresenter);
-        ViewApplicationsListController viewAppsListController = new ViewApplicationsListController(viewAppListInputBoundary);
-
-        // My applications button pressed
-        applicationsListScreenBoundary.setViewApplicationsListController(viewAppsListController);
-        applicationsListScreenBoundary.setCancelApplicationController(cancelAppController);
-        applicationsListScreenBoundary.view();
+//        AllControllers allControllers = AllControllers.getInstance();
+//        allControllers.setLoginController(loginController);
+//        allControllers.setUserRegistrationController(userRegistrationController);
+        // just commented out Leo's login screen because it hasn't been connected to homepage yet
+        //new LoginScreen();
 
 
     }
