@@ -50,7 +50,8 @@ public class Main {
         LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
         LoginController loginController = new LoginController(loginInteractor);
 
-
+        // this part is just to activate the group creation use case, can remove later
+        // setting up a fake 'logged in' user
         CurrentUser currentUser1 = CurrentUser.getInstance();
         UserPublicProfile testProfile = new UserPublicProfile();
         User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
@@ -71,6 +72,7 @@ public class Main {
         AllControllers allControllers = AllControllers.getInstance();
         allControllers.setLoginController(loginController);
         allControllers.setUserRegistrationController(userRegistrationController);
+        // just commented out Leo's login screen because it hasn't been connected to homepage yet
         //new LoginScreen();
 
 
