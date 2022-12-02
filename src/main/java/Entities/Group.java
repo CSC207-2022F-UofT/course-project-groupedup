@@ -1,101 +1,48 @@
 package Entities;
-import java.util.List;
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Random;
 
-public class Group {
-    private User groupLeader;
-    private static HashMap<Integer, String> groupIDMap; // maps groupID to the groupName
-    private int groupID;
-    private HashMap<String, User> groupMembers;
-    //maps UserID to User object,
-    private String courseCode;
-    private String description;
-    private String groupName;
-    private HashMap<String, User> memberRequests;
-    //maps UserID to User objects, dict of users who requested to join the group
+public interface Group extends Serializable {
 
-    public Group(User groupLeader, String groupName, String description){
-        Random rand = new Random();
-        Integer id = rand.nextInt();
-        while (groupIDMap.containsValue(id)){
-            id = rand.nextInt();
-        }
-        groupIDMap.put(id, groupName);
-        this.groupID = id;
-        this.memberRequests = new HashMap<>();
-        // this.groupMembers = {groupLeader.getUserID(), groupLeader};
-        this.groupLeader = groupLeader;
-        this.courseCode = "";
-        this.description = description;
+    /**
+     *
+     * @return the group's unique group name
+     */
+    public String getGroupName();
+    /**
+     *
+     * @param userMap a map (key: username, value: User) of all the existing Users in the system
+     * @return a map of the group members' usernames to User objects
+     */
 
-    }
+    public HashMap<String, User> getGroupMembers(HashMap<String, User> userMap);
+    /**
+     *
+     * @param userMap a map (key: username, value: User) of all the existing Users in the system
+     * @return a map (key: username, value: User) of the users who applied to be in this group
+     */
+    public HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
 
-    public Group(User groupLeader, String groupName){
-        this(groupLeader, groupName, "");
-    }
+    /**
+     *
+     * @param username of the User who wants to be the new Group Leader
+     * @return whether the Group Leader was successfully changed or not
+     */
+    public boolean setGroupLeader(String username);
 
-    public String getGroupName(){
-        return this.groupName;
-    }
-    public String getCourseCode(){
-        return this.courseCode;
-    }
-    public String getGroupDescription(){
-        return this.description;
-    }
-    public int getGroupID(){
-        return this.groupID;
-    }
+    public GroupProfile getProfile();
 
-    public User getGroupLeader(){
-        return this.groupLeader;
-    }
 
-    public HashMap getGroupMembers(){
-        return this.groupMembers;
-    }
-    public HashMap getMemberRequests(){
-        return this.memberRequests;
-    }
 
-    public boolean setGroupLeader(int userID){
-        if (! groupMembers.containsKey(userID)){
-            return false;
-        }
-        this.groupLeader = groupMembers.get(userID);
-        return true;
-    }
+    void removeApplication(String username);
+    String getGroupLeaderUsername();
+    void removeMember(String username);
+    public HashMap<String, String> getGroupMembersUsernames();
+    public HashMap<String, String> getMemberRequestsUsernames();
 
-    public boolean setCourseCode(String courseCode){
-        if (validateCourseCode(courseCode)){
-            this.courseCode = courseCode;
-            return true;
-        }
-        return false;
-    }
-    public void setGroupDescription(String description){
-        this.description = description;
-    }
-
-    public boolean validateCourseCode(String courseCode){
-        char[] letters = courseCode.substring(0,3).toCharArray();
-        char[] numbers = courseCode.substring(3, 6).toCharArray();
-        for (char c : letters){
-            if (! Character.isLetter(c)){
-                return false;
-            }
-        }
-        for (char c : numbers){
-            if (! Character.isDigit(c)){
-                return false;
-            }
-        }
-        return courseCode.length() == 6;
-    }
-
-    public void setGroupName(String name){
-        this.groupName = name;
-    }
+    void addMember(String username);
+    void removeFromRequests(String username);
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    void addRequest(String username);
 
 }

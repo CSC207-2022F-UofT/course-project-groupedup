@@ -1,0 +1,67 @@
+package group_creation_screens;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class NewGroupPageScreen extends JPanel implements ActionListener {
+    JButton homePage = new JButton("Home Page");
+    JButton editGroup = new JButton("Edit Group Information");
+    JButton pendingList = new JButton("Pending Group List");
+    JLabel groupNameText = new JLabel();
+
+
+    /**
+     * After successful creation of a group, this page will display the newly created Group.
+     * The User can then click on the 'Edit Group Information' button if they want to edit
+     * the group's profile and add more details. Otherwise, they can click the 'Home Page'
+     * button and go back to the home page.
+     */
+    public NewGroupPageScreen(String groupname) {
+
+        groupNameText.setText("Group's name: " + groupname);
+
+        homePage.addActionListener(this);
+
+
+        editGroup.addActionListener(this);
+
+
+        pendingList.addActionListener(this);
+
+        this.add(groupNameText);
+        this.add(homePage);
+        this.add(editGroup);
+        this.add(pendingList);
+
+
+
+        this.setSize(500, 500);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+    }
+
+    /**
+     * React to a button click that results in evt.
+     */
+    public void actionPerformed(ActionEvent evt) {
+
+        System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource() == homePage){
+            try {
+                // GO BACK TO HOMEPAGE
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+        else if (evt.getSource() == editGroup){
+            // CONNECT JULIA'S USE CASE
+        }
+        else if (evt.getSource() == pendingList){
+            // CONNECT WITH PENDING LIST
+
+        }
+    }
+}
