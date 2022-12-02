@@ -1,3 +1,7 @@
+import Entities.CurrentUser;
+import Entities.NormalUser;
+import Entities.User;
+import Entities.UserPublicProfile;
 import MultiUsecaseUtil.SerializeDataAccess;
 import UserRegistrationUsecase.NewUserDSGateway;
 import group_creation_use_case.NewGroupDSGateway;
@@ -10,6 +14,10 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+        JFrame application = new JFrame("Grouped Up");
+        CardLayout cardLayout = new CardLayout();
+        JPanel screens = new JPanel(cardLayout);
+        application.add(screens);
 
         // SerializeDataAccess doesn't seem to be working right now
         // so im using InMemoryFileGroup right now temporarily
@@ -22,34 +30,31 @@ public class Main {
 //            throw new RuntimeException(e);
 //        }
 
-         NewGroupDSGateway newGroup = new InMemoryFileGroup();
+        NewGroupDSGateway newGroup = new InMemoryFileGroup();
 
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter();
+        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
         GroupRegisterController groupRegisterController = new GroupRegisterController(
                 interactor
         );
 
-         HomePage test = new HomePage(groupRegisterController);
+        CurrentUser currentUser1 = CurrentUser.getInstance();
+        UserPublicProfile testProfile = new UserPublicProfile();
+        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+                testProfile);
+        currentUser1.setUser(testUser);
+
+        HomePage homepageTest = new HomePage(cardLayout, screens);
+
+        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
+        screens.add(homepageTest, "homepageScreen");
+        screens.add(groupRegisterScreen, "groupRegisterScreen");
+        cardLayout.show(screens, "hompageScreen");
+        application.pack();
+        application.setVisible(true);
 
 
-
-//        registerScreen.pack();
-//        registerScreen.setVisible(true);
-//        JFrame application = new JFrame("GroupedUp");
-//        application.pack();
-//        application.setVisible(true);
-
-
-        // Build the GUI, plugging in the parts
-//        GroupRegisterScreen registerScreen = new GroupRegisterScreen(userRegisterController);
-//        screens.add(registerScreen, "Register Group");
-//        cardLayout.show(screens, "Register Group");
-//        application.pack();
-//        application.setVisible(true);
-//
-//        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
-//        screens.add(newGroupPageScreen, "New Group Page");
     }
 }
