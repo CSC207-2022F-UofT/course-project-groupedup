@@ -14,7 +14,6 @@ public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
     JPanel screens;
     CardLayout cardLayout;
 
-
     public LeaveGroupPresenter(CardLayout cardLayout, JPanel screens) {
         this.cardLayout = cardLayout;
         this.screens = screens;
@@ -27,13 +26,10 @@ public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
     public void prepareSuccessView(LeaveGroupResponseModel userAndGroup) {
         String username = userAndGroup.getUsername();
         String groupName = userAndGroup.getGroupname();
-
-        cardLayout.show(screens, "ViewApplicationsList");
     }
 
     /**
      * @param error error message containing the reason for leave group use case failure
-     * @return a use case failure exception
      */
     @Override
     public void prepareFailureView(String error) {

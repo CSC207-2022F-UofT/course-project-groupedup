@@ -27,13 +27,13 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
 
     /**
      * @param requestModel the requestModel for the cancelApplication use case
-     * @return a successView or failView depending on whether the user has cancelled their group application
      */
     @Override
     public void cancelApplication(CancelApplicationRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupname())) {
             outputBoundary.prepareFailureView("Group does not exist.");
+            return;
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
@@ -41,10 +41,12 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
 
         if (!dsGateway.userInMemberRequests(user.getUsername(), group.getGroupName())) {
             outputBoundary.prepareFailureView("User is not in group's pending list.");
+            return;
         }
 
         if (!dsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
             outputBoundary.prepareFailureView("Group is not in user's applications list.");
+            return;
         }
 
         user.removeApplication(group.getGroupName());

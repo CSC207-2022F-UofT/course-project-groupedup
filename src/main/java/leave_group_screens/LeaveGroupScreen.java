@@ -12,7 +12,6 @@ public class LeaveGroupScreen extends JFrame {
 
     public LeaveGroupScreen(String username, String groupName,
                             LeaveGroupController leaveGroupController) {
-
         this.username = username;
         this.groupName = groupName;
         this.leaveGroupController = leaveGroupController;
@@ -30,8 +29,6 @@ public class LeaveGroupScreen extends JFrame {
     private void performSelectionChoice(int selectionChoice) {
         if (selectionChoice == 0) {
             this.leaveGroupController.leaveGroup(username, groupName);
-
-            //launch groups list UI with leftGroup.getUsername() as parameter?
         }
     }
 }

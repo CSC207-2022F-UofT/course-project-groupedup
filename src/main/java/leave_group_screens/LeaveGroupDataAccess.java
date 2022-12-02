@@ -15,13 +15,8 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway {
     private HashMap<String, Group> groupMap = new HashMap<>();
 
     public LeaveGroupDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
-        for (String username : users.keySet()) {
-            this.userMap.put(username, users.get(username));
-        }
-
-        for (String groupName : groups.keySet()) {
-            this.groupMap.put(groupName, groups.get(groupName));
-        }
+        this.userMap = users;
+        this.groupMap = groups;
     }
 
     @Override

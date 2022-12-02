@@ -8,10 +8,10 @@ public interface User extends Serializable {
     String getPassword();
     String getName();
     String getEmail();
-    HashMap<String, Group> getGroups();
-    HashMap<String, Group> getApplicationsList();
+    HashMap<String, String> getGroups();
+    HashMap<String, String> getApplicationsList();
     UserPublicProfile getUserPublicProfile();
     void removeApplication(String groupName);
     void removeGroup(String groupName);
-    void addGroup(Group group);
+    void addGroup(String groupName);
 }

@@ -9,6 +9,7 @@ import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
 import leave_group_use_case.LeaveGroupDsGateway;
+import userloginusecase.LoginDSGateway;
 
 import java.io.*;
 import java.util.HashMap;
@@ -27,26 +28,60 @@ import java.util.HashMap;
  * so other saving methods that might not require throwing exceptions can be implemented later
  */
 
-public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, UpdateUserDSGateway,
-        CancelApplicationDsGateway, LeaveGroupDsGateway, EditPendingListDsGateway {
+public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
+        CancelApplicationDsGateway, LeaveGroupDsGateway, LoginDSGateway, EditPendingListDsGateway {
+
+    /**
+     * initialize a new map every time program opens, not elegant :(
+     */
 
     private HashMap<String, Group> groupMap;
     private HashMap<String, User> userMap;
-    public SerializeDataAccess() throws IOException, ClassNotFoundException {
-        this.groupMap = this.loadGroups();
+    public SerializeDataAccess(){
+        OutputStream file;
+        OutputStream file2;
+        try {
+            file = new FileOutputStream("database/group.ser");
+            file2 = new FileOutputStream("database/user.ser");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        OutputStream buffer = new BufferedOutputStream(file);
+        ObjectOutput output;
+        OutputStream buffer2 = new BufferedOutputStream(file2);
+        ObjectOutput output2;
+        try {
+            output = new ObjectOutputStream(buffer);
+            output2 = new ObjectOutputStream(buffer2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            output.writeObject(new HashMap<String, Group>());
+            output.close();
+            buffer.close();
+            file.close();
+            output2.writeObject(new HashMap<String, User>());
+            output2.close();
+            buffer2.close();
+            file2.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         this.userMap = this.loadUsers();
+        this.groupMap = this.loadGroups();
     }
 
     @Override
     public void saveNewGroups(GroupRegisterDSRequestModel groupDSRequestModel){
-        OutputStream file = null;
+        OutputStream file;
         try {
             file = new FileOutputStream("database/group.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
+        ObjectOutput output;
         try {
             output = new ObjectOutputStream(buffer);
         } catch (IOException e) {
@@ -66,14 +101,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public HashMap<String, Group> loadGroups(){
-        InputStream file = null;
+        InputStream file;
         try {
             file = new FileInputStream("database/group.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         InputStream buffer = new BufferedInputStream(file);
-        ObjectInput input = null;
+        ObjectInput input;
         try {
             input = new ObjectInputStream(buffer);
         } catch (IOException e) {
@@ -81,7 +116,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         }
         HashMap<String, Group> groups;
 
-        Object ReadFromInput = null;
+        Object ReadFromInput;
         try {
             ReadFromInput = input.readObject();
         } catch (ClassNotFoundException | IOException e) {
@@ -114,14 +149,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public void deleteGroup(String groupName) {
-        OutputStream file = null;
+        OutputStream file;
         try {
             file = new FileOutputStream("database/group.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
+        ObjectOutput output;
         try {
             output = new ObjectOutputStream(buffer);
         } catch (IOException e) {
@@ -141,14 +176,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public void saveNewUser(UserRegistrationDSRequestPackage userDSRequestModel){
-        OutputStream file = null;
+        OutputStream file;
         try {
             file = new FileOutputStream("database/user.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
+        ObjectOutput output;
         try {
             output = new ObjectOutputStream(buffer);
         } catch (IOException e) {
@@ -168,14 +203,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public HashMap<String, User> loadUsers(){
-        InputStream file = null;
+        InputStream file;
         try {
             file = new FileInputStream("database/user.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         InputStream buffer = new BufferedInputStream(file);
-        ObjectInput input = null;
+        ObjectInput input;
         try {
             input = new ObjectInputStream(buffer);
         } catch (IOException e) {
@@ -183,7 +218,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         }
         HashMap<String, User> users;
 
-        Object ReadFromInput = null;
+        Object ReadFromInput;
         try {
             ReadFromInput = input.readObject();
         } catch (ClassNotFoundException | IOException e) {
@@ -215,8 +250,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     }
 
     @Override
+    public boolean userIdentifiersMatch(String username, String password) {
+        if (!this.userMap.containsKey(username)) { return false; }
+        return this.userMap.get(username).getPassword().equals(password);
+    }
+
+    @Override
     public User getUser(String username) {
-        return userMap.get(username);
+        return this.userMap.get(username);
     }
 
     @Override
@@ -229,14 +270,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     // Also I'm passing in the user itself because it's the only way to access the updated information
     @Override
     public void updateUser(User user) {
-        OutputStream file = null;
+        OutputStream file;
         try {
             file = new FileOutputStream("database/user.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
+        ObjectOutput output;
         try {
             output = new ObjectOutputStream(buffer);
         } catch (IOException e) {
@@ -257,14 +298,14 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public void updateGroup(Group group) {
-        OutputStream file = null;
+        OutputStream file;
         try {
             file = new FileOutputStream("database/group.ser");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = null;
+        ObjectOutput output;
         try {
             output = new ObjectOutputStream(buffer);
         } catch (IOException e) {

@@ -1,142 +1,101 @@
 import Entities.*;
-import MultiUsecaseUtil.SerializeDataAccess;
-import UserRegistrationUsecase.NewUserDSGateway;
-import edit_pending_list.EditPendingListDsGateway;
-import edit_pending_list.EditPendingListInputBoundary;
-import edit_pending_list.EditPendingListInteractor;
-import edit_pending_list.EditPendingListOutputBoundary;
-import group_creation_use_case.NewGroupDSGateway;
-import group_creation_screens.*;
-import group_creation_use_case.*;
-import leave_group_screens.LeaveGroupController;
-import leave_group_screens.LeaveGroupDataAccess;
-import leave_group_screens.LeaveGroupPresenter;
-import leave_group_screens.LeaveGroupScreen;
-import leave_group_use_case.LeaveGroupDsGateway;
-import leave_group_use_case.LeaveGroupInputBoundary;
-import leave_group_use_case.LeaveGroupInteractor;
-import leave_group_use_case.LeaveGroupOutputBoundary;
-import pending_list_screens.*;
-import view_pending_list.ViewPendingListDsGateway;
-import view_pending_list.ViewPendingListInputBoundary;
-import view_pending_list.ViewPendingListInteractor;
-import view_pending_list.ViewPendingListOutputBoundary;
+import cancel_application_screens.*;
+import cancel_application_use_case.CancelApplicationDsGateway;
+import cancel_application_use_case.CancelApplicationInputBoundary;
+import cancel_application_use_case.CancelApplicationInteractor;
+import cancel_application_use_case.CancelApplicationOutputBoundary;
+import view_user_applications_use_case.ViewApplicationsListDsGateway;
+import view_user_applications_use_case.ViewApplicationsListInputBoundary;
+import view_user_applications_use_case.ViewApplicationsListInteractor;
+import view_user_applications_use_case.ViewApplicationsListOutputBoundary;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
 
-        // Build the main program window
-        JFrame application = new JFrame("GroupedUp");
-        CardLayout cardLayout = new CardLayout();
-        JPanel screens = new JPanel(cardLayout);
-        application.add(screens);
-
-        // Create the parts to plug into the Use Case+Entities engine
-        SerializeDataAccess dataAccess;
-        try {
-            dataAccess = new SerializeDataAccess();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        LeaveGroupDsGateway gateway = dataAccess;
-        LeaveGroupOutputBoundary presenter = new LeaveGroupPresenter(cardLayout, screens);
-        LeaveGroupInputBoundary inputBoundary = new LeaveGroupInteractor(gateway, presenter);
-        LeaveGroupController controller = new LeaveGroupController(inputBoundary);
-
-        // Build the GUI, plugging in the parts
-        LeaveGroupScreen leaveGroupScreen = new LeaveGroupScreen("aarya", "aarya's group",
-        controller);
-
-        String groupName = "csc207";
-        String username = "sharonh";
-
-        User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
-                new UserPublicProfile());
-        CurrentUser currentUser = CurrentUser.getInstance();
-        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                new UserPublicProfile());
-        currentUser.setUser(testUser);
-
-        Group group = new NormalGroup(groupName);
-        group.addRequest(username);
-
-        user.getApplicationsList().put(groupName, group);
-
-        ViewPendingListDsGateway dsGateway = new PendingListDataAccess(username, user, groupName, group);
-        EditPendingListDsGateway dsGateway1 = new PendingListDataAccess(username, user, groupName, group);
-
-        ViewPendingListOutputBoundary presenter1 = new ViewPendingListPresenter();
-        EditPendingListOutputBoundary presenter2 = new EditPendingListPresenter();
-
-        ViewPendingListInputBoundary viewPendingListInputBoundary = new ViewPendingListInteractor(
-                dsGateway, presenter1);
-        ViewPendingListController viewPendingListController = new ViewPendingListController(
-                viewPendingListInputBoundary);
-
-        EditPendingListInputBoundary editPendingListInputBoundary = new EditPendingListInteractor(
-                dsGateway1, presenter2);
-        EditPendingListController editPendingListController = new EditPendingListController(
-                editPendingListInputBoundary);
-
-        PendingListScreen pendingListScreen = new PendingListScreen(editPendingListController, viewPendingListController);
-
-//        JFrame application = new JFrame("Group Creation Screen");
+//        // Build the main program window
+//        JFrame application = new JFrame("GroupedUp");
 //        CardLayout cardLayout = new CardLayout();
 //        JPanel screens = new JPanel(cardLayout);
 //        application.add(screens);
 //
-
-//        NewGroupDSGateway newGroup = dataAccess;
+//        // Create the parts to plug into the Use Case+Entities engine
+//        SerializeDataAccess dataAccess = new SerializeDataAccess();
 //
-//        GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
-//        GroupFactory groupFactory = new GroupFactory();
-//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
-//        GroupRegisterController userRegisterController = new GroupRegisterController(
-//                interactor
-//        );
+//        LeaveGroupOutputBoundary leaveGroupPresenter = new LeaveGroupPresenter(cardLayout, screens);
+//        LeaveGroupInputBoundary inputBoundary = new LeaveGroupInteractor(dataAccess, leaveGroupPresenter);
+//        LeaveGroupController leaveGroupController = new LeaveGroupController(inputBoundary);
+//
+//        CancelApplicationOutputBoundary cancelApplicationPresenter = new CancelApplicationPresenter();
+//        CancelApplicationInputBoundary cancelApplicationInputBoundary = new CancelApplicationInteractor(dataAccess, cancelApplicationPresenter);
+//        CancelApplicationController cancelApplicationController = new CancelApplicationController(cancelApplicationInputBoundary);
+//
+//        LoginOutputBoundary loginPresenter = new LoginPresenter();
+//        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
+//        LoginController loginController = new LoginController(loginInteractor);
 //
 //        // Build the GUI, plugging in the parts
-//        GroupRegisterScreen registerScreen = new GroupRegisterScreen(userRegisterController);
-//        screens.add(registerScreen, "welcome");
-//        cardLayout.show(screens, "register");
-//        application.pack();
+//        LeaveGroupScreen leaveGroupScreen =  new LeaveGroupScreen(
+//                "aarya",
+//                "aarya's group",
+//                leaveGroupController);
+//        LoginScreen loginScreen = new LoginScreen();
+//        screens.add(leaveGroupScreen, "Leave Group");
+//        screens.add(loginScreen, "Login");
+//        cardLayout.show(screens, "Leave Group");
 //        application.setVisible(true);
-//
-//        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
-//        screens.add(newGroupPageScreen, "register");
 
-        User testUser = new NormalUser("Bob", "testUser", "testUser", "testUser",
+        String groupName = "PAUL FAN CLUB";
+        String groupName2 = "236 pset pals";
+        String groupName3 = "multivariable calcoholics";
+        String username = "paul gries";
+        String username2 = "aarya";
+
+        User user = new NormalUser(username, "pw", "Paul", "paul@gmail.com",
+                new UserPublicProfile());
+        User user2 = new NormalUser(username2, "pw", "Aarya", "aarya@gmail.com",
                 new UserPublicProfile());
 
         CurrentUser currentUser = CurrentUser.getInstance();
-        currentUser.setUser(testUser);
-        String groupName = "Bob's group";
+        currentUser.setUser(user);
         Group group = new NormalGroup(groupName);
+        Group group2 = new NormalGroup(groupName2);
+        currentUser.setUser(user2);
+        Group group3 = new NormalGroup(groupName3);
 
-        User testUser2 = new NormalUser("testUser2", "testUser2", "testUser2", "testUser2",
-                new UserPublicProfile());
-        testUser2.getGroups().put(groupName, group);
-        group.addMember(testUser2.getUsername());
+        group.addRequest(username2);
+        group2.addRequest(username2);
+        user2.getApplicationsList().put(groupName, groupName);
+        user2.getApplicationsList().put(groupName2, groupName2);
 
-        String username = "aarya";
-        User user = new NormalUser(username, "aarya", "Aarya", "aarya@gmail.com",
-                new UserPublicProfile());
-        user.getGroups().put(groupName, group);
-        group.addMember(user.getUsername());
+        HashMap<String, User> userMap = new HashMap<>();
+        userMap.put(username, user);
+        userMap.put(username2, user2);
 
-        HashMap<String, User> users = new HashMap<>();
-        users.put(testUser.getUsername(), testUser);
-        users.put(testUser2.getUsername(), testUser2);
-        users.put(user.getUsername(), user);
+        HashMap<String, Group> groupMap = new HashMap<>();
+        groupMap.put(groupName, group);
+        groupMap.put(groupName2, group2);
+        groupMap.put(groupName3, group3);
 
-        HashMap<String, Group> groups = new HashMap<>();
-        groups.put(groupName, group);
+        ViewApplicationsListDsGateway viewAppDsGateway = new CancelApplicationDataAccess(userMap, groupMap);
+        CancelApplicationDsGateway cancelAppDsGateway = new CancelApplicationDataAccess(userMap, groupMap);
+
+        CancelApplicationOutputBoundary cancelAppPresenter = new CancelApplicationPresenter();
+        CancelApplicationInputBoundary cancelAppInputBoundary = new CancelApplicationInteractor(cancelAppDsGateway, cancelAppPresenter);
+        CancelApplicationController cancelAppController = new CancelApplicationController(cancelAppInputBoundary);
+
+        ApplicationsListScreenBoundary applicationsListScreenBoundary = new ApplicationsListScreen(username2);
+
+        ViewApplicationsListOutputBoundary viewAppListPresenter = new ViewApplicationsListPresenter(applicationsListScreenBoundary);
+        ViewApplicationsListInputBoundary viewAppListInputBoundary = new ViewApplicationsListInteractor(viewAppDsGateway, viewAppListPresenter);
+        ViewApplicationsListController viewAppsListController = new ViewApplicationsListController(viewAppListInputBoundary);
+
+        // My applications button pressed
+        applicationsListScreenBoundary.setViewApplicationsListController(viewAppsListController);
+        applicationsListScreenBoundary.setCancelApplicationController(cancelAppController);
+        applicationsListScreenBoundary.view();
+
 
     }
 }

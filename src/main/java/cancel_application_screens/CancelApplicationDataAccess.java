@@ -13,14 +13,12 @@ import java.util.HashMap;
 
 public class CancelApplicationDataAccess implements CancelApplicationDsGateway, ViewApplicationsListDsGateway {
 
-    private HashMap<String, User> userMap;
-    private HashMap<String, Group> groupMap;
+    private HashMap<String, User> userMap = new HashMap<>();
+    private HashMap<String, Group> groupMap = new HashMap<>();
 
-    public CancelApplicationDataAccess(String username, User user, String groupName, Group group) {
-        this.userMap = new HashMap<>();
-        userMap.put(username, user);
-        this.groupMap = new HashMap<>();
-        groupMap.put(groupName, group);
+    public CancelApplicationDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
+        this.userMap = users;
+        this.groupMap = groups;
     }
 
     @Override

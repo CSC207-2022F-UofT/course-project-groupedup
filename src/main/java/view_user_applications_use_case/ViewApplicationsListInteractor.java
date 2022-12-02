@@ -24,7 +24,6 @@ public class ViewApplicationsListInteractor implements ViewApplicationsListInput
 
     /**
      * @param requestModel the requestModel for the view user applications list use case
-     * @return a list of group names that the user has applied to
      */
     @Override
     public void getApplicationsList(ViewApplicationsListRequestModel requestModel) {

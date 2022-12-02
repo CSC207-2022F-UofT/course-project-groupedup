@@ -17,8 +17,8 @@ public class NormalGroup implements Serializable, Group {
         this.groupMembers = new HashMap<>();
         groupMembers.put(groupLeader, groupLeader);
 
-//        User groupLeader = CurrentUser.getInstance().getUser();
-//        groupLeader.addGroup();
+        User groupLeader = CurrentUser.getInstance().getUser();
+        groupLeader.addGroup(groupName);
     }
 
     public String getGroupName() {
@@ -39,8 +39,6 @@ public class NormalGroup implements Serializable, Group {
     public void removeMember(String username) {
         this.groupMembers.remove(username);
     }
-
-    // return a map of actual user objects
 
     /**
      *

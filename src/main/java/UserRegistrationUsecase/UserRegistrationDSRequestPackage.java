@@ -2,6 +2,9 @@ package UserRegistrationUsecase;
 
 import Entities.User;
 
+/**
+ * data package sent to data access from user registration interactor
+ */
 public class UserRegistrationDSRequestPackage {
     private final User user;
 

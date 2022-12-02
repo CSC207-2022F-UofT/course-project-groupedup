@@ -6,29 +6,50 @@ import cancel_application_use_case.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CancelApplicationInteractorTest {
-    @Test
-    public void cancelApplicationSuccess() {
+import java.util.HashMap;
 
-        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+public class CancelApplicationInteractorTest {
+
+    /**
+     * Populates testing repository with user and group entities
+     * @return populated repository for testing
+     */
+    private CancelApplicationDsGateway initialize() {
+        User testUser = new NormalUser("Bob", "testUser", "testUser", "testUser",
                 new UserPublicProfile());
 
         CurrentUser currentUser = CurrentUser.getInstance();
         currentUser.setUser(testUser);
+        Group group = new NormalGroup("Bob's group");
 
-        String groupName = "Bob's group";
-        String username = "aarya";
+        User testUser2 = new NormalUser("testUser2", "testUser2", "testUser2",
+                "testUser2", new UserPublicProfile());
+        testUser2.getApplicationsList().put("Bob's group", "Bob's group");
+        group.addRequest(testUser2.getUsername());
 
-        Group group = new NormalGroup(groupName);
-
-        User user = new NormalUser(username, "aarya", "Aarya", "aarya@gmail.com",
+        User testUser3 = new NormalUser("aarya", "aarya", "Aarya", "aarya@gmail.com",
                 new UserPublicProfile());
+        testUser3.getApplicationsList().put("Bob's group", "Bob's group");
 
-        CancelApplicationDsGateway repository = new CancelApplicationDataAccess(username, user, groupName, group);
+        User testUser4 = new NormalUser("testUser4", "testUser4", "testUser4",
+                "testUser4", new UserPublicProfile());
+        group.addRequest(testUser4.getUsername());
 
-        user.getApplicationsList().put(groupName, group);
-        group.addRequest(username);
+        HashMap<String, User> users = new HashMap<>();
+        users.put(testUser.getUsername(), testUser);
+        users.put(testUser2.getUsername(), testUser2);
+        users.put(testUser3.getUsername(), testUser3);
+        users.put(testUser4.getUsername(), testUser4);
 
+        HashMap<String, Group> groups = new HashMap<>();
+        groups.put("Bob's group", group);
+
+        return new CancelApplicationDataAccess(users, groups);
+    }
+    @Test
+    public void cancelApplicationSuccess() {
+
+        CancelApplicationDsGateway repository = initialize();
         CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
             @Override
             public void prepareFailureView(String error) {
@@ -37,19 +58,88 @@ public class CancelApplicationInteractorTest {
 
             @Override
             public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
-                String responseUsername = responseModel.getUsername();
-                String responseGroupName = responseModel.getGroupname();
+                String username = responseModel.getUsername();
+                String groupName = responseModel.getGroupname();
 
-                Assertions.assertEquals(username, responseUsername);
-                Assertions.assertEquals(groupName, responseGroupName);
+                Assertions.assertFalse(repository.getGroup(groupName)
+                        .getMemberRequests(repository.loadUsers()).containsKey(username));
 
-                Assertions.assertFalse(group.getMemberRequests(repository.loadUsers()).containsKey(username));
-                Assertions.assertFalse(repository.getUser(responseUsername).getApplicationsList().containsKey(responseGroupName));
+                Assertions.assertFalse(repository.getUser(username).getApplicationsList()
+                        .containsKey(groupName));
+            }
+        };
+        CancelApplicationInputBoundary interactor = new CancelApplicationInteractor(repository, presenter);
+        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel("testUser2",
+                "Bob's group");
+
+        interactor.cancelApplication(inputData);
+    }
+
+    @Test
+    public void GroupNotFoundFailure() {
+
+        CancelApplicationDsGateway repository = initialize();
+        CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
+            @Override
+            public void prepareFailureView(String error) {
+                Assertions.assertEquals("Group does not exist.", error);
+            }
+
+            @Override
+            public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
+                Assertions.fail("Use case success is unexpected.");
             }
         };
 
         CancelApplicationInputBoundary interactor = new CancelApplicationInteractor(repository, presenter);
-        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel(username, groupName);
+        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel("testUser2",
+                "asdf");
+
+        interactor.cancelApplication(inputData);
+    }
+
+    @Test
+    public void UserNotInRequestsFailure() {
+
+        CancelApplicationDsGateway repository = initialize();
+        CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
+            @Override
+            public void prepareFailureView(String error) {
+                Assertions.assertEquals("User is not in group's pending list.", error);
+            }
+
+            @Override
+            public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+        };
+
+        CancelApplicationInputBoundary interactor = new CancelApplicationInteractor(repository, presenter);
+        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel("aarya",
+                "Bob's group");
+
+        interactor.cancelApplication(inputData);
+    }
+
+    @Test
+    public void GroupNotInApplicationsFailure() {
+
+        CancelApplicationDsGateway repository = initialize();
+        CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
+            @Override
+            public void prepareFailureView(String error) {
+                Assertions.assertEquals("Group is not in user's applications list.", error);
+            }
+
+            @Override
+            public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+        };
+
+        CancelApplicationInputBoundary interactor = new CancelApplicationInteractor(repository, presenter);
+        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel("testUser4",
+                "Bob's group");
 
         interactor.cancelApplication(inputData);
     }

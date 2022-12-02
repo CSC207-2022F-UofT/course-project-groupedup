@@ -8,7 +8,6 @@ public interface Group extends Serializable {
     HashMap<String, User> getGroupMembers(HashMap<String, User> userMap);
 
     HashMap<String, User> getMemberRequests(HashMap<String, User> userMap);
-
     boolean setGroupLeader(String userID);
     String getGroupLeaderUsername();
     void removeMember(String username);

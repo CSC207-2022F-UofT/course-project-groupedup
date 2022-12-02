@@ -33,6 +33,7 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
             outputBoundary.prepareFailureView("Group does not exist.");
+            return;
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
@@ -40,12 +41,13 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
 
         if (!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
             outputBoundary.prepareFailureView("User is not in group.");
+            return;
         }
 
         if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
             outputBoundary.prepareFailureView("Group is not in \"My Groups\" list.");
+            return;
         }
-
 //        if (Objects.equals(group.getGroupLeaderUsername(), user.getUsername())) {
 //            HashMap<String, User> userMap = new HashMap<>(dsGateway.loadUsers());
 //
