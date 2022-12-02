@@ -1,3 +1,5 @@
+import Edit_Group_Profile_Screens.EditGroupProfileController;
+import Edit_Group_Profile_Use_Case.EditGroupProfileDsGateway;
 import MultiUsecaseUtil.SerializeDataAccess;
 import UserRegistrationUsecase.NewUserDSGateway;
 import group_creation_use_case.NewGroupDSGateway;
@@ -42,8 +44,7 @@ public class Main {
         NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
         screens.add(newGroupPageScreen, "register");
          */
-
-        EditGroupProfileScreen editGroupProfile = new EditGroupProfileScreen();
+        EditGroupProfileScreen editGroupProfile = new EditGroupProfileScreen("CSC207");
         // screens.add(editGroupProfile, "edit group");
     }
 }
