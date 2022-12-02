@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginScreen extends JFrame implements ActionListener {
+public class LoginScreen extends JPanel implements ActionListener {
 
     private JButton loginButton;
 
@@ -22,11 +22,12 @@ public class LoginScreen extends JFrame implements ActionListener {
     private LabelTextPanel passwordInfo;
     private JLabel title;
 
+    private CardLayout cardLayout;
     private LoginController loginController;
 
-    public LoginScreen() {
-        AllControllers allControllers = AllControllers.getInstance();
-        loginController = allControllers.getLoginController();
+    public LoginScreen(CardLayout cardLayout, LoginController loginController) {
+        this.cardLayout = cardLayout;
+        this.loginController = loginController;
 
         this.initializeValues();
         this.initializeComponents();
@@ -85,14 +86,15 @@ public class LoginScreen extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == this.loginButton) {
-            this.jframe.dispose();
-            LoginInputPackage inputPackage =
-                    new LoginInputPackage(username.getText(), String.valueOf(password.getPassword()));
-            this.loginController.login(inputPackage);
+//            LoginInputPackage inputPackage =
+//                    new LoginInputPackage(username.getText(), String.valueOf(password.getPassword()));
+//            this.loginController.login(inputPackage);
+//            this.matchController.asdsadhjksdjkhfdshjkfsdjkfdjskfkjhsdf
         }
         else if (evt.getSource() == this.goToRegistrationButton){
-            this.jframe.dispose();
-            new UserRegistrationScreen();
+//            this.jframe.dispose();
+//            new UserRegistrationScreen();
+
         }
     }
 }

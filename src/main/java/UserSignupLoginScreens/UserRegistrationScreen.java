@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserRegistrationScreen extends JFrame implements ActionListener {
+public class UserRegistrationScreen extends JPanel implements ActionListener {
 
     private JButton loginButton;
 
@@ -105,7 +105,7 @@ public class UserRegistrationScreen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == this.loginButton) {
             this.jframe.dispose();
-            new LoginScreen();
+//            new LoginScreen();
         }
         else if (evt.getSource() == this.goToRegistrationButton){
             this.goToRegistrationButton.setText("bbbbbbbb");
