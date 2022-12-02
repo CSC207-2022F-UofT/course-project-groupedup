@@ -4,13 +4,12 @@ import group_creation_use_case.GroupRegisterRequestModel;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class GroupRegisterScreen implements ActionListener {
-    JFrame frame = new JFrame();
+public class GroupRegisterScreen extends JPanel implements ActionListener {
 
     JTextField groupname = new JTextField(15);
 
@@ -18,7 +17,6 @@ public class GroupRegisterScreen implements ActionListener {
     // Creating the buttons
     JButton registerGroup = new JButton("Register Group");
     JButton cancel = new JButton("Cancel");
-    JLabel groupNameText = new JLabel("Choose your group's name: ");
 
     /**
      * The main Group Register Screen where the User who is logged in can enter the name of the
@@ -30,26 +28,19 @@ public class GroupRegisterScreen implements ActionListener {
     public GroupRegisterScreen(GroupRegisterController groupRegisterController) {
         this.groupRegisterController = groupRegisterController;
 
+        JLabel title = new JLabel("Enter your group's name: ");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Buttons can listen to the frame
-        registerGroup.setBounds(100, 150, 200, 40);
-        registerGroup.setFocusable(false);
         registerGroup.addActionListener(this);
-        cancel.setBounds(100, 200, 200, 40);
+
         cancel.addActionListener(this);
-        frame.add(registerGroup);
-        frame.add(cancel);
-        groupNameText.setBounds(100, 50, 200, 40);
 
-
-        groupname.setBounds(100, 75, 200, 40);
-
-        frame.add(groupNameText);
-        frame.add(groupname);
-        frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        frame.setVisible(true);
+        this.add(title);
+        this.add(groupname);
+        this.add(registerGroup);
+        this.add(cancel);
+        this.setSize(500, 500);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     }
 
@@ -64,21 +55,17 @@ public class GroupRegisterScreen implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == registerGroup){
             try {
-                //groupRegisterController.create(groupname.getText());
+                this.groupRegisterController.create(groupname.getText());
 
-                JOptionPane.showMessageDialog(frame, (groupname.getText()) + " was successfully created.");
-
-                NewGroupPageScreen nextScreen = new NewGroupPageScreen(groupname.getText(), groupRegisterController);
-                frame.dispose();
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(frame, e.getMessage());
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
         else if (evt.getSource() == cancel){
             System.out.println("Click " + evt.getActionCommand());
 
-            // Go back to screen before this
+            // TO DO: Go back to screen before this
 
         }
 

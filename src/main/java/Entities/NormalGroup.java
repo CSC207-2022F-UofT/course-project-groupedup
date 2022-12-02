@@ -30,9 +30,9 @@ public class NormalGroup implements Serializable, Group {
 
 
 
-   public GroupProfile getProfile() {
-        return groupProfile;
-    }
+  // public GroupProfile getProfile() {
+  //      return groupProfile;
+  //  }
 
 
 

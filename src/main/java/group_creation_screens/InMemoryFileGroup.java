@@ -10,6 +10,8 @@ import java.util.Map;
 public class InMemoryFileGroup implements NewGroupDSGateway {
     private Map<String, GroupRegisterDSRequestModel> groups = new HashMap<>();
 
+    public InMemoryFileGroup(){};
+
     /**
      * Saves Group in a hashmap
      * @param groupRegisterDSRequestModel the data to save

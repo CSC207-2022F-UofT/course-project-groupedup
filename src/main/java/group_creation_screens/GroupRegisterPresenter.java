@@ -2,16 +2,26 @@ package group_creation_screens;
 import group_creation_use_case.GroupRegisterOutputBoundary;
 import group_creation_use_case.GroupRegisterResponseModel;
 
-public class GroupRegisterPresenter implements GroupRegisterOutputBoundary {
+import javax.swing.*;
+import java.awt.*;
+
+public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
+    GroupRegisterViewModel groupRegisterViewModel;
+
+
+    public GroupRegisterPresenter(GroupRegisterViewModel groupRegisterViewModel){
+        this.groupRegisterViewModel = groupRegisterViewModel;
+
+    }
     /**
      *
-     * @param response takes the response model data and presents it in the UI upon success
-     * @return
+     * @param groupResponseModel takes the response model data and presents it in the UI upon success
+     *
      */
     @Override
-    public GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel response) {
+    public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
+        groupRegisterViewModel.displaySuccess(groupResponseModel);
 
-        return response;
     }
 
     /**
@@ -20,7 +30,7 @@ public class GroupRegisterPresenter implements GroupRegisterOutputBoundary {
      * @return
      */
     @Override
-    public GroupRegisterResponseModel prepareFailView(String error) {
-        throw new GroupCreationFailed(error);
+    public void prepareFailView(String error) {
+        groupRegisterViewModel.displayFailure(error);
     }
 }

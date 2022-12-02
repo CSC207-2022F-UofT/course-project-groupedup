@@ -1,8 +1,11 @@
 package group_creation_use_case;
 
-public interface GroupRegisterOutputBoundary {
-    GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel group);
+import javax.swing.*;
+import java.awt.*;
 
-    GroupRegisterResponseModel prepareFailView(String error);
+public interface GroupRegisterOutputBoundary {
+    void prepareSuccessView(GroupRegisterResponseModel groupResponseModel);
+
+    void prepareFailView(String error);
 
 }

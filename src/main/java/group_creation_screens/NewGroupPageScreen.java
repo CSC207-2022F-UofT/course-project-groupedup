@@ -4,14 +4,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewGroupPageScreen implements ActionListener {
-    JFrame frame = new JFrame();
-    String groupname;
+public class NewGroupPageScreen extends JPanel implements ActionListener {
     JButton homePage = new JButton("Home Page");
     JButton editGroup = new JButton("Edit Group Information");
     JButton pendingList = new JButton("Pending Group List");
     JLabel groupNameText = new JLabel();
-    GroupRegisterController groupRegisterController;
 
 
     /**
@@ -20,34 +17,28 @@ public class NewGroupPageScreen implements ActionListener {
      * the group's profile and add more details. Otherwise, they can click the 'Home Page'
      * button and go back to the home page.
      */
-    public NewGroupPageScreen(String groupname, GroupRegisterController groupRegisterController) {
-        this.groupname = groupname;
-        this.groupRegisterController = groupRegisterController;
+    public NewGroupPageScreen(String groupname) {
 
         groupNameText.setText("Group's name: " + groupname);
-        groupNameText.setBounds(100, 50, 200, 40);
-        //groupNameText.setBounds(100, 20, 200, 40);
 
-        homePage.setBounds(100, 150, 200, 40);
-        homePage.setFocusable(false);
         homePage.addActionListener(this);
 
-        editGroup.setBounds(100, 200, 200, 40);
+
         editGroup.addActionListener(this);
 
-        pendingList.setBounds(100, 250, 200, 40);
+
         pendingList.addActionListener(this);
 
-        frame.add(groupNameText);
-        frame.add(homePage);
-        frame.add(editGroup);
-        frame.add(pendingList);
+        this.add(groupNameText);
+        this.add(homePage);
+        this.add(editGroup);
+        this.add(pendingList);
 
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.setLayout(null);
-        frame.setVisible(true);
+
+        this.setSize(500, 500);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     }
 
@@ -59,17 +50,17 @@ public class NewGroupPageScreen implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == homePage){
             try {
-                HomePage nextScreen = new HomePage(groupRegisterController);
-                frame.dispose();
+                // GO BACK TO HOMEPAGE
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(frame, e.getMessage());
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
         else if (evt.getSource() == editGroup){
-
+            // CONNECT JULIA'S USE CASE
         }
         else if (evt.getSource() == pendingList){
+            // CONNECT WITH PENDING LIST
 
         }
     }

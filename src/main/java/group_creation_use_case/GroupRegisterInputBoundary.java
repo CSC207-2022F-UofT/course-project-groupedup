@@ -6,5 +6,5 @@ public interface GroupRegisterInputBoundary {
      * @param requestModel
      * @return
      */
-    GroupRegisterResponseModel create(GroupRegisterRequestModel requestModel);
+    void create(GroupRegisterRequestModel requestModel);
 }
