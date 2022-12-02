@@ -30,7 +30,8 @@ public interface Group extends Serializable {
      */
     public boolean setGroupLeader(String username);
 
-    //public GroupProfile getProfile();
+    public GroupProfile getProfile();
+
 
 
     void removeApplication(String username);
@@ -38,4 +39,10 @@ public interface Group extends Serializable {
     void removeMember(String username);
     public HashMap<String, String> getGroupMembersUsernames();
     public HashMap<String, String> getMemberRequestsUsernames();
+
+    void addMember(String username);
+    void removeFromRequests(String username);
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    void addRequest(String username);
+
 }

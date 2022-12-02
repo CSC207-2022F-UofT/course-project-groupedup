@@ -20,16 +20,16 @@ class TestGroupRegisterInteractor {
         currentUser1.setUser(testUser);
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
             @Override
-            public GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel group) {
+            public void prepareSuccessView(GroupRegisterResponseModel group) {
                 assertEquals("Sohee's study group", group.getGroupName());
                 assertTrue(groupRepository.groupIdentifierExists("Sohee's study group"));
-                return null;
+
             }
 
             @Override
-            public GroupRegisterResponseModel prepareFailView(String error) {
+            public void prepareFailView(String error) {
                 fail("Use case failure is unexpected.");
-                return null;
+
             }
         };
 
@@ -37,12 +37,9 @@ class TestGroupRegisterInteractor {
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
                 groupRepository, presenter, groupFactory);
 
-        // 2) Input data — we can make this up for the test. Normally it would
-        // be created by the Controller.
         GroupRegisterRequestModel inputData = new GroupRegisterRequestModel(
                 "Sohee's study group");
 
-        // 3) Run the use case
         interactor.create(inputData);
     }
 
@@ -57,15 +54,15 @@ class TestGroupRegisterInteractor {
 
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
             @Override
-            public GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel group) {
+            public void prepareSuccessView(GroupRegisterResponseModel group) {
                 fail("Use case success is unexpected");
-                return null;
+
             }
 
             @Override
-            public GroupRegisterResponseModel prepareFailView(String error) {
+            public void prepareFailView(String error) {
                 System.out.println(error);
-                return null;
+
             }
         };
 
@@ -92,15 +89,15 @@ class TestGroupRegisterInteractor {
 
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter() {
             @Override
-            public GroupRegisterResponseModel prepareSuccessView(GroupRegisterResponseModel group) {
+            public void prepareSuccessView(GroupRegisterResponseModel group) {
                 fail("Use case success is unexpected");
-                return null;
+
             }
 
             @Override
-            public GroupRegisterResponseModel prepareFailView(String error) {
+            public void prepareFailView(String error) {
                 System.out.println(error);
-                return null;
+
             }
         };
 

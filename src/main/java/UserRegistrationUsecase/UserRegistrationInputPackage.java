@@ -6,11 +6,11 @@ package UserRegistrationUsecase;
  */
 
 public class UserRegistrationInputPackage {
-    private String name;
-    private String username;
-    private String password;
-    private String repeatPassword;
-    private String email;
+    private final String name;
+    private final String username;
+    private final String password;
+    private final String repeatPassword;
+    private final String email;
 
     public UserRegistrationInputPackage(String name, String username,
                                         String password, String repeatPassword, String email){
@@ -19,5 +19,25 @@ public class UserRegistrationInputPackage {
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
     }
 }

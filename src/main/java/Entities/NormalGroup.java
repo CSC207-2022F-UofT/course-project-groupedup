@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class NormalGroup implements Serializable, Group {
     private String groupLeader;
 
-    private HashMap<String, String> groupMembers; //maps username to username,
+    private HashMap<String, String> groupMembers;
 
-    //private GroupProfile groupProfile; //need Julia's GroupProfile Entity
+    private GroupProfile groupProfile;
     private String groupName;
     private HashMap<String, String> memberRequests;
 
@@ -30,9 +30,9 @@ public class NormalGroup implements Serializable, Group {
 
 
 
-  // public GroupProfile getProfile() {
-  //      return groupProfile;
-  //  }
+   public GroupProfile getProfile() {
+        return groupProfile;
+    }
 
 
 
@@ -105,8 +105,13 @@ public class NormalGroup implements Serializable, Group {
 
     @Override
     public void removeApplication(String username) {
-        this.memberRequests.remove(username);
+
     }
+
+    public void addMember(String username) {
+        groupMembers.put(username, username);
+    }
+
 
     /**
      *
@@ -118,4 +123,10 @@ public class NormalGroup implements Serializable, Group {
     }
 
 
+    public void removeFromRequests(String username) {
+        memberRequests.remove(username);
+    }
+
+    // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
+    public void addRequest(String username) {memberRequests.put(username, username); }
 }

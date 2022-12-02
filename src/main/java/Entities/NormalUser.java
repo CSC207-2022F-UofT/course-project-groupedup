@@ -14,8 +14,8 @@ public class NormalUser implements Serializable, User {
     private String name;
     private final String username;
     private String password;
-    private HashMap<String, Group> groups;
-    private HashMap<String, Group> applicationsList;
+    private HashMap<String, String> groups;
+    private HashMap<String, String> applicationsList;
     private UserPublicProfile publicProfile;
     private String email;
 
@@ -28,6 +28,8 @@ public class NormalUser implements Serializable, User {
         this.name = name;
         this.email = email;
         this.publicProfile = publicProfile;
+        this.applicationsList = new HashMap<>();
+        this.groups = new HashMap<>();
     }
 
     public String getUsername(){
@@ -42,10 +44,10 @@ public class NormalUser implements Serializable, User {
     public String getEmail(){
         return this.email;
     }
-    public HashMap<String, Group> getGroups(){
+    public HashMap<String, String> getGroups(){
         return this.groups;
     }
-    public HashMap<String, Group> getApplicationsList(){
+    public HashMap<String, String> getApplicationsList(){
         return this.applicationsList;
     }
     public UserPublicProfile getUserPublicProfile() { return this.publicProfile; }
@@ -56,12 +58,15 @@ public class NormalUser implements Serializable, User {
     }
 
     @Override
-    public void removeGroup(String groupname) {
-        this.groups.remove(groupname);
+    public void removeGroup(String groupName) {
+        this.groups.remove(groupName);
     }
     // check if valid new username in usecase
-//    public void changePassword(String password){
-//        this.password = password;
-//    }
+    // public void changePassword(String password){
+    // this.password = password;
+    // }
+    public void addGroup(String groupName) {
+        this.groups.put(groupName, groupName);
+    }
 }
 

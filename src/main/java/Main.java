@@ -1,44 +1,55 @@
+
 import Entities.CurrentUser;
 import Entities.NormalUser;
 import Entities.User;
 import Entities.UserPublicProfile;
+import Entities.AllControllers;
 import MultiUsecaseUtil.SerializeDataAccess;
-import UserRegistrationUsecase.NewUserDSGateway;
-import group_creation_use_case.NewGroupDSGateway;
+import Screens.*;
+import UserSignupLoginScreens.*;
+import UserRegistrationUsecase.*;
+import UserSignupLoginScreens.UserRegistrationController;
+import UserSignupLoginScreens.UserRegistrationPresenter;
 import group_creation_screens.*;
 import group_creation_use_case.*;
+import userloginusecase.LoginDSGateway;
+import userloginusecase.LoginInputBoundary;
+import userloginusecase.LoginInteractor;
+import userloginusecase.LoginOutputBoundary;
+import Edit_Group_Profile_Screens.EditGroupProfileScreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+
         JFrame application = new JFrame("Grouped Up");
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
 
-        // SerializeDataAccess doesn't seem to be working right now
-        // so im using InMemoryFileGroup right now temporarily
-
-//
-//        SerializeDataAccess dataAccess = null;
-//        try {
-//            dataAccess = new SerializeDataAccess();
-//        } catch (IOException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-
-        NewGroupDSGateway newGroup = new InMemoryFileGroup();
+            SerializeDataAccess dataAccess = new SerializeDataAccess();
+            UserRegistrationOutputBoundary userRegistrationPresenter = new UserRegistrationPresenter();
+            UserFactory normalUserFactory = new NormalUserFactory();
+            UserRegistrationInputBoundary userRegistrationInteractor = new UserRegistrationInteractor(
+                    normalUserFactory, dataAccess, userRegistrationPresenter);
+            UserRegistrationController userRegistrationController = new UserRegistrationController(
+                    userRegistrationInteractor);
 
         GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
         GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
         GroupRegisterController groupRegisterController = new GroupRegisterController(
-                interactor
-        );
+                interactor);
+
+
+
+        LoginOutputBoundary loginPresenter = new LoginPresenter();
+        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
+        LoginController loginController = new LoginController(loginInteractor);
+
 
         CurrentUser currentUser1 = CurrentUser.getInstance();
         UserPublicProfile testProfile = new UserPublicProfile();
@@ -54,6 +65,13 @@ public class Main {
         cardLayout.show(screens, "hompageScreen");
         application.pack();
         application.setVisible(true);
+
+
+
+        AllControllers allControllers = AllControllers.getInstance();
+        allControllers.setLoginController(loginController);
+        allControllers.setUserRegistrationController(userRegistrationController);
+        //new LoginScreen();
 
 
     }
