@@ -2,6 +2,9 @@ package userloginusecase;
 
 import Entities.CurrentUser;
 
+/**
+ * the interactor for logging in a user with user input credentials
+ */
 public class LoginInteractor implements LoginInputBoundary{
     final LoginDSGateway loginDSGateway;
     final LoginOutputBoundary loginOutputBoundary;
