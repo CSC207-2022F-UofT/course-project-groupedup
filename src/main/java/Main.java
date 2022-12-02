@@ -1,3 +1,8 @@
+
+import Entities.CurrentUser;
+import Entities.NormalUser;
+import Entities.User;
+import Entities.UserPublicProfile;
 import Entities.AllControllers;
 import MultiUsecaseUtil.SerializeDataAccess;
 import Screens.*;
@@ -19,49 +24,59 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
-
-        SerializeDataAccess dataAccess = new SerializeDataAccess();
-        UserRegistrationOutputBoundary userRegistrationPresenter = new UserRegistrationPresenter();
-        UserFactory normalUserFactory = new NormalUserFactory();
-        UserRegistrationInputBoundary userRegistrationInteractor = new UserRegistrationInteractor(
-                normalUserFactory, dataAccess, userRegistrationPresenter);
-        UserRegistrationController userRegistrationController = new UserRegistrationController(
-                userRegistrationInteractor
-        );
-        LoginOutputBoundary loginPresenter = new LoginPresenter();
-        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
-        LoginController loginController = new LoginController(loginInteractor);
-
-        AllControllers allControllers = AllControllers.getInstance();
-        allControllers.setLoginController(loginController);
-        allControllers.setUserRegistrationController(userRegistrationController);
-        new LoginScreen();
+        JFrame application = new JFrame("Grouped Up");
+        CardLayout cardLayout = new CardLayout();
+        JPanel screens = new JPanel(cardLayout);
+        application.add(screens);
 
 
+//            SerializeDataAccess dataAccess = new SerializeDataAccess();
+//            UserRegistrationOutputBoundary userRegistrationPresenter = new UserRegistrationPresenter();
+//            UserFactory normalUserFactory = new NormalUserFactory();
+//            UserRegistrationInputBoundary userRegistrationInteractor = new UserRegistrationInteractor(
+//                    normalUserFactory, dataAccess, userRegistrationPresenter);
+//            UserRegistrationController userRegistrationController = new UserRegistrationController(
+//                    userRegistrationInteractor);
+        NewGroupDSGateway dataAccess = new InMemoryFileGroup();
 
-//        JFrame application = new JFrame("Group Creation Screen");
-//        CardLayout cardLayout = new CardLayout();
-//        JPanel screens = new JPanel(cardLayout);
-//        application.add(screens);
+        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
+        GroupFactory groupFactory = new GroupFactory();
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
+        GroupRegisterController groupRegisterController = new GroupRegisterController(
+                interactor);
+
 //
-//        SerializeDataAccess dataAccess = new SerializeDataAccess();
-//        NewGroupDSGateway newGroup = dataAccess;
 //
-//        GroupRegisterPresenter presenter = new GroupRegisterResponseFormatter();
-//        GroupFactory groupFactory = new GroupFactory();
-//        GroupRegisterInputBoundary userRegistrationInteracter = new GroupRegisterInteractor(newGroup, presenter, groupFactory);
-//        GroupRegisterController userRegisterController = new GroupRegisterController(
-//                userRegistrationInteracter
-//        );
-//
-//        // Build the GUI, plugging in the parts
-//        GroupRegisterScreen registerScreen = new GroupRegisterScreen(userRegisterController);
-//        screens.add(registerScreen, "welcome");
-//        cardLayout.show(screens, "register");
-//        application.pack();
-//        application.setVisible(true);
-//
-//        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
-//        screens.add(newGroupPageScreen, "register");
+//        LoginOutputBoundary loginPresenter = new LoginPresenter();
+//        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
+//        LoginController loginController = new LoginController(loginInteractor);
+
+        // this part is just to activate the group creation use case, can remove later
+        // setting up a fake 'logged in' user
+        CurrentUser currentUser1 = CurrentUser.getInstance();
+        UserPublicProfile testProfile = new UserPublicProfile();
+        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+                testProfile);
+        currentUser1.setUser(testUser);
+
+        HomePage homepageTest = new HomePage(cardLayout, screens);
+
+        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
+        screens.add(homepageTest, "homepageScreen");
+        screens.add(groupRegisterScreen, "groupRegisterScreen");
+        cardLayout.show(screens, "hompageScreen");
+        application.pack();
+        application.setVisible(true);
+
+
+
+//        AllControllers allControllers = AllControllers.getInstance();
+//        allControllers.setLoginController(loginController);
+//        allControllers.setUserRegistrationController(userRegistrationController);
+        // just commented out Leo's login screen because it hasn't been connected to homepage yet
+        //new LoginScreen();
+
+
     }
 }
