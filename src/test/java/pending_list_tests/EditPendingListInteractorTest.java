@@ -38,17 +38,11 @@ public class EditPendingListInteractorTest {
                 new UserPublicProfile());
         currentUser = CurrentUser.getInstance();
         currentUser.setUser(testUser);
-
         group = new NormalGroup(groupName);
         userMap = new HashMap<>();
         userMap.put(username, user);
         groupMap = new HashMap<>();
         groupMap.put(groupName, group);
-
-        Group group = new NormalGroup(groupName);
-        EditPendingListDsGateway repository = new PendingListDataAccess(username, user, groupName, group);
-
-        // imitates ApplyToGroup use case, I'll use Ipek's methods when she merges them
         user.getApplicationsList().put(groupName, groupName);
         group.addRequest(username);
         repository = new PendingListDataAccess(userMap, groupMap);
