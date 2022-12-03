@@ -14,7 +14,7 @@ public interface PendingListScreenBoundary extends ListSelectionListener {
 
     void setEditPendingListController(EditPendingListController editPendingListController);
 
-    void setViewPendingListController(ViewPendingListController viewPendingListController);
+//    void setViewPendingListController(ViewPendingListController viewPendingListController);
 
     void view();
 

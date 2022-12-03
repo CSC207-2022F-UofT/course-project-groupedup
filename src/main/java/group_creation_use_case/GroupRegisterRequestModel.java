@@ -7,11 +7,11 @@ public class GroupRegisterRequestModel {
         this.groupName = groupName;
     }
 
+    /**
+     *
+     * @return the Group's unique name.
+     */
     public String getGroupName() {
         return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 }

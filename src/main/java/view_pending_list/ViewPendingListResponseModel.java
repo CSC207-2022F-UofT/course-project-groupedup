@@ -7,17 +7,20 @@ import java.util.ArrayList;
  */
 
 public class ViewPendingListResponseModel {
+    String groupName;
     ArrayList<String> usernamesList;
 
     /**
      * @param usernamesList the list of the users who've applied to the group
      */
-    public ViewPendingListResponseModel(ArrayList<String> usernamesList) {
+    public ViewPendingListResponseModel(String groupName, ArrayList<String> usernamesList) {
+        this.groupName = groupName;
         this.usernamesList = usernamesList;
     }
 
     public ArrayList<String> getUsernamesList() {
         return this.usernamesList;
     }
+    public String getGroupName() { return this.groupName; }
 
 }

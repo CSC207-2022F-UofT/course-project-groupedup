@@ -40,7 +40,7 @@ public class ViewPendingListInteractor implements ViewPendingListInputBoundary {
 
         ArrayList<String> usernamesList = new ArrayList<>(group.getMemberRequests(userMap).keySet());
 
-        ViewPendingListResponseModel responseModel = new ViewPendingListResponseModel(usernamesList);
+        ViewPendingListResponseModel responseModel = new ViewPendingListResponseModel(groupName, usernamesList);
         presenter.prepareSuccessView(responseModel);
     }
 }

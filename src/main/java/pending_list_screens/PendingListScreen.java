@@ -15,7 +15,7 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
     JList<String> memberRequests;
     EditPendingListController editPendingListController;
-    ViewPendingListController viewPendingListController;
+//    ViewPendingListController viewPendingListController;
     DefaultListModel<String> memberRequestsModel;
     JButton acceptButton, rejectButton;
     String groupName;
@@ -24,7 +24,7 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
         setTitle("Member Requests");
         setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.groupName = groupName;
         this.setVisible(false);
@@ -58,16 +58,18 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
         this.editPendingListController = editPendingListController;
     }
 
-    @Override
-    public void setViewPendingListController(ViewPendingListController viewPendingListController) {
-        this.viewPendingListController = viewPendingListController;
-        viewPendingListController.getUsernames(groupName);
-    }
+//    @Override
+//    public void setViewPendingListController(ViewPendingListController viewPendingListController) {
+//        this.viewPendingListController = viewPendingListController;
+//        viewPendingListController.getUsernames(groupName);
+//    }
 
     @Override
     public void view() {
         this.buildButtons();
         this.buildScrollPane();
+//        this.revalidate();
+//        this.repaint();
         this.setVisible(true);
     }
 
@@ -88,8 +90,6 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
         buttons.add(rejectButton);
         buttons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.add(buttons, BorderLayout.PAGE_END);
-        this.revalidate();
-        this.repaint();
     }
 
     @Override

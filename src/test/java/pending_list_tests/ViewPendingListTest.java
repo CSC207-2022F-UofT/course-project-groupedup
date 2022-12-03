@@ -20,7 +20,6 @@ public class ViewPendingListTest {
     HashMap<String, Group> groupMap;
     ViewPendingListDsGateway repository;
     ViewPendingListInputBoundary interactor;
-    ViewPendingListOutputBoundary presenter;
     PendingListScreenBoundary screen;
 
     @BeforeEach
@@ -43,6 +42,32 @@ public class ViewPendingListTest {
         repository = new PendingListDataAccess(userMap, groupMap);
 
         screen = new PendingListScreen(groupName);
-        presenter = new ViewPendingListPresenter(screen);
+    }
+
+    @Test
+    public void test() {
+        username = "sharonh";
+        groupName = "csc207";
+        user = new NormalUser(username, "pw", "Sharon", "syt.hsieh@mail.utoronto.ca",
+                new UserPublicProfile());
+        testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+                new UserPublicProfile());
+        currentUser = CurrentUser.getInstance();
+        currentUser.setUser(testUser);
+        group = new NormalGroup(groupName);
+        userMap = new HashMap<>();
+        userMap.put(username, user);
+        groupMap = new HashMap<>();
+        groupMap.put(groupName, group);
+        user.getApplicationsList().put(groupName, groupName);
+        group.addRequest(username);
+        repository = new PendingListDataAccess(userMap, groupMap);
+
+        ViewPendingListOutputBoundary presenter = new ViewPendingListPresenter(screen) {
+            @Override
+            public void prepareSuccessView(ViewPendingListResponseModel usernamesList) {
+
+            }
+        };
     }
 }

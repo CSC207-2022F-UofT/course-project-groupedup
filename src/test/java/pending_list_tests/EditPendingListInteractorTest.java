@@ -10,6 +10,9 @@ import pending_list_screens.PendingListDataAccess;
 
 import java.util.HashMap;
 
+/**
+ * Tests for the edit pending list use case
+ */
 public class EditPendingListInteractorTest {
     String username;
     String groupName;
@@ -135,5 +138,4 @@ public class EditPendingListInteractorTest {
         });
         Assertions.assertEquals("This user is already in this group.", thrown.getMessage());
     }
-
 }
