@@ -1,6 +1,5 @@
 package UserSignupLoginScreens;
 
-import Entities.AllControllers;
 import userloginusecase.LoginInputPackage;
 
 import javax.swing.*;
@@ -8,12 +7,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginScreen extends JPanel implements ActionListener {
+/**
+ * The screen for displaying to the user for log in information
+ * code name "login page"
+ */
+
+public class LoginScreen extends JPanel implements ActionListener, LoginScreenInterface{
 
     private JButton loginButton;
 
     private JButton goToRegistrationButton;
-    private JFrame jframe;
     private JTextField username;
     private JPasswordField password;
     private JLabel usernameLabel;
@@ -22,28 +25,16 @@ public class LoginScreen extends JPanel implements ActionListener {
     private LabelTextPanel passwordInfo;
     private JLabel title;
 
+    private JPanel screens;
     private CardLayout cardLayout;
     private LoginController loginController;
 
-    public LoginScreen(CardLayout cardLayout, LoginController loginController) {
+    public LoginScreen(JPanel screens, CardLayout cardLayout) {
+        this.screens = screens;
         this.cardLayout = cardLayout;
-        this.loginController = loginController;
 
-        this.initializeValues();
         this.initializeComponents();
         this.initializeFrame();
-    }
-
-    private void initializeValues() {
-        this.jframe = new JFrame();
-        int HEIGHT = 640;
-        int WIDTH = 640;
-        this.jframe.setSize(WIDTH, HEIGHT);
-        this.jframe.setResizable(false);
-        this.jframe.getContentPane().setBackground(new Color(255, 255, 255));
-        this.jframe.setLayout(null);
-        this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.jframe.setLocationRelativeTo(null);
     }
 
     private void initializeComponents() {
@@ -72,12 +63,12 @@ public class LoginScreen extends JPanel implements ActionListener {
 
     }
     private void initializeFrame() {
-        this.jframe.add(this.title);
-        this.jframe.add(this.usernameInfo);
-        this.jframe.add(this.passwordInfo);
-        this.jframe.add(this.loginButton);
-        this.jframe.add(this.goToRegistrationButton);
-        this.jframe.setVisible(true);
+        this.add(this.title);
+        this.add(this.usernameInfo);
+        this.add(this.passwordInfo);
+        this.add(this.loginButton);
+        this.add(this.goToRegistrationButton);
+        this.setVisible(true);
     }
 
 
@@ -86,15 +77,31 @@ public class LoginScreen extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == this.loginButton) {
-//            LoginInputPackage inputPackage =
-//                    new LoginInputPackage(username.getText(), String.valueOf(password.getPassword()));
-//            this.loginController.login(inputPackage);
+            LoginInputPackage inputPackage =
+                    new LoginInputPackage(username.getText(), String.valueOf(password.getPassword()));
+            this.loginController.login(inputPackage);
 //            this.matchController.asdsadhjksdjkhfdshjkfsdjkfdjskfkjhsdf
         }
         else if (evt.getSource() == this.goToRegistrationButton){
-//            this.jframe.dispose();
-//            new UserRegistrationScreen();
-
+            this.cardLayout.show(screens, "user registration");
         }
     }
+
+    @Override
+    public void switchScreen(String screenName) {
+        this.cardLayout.show(screens, screenName);
+    }
+
+    @Override
+    public void setView(LoginController controller) {
+        this.loginController = controller;
+        this.screens.add(this, "login page");
+    }
+
+    @Override
+    public void resetFields() {
+        this.password.setText("");
+        this.username.setText("");
+    }
+
 }
