@@ -14,6 +14,7 @@ import java.util.HashMap;
  * Tests for the edit pending list use case
  */
 public class EditPendingListInteractorTest {
+
     String username;
     String groupName;
     User user;
