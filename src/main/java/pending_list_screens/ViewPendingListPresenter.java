@@ -62,7 +62,6 @@ public class ViewPendingListPresenter implements ViewPendingListOutputBoundary {
         HashMap<String, Group> groupMap = new HashMap<>();
         groupMap.put(groupName, group);
         EditPendingListDsGateway dsGateway = new PendingListDataAccess(userMap, groupMap);
-//        EditPendingListDsGateway dsGateway = new SerializeDataAccess();
         EditPendingListOutputBoundary presenter = new EditPendingListPresenter();
         EditPendingListInputBoundary editPendingListInputBoundary = new EditPendingListInteractor(
                 dsGateway, presenter);
