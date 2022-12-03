@@ -1,5 +1,6 @@
 package group_creation_screens;
 
+import UserSignupLoginScreens.LabelTextPanel;
 import group_creation_use_case.GroupRegisterRequestModel;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class GroupRegisterScreen extends JPanel implements ActionListener {
 
-    JTextField groupname = new JTextField(15);
+    JTextField groupName = new JTextField(15);
 
     GroupRegisterController groupRegisterController;
     // Creating the buttons
@@ -29,6 +30,8 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
         this.groupRegisterController = groupRegisterController;
 
         JLabel title = new JLabel("Enter your group's name: ");
+        LabelTextPanel name = new LabelTextPanel(title, groupName);
+        name.setBounds(0, 200, 300, 30);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         registerGroup.addActionListener(this);
@@ -36,11 +39,10 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
         cancel.addActionListener(this);
 
         this.add(title);
-        this.add(groupname);
+        this.add(groupName);
         this.add(registerGroup);
         this.add(cancel);
-        this.setSize(500, 500);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     }
 
@@ -55,7 +57,7 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == registerGroup){
             try {
-                this.groupRegisterController.create(groupname.getText());
+                this.groupRegisterController.create(groupName.getText());
 
 
             } catch (Exception e) {
@@ -65,7 +67,7 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
         else if (evt.getSource() == cancel){
             System.out.println("Click " + evt.getActionCommand());
 
-            // TO DO: Go back to screen before this
+            // TODO: Go back to screen before this
 
         }
 

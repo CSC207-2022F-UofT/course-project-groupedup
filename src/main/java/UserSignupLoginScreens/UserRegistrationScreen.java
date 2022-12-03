@@ -1,16 +1,24 @@
 package UserSignupLoginScreens;
 
+import UserRegistrationUsecase.UserRegistrationInputPackage;
+import userloginusecase.LoginInputPackage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserRegistrationScreen extends JFrame implements ActionListener {
+/**
+ * concrete implementation of user registration screen
+ * code name "user registration"
+ */
+
+public class UserRegistrationScreen extends JPanel
+        implements ActionListener, UserRegistrationScreenInterface {
 
     private JButton loginButton;
 
     private JButton goToRegistrationButton;
-    private JFrame jframe;
     private JTextField username;
     private JTextField name;
     private JTextField email;
@@ -28,26 +36,20 @@ public class UserRegistrationScreen extends JFrame implements ActionListener {
     private LabelTextPanel emailInfo;
     private JLabel title;
 
-    public UserRegistrationScreen() {
-        this.initializeValues();
+    private JPanel screens;
+    private CardLayout cardLayout;
+    private UserRegistrationController userRegistrationController;
+
+    public UserRegistrationScreen(JPanel screens, CardLayout cardLayout) {
+        this.screens = screens;
+        this.cardLayout = cardLayout;
         this.initializeComponents();
         this.initializeFrame();
     }
 
-    private void initializeValues() {
-        this.jframe = new JFrame();
-        int HEIGHT = 640;
-        int WIDTH = 640;
-        this.jframe.setSize(WIDTH, HEIGHT);
-        this.jframe.setResizable(false);
-        this.jframe.getContentPane().setBackground(new Color(255, 255, 255));
-        this.jframe.setLayout(null);
-        this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.jframe.setLocationRelativeTo(null);
-    }
-
     private void initializeComponents() {
         this.title = new JLabel("REGISTRATION SCREEN");
+        this.setSize(500, 500);
         this.title.setBounds(220, 100, 300, 100);
 
         this.name = new JTextField(15);
@@ -87,15 +89,15 @@ public class UserRegistrationScreen extends JFrame implements ActionListener {
 
     }
     private void initializeFrame() {
-        this.jframe.add(this.title);
-        this.jframe.add(this.nameInfo);
-        this.jframe.add(this.usernameInfo);
-        this.jframe.add(this.passwordInfo);
-        this.jframe.add(this.repeatPasswordInfo);
-        this.jframe.add(this.emailInfo);
-        this.jframe.add(this.goToRegistrationButton);
-        this.jframe.add(this.loginButton);
-        this.jframe.setVisible(true);
+        this.add(this.title);
+        this.add(this.nameInfo);
+        this.add(this.usernameInfo);
+        this.add(this.passwordInfo);
+        this.add(this.repeatPasswordInfo);
+        this.add(this.emailInfo);
+        this.add(this.goToRegistrationButton);
+        this.add(this.loginButton);
+        this.setVisible(true);
     }
 
 
@@ -104,11 +106,31 @@ public class UserRegistrationScreen extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == this.loginButton) {
-            this.jframe.dispose();
-            new LoginScreen();
+            this.cardLayout.show(screens, "login page");
         }
         else if (evt.getSource() == this.goToRegistrationButton){
-            this.goToRegistrationButton.setText("bbbbbbbb");
+            UserRegistrationInputPackage inputPackage = new UserRegistrationInputPackage(
+                    name.getText(), username.getText(), String.valueOf(password.getPassword()),
+                    String.valueOf(repeatPassword.getPassword()), email.getText());
+            this.userRegistrationController.create(inputPackage);
         }
+    }
+
+    @Override
+    public void switchScreen(String screenName) {
+        this.cardLayout.show(screens, screenName);
+    }
+
+    @Override
+    public void setView(UserRegistrationController controller) {
+        this.userRegistrationController = controller;
+        this.screens.add(this, "user registration");
+    }
+
+    @Override
+    public void resetFields() {
+        this.username.setText("");
+        this.password.setText("");
+        this.repeatPassword.setText("");
     }
 }
