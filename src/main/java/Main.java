@@ -31,6 +31,7 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
+        // Runs registration, login, homepage, create group, new group profile, pending list
         JFrame application = new JFrame("Grouped Up");
         application.setSize(350, 400);
         CardLayout cardLayout = new CardLayout();
