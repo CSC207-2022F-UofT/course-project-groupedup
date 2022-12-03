@@ -2,7 +2,9 @@ package UserSignupLoginScreens;
 
 
 import userlogoutusecase.LogoutInputBoundary;
-
+/**
+ * controller for the logout use case
+ */
 public class LogoutController {
     LogoutInputBoundary logoutInputBoundary;
 

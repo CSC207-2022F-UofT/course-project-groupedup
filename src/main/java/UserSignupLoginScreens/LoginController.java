@@ -2,7 +2,9 @@ package UserSignupLoginScreens;
 
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInputPackage;
-
+/**
+ * controller for the login use case
+ */
 public class LoginController {
     LoginInputBoundary loginInputBoundary;
 
