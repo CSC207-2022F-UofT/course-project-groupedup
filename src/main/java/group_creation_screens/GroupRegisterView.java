@@ -15,6 +15,7 @@ public class GroupRegisterView implements GroupRegisterViewModel{
     }
     @Override
     public void displaySuccess(GroupRegisterResponseModel groupResponseModel) {
+
         NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen(groupResponseModel.getGroupName());
         screens.add(newGroupPageScreen, "newGroupPageScreen");
         cardLayout.show(screens, "newGroupPageScreen");
