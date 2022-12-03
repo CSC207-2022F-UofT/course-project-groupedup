@@ -3,6 +3,10 @@ package Entities;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * interface for the user object.
+ * all types of user must implement it
+ */
 public interface User extends Serializable {
     String getUsername();
     String getPassword();

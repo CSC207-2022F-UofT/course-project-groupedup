@@ -2,7 +2,9 @@ package UserSignupLoginScreens;
 
 import UserRegistrationUsecase.UserRegistrationInputBoundary;
 import UserRegistrationUsecase.UserRegistrationInputPackage;
-
+/**
+ * controller for the user registration use case
+ */
 public class UserRegistrationController {
     UserRegistrationInputBoundary userRegistrationInputBoundary;
 
