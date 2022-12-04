@@ -11,6 +11,8 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
     CardLayout cardLayout;
     JPanel screens;
     String groupName;
+
+
     EditGroupProfileController editGroupController;
     JTextField description = new JTextField(100);
     JTextField courseCode = new JTextField(10);
