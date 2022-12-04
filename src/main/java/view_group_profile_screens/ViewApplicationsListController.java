@@ -1,4 +1,4 @@
-package cancel_application_screens;
+package view_group_profile_screens;
 
 import view_user_applications_use_case.ViewApplicationsListInputBoundary;
 import view_user_applications_use_case.ViewApplicationsListRequestModel;

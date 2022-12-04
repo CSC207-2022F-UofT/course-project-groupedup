@@ -1,6 +1,8 @@
 package group_creation_screens;
 import Entities.*;
 import cancel_application_screens.*;
+import view_group_profile_screens.ViewApplicationsListController;
+import view_group_profile_screens.ViewApplicationsListPresenter;
 import view_user_applications_use_case.ViewApplicationsListDsGateway;
 import view_user_applications_use_case.ViewApplicationsListInputBoundary;
 import view_user_applications_use_case.ViewApplicationsListInteractor;

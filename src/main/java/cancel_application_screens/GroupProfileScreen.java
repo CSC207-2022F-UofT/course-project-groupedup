@@ -18,15 +18,12 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
      * @param username the username of the current user
      */
     public GroupProfileScreen(String username) {
-
         setSize(400, 400);
-
         this.username = username;
+
         setVisible(false);
         this.initializeComponents();
         this.buildScrollPane();
-//        this.cardLayout = new CardLayout();
-//        this.setLayout(cardLayout);
     }
 
     @Override
@@ -46,8 +43,7 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
     @Override
     public void view() {
-//        this.revalidate();
-//        this.repaint();
+        this.setComponents();
         this.setVisible(true);
     }
 
@@ -71,13 +67,10 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
     public void setComponents() {
 
         textBox.setText(this.groupDescription + "\n\n");
-        System.out.println(textBox.getText());
 
         for(String s : this.groupPreferences.keySet()) {
             textBox.append(s + ": " + this.groupPreferences.get(s) + "\n");
         }
-
-        System.out.println(textBox.getText());
 
         textBox.setLineWrap(true);
         textBox.setEditable(false);

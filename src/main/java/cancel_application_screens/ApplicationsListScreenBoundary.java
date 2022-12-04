@@ -1,5 +1,7 @@
 package cancel_application_screens;
 
+import view_group_profile_screens.ViewGroupProfileController;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 

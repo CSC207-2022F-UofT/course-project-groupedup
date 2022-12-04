@@ -1,5 +1,6 @@
-package cancel_application_screens;
+package view_group_profile_screens;
 
+import cancel_application_screens.GroupProfileScreenBoundary;
 import view_group_profile_use_case.ViewGroupProfileOutputBoundary;
 import view_group_profile_use_case.ViewGroupProfileResponseModel;
 
@@ -18,7 +19,6 @@ public class ViewGroupProfilePresenter implements ViewGroupProfileOutputBoundary
         screen.setGroupName(groupInfo.getGroupName());
         screen.setGroupDescription(groupInfo.getDescription());
         screen.setGroupPreferences(groupInfo.getPreferences());
-        screen.setComponents();
         screen.view();
     }
 }

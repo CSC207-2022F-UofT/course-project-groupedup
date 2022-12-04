@@ -1,6 +1,7 @@
-package cancel_application_screens;
+package view_group_profile_screens;
 
 import Entities.*;
+import cancel_application_screens.*;
 import cancel_application_use_case.CancelApplicationDsGateway;
 import cancel_application_use_case.CancelApplicationInputBoundary;
 import cancel_application_use_case.CancelApplicationInteractor;

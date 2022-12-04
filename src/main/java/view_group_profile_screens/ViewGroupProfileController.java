@@ -1,4 +1,4 @@
-package cancel_application_screens;
+package view_group_profile_screens;
 
 import view_group_profile_use_case.ViewGroupProfileInputBoundary;
 import view_group_profile_use_case.ViewGroupProfileRequestModel;
