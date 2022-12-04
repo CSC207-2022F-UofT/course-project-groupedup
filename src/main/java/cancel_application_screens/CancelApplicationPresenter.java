@@ -32,5 +32,4 @@ public class CancelApplicationPresenter implements CancelApplicationOutputBounda
         throw new CancelApplicationFailed(error);
     }
 
-
 }

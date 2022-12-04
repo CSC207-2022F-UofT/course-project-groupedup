@@ -17,6 +17,7 @@ public class NormalGroup implements Serializable, Group {
         this.memberRequests = new HashMap<>();
         this.groupMembers = new HashMap<>();
         groupMembers.put(groupLeader, groupLeader);
+        this.groupProfile = new GroupProfile();
 
         User groupLeader = CurrentUser.getInstance().getUser();
         groupLeader.addGroup(groupName);

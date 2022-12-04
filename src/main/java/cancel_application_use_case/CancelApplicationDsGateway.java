@@ -5,6 +5,9 @@ import Entities.User;
 
 import java.util.HashMap;
 
+/**
+ * The data access interface for the cancel application use case.
+ */
 public interface CancelApplicationDsGateway {
     boolean groupIdentifierExists(String groupname);
     User getUser(String username);

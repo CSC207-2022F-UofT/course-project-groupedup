@@ -5,11 +5,14 @@ import Entities.User;
 
 import java.util.HashMap;
 
+/**
+ * The data access interface for the leave group use case.
+ */
 public interface LeaveGroupDsGateway {
     boolean groupIdentifierExists(String groupName);
     User getUser(String username);
     Group getGroup(String groupName);
-    void deleteGroup(String groupName);
+//    void deleteGroup(String groupName);
 
     /**
      * Updates the current user after user's groups list has changed. Saves to repository.

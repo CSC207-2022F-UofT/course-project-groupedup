@@ -11,8 +11,8 @@ import java.util.HashMap;
  */
 public class LeaveGroupDataAccess implements LeaveGroupDsGateway {
 
-    private HashMap<String, User> userMap = new HashMap<>();
-    private HashMap<String, Group> groupMap = new HashMap<>();
+    private HashMap<String, User> userMap;
+    private HashMap<String, Group> groupMap;
 
     public LeaveGroupDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
         this.userMap = users;
@@ -34,10 +34,10 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway {
         return groupMap.get(groupName);
     }
 
-    @Override
-    public void deleteGroup(String groupName) {
-        groupMap.remove(groupName);
-    }
+//    @Override
+//    public void deleteGroup(String groupName) {
+//        groupMap.remove(groupName);
+//    }
 
     @Override
     public void updateUser(User user) {

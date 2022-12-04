@@ -2,10 +2,9 @@ package cancel_application_screens;
 
 import view_user_applications_use_case.ViewApplicationsListInputBoundary;
 import view_user_applications_use_case.ViewApplicationsListRequestModel;
-import view_user_applications_use_case.ViewApplicationsListResponseModel;
 
 /**
- * Executes the view user applications use case.
+ * The controller that initiates the view applications use case.
  */
 public class ViewApplicationsListController {
     final ViewApplicationsListInputBoundary userInput;
@@ -14,7 +13,7 @@ public class ViewApplicationsListController {
         this.userInput = userInput;
     }
 
-    void viewApplicationsList(String username) {
+    public void viewApplicationsList(String username) {
         ViewApplicationsListRequestModel requestModel = new ViewApplicationsListRequestModel(username);
 
         userInput.getApplicationsList(requestModel);

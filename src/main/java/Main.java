@@ -6,6 +6,7 @@ import MultiUsecaseUtil.SerializeDataAccess;
 import UserSignupLoginScreens.*;
 import UserRegistrationUsecase.*;
 import group_creation_screens.*;
+import group_creation_use_case.*;
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInteractor;
 import userloginusecase.LoginOutputBoundary;
@@ -15,8 +16,9 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-
+        // Runs registration, login, homepage, create group, new group profile, pending list
         JFrame application = new JFrame("Grouped Up");
+        application.setSize(350, 400);
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
@@ -26,7 +28,7 @@ public class Main {
         SerializeDataAccess dataAccess = new SerializeDataAccess();
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
-        HomePage homepageTest = new HomePage(cardLayout, screens);
+        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
         screens.add(homepageTest, "homepage");
 
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
@@ -44,7 +46,17 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
-        application.pack();
+        NewGroupDSGateway dataAccess1 = new InMemoryFileGroup();
+        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
+        GroupFactory groupFactory = new GroupFactory();
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess1, presenter, groupFactory);
+        GroupRegisterController groupRegisterController = new GroupRegisterController(
+                interactor);
+        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
+        screens.add(groupRegisterScreen, "groupRegisterScreen");
+
+//        application.pack();
         application.setVisible(true);
 
 

@@ -1,8 +1,11 @@
 package cancel_application_use_case;
 
+/**
+ * The request model for the cancel application use case.
+ */
 public class CancelApplicationRequestModel {
     private final String username;
-    private final String groupname;
+    private final String groupName;
 
     /**
      * @param username the username of the current user
@@ -10,11 +13,11 @@ public class CancelApplicationRequestModel {
      */
     public CancelApplicationRequestModel(String username, String groupname) {
         this.username = username;
-        this.groupname = groupname;
+        this.groupName = groupname;
     }
 
-    public String getGroupname() {
-        return groupname;
+    public String getGroupName() {
+        return groupName;
     }
 
     public String getUsername() {

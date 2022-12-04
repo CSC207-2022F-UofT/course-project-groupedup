@@ -1,5 +1,8 @@
 package cancel_application_use_case;
 
+/**
+ * The response model for the cancel application use case.
+ */
 public class CancelApplicationResponseModel {
     private final String username;
     private final String groupname;

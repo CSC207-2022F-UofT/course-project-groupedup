@@ -3,18 +3,20 @@ package cancel_application_screens;
 import Entities.Group;
 import Entities.User;
 import cancel_application_use_case.CancelApplicationDsGateway;
+import view_group_profile_use_case.ViewGroupProfileDsGateway;
 import view_user_applications_use_case.ViewApplicationsListDsGateway;
 
 import java.util.HashMap;
 
 /**
- * Simple imitation of SerializedDataAccess used only for the purpose of testing
+ * Simple imitation of SerializedDataAccess used only for the purpose of testing.
  */
 
-public class CancelApplicationDataAccess implements CancelApplicationDsGateway, ViewApplicationsListDsGateway {
+public class CancelApplicationDataAccess implements CancelApplicationDsGateway,
+        ViewApplicationsListDsGateway, ViewGroupProfileDsGateway {
 
-    private HashMap<String, User> userMap = new HashMap<>();
-    private HashMap<String, Group> groupMap = new HashMap<>();
+    public HashMap<String, User> userMap;
+    public HashMap<String, Group> groupMap;
 
     public CancelApplicationDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
         this.userMap = users;
@@ -59,7 +61,6 @@ public class CancelApplicationDataAccess implements CancelApplicationDsGateway, 
         User user = userMap.get(username);
         return user.getApplicationsList().containsKey(groupName);
     }
-
     @Override
     public HashMap<String, User> loadUsers() {
         return userMap;

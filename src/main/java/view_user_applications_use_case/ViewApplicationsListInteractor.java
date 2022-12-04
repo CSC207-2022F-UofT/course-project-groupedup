@@ -31,7 +31,7 @@ public class ViewApplicationsListInteractor implements ViewApplicationsListInput
         User user = dsGateway.getUser(username);
 
         ArrayList<String> userApplications = new ArrayList<>(user.getApplicationsList().keySet());
-        ViewApplicationsListResponseModel applicationsList = new ViewApplicationsListResponseModel(userApplications);
+        ViewApplicationsListResponseModel applicationsList = new ViewApplicationsListResponseModel(username, userApplications);
 
         presenter.prepareSuccessView(applicationsList);
     }

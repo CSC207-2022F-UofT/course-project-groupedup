@@ -31,13 +31,13 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
     @Override
     public void cancelApplication(CancelApplicationRequestModel requestModel) {
 
-        if (!dsGateway.groupIdentifierExists(requestModel.getGroupname())) {
+        if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
             outputBoundary.prepareFailureView("Group does not exist.");
             return;
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
-        Group group = dsGateway.getGroup(requestModel.getGroupname());
+        Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInMemberRequests(user.getUsername(), group.getGroupName())) {
             outputBoundary.prepareFailureView("User is not in group's pending list.");

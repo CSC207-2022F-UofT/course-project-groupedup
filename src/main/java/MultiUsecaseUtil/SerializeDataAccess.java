@@ -147,32 +147,32 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         }
     }
 
-    @Override
-    public void deleteGroup(String groupName) {
-        OutputStream file;
-        try {
-            file = new FileOutputStream("database/group.ser");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output;
-        try {
-            output = new ObjectOutputStream(buffer);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        // FYI this is the only difference between this and updateGroup (replace -> remove)
-        this.groupMap.remove(groupName);
-        try {
-            output.writeObject(this.groupMap);
-            output.close();
-            buffer.close();
-            file.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Override
+//    public void deleteGroup(String groupName) {
+//        OutputStream file;
+//        try {
+//            file = new FileOutputStream("database/group.ser");
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        OutputStream buffer = new BufferedOutputStream(file);
+//        ObjectOutput output;
+//        try {
+//            output = new ObjectOutputStream(buffer);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        // FYI this is the only difference between this and updateGroup (replace -> remove)
+//        this.groupMap.remove(groupName);
+//        try {
+//            output.writeObject(this.groupMap);
+//            output.close();
+//            buffer.close();
+//            file.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Override
     public void saveNewUser(UserRegistrationDSRequestPackage userDSRequestModel){

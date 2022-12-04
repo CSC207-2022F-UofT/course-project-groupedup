@@ -4,7 +4,7 @@ import leave_group_use_case.LeaveGroupInputBoundary;
 import leave_group_use_case.LeaveGroupRequestModel;
 
 /**
- * Executes the leaveGroup use case.
+ * The controller that initiates the leaveGroup use case.
  */
 public class LeaveGroupController {
     final LeaveGroupInputBoundary userInput;

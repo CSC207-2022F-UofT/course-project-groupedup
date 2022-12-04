@@ -1,5 +1,8 @@
 package leave_group_use_case;
 
+/**
+ * The response model for the leave group use case.
+ */
 public class LeaveGroupResponseModel {
     private final String username;
     private final String groupname;

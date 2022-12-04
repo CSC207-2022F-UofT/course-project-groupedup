@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Presenter class for leave group use case.
+ * The presenter class for leave group use case.
  */
 
 public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
