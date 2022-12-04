@@ -1,5 +1,6 @@
 package group_creation_use_case;
 
+import Entities.CurrentUser;
 import Entities.Group;
 
 import javax.swing.*;
@@ -45,6 +46,7 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
+        CurrentUser.getInstance().getUser().addGroup(group.getGroupName());
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         groupPresenter.prepareSuccessView(groupResponseModel);
         return true;
