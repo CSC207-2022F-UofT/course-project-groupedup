@@ -6,12 +6,17 @@ import MultiUsecaseUtil.SerializeDataAccess;
 import UserSignupLoginScreens.*;
 import UserRegistrationUsecase.*;
 import group_creation_screens.*;
+import group_creation_use_case.GroupFactory;
+import group_creation_use_case.GroupRegisterInputBoundary;
+import group_creation_use_case.GroupRegisterInteractor;
+import group_creation_use_case.GroupRegisterOutputBoundary;
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInteractor;
 import userloginusecase.LoginOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class Main {
     public static void main(String[] args) {
@@ -44,23 +49,22 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
+        GroupFactory groupFactory = new GroupFactory();
+        NewGroupScreenBoundary newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens);
+
+        GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen, cardLayout, screens);
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterScreen);
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
+        GroupRegisterController groupRegisterController = new GroupRegisterController(
+                interactor);
+        groupRegisterScreen.setView(groupRegisterController);
+
+
+        newGroupPageScreen.setView(groupRegisterController);
+
+
         application.pack();
         application.setVisible(true);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -73,12 +77,7 @@ public class Main {
 //                    userRegistrationInteractor);
 //        NewGroupDSGateway dataAccess = new InMemoryFileGroup();
 //
-//        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
-//        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
-//        GroupFactory groupFactory = new GroupFactory();
-//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
-//        GroupRegisterController groupRegisterController = new GroupRegisterController(
-//                interactor);
+
 
 //
 //
@@ -96,9 +95,7 @@ public class Main {
 //
 //        HomePage homepageTest = new HomePage(cardLayout, screens);
 //
-//        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
-//        screens.add(homepageTest, "homepageScreen");
-//        screens.add(groupRegisterScreen, "groupRegisterScreen");
+
 //        cardLayout.show(screens, "hompageScreen");
 //        application.pack();
 //        application.setVisible(true);
