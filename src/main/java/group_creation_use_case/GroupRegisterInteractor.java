@@ -1,15 +1,21 @@
 package group_creation_use_case;
 
+import Entities.CurrentUser;
 import Entities.Group;
 
+import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * This interactor will execute the functionality of the group creation use case.
+ */
 public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
-    final NewGroupDSGateway newGroupDSGateway;
-    final GroupRegisterPresenter groupPresenter;
+    final GroupRegisterOutputBoundary groupPresenter;
     final GroupFactory groupFactory;
 
-    public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterPresenter groupPresenter,
+    final NewGroupDSGateway newGroupDSGateway;
+
+    public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
         this.newGroupDSGateway = newGroupDSGateway;
         this.groupPresenter = groupPresenter;
@@ -17,19 +23,33 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 
     }
 
+    /**
+     * Executes the Group Creation Use Case.
+     * Takes in a request model and checks if the group name is valid.
+     * If the group name is empty then it will get the presenter to display failure.
+     * If the group already exists in the database then the presenter will display failure.
+     * If the group doesn't already exist, a new group object will be created, saved to
+     * the database, and the presenter will display success.
+     * @param requestModel
+     * @return
+     */
 
     @Override
-    public GroupRegisterResponseModel create(GroupRegisterRequestModel requestModel) {
+    public boolean create(GroupRegisterRequestModel requestModel) {
         if (newGroupDSGateway.groupIdentifierExists(requestModel.getGroupName())){
-            return groupPresenter.prepareFailView("Group already exists.");
+            groupPresenter.prepareFailView("Group already exists.");
+            return false;
         } else if (requestModel.getGroupName().equals("")){
-            return groupPresenter.prepareFailView("Invalid group name.");
+            groupPresenter.prepareFailView("Invalid group name.");
+            return false;
         }
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
+        CurrentUser.getInstance().getUser().addGroup(group.getGroupName());
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
-        return groupPresenter.prepareSuccessView(groupResponseModel);
+        groupPresenter.prepareSuccessView(groupResponseModel);
+        return true;
     }
 }
 
