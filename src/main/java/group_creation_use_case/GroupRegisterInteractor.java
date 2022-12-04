@@ -5,6 +5,9 @@ import Entities.Group;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * This interactor will execute the functionality of the group creation use case.
+ */
 public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     final GroupRegisterOutputBoundary groupPresenter;
     final GroupFactory groupFactory;
@@ -20,8 +23,12 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     }
 
     /**
-     * Executes the Group Creation Use Case. Will create a Group and store it in the database
-     * if the Group doesn't already exist.
+     * Executes the Group Creation Use Case.
+     * Takes in a request model and checks if the group name is valid.
+     * If the group name is empty then it will get the presenter to display failure.
+     * If the group already exists in the database then the presenter will display failure.
+     * If the group doesn't already exist, a new group object will be created, saved to
+     * the database, and the presenter will display success.
      * @param requestModel
      * @return
      */

@@ -35,14 +35,16 @@ public class NormalGroup implements Serializable, Group {
     }
 
 
-
-
+    /**
+     * Removes the user from the list of the group's members
+     * @param username
+     */
     @Override
     public void removeMember(String username) {
         this.groupMembers.remove(username);
     }
 
-    // return a map of actual user objects
+
 
     /**
      *
@@ -75,7 +77,6 @@ public class NormalGroup implements Serializable, Group {
     }
 
 
-    //might be unnessecary if nobody uses it
     /**
      *
      * @param userMap a map (key: username, value: User) of all the existing Users in the system
@@ -89,7 +90,7 @@ public class NormalGroup implements Serializable, Group {
         return requestersMap;
     }
 
-    //might be unnessecary if nobody uses it
+
     /**
      *
      * @param username of the User who wants to be the new Group Leader
