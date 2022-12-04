@@ -1,6 +1,5 @@
-package Edit_Group_Profile_Use_Case;
+package edit_group_profile_use_case;
 import java.util.HashMap;
-import java.util.*;
 
 public class EditGroupProfileRequestModel {
     private String groupName;

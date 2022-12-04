@@ -1,6 +1,6 @@
-package Edit_Group_Profile_Use_Case;
+package edit_group_profile_use_case;
+import edit_group_profile_screens.EditGroupProfilePresenter;
 import Entities.NormalGroup;
-import Entities.Group;
 
 import java.util.ArrayList;
 
@@ -8,10 +8,13 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     final EditGroupProfileDsGateway profileDSGateway;
     final EditGroupProfileOutputBoundary profileOutputBoundary;
+    final EditGroupProfilePresenter editGroupProfilePresenter;
 
-    public EditGroupProfileInteractor(EditGroupProfileDsGateway profileDSGateway, EditGroupProfileOutputBoundary profileOutputBoundary) {
+    public EditGroupProfileInteractor(EditGroupProfileDsGateway profileDSGateway,
+                                      EditGroupProfileOutputBoundary profileOutputBoundary, EditGroupProfilePresenter editGroupProfilePresenter) {
         this.profileDSGateway = profileDSGateway;
         this.profileOutputBoundary = profileOutputBoundary;
+        this.editGroupProfilePresenter = editGroupProfilePresenter;
     }
 
     public boolean validateCourseCode(String courseCode) {
@@ -43,35 +46,37 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
     }
 
     @Override
-    public EditGroupProfileResponseModel editGroup(EditGroupProfileRequestModel requestModel) {
+    public void editGroup(EditGroupProfileRequestModel requestModel) {
         EditGroupProfileResponseModel editFailResponseModel =
-                new EditGroupProfileResponseModel(requestModel.getPreferences(), requestModel.getCourseCode(),
+                new EditGroupProfileResponseModel(requestModel.getGroupName(), requestModel.getPreferences(),
+                        requestModel.getCourseCode(),
                         requestModel.getDescription(), "");
 
         if (!validateCourseCode(requestModel.getCourseCode())) {
-            return profileOutputBoundary.prepareFailView("Invalid Course Code Entered.");
+            editGroupProfilePresenter.prepareFailView("Invalid Course Code Entered.");
         }
 
         if (!validateMeetingTime(requestModel.getMeetingTime())) {
-            return profileOutputBoundary.prepareFailView("Invalid Meeting Time Entered.");
+            editGroupProfilePresenter.prepareFailView("Invalid Meeting Time Entered.");
         }
 
         if (profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
             NormalGroup group = profileDSGateway.findGroup(requestModel.getGroupName());
-            // group.getGroupProfile().setPreferences(requestModel.getPreferences());
-            // group.getGroupProfile().setCourseCode(requestModel.getCourseCode());
-            // group.getGroupProfile().setDescription(requestModel.getDescription());
+            //group.getGroupProfile().setPreferences(requestModel.getPreferences());
+            //group.getGroupProfile().setCourseCode(requestModel.getCourseCode());
+            //group.getGroupProfile().setDescription(requestModel.getDescription());
 
 
             EditGroupProfileResponseModel profileResponseModel = new EditGroupProfileResponseModel(
+                    requestModel.getGroupName(),
                     requestModel.getPreferences(),
                     requestModel.getCourseCode(),
                     requestModel.getDescription(),
                     "Edits made successfully.");
 
-            return profileOutputBoundary.prepareSuccessView(profileResponseModel);
+            editGroupProfilePresenter.prepareSuccessView(profileResponseModel);
         } else {
-            return profileOutputBoundary.prepareFailView("Group does not exist. Please try again.");
+            editGroupProfilePresenter.prepareFailView("Group does not exist. Please try again.");
         }
     }
 }

@@ -1,5 +1,4 @@
-package Edit_Group_Profile_Use_Case;
-import Entities.GroupProfile;
+package edit_group_profile_use_case;
 
 
 public interface EditGroupProfileInputBoundary {
@@ -8,7 +7,7 @@ public interface EditGroupProfileInputBoundary {
      * @param requestModel
      * @return
      */
-    EditGroupProfileResponseModel editGroup(EditGroupProfileRequestModel requestModel);
+    void editGroup(EditGroupProfileRequestModel requestModel);
 
 }
 

@@ -1,26 +1,25 @@
 import Entities.AllControllers;
 import MultiUsecaseUtil.SerializeDataAccess;
-import Screens.*;
 import UserSignupLoginScreens.*;
 import UserRegistrationUsecase.*;
 import UserSignupLoginScreens.UserRegistrationController;
 import UserSignupLoginScreens.UserRegistrationPresenter;
-import group_creation_screens.*;
-import group_creation_use_case.*;
-import userloginusecase.LoginDSGateway;
+import edit_group_profile_screens.EditGroupProfileController;
+import edit_group_profile_screens.EditGroupProfileScreen;
+import edit_group_profile_use_case.EditGroupProfileInputBoundary;
+import edit_group_profile_use_case.EditGroupProfileRequestModel;
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInteractor;
 import userloginusecase.LoginOutputBoundary;
-import Edit_Group_Profile_Screens.EditGroupProfileScreen;
+import view_group_profile_screens.ViewGroupProfileScreen;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
 
 
-        SerializeDataAccess dataAccess = new SerializeDataAccess();
+       /* SerializeDataAccess dataAccess = new SerializeDataAccess();
         UserRegistrationOutputBoundary userRegistrationPresenter = new UserRegistrationPresenter();
         UserFactory normalUserFactory = new NormalUserFactory();
         UserRegistrationInputBoundary userRegistrationInteractor = new UserRegistrationInteractor(
@@ -37,7 +36,7 @@ public class Main {
         allControllers.setUserRegistrationController(userRegistrationController);
         new LoginScreen();
 
-
+*/
 
 //        JFrame application = new JFrame("Group Creation Screen");
 //        CardLayout cardLayout = new CardLayout();
@@ -63,5 +62,10 @@ public class Main {
 //
 //        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen();
 //        screens.add(newGroupPageScreen, "register");
+        HashMap <String, String> c = new HashMap<>();
+        c.put("Location", "Online");
+        c.put("Meeting Time", "Monday");
+        c.put("Time Commitment", "0-2 hours");
+        ViewGroupProfileScreen n = new ViewGroupProfileScreen("efwrg", c, "wqfeqf", "CSC258");
     }
 }

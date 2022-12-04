@@ -1,4 +1,4 @@
-package Edit_Group_Profile_Use_Case;
+package edit_group_profile_use_case;
 import Entities.NormalGroup;
 
 public interface EditGroupProfileDsGateway {

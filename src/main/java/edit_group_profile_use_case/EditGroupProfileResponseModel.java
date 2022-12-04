@@ -1,4 +1,4 @@
-package Edit_Group_Profile_Use_Case;
+package edit_group_profile_use_case;
 import java.util.HashMap;
 
 public class EditGroupProfileResponseModel {
@@ -8,14 +8,19 @@ public class EditGroupProfileResponseModel {
 
     String courseCode;
     String error;
+    String groupName;
 
-    public EditGroupProfileResponseModel(HashMap<String, String> editedPreferences, String editedCourseCode, String editedDescription, String error){
+    public EditGroupProfileResponseModel(String groupName, HashMap<String, String> editedPreferences, String editedCourseCode, String editedDescription, String error){
+        this.groupName = groupName;
         this.editedPreferences = editedPreferences;
         this.courseCode = editedCourseCode;
         this.editedDescription = editedDescription;
         this.error = error;
     }
 
+    public String getGroupName() {
+        return this.groupName;
+    }
     public String getNewCourseCode() {
         return this.courseCode;
     }

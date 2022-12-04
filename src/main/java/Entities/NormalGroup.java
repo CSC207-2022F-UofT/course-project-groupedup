@@ -6,7 +6,7 @@ public class NormalGroup implements Serializable, Group {
     private String groupLeader;
     private HashMap<String, String> groupMembers; //maps username to username,
 
-    // private GroupProfile groupProfile; //need Julia's GroupProfile Entity
+    private GroupProfile groupProfile; //need Julia's GroupProfile Entity
     private String groupName;
     private HashMap<String, String> memberRequests;
 
@@ -24,9 +24,9 @@ public class NormalGroup implements Serializable, Group {
     }
 
 
-//    public GroupProfile getGroupProfile() {
-//        return groupProfile;
-//    }
+    public GroupProfile getGroupProfile() {
+        return groupProfile;
+    }
 
     public String getGroupLeaderUsername() {
 
