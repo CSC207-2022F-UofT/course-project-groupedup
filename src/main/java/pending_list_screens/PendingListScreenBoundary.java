@@ -8,13 +8,15 @@ import javax.swing.event.ListSelectionListener;
  */
 
 public interface PendingListScreenBoundary extends ListSelectionListener {
+    void setGroupName(String groupName);
+
     void setMemberRequests(JList<String> memberRequestsList);
 
     void setMemberRequestsModel(DefaultListModel<String> memberRequestsModel);
 
     void setEditPendingListController(EditPendingListController editPendingListController);
 
-//    void setViewPendingListController(ViewPendingListController viewPendingListController);
+    void setViewPendingListController(ViewPendingListController viewPendingListController);
 
     void view();
 

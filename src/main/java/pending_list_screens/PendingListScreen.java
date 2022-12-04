@@ -15,18 +15,16 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
     JList<String> memberRequests;
     EditPendingListController editPendingListController;
-//    ViewPendingListController viewPendingListController;
+    ViewPendingListController viewPendingListController;
     DefaultListModel<String> memberRequestsModel;
     JButton acceptButton, rejectButton;
     String groupName;
 
-    public PendingListScreen(String groupName) {
+    public PendingListScreen() {
 
         setTitle("Member Requests");
         setSize(300, 300);
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        this.groupName = groupName;
         this.setVisible(false);
     }
 
@@ -45,6 +43,9 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
     }
 
     @Override
+    public void setGroupName(String groupName) { this.groupName = groupName; }
+
+    @Override
     public void setMemberRequests(JList<String> memberRequestsList) {
             this.memberRequests = memberRequestsList;
     }
@@ -58,11 +59,11 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
         this.editPendingListController = editPendingListController;
     }
 
-//    @Override
-//    public void setViewPendingListController(ViewPendingListController viewPendingListController) {
-//        this.viewPendingListController = viewPendingListController;
-//        viewPendingListController.getUsernames(groupName);
-//    }
+    @Override
+    public void setViewPendingListController(ViewPendingListController viewPendingListController) {
+        this.viewPendingListController = viewPendingListController;
+        viewPendingListController.getUsernames(groupName);
+    }
 
     @Override
     public void view() {

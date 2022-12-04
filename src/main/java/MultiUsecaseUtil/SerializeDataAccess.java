@@ -87,7 +87,8 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
             throw new RuntimeException(e);
         }
         Group newGroup = groupDSRequestModel.getGroup();
-        this.groupMap.put(newGroup.getGroupName(), newGroup);
+        String groupName = groupDSRequestModel.getGroupName();
+        this.groupMap.put(groupName, newGroup);
         try {
             output.writeObject(this.groupMap);
             output.close();
@@ -234,7 +235,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public Group getGroup(String groupName) {
-        return groupMap.get(groupName);
+        return this.groupMap.get(groupName);
     }
 
 

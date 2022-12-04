@@ -61,16 +61,27 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
-        NewGroupDSGateway dataAccess1 = new InMemoryFileGroup();
+        PendingListScreen pendingListScreen = new PendingListScreen();
+        ViewPendingListOutputBoundary viewPendingListPresenter = new ViewPendingListPresenter(pendingListScreen);
+        ViewPendingListInputBoundary viewPendingListInputBoundary = new ViewPendingListInteractor(
+                dataAccess, viewPendingListPresenter);
+        ViewPendingListController viewPendingListController = new ViewPendingListController(
+                viewPendingListInputBoundary);
+        pendingListScreen.setViewPendingListController(viewPendingListController);
+//        screens.add(pendingListScreen, "pending list");
+//        NewGroupDSGateway dataAccess1 = new InMemoryFileGroup();
+//        NewGroupDSGateway dataAccess1 = new SerializeDataAccess();
         GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
         GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess1, presenter, groupFactory);
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
         GroupRegisterController groupRegisterController = new GroupRegisterController(
                 interactor);
 
         GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
         screens.add(groupRegisterScreen, "groupRegisterScreen");
+
+
 
 //        application.pack();
         application.setVisible(true);

@@ -1,6 +1,8 @@
 package group_creation_screens;
 
 import group_creation_use_case.GroupRegisterResponseModel;
+import pending_list_screens.PendingListScreen;
+import pending_list_screens.PendingListScreenBoundary;
 
 import javax.swing.*;
 import java.awt.*;

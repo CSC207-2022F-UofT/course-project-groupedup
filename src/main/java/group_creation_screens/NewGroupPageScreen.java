@@ -2,6 +2,7 @@ package group_creation_screens;
 
 import Entities.*;
 import MultiUsecaseUtil.SerializeDataAccess;
+import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
 import edit_pending_list.EditPendingListDsGateway;
 import edit_pending_list.EditPendingListInputBoundary;
 import edit_pending_list.EditPendingListInteractor;
@@ -23,7 +24,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
     JButton pendingList = new JButton("Pending List");
     JLabel groupNameText = new JLabel();
     String groupName;
-    PendingListScreenBoundary pendingListScreen;
+    PendingListScreenBoundary pendingListScreen = new PendingListScreen();
 
     /**
      * After successful creation of a group, this page will display the newly created Group.
@@ -39,9 +40,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
         homePage.addActionListener(this);
 
-
         editGroup.addActionListener(this);
-
 
         pendingList.addActionListener(this);
 
@@ -50,12 +49,9 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         this.add(editGroup);
         this.add(pendingList);
 
-        this.pendingListScreen = new PendingListScreen(groupName);
-
         this.setSize(500, 500);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
     }
 
     /**
@@ -78,41 +74,53 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         else if (evt.getSource() == pendingList){
             // CONNECT WITH PENDING LIST
 
-            // This is me making a fake data access
-            String username = "sharon";
-            String username1 = "aarya";
+//            SerializeDataAccess dataAccess = new SerializeDataAccess();
+//            String username1 = "sharon";
+//            User user1 = new NormalUser(username1, "test", "test", "test",
+//                    new UserPublicProfile());
+//            dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
+//            user1.getApplicationsList().put(groupName, groupName);
+//            dataAccess.updateUser(user1);
+//
+//            if (!dataAccess.groupIdentifierExists(groupName)) {System.out.println("hehe");};
+//            Group group = dataAccess.getGroup(groupName);
+//            group.addRequest(username1);
+//            dataAccess.updateGroup(group);
 
-            User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
-                    new UserPublicProfile());
-            User user1 = new NormalUser(username1, "pww", "Aarya", "aarya@gmail.com",
-                    new UserPublicProfile());
-            CurrentUser currentUser = CurrentUser.getInstance();
-            User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                    new UserPublicProfile());
-            currentUser.setUser(testUser);
-
-            Group group = new NormalGroup(groupName);
-            group.addRequest(username);
-            group.addRequest(username1);
-
-            user.getApplicationsList().put(groupName, groupName);
-            user1.getApplicationsList().put(groupName, groupName);
-
-            HashMap<String, User> userMap = new HashMap<>();
-            userMap.put(username, user);
-            userMap.put(username1, user1);
-
-            HashMap<String, Group> groupMap = new HashMap<>();
-            groupMap.put(groupName, group);
-
-            ViewPendingListDsGateway dsGateway = new PendingListDataAccess(userMap, groupMap);
-
+            ViewPendingListDsGateway dsGateway = new SerializeDataAccess();
             ViewPendingListOutputBoundary presenter = new ViewPendingListPresenter(pendingListScreen);
             ViewPendingListInputBoundary viewPendingListInputBoundary = new ViewPendingListInteractor(
                     dsGateway, presenter);
             ViewPendingListController viewPendingListController = new ViewPendingListController(
                     viewPendingListInputBoundary);
             viewPendingListController.getUsernames(groupName);
+
+            // This is me making a fake data access
+//            String username = "sharon";
+//            String username1 = "aarya";
+//
+//            User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
+//                    new UserPublicProfile());
+//            User user1 = new NormalUser(username1, "pww", "Aarya", "aarya@gmail.com",
+//                    new UserPublicProfile());
+//            CurrentUser currentUser = CurrentUser.getInstance();
+//            User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+//                    new UserPublicProfile());
+//            currentUser.setUser(testUser);
+//
+//            Group group = new NormalGroup(groupName);
+//            group.addRequest(username);
+//            group.addRequest(username1);
+//
+//            user.getApplicationsList().put(groupName, groupName);
+//            user1.getApplicationsList().put(groupName, groupName);
+//
+//            HashMap<String, User> userMap = new HashMap<>();
+//            userMap.put(username, user);
+//            userMap.put(username1, user1);
+//
+//            HashMap<String, Group> groupMap = new HashMap<>();
+//            groupMap.put(groupName, group);
         }
     }
 }

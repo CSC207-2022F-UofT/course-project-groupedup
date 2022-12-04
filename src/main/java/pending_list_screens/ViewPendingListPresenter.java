@@ -36,32 +36,32 @@ public class ViewPendingListPresenter implements ViewPendingListOutputBoundary {
         String groupName = usernamesList.getGroupName();
 
         // Making another fake data access
-        String username1 = "sharon";
-        String username2 = "aarya";
+//        String username1 = "sharon";
+//        String username2 = "aarya";
+//
+//        User user = new NormalUser(username1, "pw", "Sharon", "sharon@gmail.com",
+//                new UserPublicProfile());
+//        User user1 = new NormalUser(username2, "pww", "Aarya", "aarya@gmail.com",
+//                new UserPublicProfile());
+//        CurrentUser currentUser = CurrentUser.getInstance();
+//        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
+//                new UserPublicProfile());
+//        currentUser.setUser(testUser);
+//
+//        Group group = new NormalGroup(groupName);
+//        group.addRequest(username1);
+//        group.addRequest(username2);
+//
+//        user.getApplicationsList().put(groupName, groupName);
+//        user1.getApplicationsList().put(groupName, groupName);
+//
+//        HashMap<String, User> userMap = new HashMap<>();
+//        userMap.put(username1, user);
+//        userMap.put(username2, user1);
+//
+//        HashMap<String, Group> groupMap = new HashMap<>();
+//        groupMap.put(groupName, group);
 
-        User user = new NormalUser(username1, "pw", "Sharon", "sharon@gmail.com",
-                new UserPublicProfile());
-        User user1 = new NormalUser(username2, "pww", "Aarya", "aarya@gmail.com",
-                new UserPublicProfile());
-        CurrentUser currentUser = CurrentUser.getInstance();
-        User testUser = new NormalUser("testUser", "testUser", "testUser", "testUser",
-                new UserPublicProfile());
-        currentUser.setUser(testUser);
-
-        Group group = new NormalGroup(groupName);
-        group.addRequest(username1);
-        group.addRequest(username2);
-
-        user.getApplicationsList().put(groupName, groupName);
-        user1.getApplicationsList().put(groupName, groupName);
-
-        HashMap<String, User> userMap = new HashMap<>();
-        userMap.put(username1, user);
-        userMap.put(username2, user1);
-
-        HashMap<String, Group> groupMap = new HashMap<>();
-        groupMap.put(groupName, group);
-        EditPendingListDsGateway dsGateway = new PendingListDataAccess(userMap, groupMap);
         EditPendingListOutputBoundary presenter = new EditPendingListPresenter();
         EditPendingListInputBoundary editPendingListInputBoundary = new EditPendingListInteractor(
                 dsGateway, presenter);
