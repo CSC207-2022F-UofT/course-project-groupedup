@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ViewApplicationsListPresenter implements ViewApplicationsListOutputBoundary {
-    private final ApplicationsListScreenBoundary screen;
+    private final ApplicationsListScreenBoundary applicationListScreen;
 
     /**
      * The presenter class for the view applications list use case.
      * @param screen the initial empty applications list screen
      */
     public ViewApplicationsListPresenter(ApplicationsListScreenBoundary screen) {
-        this.screen = screen;
+        this.applicationListScreen = screen;
     }
 
     @Override
@@ -47,7 +47,6 @@ public class ViewApplicationsListPresenter implements ViewApplicationsListOutput
         user.getApplicationsList().put("Group 47", "Group 47");
 
         group.getProfile().setDescription("bobby's club.");
-
         group2.getProfile().setCourseCode("CSC207");
         group2.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
                 " brown hair and blue eyes. I made this group because I think it would be nice to get together" +
@@ -84,8 +83,8 @@ public class ViewApplicationsListPresenter implements ViewApplicationsListOutput
         CancelApplicationController controller = new CancelApplicationController(inputBoundary);
 
         ViewGroupProfileDsGateway dsGateway2 = new CancelApplicationDataAccess(users, groups);
-        GroupProfileScreenBoundary groupProfileScreenBoundary = new GroupProfileScreen(username);
-        ViewGroupProfileOutputBoundary presenter2 = new ViewGroupProfilePresenter(groupProfileScreenBoundary);
+        GroupProfileScreenBoundary groupProfileScreen = new GroupProfileScreen(username);
+        ViewGroupProfileOutputBoundary presenter2 = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary inputBoundary2 = new ViewGroupProfileInteractor(dsGateway2, presenter2);
         ViewGroupProfileController controller2 = new ViewGroupProfileController(inputBoundary2);
 
@@ -99,13 +98,13 @@ public class ViewApplicationsListPresenter implements ViewApplicationsListOutput
         JList<String> userApplications = new JList<>(userApplicationsModel);
         userApplications.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userApplications.setSelectedIndex(0);
-        userApplications.addListSelectionListener(screen);
+        userApplications.addListSelectionListener(applicationListScreen);
         userApplications.setVisibleRowCount(5);
 
-        screen.setUserApplications(userApplications);
-        screen.setUserApplicationsModel(userApplicationsModel);
-        screen.setCancelApplicationController(controller);
-        screen.setViewGroupController(controller2);
-        screen.view();
+        applicationListScreen.setUserApplications(userApplications);
+        applicationListScreen.setUserApplicationsModel(userApplicationsModel);
+        applicationListScreen.setCancelApplicationController(controller);
+        applicationListScreen.setViewGroupController(controller2);
+        applicationListScreen.view();
     }
 }

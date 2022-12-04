@@ -18,6 +18,7 @@ public class ViewGroupProfilePresenter implements ViewGroupProfileOutputBoundary
         screen.setGroupName(groupInfo.getGroupName());
         screen.setGroupDescription(groupInfo.getDescription());
         screen.setGroupPreferences(groupInfo.getPreferences());
+        screen.setComponents();
         screen.view();
     }
 }

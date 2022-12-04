@@ -1,7 +1,6 @@
 package cancel_application_screens;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 
 /**
@@ -24,6 +23,10 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
         this.username = username;
         setVisible(false);
+        this.initializeComponents();
+        this.buildScrollPane();
+//        this.cardLayout = new CardLayout();
+//        this.setLayout(cardLayout);
     }
 
     @Override
@@ -43,8 +46,6 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
     @Override
     public void view() {
-        this.initializeComponents();
-        this.buildScrollPane();
 //        this.revalidate();
 //        this.repaint();
         this.setVisible(true);
@@ -52,9 +53,22 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
     @Override
     public void initializeComponents() {
-        this.setLayout(new CardLayout());
 
         this.textBox = new JTextArea();
+
+        textBox.setLineWrap(true);
+        textBox.setEditable(false);
+    }
+
+    @Override
+    public void buildScrollPane() {
+        JScrollPane scrollPane = new JScrollPane(textBox);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        this.add(scrollPane);
+    }
+
+    @Override
+    public void setComponents() {
 
         textBox.setText(this.groupDescription + "\n\n");
         System.out.println(textBox.getText());
@@ -67,13 +81,5 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
         textBox.setLineWrap(true);
         textBox.setEditable(false);
-    }
-
-    @Override
-    public void buildScrollPane() {
-        JScrollPane scrollPane = new JScrollPane(textBox);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        this.add(scrollPane);
     }
 }

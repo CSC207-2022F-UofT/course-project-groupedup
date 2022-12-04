@@ -12,4 +12,5 @@ public interface GroupProfileScreenBoundary {
     void view();
     void initializeComponents();
     void buildScrollPane();
+    void setComponents();
 }
