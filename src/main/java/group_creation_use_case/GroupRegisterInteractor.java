@@ -27,17 +27,20 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
      */
 
     @Override
-    public void create(GroupRegisterRequestModel requestModel) {
+    public boolean create(GroupRegisterRequestModel requestModel) {
         if (newGroupDSGateway.groupIdentifierExists(requestModel.getGroupName())){
             groupPresenter.prepareFailView("Group already exists.");
+            return false;
         } else if (requestModel.getGroupName().equals("")){
             groupPresenter.prepareFailView("Invalid group name.");
+            return false;
         }
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         groupPresenter.prepareSuccessView(groupResponseModel);
+        return true;
     }
 }
 
