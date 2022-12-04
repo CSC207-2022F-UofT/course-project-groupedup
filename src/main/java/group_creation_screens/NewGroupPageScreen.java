@@ -43,12 +43,8 @@ public class NewGroupPageScreen extends JPanel implements NewGroupScreenBoundary
 
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == homePage){
-            try {
                 cardLayout.show(screens, "homepage");
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
         }
         else if (evt.getSource() == editGroup){
             // CONNECT JULIA'S USE CASE
@@ -95,7 +91,14 @@ public class NewGroupPageScreen extends JPanel implements NewGroupScreenBoundary
     }
 
     public void setGroupName(String groupName){
+
         groupNameText.setText("Group's name: " + groupName);
+    }
+
+    @Override
+    public void prepareFailView(String error) {
+        JOptionPane.showMessageDialog(this, error);
+
     }
 
 

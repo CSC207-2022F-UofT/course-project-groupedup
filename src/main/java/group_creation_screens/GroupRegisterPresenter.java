@@ -35,6 +35,6 @@ public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
      */
     @Override
     public void prepareFailView(String error) {
-        throw new GroupCreationFailed(error);
+        groupRegisterScreenBoundary.prepareFailView(error);
     }
 }

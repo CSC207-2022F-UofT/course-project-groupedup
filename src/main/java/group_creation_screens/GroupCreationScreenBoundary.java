@@ -10,4 +10,5 @@ public interface GroupCreationScreenBoundary extends ActionListener {
     void build();
     void switchScreen(String screenName);
     void setView(GroupRegisterController groupRegisterController);
+    void prepareFailView(String error);
 }
