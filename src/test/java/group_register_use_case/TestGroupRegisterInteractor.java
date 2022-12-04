@@ -2,8 +2,6 @@ package group_register_use_case;
 
 import Entities.*;
 import group_creation_screens.GroupRegisterPresenter;
-import group_creation_screens.GroupRegisterViewModel;
-import group_creation_screens.InMemoryGroupRegisterView;
 import group_creation_use_case.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,19 +23,18 @@ class TestGroupRegisterInteractor {
     void test_use_case_success() {
         NewGroupDSGateway groupRepository = new InMemoryFileGroup();
 
-        GroupRegisterViewModel groupRegisterViewModel = new InMemoryGroupRegisterView(){
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(){
             @Override
-            public void displaySuccess(GroupRegisterResponseModel groupResponseModel) {
+            public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
                 assertEquals("Sohee's study group", groupResponseModel.getGroupName());
                 assertTrue(groupRepository.groupIdentifierExists("Sohee's study group"));
             }
 
             @Override
-            public void displayFailure(String error) {
+            public void prepareFailView(String error) {
                 fail("Use case failure is unexpected.");
             }
         };
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterViewModel);
 
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
@@ -52,20 +49,19 @@ class TestGroupRegisterInteractor {
     @Test
     void test_use_case_success_different_group() {
         NewGroupDSGateway groupRepository = new InMemoryFileGroup();
-
-        GroupRegisterViewModel groupRegisterViewModel = new InMemoryGroupRegisterView(){
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(){
             @Override
-            public void displaySuccess(GroupRegisterResponseModel groupResponseModel) {
+            public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
                 assertEquals("Sohee's study group", groupResponseModel.getGroupName());
                 assertTrue(groupRepository.groupIdentifierExists("Sohee's study group"));
             }
 
             @Override
-            public void displayFailure(String error) {
+            public void prepareFailView(String error) {
                 fail("Use case failure is unexpected.");
             }
         };
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterViewModel);
+
 
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
@@ -84,19 +80,17 @@ class TestGroupRegisterInteractor {
     @Test
     void test_use_case_group_exists() {
         NewGroupDSGateway groupRepository = new InMemoryFileGroup();
-        GroupRegisterViewModel groupRegisterViewModel = new InMemoryGroupRegisterView(){
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(){
             @Override
-            public void displaySuccess(GroupRegisterResponseModel groupResponseModel) {
+            public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
                 fail("Use case success is unexpected");
-
             }
 
             @Override
-            public void displayFailure(String error) {
+            public void prepareFailView(String error) {
                 System.out.println(error);
             }
         };
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterViewModel);
 
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(
@@ -114,20 +108,17 @@ class TestGroupRegisterInteractor {
     void test_use_case_group_name_empty() {
         NewGroupDSGateway groupRepository = new InMemoryFileGroup();
 
-
-        GroupRegisterViewModel groupRegisterViewModel = new InMemoryGroupRegisterView(){
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(){
             @Override
-            public void displaySuccess(GroupRegisterResponseModel groupResponseModel) {
+            public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
                 fail("Use case success is unexpected");
-
             }
 
             @Override
-            public void displayFailure(String error) {
+            public void prepareFailView(String error) {
                 System.out.println(error);
             }
         };
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterViewModel);
 
         GroupFactory groupFactory = new GroupFactory();
         GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(

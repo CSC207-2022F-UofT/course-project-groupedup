@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * button and go back to the home page. They can also click the 'Pending group list' button
  * to see which users want to join their group.
  */
-public class NewGroupPageScreen extends JPanel implements ActionListener {
+public class NewGroupPageScreen extends JPanel implements NewGroupScreenBoundary {
     JButton homePage = new JButton("Home Page");
     JButton editGroup = new JButton("Edit Group Information");
     JButton pendingList = new JButton("Pending Group List");
@@ -21,33 +21,16 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
     CardLayout cardLayout;
     JPanel screens;
 
+    GroupRegisterController groupRegisterController;
 
-    public NewGroupPageScreen(String groupname, CardLayout cardLayout, JPanel screens) {
+
+    public NewGroupPageScreen(CardLayout cardLayout, JPanel screens) {
         this.cardLayout = cardLayout;
         this.screens = screens;
-
-        groupNameText.setText("Group's name: " + groupname);
-
-        homePage.addActionListener(this);
-
-
-        editGroup.addActionListener(this);
-
-
-        pendingList.addActionListener(this);
-
-        this.add(groupNameText);
-        this.add(homePage);
-        this.add(editGroup);
-        this.add(pendingList);
-
-
-
-        this.setSize(500, 500);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        build();
 
     }
+
 
     /**
      * React to a button click that results in evt.
@@ -75,4 +58,45 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
         }
     }
+
+    public void build() {
+
+        homePage.addActionListener(this);
+
+
+        editGroup.addActionListener(this);
+
+
+        pendingList.addActionListener(this);
+
+        this.add(groupNameText);
+        this.add(homePage);
+        this.add(editGroup);
+        this.add(pendingList);
+
+
+
+        this.setSize(500, 500);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    }
+
+    @Override
+    public void switchScreen(String screenName) {
+
+
+    }
+
+    @Override
+    public void setView(GroupRegisterController groupRegisterController) {
+        this.groupRegisterController = groupRegisterController;
+        this.screens.add(this, "newGroupPageScreen");
+
+    }
+
+    public void setGroupName(String groupName){
+        groupNameText.setText("Group's name: " + groupName);
+    }
+
+
 }

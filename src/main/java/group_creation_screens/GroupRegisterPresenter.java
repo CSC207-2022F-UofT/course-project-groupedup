@@ -6,13 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
-    GroupRegisterViewModel groupRegisterViewModel;
+    GroupCreationScreenBoundary groupRegisterScreenBoundary;
 
 
-    public GroupRegisterPresenter(GroupRegisterViewModel groupRegisterViewModel){
-        this.groupRegisterViewModel = groupRegisterViewModel;
+    public GroupRegisterPresenter(GroupCreationScreenBoundary groupRegisterScreenBoundary ){
+        this.groupRegisterScreenBoundary = groupRegisterScreenBoundary;
 
     }
+    public GroupRegisterPresenter(){};
     /**
      * Takes the response model data and calls the view model interface to display success
      * with the data from the response model. Since groupRegisterViewModel is an interface,
@@ -22,7 +23,7 @@ public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
      */
     @Override
     public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
-        groupRegisterViewModel.displaySuccess(groupResponseModel);
+        this.groupRegisterScreenBoundary.switchScreen(groupResponseModel.getGroupName());
 
     }
 
@@ -34,6 +35,6 @@ public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
      */
     @Override
     public void prepareFailView(String error) {
-        groupRegisterViewModel.displayFailure(error);
+        throw new GroupCreationFailed(error);
     }
 }

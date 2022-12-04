@@ -1,6 +1,7 @@
 package group_creation_screens;
 
 import group_creation_use_case.GroupRegisterRequestModel;
+import group_creation_use_case.GroupRegisterResponseModel;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
@@ -16,8 +17,8 @@ import java.awt.event.ActionListener;
  * button will take them back.
  */
 
-public class GroupRegisterScreen extends JPanel implements ActionListener {
-
+public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBoundary {
+    NewGroupScreenBoundary newGroupPageScreen;
     JTextField groupname = new JTextField(15);
 
     GroupRegisterController groupRegisterController;
@@ -28,24 +29,11 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
     JPanel screens;
 
 
-    public GroupRegisterScreen(GroupRegisterController groupRegisterController, CardLayout cardLayout, JPanel screens) {
-        this.groupRegisterController = groupRegisterController;
+    public GroupRegisterScreen(NewGroupScreenBoundary newGroupPageScreen,CardLayout cardLayout, JPanel screens) {
+        this.newGroupPageScreen = newGroupPageScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
-
-        JLabel title = new JLabel("Enter your group's name: ");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        registerGroup.addActionListener(this);
-
-        cancel.addActionListener(this);
-
-        this.add(title);
-        this.add(groupname);
-        this.add(registerGroup);
-        this.add(cancel);
-        this.setSize(500, 500);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        build();
 
     }
 
@@ -75,4 +63,35 @@ public class GroupRegisterScreen extends JPanel implements ActionListener {
 
 
     }
+
+    @Override
+    public void build() {
+        JLabel title = new JLabel("Enter your group's name: ");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        registerGroup.addActionListener(this);
+
+        cancel.addActionListener(this);
+
+        this.add(title);
+        this.add(groupname);
+        this.add(registerGroup);
+        this.add(cancel);
+        this.setSize(500, 500);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    }
+
+    @Override
+    public void switchScreen(String groupName) {
+        newGroupPageScreen.setGroupName(groupName);
+        this.cardLayout.show(screens, "newGroupPageScreen");
+    }
+
+    @Override
+    public void setView(GroupRegisterController groupRegisterController) {
+        this.groupRegisterController = groupRegisterController;
+        this.screens.add(this, "groupRegisterScreen");
+    }
+
+
 }
