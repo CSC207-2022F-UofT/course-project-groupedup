@@ -36,9 +36,9 @@ public class ReverseOrderStandardMatching implements MatchingAlgorithmStrategy {
     }
 
     public void cutByCourseCodeAndMemberList() {
-        //String target = user.getUserPublicProfile().getCoursePreferences("Course Code");
-        //groups.removeIf(g -> !(target.contains(g.getProfile().getCourseCode())));
-        //groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(user.getUsername())));
+        String target = user.getUserPublicProfile().getCoursePreferences();
+        groups.removeIf(g -> !(target.contains(g.getProfile().getCourseCode())));
+        groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(user.getUsername())));
     }
     }
 

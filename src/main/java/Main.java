@@ -6,12 +6,17 @@ import MultiUsecaseUtil.SerializeDataAccess;
 import UserSignupLoginScreens.*;
 import UserRegistrationUsecase.*;
 import group_creation_screens.*;
+import matching_algorithm_use_case.MatchingAlgorithmResponseModel;
+import matching_algorithm_screens.HomeMatchesBoundary;
+import matching_algorithm_screens.MatchingAlgorithmView;
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInteractor;
 import userloginusecase.LoginOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,8 +31,23 @@ public class Main {
         SerializeDataAccess dataAccess = new SerializeDataAccess();
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
-        HomePage homepageTest = new HomePage(cardLayout, screens);
-        screens.add(homepageTest, "homepage");
+        HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens);
+
+        List<String> groups = new ArrayList<>();
+        groups.add("CSC207: Group 1");
+        groups.add("CSC236: Group 2");
+        groups.add("CSC258: Group 3");
+        groups.add("CSC207: Group 4");
+        groups.add("CSC236: Group 5");
+        groups.add("CSC258: Group 6");
+        MatchingAlgorithmResponseModel responseModel = new MatchingAlgorithmResponseModel(
+                groups);
+
+
+        MatchingAlgorithmView matchingAlgorithmView = new MatchingAlgorithmView(homepageTest);
+        matchingAlgorithmView.displaySuccess(responseModel);
+
+        screens.add((JPanel) homepageTest, "homepage");
 
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);
@@ -43,6 +63,8 @@ public class Main {
                 new UserRegistrationInteractor(normalUserFactory, dataAccess, registrationPresenter);
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
+
+
 
         application.pack();
         application.setVisible(true);

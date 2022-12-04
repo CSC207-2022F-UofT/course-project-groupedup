@@ -7,6 +7,7 @@ import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
 import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
+import matching_algorithm_use_case.MatchingAlgorithmDsGateWay;
 import userloginusecase.LoginDSGateway;
 
 import java.io.*;
@@ -26,7 +27,7 @@ import java.util.HashMap;
  * so other saving methods that might not require throwing exceptions can be implemented later
  */
 
-public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway, EditPendingListDsGateway{
+public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway, EditPendingListDsGateway, MatchingAlgorithmDsGateWay {
 
     /**
      * initialize a new map every time program opens, not elegant :(

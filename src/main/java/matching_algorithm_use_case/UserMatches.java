@@ -19,7 +19,7 @@ import java.util.List;
  * getMatches(): return matches, List<String>
  */
 public class UserMatches {
-    private User user;
+    private  User user;
 
     private List<String> matches;
 
@@ -39,7 +39,6 @@ public class UserMatches {
         this.matchingAlgorithmStrategy = matchingAlgorithmStrategy;
         this.matches = matchingAlgorithmStrategy.match(user, groups);
     }
-
     /**
      * Access the matches
      * @return the matches as should be presented

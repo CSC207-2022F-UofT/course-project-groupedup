@@ -14,7 +14,7 @@ public interface MatchingAlgorithmDsGateWay {
      * @param username: current User's username
      * @return the respective User
      */
-    User loadUser(String username);
+    User getUser(String username);
 
     /**
      * Get list of all groups from repo

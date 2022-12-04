@@ -56,7 +56,7 @@ public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalcul
         }
     }
     /**
-     * calculates and returns the similarity score based on the UserPublicProfile preferences
+     * Calculates and returns the similarity score based on the UserPublicProfile preferences
      * of user and the preferences of group
      * @return the similarity score
      */
