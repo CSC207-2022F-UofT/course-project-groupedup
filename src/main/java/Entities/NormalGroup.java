@@ -126,4 +126,11 @@ public class NormalGroup implements Serializable, Group {
     public void addRequest(String username) {
         memberRequests.put(username, username);
     }
+
+    @Override
+    public void setGroupProfile(GroupProfile groupProfile) {
+        this.groupProfile = groupProfile;
+    }
+
+
 }
