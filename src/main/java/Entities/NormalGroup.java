@@ -19,6 +19,8 @@ public class NormalGroup implements Serializable, Group {
         groupMembers.put(groupLeader, groupLeader);
         this.groupProfile = new GroupProfile();
 
+        User groupLeader = CurrentUser.getInstance().getUser();
+        groupLeader.addGroup(groupName);
     }
 
     /**
@@ -131,4 +133,6 @@ public class NormalGroup implements Serializable, Group {
 
     // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
     public void addRequest(String username) {memberRequests.put(username, username); }
+
+    public void addMemberRequest(String username) {memberRequests.put(username, username);}
 }

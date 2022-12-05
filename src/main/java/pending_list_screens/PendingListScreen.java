@@ -46,7 +46,7 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
     @Override
     public void setMemberRequests(JList<String> memberRequestsList) {
-            this.memberRequests = memberRequestsList;
+        this.memberRequests = memberRequestsList;
     }
 
     @Override
@@ -130,5 +130,4 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
             }
         }
     }
-
 }

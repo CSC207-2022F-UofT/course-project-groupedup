@@ -1,13 +1,13 @@
 package group_creation_use_case;
 
 import Entities.*;
-import UserRegistrationUsecase.NewUserDSGateway;
-import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
-import edit_pending_list.EditPendingListDsGateway;
-
-import javax.swing.*;
-import java.io.IOException;
-import java.util.HashMap;
+//import UserRegistrationUsecase.NewUserDSGateway;
+//import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+//import edit_pending_list.EditPendingListDsGateway;
+//
+//import javax.swing.*;
+//import java.io.IOException;
+//import java.util.HashMap;
 
 /**
  * This interactor will execute the functionality of the group creation use case.
@@ -52,9 +52,7 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
         }
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
-
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
-
         CurrentUser.getInstance().getUser().addGroup(group.getGroupName());
 
 

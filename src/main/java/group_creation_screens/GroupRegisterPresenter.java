@@ -2,9 +2,6 @@ package group_creation_screens;
 import group_creation_use_case.GroupRegisterOutputBoundary;
 import group_creation_use_case.GroupRegisterResponseModel;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
     GroupCreationScreenBoundary groupRegisterScreenBoundary;
 
