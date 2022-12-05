@@ -10,6 +10,7 @@ public class ViewApplicationsListResponseModel {
     ArrayList<String> applicationsList;
 
     /**
+     * @param username the username of the current user
      * @param applicationsList the user's pending list of applications to groups
      */
     public ViewApplicationsListResponseModel(String username, ArrayList<String> applicationsList) {

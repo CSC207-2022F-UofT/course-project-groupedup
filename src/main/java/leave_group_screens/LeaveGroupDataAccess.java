@@ -3,16 +3,19 @@ package leave_group_screens;
 import Entities.Group;
 import Entities.User;
 import leave_group_use_case.LeaveGroupDsGateway;
+import view_group_profile_use_case.ViewGroupProfileDsGateway;
+import view_my_groups_use_case.ViewMyGroupsDsGateway;
 
 import java.util.HashMap;
 
 /**
  * Simple imitation of SerializedDataAccess used only for the purpose of testing
  */
-public class LeaveGroupDataAccess implements LeaveGroupDsGateway {
+public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
+        ViewMyGroupsDsGateway, ViewGroupProfileDsGateway {
 
-    private HashMap<String, User> userMap;
-    private HashMap<String, Group> groupMap;
+    private final HashMap<String, User> userMap;
+    private final HashMap<String, Group> groupMap;
 
     public LeaveGroupDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
         this.userMap = users;
@@ -33,11 +36,6 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway {
     public Group getGroup(String groupName) {
         return groupMap.get(groupName);
     }
-
-//    @Override
-//    public void deleteGroup(String groupName) {
-//        groupMap.remove(groupName);
-//    }
 
     @Override
     public void updateUser(User user) {

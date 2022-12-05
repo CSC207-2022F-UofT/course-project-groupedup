@@ -30,6 +30,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
         this.username = username;
 
         this.setSize(400, 500);
+        setTitle("My Applications");
         setVisible(false);
     }
 
@@ -43,7 +44,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
             if (userApplications.getSelectedIndex() == -1) {
                 cancelApplicationButton.setEnabled(false);
                 viewGroupButton.setEnabled(false);
-            } else{
+            } else {
                 cancelApplicationButton.setEnabled(true);
                 viewGroupButton.setEnabled(true);
             }
@@ -116,6 +117,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
                 if (numApplications == 0) {
                     cancelApplicationButton.setEnabled(false);
+                    viewGroupButton.setEnabled(false);
                 } else if (index == numApplications) {
                     index--;
                 }
