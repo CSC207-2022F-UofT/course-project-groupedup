@@ -40,7 +40,7 @@ public class Main {
         SerializeDataAccess dataAccess = new SerializeDataAccess();
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
-        HomePage homepageTest = new HomePage(cardLayout, screens);
+        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
         screens.add(homepageTest, "homepage");
 
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
