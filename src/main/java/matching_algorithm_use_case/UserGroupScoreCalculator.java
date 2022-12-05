@@ -68,6 +68,7 @@ public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalcul
         GroupProfile g = this.group.getProfile();
         HashMap<String, String> groupPref = g.getPreferences();
 
+
         for (String keyUser: userPref.keySet()){
             for (String keyGroup: groupPref.keySet()){
                 if (keyUser.equals(keyGroup)){
@@ -75,8 +76,8 @@ public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalcul
                         count += 1;
                     }
                 }
-                total +=1;
             }
+            total +=1;
         }
         return count / total;
     }
@@ -87,6 +88,9 @@ public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalcul
      */
     @Override
     public String toString() {
+        if (group.getProfile().getCourseCode().isEmpty()){
+            return "no code: " + group.getGroupName();
+        }
         return group.getProfile().getCourseCode() + ": " +  group.getGroupName();
     }
 

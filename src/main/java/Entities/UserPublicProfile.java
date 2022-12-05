@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 public class UserPublicProfile implements Serializable {
     private String biography;
-    private String coursePreferences;
+    private String coursePreferences = "";
     private HashMap<String, String> preferences;
     public UserPublicProfile(){
         HashMap<String, String> preferences = new HashMap<>();

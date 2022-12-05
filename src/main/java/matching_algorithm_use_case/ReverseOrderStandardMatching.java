@@ -3,7 +3,6 @@ package matching_algorithm_use_case;
 import Entities.Group;
 import Entities.User;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.List;
 public class ReverseOrderStandardMatching implements MatchingAlgorithmStrategy {
     private User user;
     private List<Group> groups;
+
     @Override
     public List<String> match(User user, List<Group> groups) {
         this.user = user;
@@ -35,10 +35,18 @@ public class ReverseOrderStandardMatching implements MatchingAlgorithmStrategy {
         return matches;
     }
 
+    /**
+     * Cut the group list to be smaller. If the group has no course code, the group does not have required course
+     * code, the user is already a member, or has requested to join the group is removed.
+     */
     public void cutByCourseCodeAndMemberList() {
-        String target = user.getUserPublicProfile().getCoursePreferences();
-        groups.removeIf(g -> !(target.contains(g.getProfile().getCourseCode())));
-        groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(user.getUsername())));
+        groups.removeIf(g -> (g.getProfile().getCourseCode().isEmpty()));
+        if (!user.getUserPublicProfile().getCoursePreferences().isEmpty()){
+            groups.removeIf(g ->
+                    !(this.user.getUserPublicProfile().getCoursePreferences().contains(g.getProfile().getCourseCode())));
+        }
+        groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(this.user.getUsername())));
+        groups.removeIf(g -> (g.getMemberRequestsUsernames().containsKey(this.user.getUsername())));
     }
     }
 

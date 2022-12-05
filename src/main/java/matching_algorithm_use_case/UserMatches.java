@@ -6,17 +6,8 @@ import Entities.User;
 import java.util.List;
 
 /**
- * General Description:
  * This Class is used to match and update the user's scores. It will not be saved as each time we refresh the screen
  * or press "find groups" we will re-calculate the score. So, hence does not need to be saved or serialized.
- * <p>
- * ATTRIBUTES:
- * user: the current user
- * matches: a list of UserGroupScoreCalculator class instances
- * groups: the groups from the repository
- * <p>
- * METHOD DESCRIPTION:
- * getMatches(): return matches, List<String>
  */
 public class UserMatches {
     private  User user;

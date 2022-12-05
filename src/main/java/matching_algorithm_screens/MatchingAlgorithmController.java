@@ -4,7 +4,7 @@ import matching_algorithm_use_case.MatchingAlgorithmInputBoundary;
 import matching_algorithm_use_case.MatchingAlgorithmRequestModel;
 
 /**
- * Controller for the Matching Algorithm Use Case, interacts with the interactor
+ * Controller for the Matching Algorithm Use Case, calls the interactor
  */
 public class MatchingAlgorithmController {
     final MatchingAlgorithmInputBoundary userInput;

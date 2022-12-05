@@ -10,7 +10,9 @@ public class MatchesPresenter implements MatchingAlgorithmOutputBoundary {
     MatchingAlgorithmViewModel matchingAlgorithmViewModel;
     public MatchesPresenter(MatchingAlgorithmViewModel matchingAlgorithmViewModel){
         this.matchingAlgorithmViewModel = matchingAlgorithmViewModel;
+
     }
+    public MatchesPresenter(){};
     @Override
     public void prepareSuccessView(MatchingAlgorithmResponseModel response){
         this.matchingAlgorithmViewModel.displaySuccess(response);

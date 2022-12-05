@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * Bundles the returned data into respective state and sends it to the screen
+ * Organizes the returned data into respective state and sends it to the screen
  */
 public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
     HomeMatchesBoundary screen;
@@ -18,7 +18,7 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
     @Override
     public void displaySuccess(MatchingAlgorithmResponseModel matchingAlgorithmResponseModel) {
         List<String> groups = matchingAlgorithmResponseModel.getGroups();
-        //Make them into a default list
+
         DefaultListModel<String> matchDefaultList = new DefaultListModel<>();
         for(String g : groups){
             matchDefaultList.addElement(g);
@@ -27,7 +27,7 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
         JList<String> matchJList = new JList<>(matchDefaultList);
 
         matchJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //No initial selection
+
         matchJList.setSelectedIndex(-1);
         matchJList.addListSelectionListener(this.screen);
         screen.setMatches(matchJList);
@@ -35,7 +35,7 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
     }
     @Override
     public void displayFailure(String error){
-        throw new MatchingAlgorithmFailed(error);
+        JOptionPane.showMessageDialog(null, error);
     }
 }
 

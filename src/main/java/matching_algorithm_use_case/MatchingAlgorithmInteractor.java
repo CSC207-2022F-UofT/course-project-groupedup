@@ -17,6 +17,8 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
     final MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary;
     final MatchingAlgorithmDsGateWay matchingAlgorithmDsGateWay;
 
+    final String errorMessage = "No Matches Found";
+
     public MatchingAlgorithmInteractor(MatchingAlgorithmOutputBoundary presenter,
                                        MatchingAlgorithmDsGateWay dsGateWay){
         this.matchingAlgorithmOutputBoundary = presenter;
@@ -36,13 +38,14 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
 
             List<Group> groups = new ArrayList<>(groupMap.values());
 
-            if (groups.isEmpty()) {
-                matchingAlgorithmOutputBoundary.prepareFailView("No Matches Found");
-            }
             MatchingAlgorithmStrategy matchingAlgorithmStrategy = new ReverseOrderStandardMatching();
             UserMatches userMatches = new UserMatches(currentUser, groups, matchingAlgorithmStrategy);
             List<String> groupsAsString = userMatches.getMatches();
 
+            if (groupsAsString.size() == 0) {
+                matchingAlgorithmOutputBoundary.prepareFailView(errorMessage);
+                return;
+            }
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
                     new MatchingAlgorithmResponseModel(groupsAsString);
 
