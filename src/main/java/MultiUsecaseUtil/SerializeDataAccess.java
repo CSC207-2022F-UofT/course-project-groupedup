@@ -7,10 +7,16 @@ import UserRegistrationUsecase.NewUserDSGateway;
 import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
 import edit_group_profile_use_case.EditGroupProfileDsGateway;
 import edit_group_profile_use_case.EditGroupProfileDsRequestModel;
+import cancel_application_use_case.CancelApplicationDsGateway;
 import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
+import leave_group_use_case.LeaveGroupDsGateway;
+import matching_algorithm_use_case.MatchingAlgorithmDsGateWay;
 import userloginusecase.LoginDSGateway;
+import view_group_profile_use_case.ViewGroupProfileDsGateway;
+import view_my_groups_use_case.ViewMyGroupsDsGateway;
+import view_user_applications_use_case.ViewApplicationsListDsGateway;
 import view_group_members.ViewGroupMembersDsGateway;
 import view_pending_list.ViewPendingListDsGateway;
 
@@ -32,7 +38,9 @@ import java.util.HashMap;
  */
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway,
-        EditPendingListDsGateway, ViewPendingListDsGateway, ViewGroupMembersDsGateway, EditGroupProfileDsGateway {
+        CancelApplicationDsGateway, LeaveGroupDsGateway, EditPendingListDsGateway, ViewPendingListDsGateway,
+        ViewGroupMembersDsGateway, ViewApplicationsListDsGateway, ViewGroupProfileDsGateway,ViewMyGroupsDsGateway,
+        MatchingAlgorithmDsGateWay, EditGroupProfileDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -127,7 +135,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
             throw new RuntimeException(e);
         }
         if (ReadFromInput.equals("")){
-            groups = new HashMap<String, Group>();
+            groups = new HashMap<>();
         }
         else{
             groups = (HashMap<String, Group>) ReadFromInput;

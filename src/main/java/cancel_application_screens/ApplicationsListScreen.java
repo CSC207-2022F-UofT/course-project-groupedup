@@ -24,11 +24,9 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
     /**
      * Initializes an empty applications list for the current user.
-     * @param username the username of the current user
      */
     public ApplicationsListScreen(String username) {
         this.username = username;
-
         this.setSize(400, 500);
         setTitle("My Applications");
         setVisible(false);
@@ -54,6 +52,11 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     @Override
     public void setUserApplications(JList<String> userApplications) {
         this.userApplications = userApplications;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -88,6 +91,11 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
         this.viewGroupButton.addActionListener(new ViewOrLeave());
         this.cancelApplicationButton.addActionListener(new ViewOrLeave());
+
+        if (this.userApplicationsModel.size() == 0) {
+            cancelApplicationButton.setEnabled(false);
+            viewGroupButton.setEnabled(false);
+        }
 
         buttons.add(viewGroupButton);
         buttons.add(cancelApplicationButton);
