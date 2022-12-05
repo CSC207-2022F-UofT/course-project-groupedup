@@ -84,9 +84,16 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
+        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreens(cardLayout, screens);
+        EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
+        EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
+        EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);
+        editGroupScreen.setView(editGroupController);
+        screens.add((Component) editGroupScreen, "editGroupScreen");
+
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
-        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername());
+        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
         HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
         screens.add((JPanel)homepageTest, "homepage");
 
@@ -153,13 +160,6 @@ public class Main {
         EditPendingListController editPendingListController = new EditPendingListController(
                 editPendingListInputBoundary);
         pendingListScreen.setEditPendingListController(editPendingListController);
-
-        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreens(cardLayout, screens);
-        EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
-        EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
-        EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);
-        editGroupScreen.setView(editGroupController);
-        screens.add((Component) editGroupScreen, "editGroupScreen");
 
         NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens,
                 viewPendingListController, viewGroupMembersController, editGroupScreen);

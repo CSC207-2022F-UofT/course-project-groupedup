@@ -36,7 +36,8 @@ public class EditGroupProfileScreens extends JPanel implements  EditGroupProfile
     // hahahahahahahaha
 
     public EditGroupProfileScreens(CardLayout cardLayout, JPanel screens) {
-        this.editGroupController = editGroupController;
+        this.setSize(400, 500);
+        //this.editGroupController = editGroupController;
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.build();
@@ -134,7 +135,7 @@ public class EditGroupProfileScreens extends JPanel implements  EditGroupProfile
         this.add(main);
 
         JPanel preferences = new JPanel();
-        preferences.setLayout(new GridLayout(0, 2));
+        preferences.setLayout(new GridLayout(3, 2));
 
         /*Adding options*/
         JLabel locationLabel = new JLabel("Location: ");

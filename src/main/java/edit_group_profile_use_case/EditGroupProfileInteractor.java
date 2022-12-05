@@ -1,5 +1,6 @@
 package edit_group_profile_use_case;
 import edit_group_profile_screens.EditGroupProfilePresenter;
+import edit_group_profile_use_case.EditGroupProfileErrorMessages;
 import Entities.NormalGroup;
 
 import java.util.ArrayList;
@@ -8,8 +9,7 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     final EditGroupProfileDsGateway profileDSGateway;
     final EditGroupProfileOutputBoundary profileOutputBoundary;
-    final String invalidCourseCode = "Invalid Course Code Entered.";
-    final String groupNotFound = "Group does not exist.";
+    final EditGroupProfileErrorMessages errorMessages = new EditGroupProfileErrorMessages();
 
     public EditGroupProfileInteractor(EditGroupProfileDsGateway profileDSGateway,
                                       EditGroupProfileOutputBoundary profileOutputBoundary) {
@@ -54,12 +54,12 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
                         requestModel.getDescription(), "");
 
         if (!validateCourseCode(requestModel.getCourseCode())) {
-            profileOutputBoundary.prepareFailView(invalidCourseCode);
+            profileOutputBoundary.prepareFailView(errorMessages.getInvalidCourseCodeFailureMessage());
             return false;
         }
 
         if (!profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
-            profileOutputBoundary.prepareFailView(groupNotFound);
+            profileOutputBoundary.prepareFailView(errorMessages.getGroupNotFoundFailureMessage());
             return false;
         } else {
 
