@@ -30,7 +30,6 @@ public class ViewGroupMembersTest {
     ViewGroupMembersInputBoundary interactor;
     ViewGroupMembersOutputBoundary presenter;
     ViewGroupMembersController controller;
-    GroupMembersScreenBoundary screen;
 
     @BeforeEach
     void beforeEach() {
@@ -50,17 +49,15 @@ public class ViewGroupMembersTest {
         user.addGroup(groupName);
         group.addMember(username);
         repository = new PendingListDataAccess(userMap, groupMap);
-
-        screen = new GroupMembersScreen();
     }
 
     @Test
     public void testMembersListRetrieval() {
         ArrayList<String> members = new ArrayList<>(group.getGroupMembers(userMap).keySet());
-        ViewGroupMembersOutputBoundary presenter = new ViewGroupMembersPresenter(screen) {
+        ViewGroupMembersOutputBoundary presenter = new ViewGroupMembersOutputBoundary() {
             @Override
-            public void prepareSuccessView(ViewGroupMembersResponseModel usernamesList) {
-                Assertions.assertEquals(usernamesList.getGroupMembers(), members);
+            public void prepareSuccessView(ViewGroupMembersResponseModel groupMembers) {
+                Assertions.assertEquals(groupMembers.getGroupMembers(), members);
             }
         };
         interactor = new ViewGroupMembersInteractor(repository, presenter);
