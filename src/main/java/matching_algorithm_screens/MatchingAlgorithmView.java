@@ -17,6 +17,7 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
 
     @Override
     public void displaySuccess(MatchingAlgorithmResponseModel matchingAlgorithmResponseModel) {
+        JOptionPane.showMessageDialog(null, matchingAlgorithmResponseModel.getMatchesUpdated());
         List<String> groups = matchingAlgorithmResponseModel.getGroups();
 
         DefaultListModel<String> matchDefaultList = new DefaultListModel<>();
