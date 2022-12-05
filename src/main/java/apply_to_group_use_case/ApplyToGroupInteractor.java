@@ -45,12 +45,12 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
         }
 
         // Checks if the user is already a member of the group, or has applied, waiting for a response.
-        if (group.getGroupMembers(userMap).containsValue(user) || user.getGroups().containsValue(group) ) {
+        if (applyToGroupDsGateway.userInGroup(user.getUsername(), group.getGroupName()) ) {
             applyToGroupOutputBoundary.prepareFailView("User is already in group.");
             return;
         }
 
-        if (group.getMemberRequests(userMap).containsValue(user) || user.getApplicationsList().containsValue(group)) {
+        if (applyToGroupDsGateway.userInApplications(user.getUsername(), group.getGroupName())) {
             applyToGroupOutputBoundary.prepareFailView("User has already applied to the group.");
             return;
         }

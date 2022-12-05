@@ -35,5 +35,5 @@ public interface ApplyToGroupDsGateway {
     HashMap<String, User> loadUsers();
 
     boolean userInGroup(String username, String groupName);
-    boolean userInApplications(String groupName, String username);
+    boolean userInApplications(String username, String groupName);
 }

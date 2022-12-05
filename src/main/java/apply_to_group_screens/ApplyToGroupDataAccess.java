@@ -55,15 +55,15 @@ public class ApplyToGroupDataAccess implements ApplyToGroupDsGateway {
     public boolean userInGroup(String username, String groupName) {
         Group group = groupMap.get(groupName);
         User user = userMap.get(username);
-        return (group.getMemberRequests(userMap).containsKey(username) ||
-                user.getApplicationsList().containsKey(groupName));
+        return (group.getGroupMembers(userMap).containsKey(username) ||
+                user.getGroups().containsKey(groupName));
     }
 
     @Override
-    public boolean userInApplications(String groupName, String username) {
+    public boolean userInApplications(String username, String groupName) {
         Group group = groupMap.get(groupName);
         User user = userMap.get(username);
-        return (group.getGroupMembers(userMap).containsKey(username) ||
-                user.getGroups().containsKey(groupName));
+        return (group.getMemberRequests(userMap).containsKey(username) ||
+                user.getApplicationsList().containsKey(groupName));
     }
 }
