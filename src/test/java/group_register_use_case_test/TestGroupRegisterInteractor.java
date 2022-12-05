@@ -1,4 +1,4 @@
-package group_register_use_case;
+package group_register_use_case_test;
 
 import Entities.*;
 import group_creation_screens.GroupRegisterPresenter;

@@ -58,6 +58,9 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
+
+        GroupFactory groupFactory = new GroupFactory();
+
         PendingListScreen pendingListScreen = new PendingListScreen();
         ViewPendingListOutputBoundary viewPendingListPresenter = new ViewPendingListPresenter(pendingListScreen);
         ViewPendingListInputBoundary viewPendingListInteractor = new ViewPendingListInteractor(
@@ -65,6 +68,7 @@ public class Main {
         ViewPendingListController viewPendingListController = new ViewPendingListController(
                 viewPendingListInteractor);
         pendingListScreen.setViewPendingListController(viewPendingListController);
+
 
         GroupMembersScreen groupMembersScreen = new GroupMembersScreen();
         ViewGroupMembersOutputBoundary viewGroupMembersPresenter = new ViewGroupMembersPresenter(groupMembersScreen);
@@ -81,8 +85,8 @@ public class Main {
                 editPendingListInputBoundary);
         pendingListScreen.setEditPendingListController(editPendingListController);
 
-        GroupFactory groupFactory = new GroupFactory();
-        NewGroupScreenBoundary newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens,
+
+        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens,
                 viewPendingListController, viewGroupMembersController);
 
         GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen,
@@ -95,7 +99,7 @@ public class Main {
 
         newGroupPageScreen.setView(groupRegisterController);
 
-//        application.pack();
+        application.pack();
         application.setVisible(true);
 
     }
