@@ -37,7 +37,12 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     private HashMap<String, Group> groupMap;
     private HashMap<String, User> userMap;
+
     public SerializeDataAccess(){
+        this.groupMap = this.loadGroups();
+        this.userMap = this.loadUsers();
+    }
+    public SerializeDataAccess(String Initialize){
         OutputStream file = null;
         OutputStream file2 = null;
         try {

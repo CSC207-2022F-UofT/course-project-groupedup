@@ -28,11 +28,11 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 
 ## Instructions
 - To run the tests under individual use cases, click the "run test with code coverage" button.
-- To run the program;
+- To run the program for the first time;
   - Navigate to Main.java under src/main/java,
-  - Click the Run 'Main.java' button,
+  - Click the Run 'Main.java' button.
+- For each subsequent run; uncomment the "data access call for subsequent runs".
 - Once the program is run, the pop-up screen will allow you to register or login. You can navigate within the program to perform other features such as Create Group or Apply/Cancel application.
-- 
 
 ## Workflow Documents
 With our workflow documents, you can see our many pull requests, their assignees, reviewers, and progress. We use this to see which pull requests are ready for review and which are just to submit progress on features.
