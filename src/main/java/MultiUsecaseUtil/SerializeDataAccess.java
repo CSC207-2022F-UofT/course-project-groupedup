@@ -11,6 +11,7 @@ import group_creation_use_case.NewGroupDSGateway;
 import leave_group_use_case.LeaveGroupDsGateway;
 import userloginusecase.LoginDSGateway;
 import view_group_profile_use_case.ViewGroupProfileDsGateway;
+import view_my_groups_use_case.ViewMyGroupsDsGateway;
 import view_user_applications_use_case.ViewApplicationsListDsGateway;
 
 import java.io.*;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         CancelApplicationDsGateway, LeaveGroupDsGateway, LoginDSGateway, EditPendingListDsGateway,
-        ViewGroupProfileDsGateway, ViewApplicationsListDsGateway {
+        ViewGroupProfileDsGateway, ViewApplicationsListDsGateway, ViewMyGroupsDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -314,7 +315,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     @Override
     public boolean userInMemberRequests(String username, String groupName) {
         Group group = getGroup(groupName);
-        return group.getMemberRequests(userMap).containsKey(groupName);
+        return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override

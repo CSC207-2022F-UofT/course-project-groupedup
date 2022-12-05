@@ -23,14 +23,18 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
     JButton viewGroupButton;
     String username;
     HashMap<String, Boolean> groupAndStatus;
+    CardLayout cardLayout;
+    JPanel screens;
 
     /**
      * Initializes an empty groups list for the current user.
      * @param username the username of the current user
      */
-    public MyGroupsScreen(String username) {
+    public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username) {
         setSize(400, 500);
         setTitle("My Groups");
+        this.cardLayout = cardLayout;
+        this.screens = screens;
         this.username = username;
 
         setVisible(false);
@@ -109,6 +113,12 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
         this.editGroupButton.addActionListener(new buttonPress());
         this.leaveGroupButton.addActionListener(new buttonPress());
 
+        if (this.myGroupsModel.size() == 0) {
+            this.viewGroupButton.setEnabled(false);
+            this.editGroupButton.setEnabled(false);
+            this.leaveGroupButton.setEnabled(false);
+        }
+
         buttons.add(viewGroupButton);
         buttons.add(editGroupButton);
         buttons.add(leaveGroupButton);
@@ -132,7 +142,7 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
             if (e.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
             } else if (e.getSource() == editGroupButton) {
-                // LINK SOHEE'S SCREEN
+                cardLayout.show(screens, "new group page");
             } else if (e.getSource() == leaveGroupButton) {
                 myGroupsModel.remove(index);
                 groupAndStatus.remove(groupName);

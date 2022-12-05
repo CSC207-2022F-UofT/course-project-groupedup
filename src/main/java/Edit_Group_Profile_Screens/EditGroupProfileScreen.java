@@ -1,5 +1,4 @@
 package Edit_Group_Profile_Screens;
-import leave_group_screens.LeaveGroupScreen;
 
 import javax.swing.*;
 import java.awt.*;
