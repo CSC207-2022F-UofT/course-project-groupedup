@@ -4,10 +4,15 @@ import Entities.Group;
 import Entities.User;
 import UserRegistrationUsecase.NewUserDSGateway;
 import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+import cancel_application_use_case.CancelApplicationDsGateway;
 import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
+import leave_group_use_case.LeaveGroupDsGateway;
 import userloginusecase.LoginDSGateway;
+import view_group_profile_use_case.ViewGroupProfileDsGateway;
+import view_my_groups_use_case.ViewMyGroupsDsGateway;
+import view_user_applications_use_case.ViewApplicationsListDsGateway;
 import view_group_members.ViewGroupMembersDsGateway;
 import view_pending_list.ViewPendingListDsGateway;
 
@@ -29,7 +34,8 @@ import java.util.HashMap;
  */
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway,
-        EditPendingListDsGateway, ViewPendingListDsGateway, ViewGroupMembersDsGateway {
+        CancelApplicationDsGateway, LeaveGroupDsGateway, EditPendingListDsGateway, ViewPendingListDsGateway,
+        ViewGroupMembersDsGateway, ViewApplicationsListDsGateway, ViewGroupProfileDsGateway,ViewMyGroupsDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -124,7 +130,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
             throw new RuntimeException(e);
         }
         if (ReadFromInput.equals("")){
-            groups = new HashMap<String, Group>();
+            groups = new HashMap<>();
         }
         else{
             groups = (HashMap<String, Group>) ReadFromInput;

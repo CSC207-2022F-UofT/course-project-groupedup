@@ -7,6 +7,8 @@ import java.util.HashMap;
  */
 public interface GroupProfileScreenBoundary {
     void setGroupName(String groupName);
+    void setUsername(String username);
+    void setViewGroupProfileController(ViewGroupProfileController viewGroupProfileController);
     void setGroupDescription(String description);
     void setGroupPreferences(HashMap<String, String> preferences);
     void view();
