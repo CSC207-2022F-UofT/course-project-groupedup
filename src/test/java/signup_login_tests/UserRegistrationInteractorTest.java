@@ -4,6 +4,7 @@ import Entities.NormalUser;
 import Entities.User;
 import Entities.UserPublicProfile;
 import UserRegistrationUsecase.*;
+import UserSignupLoginScreens.UserRegistrationController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,8 @@ public class UserRegistrationInteractorTest {
             }
         };
         UserRegistrationInteractor testInteractor = new UserRegistrationInteractor(userFactory, dsGateway, presenter);
-        testInteractor.create(inputPackage);
+        UserRegistrationController testController = new UserRegistrationController(testInteractor);
+        testController.create(inputPackage);
     }
     @Test
     public void checkPasswordIsValid(){
@@ -56,7 +58,8 @@ public class UserRegistrationInteractorTest {
             }
         };
         UserRegistrationInteractor testInteractor = new UserRegistrationInteractor(userFactory, dsGateway, presenter);
-        testInteractor.create(inputPackage);
+        UserRegistrationController testController = new UserRegistrationController(testInteractor);
+        testController.create(inputPackage);
     }
     @Test
     public void checkUsernameExists(){
@@ -81,12 +84,13 @@ public class UserRegistrationInteractorTest {
             }
         };
         UserRegistrationInteractor testInteractor = new UserRegistrationInteractor(userFactory, dsGateway, presenter);
+        UserRegistrationController testController = new UserRegistrationController(testInteractor);
         User newTestUser = new NormalUser(testUsername, password, "testName", "email",
                 new UserPublicProfile());
         UserRegistrationDSRequestPackage dsRequestPackage =
                 new UserRegistrationDSRequestPackage(newTestUser, testUsername);
         dsGateway.saveNewUser(dsRequestPackage);
-        testInteractor.create(inputPackage);
+        testController.create(inputPackage);
     }
     @Test
     public void checkSuccess(){
@@ -109,6 +113,7 @@ public class UserRegistrationInteractorTest {
             }
         };
         UserRegistrationInteractor testInteractor = new UserRegistrationInteractor(userFactory, dsGateway, presenter);
-        testInteractor.create(inputPackage);
+        UserRegistrationController testController = new UserRegistrationController(testInteractor);
+        testController.create(inputPackage);
     }
 }
