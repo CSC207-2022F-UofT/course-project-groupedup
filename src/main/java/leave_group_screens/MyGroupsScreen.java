@@ -1,5 +1,6 @@
 package leave_group_screens;
 
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
 import view_group_profile_screens.ViewGroupProfileController;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
     DefaultListModel<String> myGroupsModel;
     LeaveGroupController leaveGroupController;
     ViewGroupProfileController viewGroupProfileController;
+    EditGroupProfileScreenBoundary editGroupScreen;
     JButton leaveGroupButton;
     JButton editGroupButton;
     JButton viewGroupButton;
@@ -30,12 +32,14 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
      * Initializes an empty groups list for the current user.
      * @param username the username of the current user
      */
-    public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username) {
+    public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username,
+                          EditGroupProfileScreenBoundary editGroupScreen) {
         setSize(400, 500);
         setTitle("My Groups");
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.username = username;
+        this.editGroupScreen = editGroupScreen;
 
         setVisible(false);
     }
@@ -142,7 +146,8 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
             if (e.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
             } else if (e.getSource() == editGroupButton) {
-                cardLayout.show(screens, "new group page");
+                editGroupScreen.setGroupName(groupName);
+                cardLayout.show(screens, "editGroupScreen");
             } else if (e.getSource() == leaveGroupButton) {
                 myGroupsModel.remove(index);
                 groupAndStatus.remove(groupName);

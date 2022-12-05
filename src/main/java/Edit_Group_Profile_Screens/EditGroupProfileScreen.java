@@ -1,4 +1,4 @@
-package Edit_Group_Profile_Screens;
+package edit_group_profile_screens;
 
 import javax.swing.*;
 import java.awt.*;

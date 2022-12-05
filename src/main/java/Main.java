@@ -1,3 +1,10 @@
+import edit_group_profile_screens.EditGroupProfileController;
+import edit_group_profile_screens.EditGroupProfilePresenter;
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
+import edit_group_profile_screens.EditGroupProfileScreens;
+import edit_group_profile_use_case.EditGroupProfileInputBoundary;
+import edit_group_profile_use_case.EditGroupProfileInteractor;
+import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
 import edit_pending_list.EditPendingListInputBoundary;
 import edit_pending_list.EditPendingListInteractor;
 import edit_pending_list.EditPendingListOutputBoundary;
@@ -77,9 +84,16 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
+        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreens(cardLayout, screens);
+        EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
+        EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
+        EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);
+        editGroupScreen.setView(editGroupController);
+        screens.add((Component) editGroupScreen, "editGroupScreen");
+
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
-        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername());
+        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
         HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
         screens.add((JPanel)homepageTest, "homepage");
 
@@ -148,7 +162,7 @@ public class Main {
         pendingListScreen.setEditPendingListController(editPendingListController);
 
         NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens,
-                viewPendingListController, viewGroupMembersController);
+                viewPendingListController, viewGroupMembersController, editGroupScreen);
 
         GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen,
                 cardLayout, screens);
