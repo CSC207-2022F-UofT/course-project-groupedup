@@ -63,6 +63,7 @@ public class ViewPendingListTest {
         };
         interactor = new ViewPendingListInteractor(repository, presenter);
         controller = new ViewPendingListController(interactor);
+        screen.setViewPendingListController(controller);
         controller.getUsernames(groupName);
     }
 
@@ -73,6 +74,7 @@ public class ViewPendingListTest {
         interactor = new ViewPendingListInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
             controller = new ViewPendingListController(interactor);
+            screen.setViewPendingListController(controller);
             controller.getUsernames(groupName);
         });
         Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
