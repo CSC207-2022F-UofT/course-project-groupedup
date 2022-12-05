@@ -127,7 +127,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
             throw new RuntimeException(e);
         }
         if (ReadFromInput.equals("")){
-            groups = new HashMap<String, Group>();
+            groups = new HashMap<>();
         }
         else{
             groups = (HashMap<String, Group>) ReadFromInput;
