@@ -3,7 +3,7 @@ package matching_algorithm_use_case;
 import java.util.List;
 
 /**
- * The response model for the Matching Algorithm Use Case. Assists in storing the responses from the Interactor
+ * The response model for the Matching Algorithm Use Case. Assists in storing the responses from the Interactor.
  */
 public class MatchingAlgorithmResponseModel {
     String matchesUpdated;
