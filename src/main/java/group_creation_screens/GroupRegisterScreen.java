@@ -1,13 +1,8 @@
 package group_creation_screens;
 
-import group_creation_use_case.GroupRegisterRequestModel;
-import group_creation_use_case.GroupRegisterResponseModel;
-
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * The main Group Register Screen where the User who is logged in can enter the name of the
@@ -19,7 +14,7 @@ import java.awt.event.ActionListener;
 
 public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBoundary {
     NewGroupScreenBoundary newGroupPageScreen;
-    JTextField groupname = new JTextField(15);
+    JTextField groupName = new JTextField(15);
 
     GroupRegisterController groupRegisterController;
     // Creating the buttons
@@ -28,15 +23,12 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     CardLayout cardLayout;
     JPanel screens;
 
-
     public GroupRegisterScreen(NewGroupScreenBoundary newGroupPageScreen,CardLayout cardLayout, JPanel screens) {
         this.newGroupPageScreen = newGroupPageScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
         build();
-
     }
-
 
     /**
      * React to a button click that results in evt.
@@ -49,7 +41,7 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == registerGroup){
             try {
-                this.groupRegisterController.create(groupname.getText());
+                this.groupRegisterController.create(groupName.getText());
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
@@ -58,10 +50,7 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         else if (evt.getSource() == cancel){
             System.out.println("Click " + evt.getActionCommand());
             cardLayout.show(screens,"homepage");
-
         }
-
-
     }
 
     @Override
@@ -74,11 +63,11 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         cancel.addActionListener(this);
 
         this.add(title);
-        this.add(groupname);
+        this.add(groupName);
         this.add(registerGroup);
         this.add(cancel);
         this.setSize(500, 500);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
     @Override
@@ -92,6 +81,4 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         this.groupRegisterController = groupRegisterController;
         this.screens.add(this, "groupRegisterScreen");
     }
-
-
 }

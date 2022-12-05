@@ -5,7 +5,12 @@ import Entities.User;
 
 import java.util.HashMap;
 
+/**
+ * The data access interface for the view pending list use case.
+ */
+
 public interface ViewPendingListDsGateway {
+    boolean groupIdentifierExists(String groupName);
     Group getGroup(String groupName);
 
     /**

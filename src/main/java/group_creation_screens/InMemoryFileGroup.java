@@ -6,7 +6,6 @@ import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This group is a database which is used for testing purposes. Instead of using

@@ -1,8 +1,5 @@
 package group_creation_use_case;
 
-import javax.swing.*;
-import java.awt.*;
-
 /**
  * This is an interface between the interacter and the presenter.
  * The presenter implements this interface to create dependency between these two

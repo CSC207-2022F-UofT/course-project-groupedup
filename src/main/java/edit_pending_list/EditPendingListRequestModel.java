@@ -1,11 +1,20 @@
 package edit_pending_list;
 
+/**
+ * The request model for the edit pending list use case.
+ */
+
 public class EditPendingListRequestModel {
 
     private final String username;
     private final String groupName;
     private final boolean pendingStatus;
 
+    /**
+     * @param username the username of the user that has applied to the group
+     * @param groupName the group name
+     * @param pendingStatus a boolean indicating if the user was accepted
+     */
     public EditPendingListRequestModel(String username, String groupName, boolean pendingStatus) {
         this.username = username;
         this.groupName = groupName;
