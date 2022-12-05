@@ -1,9 +1,12 @@
 package MultiUsecaseUtil;
 
 import Entities.Group;
+import Entities.NormalGroup;
 import Entities.User;
 import UserRegistrationUsecase.NewUserDSGateway;
 import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+import edit_group_profile_use_case.EditGroupProfileDsGateway;
+import edit_group_profile_use_case.EditGroupProfileDsRequestModel;
 import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
@@ -29,7 +32,7 @@ import java.util.HashMap;
  */
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway,
-        EditPendingListDsGateway, ViewPendingListDsGateway, ViewGroupMembersDsGateway {
+        EditPendingListDsGateway, ViewPendingListDsGateway, ViewGroupMembersDsGateway, EditGroupProfileDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -319,5 +322,24 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     public boolean groupInApplications(String groupName, String username) {
         User user = getUser(username);
         return user.getApplicationsList().containsKey(groupName);
+    }
+    @Override
+    public boolean existsByGroupName(String groupName) {
+        Group group = getGroup(groupName);
+        return group.getGroupName().contains(groupName);
+    }
+
+    @Override
+    public NormalGroup findGroup(String groupName) {
+        Group group = this.groupMap.get(groupName);
+        return (NormalGroup) group;
+    }
+
+    @Override
+    public void saveGroupProfile(EditGroupProfileDsRequestModel requestModel) {
+        Group group = this.groupMap.get(requestModel.getGroupName());
+        group.getProfile().setPreferences(requestModel.getPreferences());
+        group.getProfile().setCourseCode(requestModel.getCourseCode());
+        group.getProfile().setDescription(requestModel.getDescription());
     }
 }

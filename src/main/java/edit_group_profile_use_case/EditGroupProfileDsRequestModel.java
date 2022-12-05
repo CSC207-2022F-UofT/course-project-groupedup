@@ -1,8 +1,13 @@
-package Edit_Group_Profile_Use_Case;
-import java.util.HashMap;
-import java.util.*;
+package edit_group_profile_use_case;
 
-public class EditGroupProfileRequestModel {
+import java.util.HashMap;
+
+/**
+ * A data bundle which is passed to the database.
+ */
+
+public class EditGroupProfileDsRequestModel {
+
     private String groupName;
     private String courseCode;
     private String description;
@@ -10,7 +15,8 @@ public class EditGroupProfileRequestModel {
     private String location;
     private String meetingTime; //morning, afternoon, evening or day of the week
 
-    public EditGroupProfileRequestModel(String groupName, String description, String timeCommitment, String location, String meetingTime, String courseCode) {
+    public EditGroupProfileDsRequestModel(String groupName, String description, String timeCommitment,
+                                          String location, String meetingTime, String courseCode) {
         this.groupName = groupName;
         this.description = description;
         this.timeCommitment = timeCommitment;
@@ -19,11 +25,6 @@ public class EditGroupProfileRequestModel {
         this.courseCode = courseCode;
     }
 
-
-    /**
-     *
-     * @return the group name.
-     */
     public String getGroupName() {
         return this.groupName;
     }
@@ -101,5 +102,5 @@ public class EditGroupProfileRequestModel {
 
         return preferences;
     }
-
 }
+

@@ -1,5 +1,6 @@
 package group_creation_screens;
 
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
 import pending_list_screens.*;
 import pending_list_screens.ViewGroupMembersController;
 
@@ -32,14 +33,16 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
     ViewPendingListController viewPendingListController;
     ViewGroupMembersController viewGroupMembersController;
+    EditGroupProfileScreenBoundary editGroupScreen;
 
 
     public NewGroupPageScreen(CardLayout cardLayout, JPanel screens, ViewPendingListController viewPendingListController,
-                              ViewGroupMembersController viewGroupMembersController) {
+                              ViewGroupMembersController viewGroupMembersController, EditGroupProfileScreenBoundary editGroupScreen) {
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.viewPendingListController = viewPendingListController;
         this.viewGroupMembersController = viewGroupMembersController;
+        this.editGroupScreen = editGroupScreen;
         build();
 
     }
@@ -61,6 +64,8 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         }
         else if (evt.getSource() == editGroup){
             // CONNECT JULIA'S USE CASE
+            editGroupScreen.setGroupName(groupName);
+            cardLayout.show(screens, "editGroupScreen");
         }
         else if (evt.getSource() == pendingList){
             // CONNECT WITH PENDING LIST
@@ -119,8 +124,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
      * @param groupName
      */
     public void setGroupName(String groupName){
-
-
+        this.groupName = groupName;
         groupNameText.setText("Group's name: " + groupName);
     }
 
