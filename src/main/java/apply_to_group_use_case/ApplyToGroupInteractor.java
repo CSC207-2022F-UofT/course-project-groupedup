@@ -38,20 +38,21 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
         // Exceptions
         // Checks if the user and the group exists, might be redundant or not.
         // The decision depends on whether we want to implement additional checks or not.
-        if (!applyToGroupDsGateway.userExistsByName(user.getUsername())) {
-            applyToGroupOutputBoundary.prepareFailView("User does not exist.");
-        }
+
         if (!applyToGroupDsGateway.groupExistsByName(requestModel.getGroupName())) {
             applyToGroupOutputBoundary.prepareFailView("Group does not exist.");
+            return;
         }
 
         // Checks if the user is already a member of the group, or has applied, waiting for a response.
         if (group.getGroupMembers(userMap).containsValue(user) || user.getGroups().containsValue(group) ) {
             applyToGroupOutputBoundary.prepareFailView("User is already in group.");
+            return;
         }
 
         if (group.getMemberRequests(userMap).containsValue(user) || user.getApplicationsList().containsValue(group)) {
             applyToGroupOutputBoundary.prepareFailView("User has already applied to the group.");
+            return;
         }
 
         user.addApplication(group.getGroupName());

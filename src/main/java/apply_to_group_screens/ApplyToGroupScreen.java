@@ -2,46 +2,31 @@ package apply_to_group_screens;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class ApplyToGroupScreen extends JFrame implements ActionListener {
+public class ApplyToGroupScreen extends JFrame {
     ApplyToGroupController applyToGroupController;
+    String username;
+    String groupName;
 
-    public ApplyToGroupScreen(ApplyToGroupController controller){
-        this.applyToGroupController = controller;
+    public ApplyToGroupScreen(String username, String groupName,
+                            ApplyToGroupController applyToGroupController) {
+        this.username = username;
+        this.groupName = groupName;
+        this.applyToGroupController = applyToGroupController;
 
-        JLabel title = new JLabel("Apply to Groups");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        String[] options = {"Apply", "Cancel"};
 
-        JLabel message = new JLabel("Are you sure you want to apply to this group?");
-        message.setAlignmentX(Component.CENTER_ALIGNMENT);
+        int selectionChoice = JOptionPane.showOptionDialog(null, "Are you sure you" +
+                        " want to apply to " + groupName + "?", "Apply to Group",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, options[1]);
 
-        JButton yesApply = new JButton("Yes, apply!");
-        JButton no = new JButton("No");
-
-        JPanel buttons = new JPanel();
-        buttons.add(yesApply);
-        buttons.add(no);
-
-        yesApply.addActionListener(this);
-        no.addActionListener(this);
-
-        JPanel main = new JPanel();
-        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
-        main.add(title);
-        main.add(message);
-        main.add(buttons);
-
-        this.setContentPane(main);
-        this.pack();
+        performSelectionChoice(selectionChoice);
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-
+    private void performSelectionChoice(int selectionChoice) {
+        if (selectionChoice == 0) {
+            this.applyToGroupController.applyToGroup(username, groupName);
+        }
     }
 }

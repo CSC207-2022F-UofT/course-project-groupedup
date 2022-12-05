@@ -18,8 +18,6 @@ public interface ApplyToGroupDsGateway {
      */
     HashMap<String, User> getUserMap();
 
-    // duplicate from Aarya and Sharon's DsGateways
-    boolean userExistsByName(String username);
     boolean groupExistsByName(String groupName);
 
     /**
@@ -33,4 +31,9 @@ public interface ApplyToGroupDsGateway {
      * @param groupName the name of the group
      */
     void updateGroup(String groupName);
+
+    HashMap<String, User> loadUsers();
+
+    boolean userInGroup(String username, String groupName);
+    boolean userInApplications(String groupName, String username);
 }
