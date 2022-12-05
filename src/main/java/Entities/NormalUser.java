@@ -68,5 +68,7 @@ public class NormalUser implements Serializable, User {
     public void addGroup(String groupName) {
         this.groups.put(groupName, groupName);
     }
+
+    public void addApplication(String groupName){ this.applicationsList.put(groupName, groupName); }
 }
 

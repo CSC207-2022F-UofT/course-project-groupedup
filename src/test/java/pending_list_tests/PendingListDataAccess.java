@@ -1,8 +1,9 @@
-package pending_list_screens;
+package pending_list_tests;
 
 import Entities.Group;
 import Entities.User;
 import edit_pending_list.EditPendingListDsGateway;
+import view_group_members.ViewGroupMembersDsGateway;
 import view_pending_list.ViewPendingListDsGateway;
 
 import java.util.HashMap;
@@ -11,21 +12,25 @@ import java.util.HashMap;
  * Simple imitation of SerializeDataAccess used only for the purpose of testing.
  */
 
-public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway {
+public class PendingListDataAccess implements EditPendingListDsGateway, ViewPendingListDsGateway,
+        ViewGroupMembersDsGateway {
 
-    private HashMap<String, Group> groupMap;
-    private HashMap<String, User> userMap;
+    public HashMap<String, Group> groupMap;
+    public HashMap<String, User> userMap;
 
-    public PendingListDataAccess(String username, User user, String groupName, Group group) {
-        this.groupMap = new HashMap<>();
-        groupMap.put(groupName, group);
-        this.userMap = new HashMap<>();
-        userMap.put(username, user);
+    public PendingListDataAccess(HashMap<String, User> userMap, HashMap<String, Group> groupMap) {
+        this.groupMap = groupMap;
+        this.userMap = userMap;
     }
 
     @Override
     public boolean userIdentifierExists(String username) {
         return this.userMap.containsKey(username);
+    }
+
+    @Override
+    public boolean groupIdentifierExists(String groupName) {
+        return this.groupMap.containsKey(groupName);
     }
 
     @Override
@@ -70,7 +75,7 @@ public class PendingListDataAccess implements EditPendingListDsGateway, ViewPend
     @Override
     public boolean userInMemberRequests(String username, String groupName) {
         Group group = getGroup(groupName);
-        return group.getMemberRequests(userMap).containsKey(groupName);
+        return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override

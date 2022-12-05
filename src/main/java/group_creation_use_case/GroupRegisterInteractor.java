@@ -1,7 +1,6 @@
 package group_creation_use_case;
 
-import Entities.CurrentUser;
-import Entities.Group;
+import Entities.*;
 
 /**
  * This interactor will execute the functionality of the group creation use case.
@@ -11,13 +10,13 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     final GroupFactory groupFactory;
 
     final NewGroupDSGateway newGroupDSGateway;
+    final GroupRegisterErrorMessages groupRegisterErrorMessages = new GroupRegisterErrorMessages();
 
     public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
         this.newGroupDSGateway = newGroupDSGateway;
         this.groupPresenter = groupPresenter;
         this.groupFactory = groupFactory;
-
     }
 
     /**
@@ -34,10 +33,10 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     @Override
     public boolean create(GroupRegisterRequestModel requestModel) {
         if (newGroupDSGateway.groupIdentifierExists(requestModel.getGroupName())){
-            groupPresenter.prepareFailView("Group already exists.");
+            groupPresenter.prepareFailView(groupRegisterErrorMessages.getGroupExistsFailureMessage());
             return false;
         } else if (requestModel.getGroupName().equals("")){
-            groupPresenter.prepareFailView("Invalid group name.");
+            groupPresenter.prepareFailView(groupRegisterErrorMessages.getEmptyStringFailureMessage());
             return false;
         }
         Group group = groupFactory.create(requestModel.getGroupName());
