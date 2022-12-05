@@ -1,7 +1,7 @@
 import edit_group_profile_screens.EditGroupProfileController;
 import edit_group_profile_screens.EditGroupProfilePresenter;
-import edit_group_profile_screens.EditGroupProfileScreen;
 import edit_group_profile_screens.EditGroupProfileScreenBoundary;
+import edit_group_profile_screens.EditGroupProfileScreens;
 import edit_group_profile_use_case.EditGroupProfileInputBoundary;
 import edit_group_profile_use_case.EditGroupProfileInteractor;
 import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
@@ -92,7 +92,7 @@ public class Main {
                 editPendingListInputBoundary);
         pendingListScreen.setEditPendingListController(editPendingListController);
 
-        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreen(cardLayout, screens);
+        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreens(cardLayout, screens);
         EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
         EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
         EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);

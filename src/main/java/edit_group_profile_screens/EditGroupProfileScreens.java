@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileScreenBoundary{
+public class EditGroupProfileScreens extends JPanel implements  EditGroupProfileScreenBoundary{
     CardLayout cardLayout;
     JPanel screens;
     String groupName;
@@ -35,7 +35,7 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
      */
     // hahahahahahahaha
 
-    public EditGroupProfileScreen(CardLayout cardLayout, JPanel screens) {
+    public EditGroupProfileScreens(CardLayout cardLayout, JPanel screens) {
         this.editGroupController = editGroupController;
         this.cardLayout = cardLayout;
         this.screens = screens;
