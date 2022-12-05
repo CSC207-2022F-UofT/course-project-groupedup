@@ -27,7 +27,6 @@ public class ViewPendingListTest {
     ViewPendingListInputBoundary interactor;
     ViewPendingListOutputBoundary presenter;
     ViewPendingListController controller;
-    PendingListScreenBoundary screen;
 
     @BeforeEach
     void beforeEach() {
@@ -47,23 +46,26 @@ public class ViewPendingListTest {
         user.getApplicationsList().put(groupName, groupName);
         group.addRequest(username);
         repository = new PendingListDataAccess(userMap, groupMap);
-
-        screen = new PendingListScreen();
     }
 
     @Test
     public void testPendingListRetrieval() {
         ArrayList<String> requests = new ArrayList<>();
         requests.add(username);
-        ViewPendingListOutputBoundary presenter = new ViewPendingListPresenter(screen) {
+        ViewPendingListOutputBoundary presenter = new ViewPendingListOutputBoundary() {
             @Override
             public void prepareSuccessView(ViewPendingListResponseModel usernamesList) {
                 Assertions.assertEquals(usernamesList.getUsernamesList(), requests);
             }
         };
+//        ViewPendingListOutputBoundary presenter = new ViewPendingListPresenter(screen) {
+//            @Override
+//            public void prepareSuccessView(ViewPendingListResponseModel usernamesList) {
+//                Assertions.assertEquals(usernamesList.getUsernamesList(), requests);
+//            }
+//        };
         interactor = new ViewPendingListInteractor(repository, presenter);
         controller = new ViewPendingListController(interactor);
-        screen.setViewPendingListController(controller);
         controller.getUsernames(groupName);
     }
 
@@ -74,7 +76,6 @@ public class ViewPendingListTest {
         interactor = new ViewPendingListInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
             controller = new ViewPendingListController(interactor);
-            screen.setViewPendingListController(controller);
             controller.getUsernames(groupName);
         });
         Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
