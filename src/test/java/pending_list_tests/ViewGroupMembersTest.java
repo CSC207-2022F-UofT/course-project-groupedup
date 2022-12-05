@@ -63,19 +63,23 @@ public class ViewGroupMembersTest {
                 Assertions.assertEquals(usernamesList.getGroupMembers(), members);
             }
         };
+        ViewGroupMembersRequestModel requestModel = new ViewGroupMembersRequestModel(groupName);
         interactor = new ViewGroupMembersInteractor(repository, presenter);
-        controller = new ViewGroupMembersController(interactor);
-        controller.getGroupMembers(groupName);
+        interactor.getGroupMembers(requestModel);
+//        controller = new ViewGroupMembersController(interactor);
+//        controller.getGroupMembers(groupName);
     }
 
     @Test
     public void testGroupDoesntExist() {
         groupMap = new HashMap<>();
         repository = new PendingListDataAccess(userMap, groupMap);
+        ViewGroupMembersRequestModel requestModel = new ViewGroupMembersRequestModel(groupName);
         interactor = new ViewGroupMembersInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
-            controller = new ViewGroupMembersController(interactor);
-            controller.getGroupMembers(groupName);
+            interactor.getGroupMembers(requestModel);
+//            controller = new ViewGroupMembersController(interactor);
+//            controller.getGroupMembers(groupName);
         });
         Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
     }
