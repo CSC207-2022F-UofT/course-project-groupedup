@@ -136,7 +136,6 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
         preferences.setLayout(new GridLayout(0, 2));
 
         /*Adding options*/
-
         JLabel locationLabel = new JLabel("Location: ");
         JPanel locationOptions = new JPanel();
         JRadioButton locationOption1 = new JRadioButton("Online");
@@ -207,8 +206,6 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
 
         this.add(preferences, BorderLayout.CENTER);
         this.add(menubar, BorderLayout.CENTER);
-
-
     }
 
     @Override
@@ -221,7 +218,6 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-
 
 }
 

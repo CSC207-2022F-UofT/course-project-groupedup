@@ -8,6 +8,8 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     final EditGroupProfileDsGateway profileDSGateway;
     final EditGroupProfileOutputBoundary profileOutputBoundary;
+    final String invalidCourseCode = "Invalid Course Code Entered.";
+    final String groupNotFound = "Group does not exist.";
 
     public EditGroupProfileInteractor(EditGroupProfileDsGateway profileDSGateway,
                                       EditGroupProfileOutputBoundary profileOutputBoundary) {
@@ -52,12 +54,12 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
                         requestModel.getDescription(), "");
 
         if (!validateCourseCode(requestModel.getCourseCode())) {
-            profileOutputBoundary.prepareFailView("Invalid Course Code Entered.");
+            profileOutputBoundary.prepareFailView(invalidCourseCode);
             return false;
         }
 
         if (!profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
-            profileOutputBoundary.prepareFailView("Group does not exist.");
+            profileOutputBoundary.prepareFailView(groupNotFound);
             return false;
         } else {
 
