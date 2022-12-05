@@ -1,6 +1,11 @@
 package edit_group_profile_use_case;
 import java.util.HashMap;
 
+/**
+ * A data bundle which taking in input from the EditGroupProfileScreen
+ * (which is then passed to interactor).
+ */
+
 public class EditGroupProfileRequestModel {
     private String groupName;
     private String courseCode;

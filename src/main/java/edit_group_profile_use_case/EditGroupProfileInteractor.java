@@ -8,63 +8,63 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     final EditGroupProfileDsGateway profileDSGateway;
     final EditGroupProfileOutputBoundary profileOutputBoundary;
-    final EditGroupProfilePresenter editGroupProfilePresenter;
 
     public EditGroupProfileInteractor(EditGroupProfileDsGateway profileDSGateway,
-                                      EditGroupProfileOutputBoundary profileOutputBoundary, EditGroupProfilePresenter editGroupProfilePresenter) {
+                                      EditGroupProfileOutputBoundary profileOutputBoundary) {
         this.profileDSGateway = profileDSGateway;
         this.profileOutputBoundary = profileOutputBoundary;
-        this.editGroupProfilePresenter = editGroupProfilePresenter;
     }
 
     public boolean validateCourseCode(String courseCode) {
-        char[] letters = courseCode.substring(0, 3).toCharArray();
-        char[] numbers = courseCode.substring(3, 6).toCharArray();
-        for (char c : letters) {
-            if (!Character.isLetter(c)) {
-                return false;
+        if (!(courseCode.equals("Other") | courseCode.equals("other"))) {
+            char[] letters = courseCode.substring(0, 3).toCharArray();
+            char[] numbers = courseCode.substring(3, 6).toCharArray();
+            for (char c : letters) {
+                if (!Character.isLetter(c)) {
+                    return false;
+                }
             }
-        }
-        for (char c : numbers) {
-            if (!Character.isDigit(c)) {
-                return false;
+            for (char c : numbers) {
+                if (!Character.isDigit(c)) {
+                    return false;
+                }
             }
+            return courseCode.length() == 6;
+        } else {
+            return true;
         }
-        return courseCode.length() == 6;
     }
 
-    public boolean validateMeetingTime(String meetingTime) {
-        ArrayList<String> daysOfWeek = new ArrayList<String>();
-        daysOfWeek.add("Monday");
-        daysOfWeek.add("Tuesday");
-        daysOfWeek.add("Wednesday");
-        daysOfWeek.add("Thursday");
-        daysOfWeek.add("Friday");
-        daysOfWeek.add("Saturday");
-        daysOfWeek.add("Sunday");
-        return daysOfWeek.contains(meetingTime);
-    }
+    /** Executes the Edit Group Profile Use Case.
+     * Takes in a request model and checks if the group exists, given a unique group name.
+     * If the group name is empty then it will get the presenter to display failure.
+     * If the group exists, its group profile will be edited, saved to
+     * the database, and the presenter will display success.
+     * @param requestModel
+     * @return
+     */
 
     @Override
-    public void editGroup(EditGroupProfileRequestModel requestModel) {
+    public boolean editGroup(EditGroupProfileRequestModel requestModel) {
         EditGroupProfileResponseModel editFailResponseModel =
                 new EditGroupProfileResponseModel(requestModel.getGroupName(), requestModel.getPreferences(),
                         requestModel.getCourseCode(),
                         requestModel.getDescription(), "");
 
         if (!validateCourseCode(requestModel.getCourseCode())) {
-            editGroupProfilePresenter.prepareFailView("Invalid Course Code Entered.");
+            profileOutputBoundary.prepareFailView("Invalid Course Code Entered.");
+            return false;
         }
 
-        if (!validateMeetingTime(requestModel.getMeetingTime())) {
-            editGroupProfilePresenter.prepareFailView("Invalid Meeting Time Entered.");
-        }
+        if (!profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
+            profileOutputBoundary.prepareFailView("Group does not exist.");
+            return false;
+        } else {
 
-        if (profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
             NormalGroup group = profileDSGateway.findGroup(requestModel.getGroupName());
-            //group.getGroupProfile().setPreferences(requestModel.getPreferences());
-            //group.getGroupProfile().setCourseCode(requestModel.getCourseCode());
-            //group.getGroupProfile().setDescription(requestModel.getDescription());
+            group.getProfile().setPreferences(requestModel.getPreferences());
+            group.getProfile().setCourseCode(requestModel.getCourseCode());
+            group.getProfile().setDescription(requestModel.getDescription());
 
 
             EditGroupProfileResponseModel profileResponseModel = new EditGroupProfileResponseModel(
@@ -74,9 +74,8 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
                     requestModel.getDescription(),
                     "Edits made successfully.");
 
-            editGroupProfilePresenter.prepareSuccessView(profileResponseModel);
-        } else {
-            editGroupProfilePresenter.prepareFailView("Group does not exist. Please try again.");
+            profileOutputBoundary.prepareSuccessView(profileResponseModel);
+            return true;
         }
     }
 }

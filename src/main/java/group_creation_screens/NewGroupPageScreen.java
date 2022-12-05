@@ -1,5 +1,7 @@
 package group_creation_screens;
 
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,17 +16,20 @@ import java.awt.event.ActionListener;
  * to see which users want to join their group.
  */
 public class NewGroupPageScreen extends JPanel implements NewGroupScreenBoundary {
+    EditGroupProfileScreenBoundary editGroupScreen;
     JButton homePage = new JButton("Home Page");
     JButton editGroup = new JButton("Edit Group Information");
     JButton pendingList = new JButton("Pending Group List");
     JLabel groupNameText = new JLabel();
     CardLayout cardLayout;
     JPanel screens;
+    String groupName;
 
     GroupRegisterController groupRegisterController;
 
 
-    public NewGroupPageScreen(CardLayout cardLayout, JPanel screens) {
+    public NewGroupPageScreen(EditGroupProfileScreenBoundary editGroupScreen, CardLayout cardLayout, JPanel screens) {
+        this.editGroupScreen = editGroupScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
         build();
@@ -51,7 +56,8 @@ public class NewGroupPageScreen extends JPanel implements NewGroupScreenBoundary
             }
         }
         else if (evt.getSource() == editGroup){
-            // CONNECT JULIA'S USE CASE
+            editGroupScreen.setGroupName(groupName);
+            cardLayout.show(screens, "editGroupScreen");
         }
         else if (evt.getSource() == pendingList){
             // CONNECT WITH PENDING LIST
@@ -95,6 +101,7 @@ public class NewGroupPageScreen extends JPanel implements NewGroupScreenBoundary
     }
 
     public void setGroupName(String groupName){
+        this.groupName = groupName;
         groupNameText.setText("Group's name: " + groupName);
     }
 

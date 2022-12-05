@@ -1,6 +1,11 @@
 package edit_group_profile_use_case;
 import java.util.HashMap;
 
+/**
+ * This is a data bundle of the data which should be presented to the UI
+ * in response to the edit group profile use case being completed.
+ */
+
 public class EditGroupProfileResponseModel {
 
     HashMap<String, String> editedPreferences;

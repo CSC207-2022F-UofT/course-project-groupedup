@@ -3,6 +3,8 @@ package edit_group_profile_screens;
 import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
 import edit_group_profile_use_case.EditGroupProfileResponseModel;
 
+import javax.swing.*;
+
 public class EditGroupProfilePresenter implements EditGroupProfileOutputBoundary {
     EditGroupProfileScreenBoundary editGroupProfileScreenBoundary;
 
@@ -12,16 +14,20 @@ public class EditGroupProfilePresenter implements EditGroupProfileOutputBoundary
 
     /**
      *
-     * @param editedChanges taakes the response model and presents it to the chosen UI
-     * @return
+     * Shows a message confirming that the group profile was successfully edited.
+     * @param editedChanges an edit group profile response model
      */
     @Override
     public void prepareSuccessView(EditGroupProfileResponseModel editedChanges) {
-        this.editGroupProfileScreenBoundary.switchScreen(editedChanges.getEditedPreferences());
+        JOptionPane.showMessageDialog(null, "Successfully Edited Group Profile!");
     }
 
+    /**
+     * @param error the error message explaining why the error occurred
+     * @return an exception
+     */
     @Override
     public void prepareFailView(String error) {
-        throw new EditGroupProfileFailed(error);
+        JOptionPane.showMessageDialog(null, "Unsuccessful Edit!");
     }
 }

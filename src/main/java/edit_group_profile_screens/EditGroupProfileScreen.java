@@ -3,18 +3,16 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileScreenBoundary{
-    EditGroupProfileScreenBoundary editGroupScreen;
     CardLayout cardLayout;
     JPanel screens;
     String groupName;
 
 
     EditGroupProfileController editGroupController;
-    JTextField description = new JTextField(100);
+    JTextField description = new JTextField(10);
     JTextField courseCode = new JTextField(10);
     JButton saveEdits = new JButton("Save Edits");
     JButton exit = new JButton("Exit");
@@ -22,6 +20,12 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
     String meeting_time = "";
     String time_commit = "";
     String location = "";
+
+    ArrayList<JRadioButton> locationList = new ArrayList<>();
+    ArrayList<JRadioButton> timeCommitList = new ArrayList<>();
+    ArrayList<JRadioButton> meetingTimeList = new ArrayList<>();
+
+
 
 
     /**
@@ -31,27 +35,62 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
      * Otherwise, they can enter/change their preferences and click on the 'Save Changes' button to save their changes.
      */
 
-    public EditGroupProfileScreen(EditGroupProfileScreenBoundary editGroupScreen, CardLayout cardLayout, JPanel screens) {
+    public EditGroupProfileScreen(CardLayout cardLayout, JPanel screens) {
         this.editGroupController = editGroupController;
-        this.editGroupScreen = editGroupScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.build();
 
     }
+
+     /** React to a button click that results in evt.
+     * If the group profile was edited successfully, the controller will trigger the use case.
+     * Otherwise, an exception will be thrown.
+     * If the user presses the Exit button, they will be redirected to Group Profile page.
+     */
+
         @Override
         public void actionPerformed(ActionEvent evt) {
             if (evt.getSource() == this.saveEdits) {
+
+                for(JRadioButton button: locationList) {
+                    if (button.isSelected()) {
+                        String buttonSelected = button.getText();
+                        if (buttonSelected.equals("Online") | buttonSelected.equals("In-person")) {
+                            this.location = buttonSelected;
+                        }
+                    }
+                }
+                for (JRadioButton button : meetingTimeList) {
+                    if (button.isSelected()) {
+                        String buttonSelected = button.getText();
+                        if (buttonSelected.equals("Monday") | buttonSelected.equals("Tuesday")
+                                | buttonSelected.equals("Wednesday") | buttonSelected.equals("Thursday")
+                                | buttonSelected.equals("Friday") | buttonSelected.equals("Saturday")
+                                | buttonSelected.equals("Sunday")) {
+                            this.meeting_time = buttonSelected;
+                        }
+                    }
+                }
+                for (JRadioButton button : timeCommitList) {
+                    if (button.isSelected()) {
+                        String buttonSelected = button.getText();
+                        if (buttonSelected.equals("0-2 hours") | buttonSelected.equals("2-4 hours")
+                                | buttonSelected.equals("5+ hours")) {
+                            this.time_commit = buttonSelected;
+                        }
+                    }
+                    }
                 try{
-                    this.editGroupController.editedChanges(groupName, description.getText(),
-                            time_commit, location, meeting_time, courseCode.getText());
+                    this.editGroupController.editedChanges(this.groupName, description.getText(),
+                            this.time_commit, this.location, this.meeting_time, courseCode.getText());
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, e.getMessage());
+                    JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
                 }
 
             } else if (evt.getSource() == this.exit) {
                 System.out.println("Click " + evt.getActionCommand());
-                cardLayout.show(screens,"viewGroupProfile");
+                cardLayout.show(screens,"newGroupPageScreen");
             }
 
             }
@@ -66,41 +105,53 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
         exit.addActionListener(this);
         saveEdits.addActionListener(this);
 
-
-        descriptionText.setText("Group Description: " + description);
-        courseCodeText.setText("Course Code: " + courseCode);
-
-        this.add(title);
-        this.add(description);
-        this.add(descriptionText);
-        this.add(saveEdits);
-        this.add(exit);
-        this.setSize(500, 500);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        ButtonGroup b1 = new ButtonGroup();
+        ButtonGroup b2 = new ButtonGroup();
+        ButtonGroup b3 = new ButtonGroup();
 
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
+        JPanel buttons = new JPanel();
+        JPanel menubar = new JPanel();
+
+
+        descriptionText.setText("Group Description: " + description.getText());
+        courseCodeText.setText("Course Code: " + courseCode.getText());
+
+        buttons.add(title);
+
+        menubar.add(descriptionText);
+        menubar.add(description);
+
+        menubar.add(courseCodeText);
+        menubar.add(courseCode);
+
+        buttons.add(saveEdits);
+        buttons.add(exit);
+
+        main.add(buttons, BorderLayout.SOUTH);
+
+        this.add(main);
+
+        JPanel preferences = new JPanel();
+        preferences.setLayout(new GridLayout(0, 2));
 
         /*Adding options*/
-        //JPanel preferences = new JPanel();
-        //preferences.setLayout(new BoxLayout(preferences, BoxLayout.Y_AXIS));
 
         JLabel locationLabel = new JLabel("Location: ");
-        // JPanel locationOptions = new JPanel();
+        JPanel locationOptions = new JPanel();
         JRadioButton locationOption1 = new JRadioButton("Online");
         JRadioButton locationOption2 = new JRadioButton("In-person");
-        this.add(locationOption1);
-        this.add(locationOption2);
-
-        if (locationOption1.isSelected()) {
-            location = "Online";
-        } else if (locationOption2.isSelected()) {
-            location = "In-person";
-        }
+        b1.add(locationOption1);
+        b1.add(locationOption2);
+        locationOptions.add(locationOption1);
+        locationOptions.add(locationOption2);
+        locationList.add(locationOption1);
+        locationList.add(locationOption2);
 
 
         JLabel meetingTimeLabel = new JLabel("Meeting Time: ");
-        //JPanel meetingTimeOptions = new JPanel();
+        JPanel meetingTimeOptions = new JPanel();
         JRadioButton meetingTimeOption1 = new JRadioButton("Monday");
         JRadioButton meetingTimeOption2 = new JRadioButton("Tuesday");
         JRadioButton meetingTimeOption3 = new JRadioButton("Wednesday");
@@ -108,79 +159,68 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
         JRadioButton meetingTimeOption5 = new JRadioButton("Friday");
         JRadioButton meetingTimeOption6 = new JRadioButton("Saturday");
         JRadioButton meetingTimeOption7 = new JRadioButton("Sunday");
-        this.add(meetingTimeOption1);
-        this.add(meetingTimeOption2);
-        this.add(meetingTimeOption3);
-        this.add(meetingTimeOption4);
-        this.add(meetingTimeOption5);
-        this.add(meetingTimeOption6);
-        this.add(meetingTimeOption7);
-
-        if (meetingTimeOption1.isSelected()) {
-            meeting_time = "Monday";
-        } else if (meetingTimeOption2.isSelected()) {
-            meeting_time = "Tuesday";
-        } else if (meetingTimeOption3.isSelected()) {
-            meeting_time = "Wednesday";
-        } else if (meetingTimeOption4.isSelected()) {
-            meeting_time = "Thursday";
-        } else if (meetingTimeOption5.isSelected()) {
-            meeting_time = "Friday";
-        } else if (meetingTimeOption6.isSelected()) {
-            meeting_time = "Saturday";
-        } else if (meetingTimeOption7.isSelected()) {
-            meeting_time = "Sunday";
-        }
+        meetingTimeOptions.add(meetingTimeOption1);
+        meetingTimeOptions.add(meetingTimeOption2);
+        meetingTimeOptions.add(meetingTimeOption3);
+        meetingTimeOptions.add(meetingTimeOption4);
+        meetingTimeOptions.add(meetingTimeOption5);
+        meetingTimeOptions.add(meetingTimeOption6);
+        meetingTimeOptions.add(meetingTimeOption7);
+        b2.add(meetingTimeOption1);
+        b2.add(meetingTimeOption2);
+        b2.add(meetingTimeOption3);
+        b2.add(meetingTimeOption4);
+        b2.add(meetingTimeOption5);
+        b2.add(meetingTimeOption6);
+        b2.add(meetingTimeOption7);
+        meetingTimeList.add(meetingTimeOption1);
+        meetingTimeList.add(meetingTimeOption2);
+        meetingTimeList.add(meetingTimeOption3);
+        meetingTimeList.add(meetingTimeOption4);
+        meetingTimeList.add(meetingTimeOption5);
+        meetingTimeList.add(meetingTimeOption6);
+        meetingTimeList.add(meetingTimeOption7);
 
         JLabel timeCommitmentLabel = new JLabel("Time Commitment: ");
-
+        JPanel timeCommitmentOptions = new JPanel();
         JRadioButton timeCommitmentOption1 = new JRadioButton("0-2 hours");
         JRadioButton timeCommitmentOption2 = new JRadioButton("2-4 hours");
         JRadioButton timeCommitmentOption3 = new JRadioButton("5+ hours");
-        this.add(timeCommitmentOption1);
-        this.add(timeCommitmentOption2);
-        this.add(timeCommitmentOption3);
-
-        if (timeCommitmentOption1.isSelected()) {
-            time_commit = "0-2 hours";
-        } else if (timeCommitmentOption2.isSelected()) {
-            time_commit = "2-4 hours";
-        } else if (timeCommitmentOption3.isSelected()) {
-            time_commit = "5+ hours";
-        }
+        timeCommitmentOptions.add(timeCommitmentOption1);
+        timeCommitmentOptions.add(timeCommitmentOption2);
+        timeCommitmentOptions.add(timeCommitmentOption3);
+        b3.add(timeCommitmentOption1);
+        b3.add(timeCommitmentOption2);
+        b3.add(timeCommitmentOption3);
+        timeCommitList.add(timeCommitmentOption1);
+        timeCommitList.add(timeCommitmentOption2);
+        timeCommitList.add(timeCommitmentOption3);
 
 
-        this.add(locationLabel);
+        preferences.add(locationLabel);
+        preferences.add(locationOptions);
 
-        this.add(meetingTimeLabel);
+        preferences.add(meetingTimeLabel);
+        preferences.add(meetingTimeOptions);
 
-        this.add(timeCommitmentLabel);
+        preferences.add(timeCommitmentLabel);
+        preferences.add(timeCommitmentOptions);
 
-        this.add(description);
-
-        this.add(courseCode);
-    }
-
-    public void setPreferences(HashMap<String, String> preferences) {
-        this.location = preferences.get("Location");
-        this.meeting_time = preferences.get("Meeting Time");
-        this.time_commit = preferences.get("Time Commitment");
-    }
+        this.add(preferences, BorderLayout.CENTER);
+        this.add(menubar, BorderLayout.CENTER);
 
 
-
-    @Override
-    public void switchScreen(HashMap<String, String> preferences) {
-        editGroupScreen.setPreferences(preferences);
-        editGroupScreen.setDescription(description.getText());
-        editGroupScreen.setCourseCode(courseCode.getText());
-        this.cardLayout.show(screens, "editGroupScreen");
     }
 
     @Override
     public void setView(EditGroupProfileController editGroupController) {
         this.editGroupController = editGroupController;
         this.screens.add(this, "editGroupProfileScreen");
+    }
+
+    @Override
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
 

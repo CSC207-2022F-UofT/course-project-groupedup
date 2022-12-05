@@ -1,10 +1,18 @@
 
+import Entities.CurrentUser;
 import Entities.NormalUser;
 import Entities.User;
 import Entities.UserPublicProfile;
 import MultiUsecaseUtil.SerializeDataAccess;
 import UserSignupLoginScreens.*;
 import UserRegistrationUsecase.*;
+import edit_group_profile_screens.EditGroupProfileController;
+import edit_group_profile_screens.EditGroupProfilePresenter;
+import edit_group_profile_screens.EditGroupProfileScreen;
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
+import edit_group_profile_use_case.EditGroupProfileInputBoundary;
+import edit_group_profile_use_case.EditGroupProfileInteractor;
+import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
 import group_creation_screens.*;
 import group_creation_use_case.GroupFactory;
 import group_creation_use_case.GroupRegisterInputBoundary;
@@ -50,7 +58,17 @@ public class Main {
         registrationScreen.setView(registrationController);
 
         GroupFactory groupFactory = new GroupFactory();
-        NewGroupScreenBoundary newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens);
+
+
+        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreen(cardLayout, screens);
+        EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
+        EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
+        EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);
+        editGroupScreen.setView(editGroupController);
+        screens.add((Component) editGroupScreen, "editGroupScreen");
+
+
+        NewGroupScreenBoundary newGroupPageScreen = new NewGroupPageScreen(editGroupScreen, cardLayout, screens);
 
         GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen, cardLayout, screens);
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterScreen);
@@ -61,6 +79,10 @@ public class Main {
 
 
         newGroupPageScreen.setView(groupRegisterController);
+
+
+
+        //cardLayout.show(screens, "editGroupProfile");
 
 
         application.pack();

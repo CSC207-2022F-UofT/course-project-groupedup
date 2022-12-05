@@ -9,7 +9,8 @@ import java.util.HashMap;
 public interface EditGroupProfileScreenBoundary extends ActionListener {
     void actionPerformed(ActionEvent evt);
     void build();
-    void switchScreen(HashMap<String, String> preferences);
+
+    void setGroupName(String groupName);
+
     void setView(EditGroupProfileController editGroupProfileController);
-    void setPreferences(HashMap<String, String> preferences);
 }

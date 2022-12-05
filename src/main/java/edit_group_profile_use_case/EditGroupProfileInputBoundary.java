@@ -1,5 +1,8 @@
 package edit_group_profile_use_case;
-
+/**
+ * This is an interface between the controller and the interactor.
+ * The interactor implements this interface to create dependency inversion.
+ */
 
 public interface EditGroupProfileInputBoundary {
     /**
@@ -7,7 +10,7 @@ public interface EditGroupProfileInputBoundary {
      * @param requestModel
      * @return
      */
-    void editGroup(EditGroupProfileRequestModel requestModel);
+    boolean editGroup(EditGroupProfileRequestModel requestModel);
 
 }
 
