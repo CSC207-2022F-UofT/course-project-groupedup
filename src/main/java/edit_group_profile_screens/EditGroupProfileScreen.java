@@ -33,6 +33,7 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
      * The User can then click on the 'Exit' button if they want to go back to the group profile main page
      * Otherwise, they can enter/change their preferences and click on the 'Save Changes' button to save their changes.
      */
+    // hahahahahahahaha
 
     public EditGroupProfileScreen(CardLayout cardLayout, JPanel screens) {
         this.editGroupController = editGroupController;
