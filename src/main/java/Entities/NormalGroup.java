@@ -131,4 +131,6 @@ public class NormalGroup implements Serializable, Group {
 
     // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
     public void addRequest(String username) {memberRequests.put(username, username); }
+
+    public void addMemberRequest(String username) {memberRequests.put(username, username);}
 }
