@@ -50,7 +50,7 @@ public class EditPendingListTest {
 
     @Test
     public void testAddUser() {
-        presenter = new EditPendingListPresenter() {
+        presenter = new EditPendingListOutputBoundary() {
             @Override
             public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
                 String responseGroupName = responseModel.getGroupName();
@@ -80,7 +80,7 @@ public class EditPendingListTest {
 
     @Test
     public void testRemoveUser() {
-        presenter = new EditPendingListPresenter() {
+        presenter = new EditPendingListOutputBoundary() {
             @Override
             public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
                 Assertions.fail("User acceptance is unexpected.");
@@ -110,7 +110,7 @@ public class EditPendingListTest {
 
     @Test
     public void testUserDoesntExist() {
-        presenter = new EditPendingListPresenter() {
+        presenter = new EditPendingListOutputBoundary() {
             @Override
             public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
                 Assertions.fail("User acceptance is unexpected.");
@@ -134,7 +134,7 @@ public class EditPendingListTest {
 
     @Test
     public void testUserNotInRequests() {
-        presenter = new EditPendingListPresenter() {
+        presenter = new EditPendingListOutputBoundary() {
             @Override
             public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
                 Assertions.fail("User acceptance is unexpected.");
