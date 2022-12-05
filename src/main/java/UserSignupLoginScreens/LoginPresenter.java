@@ -1,21 +1,31 @@
 package UserSignupLoginScreens;
 
-import userloginusecase.LoginInputPackage;
 import userloginusecase.LoginOutputBoundary;
 
+import javax.swing.*;
+
+/**
+ * presenter for the login use case
+ */
+
 public class LoginPresenter implements LoginOutputBoundary {
-    public LoginPresenter(){
+    private LoginScreenInterface loginScreen;
+    public LoginPresenter(LoginScreenInterface loginScreen){
+        this.loginScreen = loginScreen;
     }
 
-    public void loadControllers(){
-    }
     @Override
     public void prepareSuccessView() {
-        //UI.show("you are logged in")
+        JOptionPane.showMessageDialog(null, "You are logged in :^)");
+        /*
+         * go to the screen for homepage, the screen name is "homepage"
+         */
+        this.loginScreen.switchScreen("homepage");
     }
 
     @Override
     public void prepareFailView(String error) {
-        new UserRegistrationScreen();
+        JOptionPane.showMessageDialog(null, "Incorrect/not matching credentials");
+        this.loginScreen.resetFields();
     }
 }
