@@ -1,5 +1,4 @@
 package edit_group_profile_screens;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
