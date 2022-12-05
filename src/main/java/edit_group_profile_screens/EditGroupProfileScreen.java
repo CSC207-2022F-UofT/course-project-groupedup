@@ -42,57 +42,57 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
 
     }
 
-     /** React to a button click that results in evt.
+    /** React to a button click that results in evt.
      * If the group profile was edited successfully, the controller will trigger the use case.
      * Otherwise, an exception will be thrown.
      * If the user presses the Exit button, they will be redirected to Group Profile page.
      */
 
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            if (evt.getSource() == this.saveEdits) {
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == this.saveEdits) {
 
-                for(JRadioButton button: locationList) {
-                    if (button.isSelected()) {
-                        String buttonSelected = button.getText();
-                        if (buttonSelected.equals("Online") | buttonSelected.equals("In-person")) {
-                            this.location = buttonSelected;
-                        }
+            for(JRadioButton button: locationList) {
+                if (button.isSelected()) {
+                    String buttonSelected = button.getText();
+                    if (buttonSelected.equals("Online") | buttonSelected.equals("In-person")) {
+                        this.location = buttonSelected;
                     }
                 }
-                for (JRadioButton button : meetingTimeList) {
-                    if (button.isSelected()) {
-                        String buttonSelected = button.getText();
-                        if (buttonSelected.equals("Monday") | buttonSelected.equals("Tuesday")
-                                | buttonSelected.equals("Wednesday") | buttonSelected.equals("Thursday")
-                                | buttonSelected.equals("Friday") | buttonSelected.equals("Saturday")
-                                | buttonSelected.equals("Sunday")) {
-                            this.meeting_time = buttonSelected;
-                        }
+            }
+            for (JRadioButton button : meetingTimeList) {
+                if (button.isSelected()) {
+                    String buttonSelected = button.getText();
+                    if (buttonSelected.equals("Monday") | buttonSelected.equals("Tuesday")
+                            | buttonSelected.equals("Wednesday") | buttonSelected.equals("Thursday")
+                            | buttonSelected.equals("Friday") | buttonSelected.equals("Saturday")
+                            | buttonSelected.equals("Sunday")) {
+                        this.meeting_time = buttonSelected;
                     }
                 }
-                for (JRadioButton button : timeCommitList) {
-                    if (button.isSelected()) {
-                        String buttonSelected = button.getText();
-                        if (buttonSelected.equals("0-2 hours") | buttonSelected.equals("2-4 hours")
-                                | buttonSelected.equals("5+ hours")) {
-                            this.time_commit = buttonSelected;
-                        }
+            }
+            for (JRadioButton button : timeCommitList) {
+                if (button.isSelected()) {
+                    String buttonSelected = button.getText();
+                    if (buttonSelected.equals("0-2 hours") | buttonSelected.equals("2-4 hours")
+                            | buttonSelected.equals("5+ hours")) {
+                        this.time_commit = buttonSelected;
                     }
-                    }
-                try{
-                    this.editGroupController.editedChanges(this.groupName, description.getText(),
-                            this.time_commit, this.location, this.meeting_time, courseCode.getText());
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
                 }
-
-            } else if (evt.getSource() == this.exit) {
-                System.out.println("Click " + evt.getActionCommand());
-                cardLayout.show(screens,"newGroupPageScreen");
+            }
+            try{
+                this.editGroupController.editedChanges(this.groupName, description.getText(),
+                        this.time_commit, this.location, this.meeting_time, courseCode.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
             }
 
-            }
+        } else if (evt.getSource() == this.exit) {
+            System.out.println("Click " + evt.getActionCommand());
+            cardLayout.show(screens,"newGroupPageScreen");
+        }
+
+    }
 
     public void build() {
         JLabel title = new JLabel("Edit Group Profile");
