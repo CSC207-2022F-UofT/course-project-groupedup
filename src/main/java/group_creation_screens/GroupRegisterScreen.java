@@ -1,13 +1,8 @@
 package group_creation_screens;
 
-import group_creation_use_case.GroupRegisterRequestModel;
-import group_creation_use_case.GroupRegisterResponseModel;
-
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * The main Group Register Screen where the User who is logged in can enter the name of the

@@ -1,6 +1,5 @@
 package Edit_Group_Profile_Screens;
-import Screens.CancelAppScreen;
-import Screens.LeaveGroupScreen;
+import leave_group_screens.LeaveGroupScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,11 +94,11 @@ public class EditGroupProfileScreen extends JFrame implements ActionListener{
         public void actionPerformed(ActionEvent evt) {
             if (evt.getSource() == this.exit) {
                 this.dispose();
-                new LeaveGroupScreen("Julia");
+                //new LeaveGroupScreen("Julia");
             }
             if (evt.getSource() == this.saveEdits) {
                 this.dispose();
-                new CancelAppScreen("Julia");
+                //new CancelAppScreen("Julia");
             }
             }
 

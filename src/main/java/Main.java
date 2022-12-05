@@ -16,12 +16,12 @@ import userloginusecase.LoginOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class Main {
     public static void main(String[] args) {
-
+        // Runs registration, login, homepage, create group, new group profile, pending list
         JFrame application = new JFrame("Grouped Up");
+        application.setSize(350, 400);
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
@@ -31,7 +31,7 @@ public class Main {
         SerializeDataAccess dataAccess = new SerializeDataAccess();
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
-        HomePage homepageTest = new HomePage(cardLayout, screens);
+        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
         screens.add(homepageTest, "homepage");
 
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
@@ -62,8 +62,8 @@ public class Main {
 
         newGroupPageScreen.setView(groupRegisterController);
 
-
-        application.pack();
+        // what does application.pack do? because if i comment it out then all the screens have more appropriate sizing
+//        application.pack();
         application.setVisible(true);
 
 

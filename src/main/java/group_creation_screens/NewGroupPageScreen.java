@@ -3,7 +3,6 @@ package group_creation_screens;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 /**

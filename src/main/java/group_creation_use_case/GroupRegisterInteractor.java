@@ -3,9 +3,6 @@ package group_creation_use_case;
 import Entities.CurrentUser;
 import Entities.Group;
 
-import javax.swing.*;
-import java.io.IOException;
-
 /**
  * This interactor will execute the functionality of the group creation use case.
  */

@@ -2,7 +2,6 @@ package group_creation_screens;
 
 import group_creation_use_case.GroupRegisterInputBoundary;
 import group_creation_use_case.GroupRegisterRequestModel;
-import group_creation_use_case.GroupRegisterResponseModel;
 
 /**
  * This is the controller of the use case. It will trigger the interactor and bundle up
