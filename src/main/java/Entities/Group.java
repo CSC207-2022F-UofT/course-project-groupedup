@@ -49,6 +49,10 @@ public interface Group extends Serializable {
     // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
     void addRequest(String username);
 
+
     void setGroupProfile(GroupProfile groupProfile);
+
+
+    void addMemberRequest(String username);
 
 }

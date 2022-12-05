@@ -1,6 +1,10 @@
 package view_pending_list;
 
+/**
+ * The input boundary interface for the view pending list use case.
+ */
+
 public interface ViewPendingListInputBoundary {
-    ViewPendingListResponseModel getUsernamesList(ViewPendingListRequestModel requestModel);
+    void getUsernamesList(ViewPendingListRequestModel requestModel);
 
 }

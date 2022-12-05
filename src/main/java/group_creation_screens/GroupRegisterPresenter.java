@@ -2,6 +2,7 @@ package group_creation_screens;
 import group_creation_use_case.GroupRegisterOutputBoundary;
 import group_creation_use_case.GroupRegisterResponseModel;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +10,7 @@ import java.awt.*;
  * Takes information/data from the interactor and will tell the UI
  * what to display.
  */
+
 public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
     GroupCreationScreenBoundary groupRegisterScreenBoundary;
 

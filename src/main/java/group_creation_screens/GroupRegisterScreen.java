@@ -1,6 +1,8 @@
 package group_creation_screens;
 
+
 import static javax.swing.JOptionPane.showMessageDialog;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +16,9 @@ import java.awt.event.ActionEvent;
  */
 
 public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBoundary {
+
     NewGroupPageScreen newGroupPageScreen;
+
     JTextField groupName = new JTextField(15);
 
     GroupRegisterController groupRegisterController;
@@ -24,17 +28,17 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     CardLayout cardLayout;
     JPanel screens;
 
+
     Integer screenSize = 500;
 
 
     public GroupRegisterScreen(NewGroupPageScreen newGroupPageScreen, CardLayout cardLayout, JPanel screens) {
+
         this.newGroupPageScreen = newGroupPageScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
         build();
-
     }
-
 
     /**
      * React to a button click that results in evt.
@@ -46,16 +50,14 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == registerGroup){
+
                 this.groupRegisterController.create(groupName.getText());
 
         }
         else if (evt.getSource() == cancel){
             System.out.println("Click " + evt.getActionCommand());
             cardLayout.show(screens,"homepage");
-
         }
-
-
     }
 
     /**
@@ -76,6 +78,7 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         this.add(cancel);
         this.setSize(screenSize, screenSize);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
     }
 
     /**
@@ -99,6 +102,7 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         this.groupRegisterController = groupRegisterController;
         this.screens.add(this, "groupRegisterScreen");
     }
+
 
     /**
      * If the use case fails, the screen will display a failure pop up message.

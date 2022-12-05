@@ -32,7 +32,6 @@ public class LoginScreen extends JPanel implements ActionListener, LoginScreenIn
     public LoginScreen(JPanel screens, CardLayout cardLayout) {
         this.screens = screens;
         this.cardLayout = cardLayout;
-
         this.initializeComponents();
         this.initializeFrame();
     }

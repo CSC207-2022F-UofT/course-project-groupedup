@@ -1,5 +1,8 @@
 package group_creation_screens;
 
+import pending_list_screens.*;
+import pending_list_screens.ViewGroupMembersController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,22 +19,30 @@ import java.awt.event.ActionListener;
 public class NewGroupPageScreen extends JPanel implements ActionListener {
     JButton homePage = new JButton("Home Page");
     JButton editGroup = new JButton("Edit Group Information");
-    JButton pendingList = new JButton("Pending Group List");
+    JButton pendingList = new JButton("Pending List");
+    JButton membersList = new JButton("Group Members");
     JLabel groupNameText = new JLabel();
+    String groupName;
+    //    PendingListScreenBoundary pendingListScreen;
     CardLayout cardLayout;
     JPanel screens;
-
     GroupRegisterController groupRegisterController;
+
     Integer screenSize;
 
+    ViewPendingListController viewPendingListController;
+    ViewGroupMembersController viewGroupMembersController;
 
-    public NewGroupPageScreen(CardLayout cardLayout, JPanel screens) {
+
+    public NewGroupPageScreen(CardLayout cardLayout, JPanel screens, ViewPendingListController viewPendingListController,
+                              ViewGroupMembersController viewGroupMembersController) {
         this.cardLayout = cardLayout;
         this.screens = screens;
+        this.viewPendingListController = viewPendingListController;
+        this.viewGroupMembersController = viewGroupMembersController;
         build();
 
     }
-
 
     /**
      * React to a button click that results in evt.
@@ -40,6 +51,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
      * The edit group button will allow them to edit/add more information about this group.
      * The pending list button will allow them to see which users applied to their group.
      */
+
     public void actionPerformed(ActionEvent evt) {
 
         System.out.println("Click " + evt.getActionCommand());
@@ -52,7 +64,10 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         }
         else if (evt.getSource() == pendingList){
             // CONNECT WITH PENDING LIST
-
+            viewPendingListController.getUsernames(groupName);
+        }
+        else if (evt.getSource() == membersList) {
+            viewGroupMembersController.getGroupMembers(groupName);
         }
     }
 
@@ -60,16 +75,27 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
      * Initializes all the components of the screen and adds them to the JPanel.
      */
     public void build() {
+        groupNameText.setText("Group's name: " + groupName);
 
         homePage.addActionListener(this);
         editGroup.addActionListener(this);
         pendingList.addActionListener(this);
+
+        editGroup.addActionListener(this);
+
+        pendingList.addActionListener(this);
+
+        membersList.addActionListener(this);
+
         this.add(groupNameText);
         this.add(homePage);
         this.add(editGroup);
         this.add(pendingList);
         this.setSize(screenSize, screenSize);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(membersList);
+
+        this.setSize(500, 500);
     }
 
     /**
@@ -87,7 +113,6 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
     public void setView(GroupRegisterController groupRegisterController) {
         this.groupRegisterController = groupRegisterController;
         this.screens.add(this, "newGroupPageScreen");
-
     }
 
     /**
@@ -95,6 +120,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
      * @param groupName
      */
     public void setGroupName(String groupName){
+
 
         groupNameText.setText("Group's name: " + groupName);
     }
@@ -107,6 +133,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         JOptionPane.showMessageDialog(this, error);
 
     }
+
 
 
 }

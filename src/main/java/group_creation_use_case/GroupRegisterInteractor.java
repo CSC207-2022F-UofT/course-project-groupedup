@@ -1,10 +1,13 @@
 package group_creation_use_case;
 
-import Entities.CurrentUser;
-import Entities.Group;
-
-import javax.swing.*;
-import java.io.IOException;
+import Entities.*;
+//import UserRegistrationUsecase.NewUserDSGateway;
+//import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+//import edit_pending_list.EditPendingListDsGateway;
+//
+//import javax.swing.*;
+//import java.io.IOException;
+//import java.util.HashMap;
 
 /**
  * This interactor will execute the functionality of the group creation use case.
@@ -15,12 +18,16 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 
     final NewGroupDSGateway newGroupDSGateway;
 
+//    final EditPendingListDsGateway editPendingListDsGateway;
+//    final NewUserDSGateway newUserDSGateway;
+
     public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
         this.newGroupDSGateway = newGroupDSGateway;
         this.groupPresenter = groupPresenter;
         this.groupFactory = groupFactory;
-
+//        this.editPendingListDsGateway = (EditPendingListDsGateway) newGroupDSGateway;
+//        this.newUserDSGateway = (NewUserDSGateway) newGroupDSGateway;
     }
 
     /**
@@ -47,6 +54,33 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
         CurrentUser.getInstance().getUser().addGroup(group.getGroupName());
+
+
+//  TESTING FOR VIEW PENDING LIST ----------------------------------------------------------------------------------
+        // SORRY IT WAS THE ONLY WAY pls comment this out instead of deleting it for now
+//        String username = "sharon";
+//
+//        User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
+//                    new UserPublicProfile());
+//        User user1 = new NormalUser("aarya", "pww", "Aarya", "aarya@gmail.com",
+//                    new UserPublicProfile());
+//
+//        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user, user.getUsername()));
+//        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
+//
+//        group.addRequest(username);
+//        group.addRequest("aarya");
+//
+//        String groupName = requestModel.getGroupName();
+//
+//        user.getApplicationsList().put(groupName, groupName);
+//        user1.getApplicationsList().put(groupName, groupName);
+//
+//        editPendingListDsGateway.updateUser(user);
+//        editPendingListDsGateway.updateUser(user1);
+//        editPendingListDsGateway.updateGroup(group);
+//  -----------------------------------------------------------------------------------------------------------------
+
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         groupPresenter.prepareSuccessView(groupResponseModel);
         return true;
