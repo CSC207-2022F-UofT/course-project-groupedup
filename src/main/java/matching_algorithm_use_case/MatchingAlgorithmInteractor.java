@@ -17,6 +17,7 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
     final MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary;
     final MatchingAlgorithmDsGateWay matchingAlgorithmDsGateWay;
 
+    final String successMessage = "Matches Updated";
     final String errorMessage = "No Matches Found";
 
     public MatchingAlgorithmInteractor(MatchingAlgorithmOutputBoundary presenter,
@@ -47,7 +48,7 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
                 return;
             }
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
-                    new MatchingAlgorithmResponseModel(groupsAsString);
+                    new MatchingAlgorithmResponseModel(successMessage, groupsAsString);
 
                 matchingAlgorithmOutputBoundary.prepareSuccessView(matchingAlgorithmResponseModel);
     }
