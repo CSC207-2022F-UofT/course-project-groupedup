@@ -1,5 +1,10 @@
 package group_creation_use_case;
 
+/**
+ * This is a data bundle of the data which should be presented by the presenter
+ * to the UI in response to the group creaitonuse case being completed.
+ * It is passed to the presenter.
+ */
 public class GroupRegisterResponseModel {
 
     String groupName;

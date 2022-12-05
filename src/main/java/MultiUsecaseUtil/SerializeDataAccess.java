@@ -8,6 +8,7 @@ import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
 import userloginusecase.LoginDSGateway;
+import view_group_members.ViewGroupMembersDsGateway;
 import view_pending_list.ViewPendingListDsGateway;
 
 import java.io.*;
@@ -28,7 +29,7 @@ import java.util.HashMap;
  */
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway,
-        EditPendingListDsGateway, ViewPendingListDsGateway {
+        EditPendingListDsGateway, ViewPendingListDsGateway, ViewGroupMembersDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -311,7 +312,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     @Override
     public boolean userInMemberRequests(String username, String groupName) {
         Group group = getGroup(groupName);
-        return group.getMemberRequests(userMap).containsKey(groupName);
+        return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override

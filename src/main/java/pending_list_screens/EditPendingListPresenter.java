@@ -37,6 +37,6 @@ public class EditPendingListPresenter implements EditPendingListOutputBoundary {
      */
     @Override
     public void prepareFailView(String error) {
-        throw new EditPendingListFailed(error);
+        JOptionPane.showMessageDialog(null, error);
     }
 }

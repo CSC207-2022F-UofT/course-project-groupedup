@@ -1,4 +1,4 @@
-package pending_list_screens;
+package pending_list_tests;
 
 import Entities.Group;
 import Entities.User;

@@ -5,15 +5,15 @@ import edit_pending_list.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pending_list_screens.EditPendingListController;
 import pending_list_screens.EditPendingListPresenter;
-import pending_list_screens.PendingListDataAccess;
 
 import java.util.HashMap;
 
 /**
  * Tests for the edit pending list use case
  */
-public class EditPendingListInteractorTest {
+public class EditPendingListTest {
 
     String username;
     String groupName;
@@ -26,6 +26,7 @@ public class EditPendingListInteractorTest {
     EditPendingListDsGateway repository;
     EditPendingListInputBoundary interactor;
     EditPendingListOutputBoundary presenter;
+    EditPendingListController controller;
 
     @BeforeEach
     void beforeEach() {
@@ -45,7 +46,10 @@ public class EditPendingListInteractorTest {
         user.getApplicationsList().put(groupName, groupName);
         group.addRequest(username);
         repository = new PendingListDataAccess(userMap, groupMap);
+    }
 
+    @Test
+    public void testAddUser() {
         presenter = new EditPendingListPresenter() {
             @Override
             public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
@@ -55,15 +59,13 @@ public class EditPendingListInteractorTest {
                 Assertions.assertTrue(repository.userInGroup(responseUsername, responseGroupName));
                 Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
                 Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
+                Assertions.assertEquals(responseModel.getUsername(), username);
+                Assertions.assertEquals(responseModel.getGroupName(), groupName);
             }
 
+            @Override
             public void prepareRejectedView(EditPendingListResponseModel responseModel) {
-                String responseGroupName = responseModel.getGroupName();
-                String responseUsername = responseModel.getUsername();
-                Assertions.assertFalse(repository.groupInUser(responseGroupName, responseUsername));
-                Assertions.assertFalse(repository.userInGroup(responseUsername, responseGroupName));
-                Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
-                Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
+                Assertions.fail("User rejection is unexpected.");
             }
 
             @Override
@@ -71,27 +73,87 @@ public class EditPendingListInteractorTest {
                 Assertions.fail("Use case failure is unexpected.");
             }
         };
-    }
-
-    @Test
-    public void testAddUser() {
         interactor = new EditPendingListInteractor(repository, presenter);
-        EditPendingListRequestModel inputData = new EditPendingListRequestModel(username, groupName,
-                true);
-        interactor.addOrRemoveUser(inputData);
+        controller = new EditPendingListController(interactor);
+        controller.rejectOrAcceptUser(username, groupName, true);
     }
 
     @Test
     public void testRemoveUser() {
+        presenter = new EditPendingListPresenter() {
+            @Override
+            public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
+                Assertions.fail("User acceptance is unexpected.");
+            }
+
+            @Override
+            public void prepareRejectedView(EditPendingListResponseModel responseModel) {
+                String responseGroupName = responseModel.getGroupName();
+                String responseUsername = responseModel.getUsername();
+                Assertions.assertFalse(repository.groupInUser(responseGroupName, responseUsername));
+                Assertions.assertFalse(repository.userInGroup(responseUsername, responseGroupName));
+                Assertions.assertFalse(repository.groupInApplications(responseGroupName, responseUsername));
+                Assertions.assertFalse(repository.userInMemberRequests(responseUsername, responseGroupName));
+                Assertions.assertEquals(responseModel.getUsername(), username);
+                Assertions.assertEquals(responseModel.getGroupName(), groupName);
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                Assertions.fail("Use case failure is unexpected.");
+            }
+        };
         interactor = new EditPendingListInteractor(repository, presenter);
-        EditPendingListRequestModel inputData = new EditPendingListRequestModel(username, groupName,
-                false);
-        interactor.addOrRemoveUser(inputData);
+        controller = new EditPendingListController(interactor);
+        controller.rejectOrAcceptUser(username, groupName, false);
     }
 
     @Test
     public void testUserDoesntExist() {
+        presenter = new EditPendingListPresenter() {
+            @Override
+            public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
+                Assertions.fail("User acceptance is unexpected.");
+            }
 
+            @Override
+            public void prepareRejectedView(EditPendingListResponseModel responseModel) {
+                Assertions.fail("User rejection is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                Assertions.assertEquals(error, "This user no longer exists.");
+            }
+        };
+        username = "null";
+        interactor = new EditPendingListInteractor(repository, presenter);
+        controller = new EditPendingListController(interactor);
+        controller.rejectOrAcceptUser(username, groupName, true);
+    }
+
+    @Test
+    public void testUserNotInRequests() {
+        presenter = new EditPendingListPresenter() {
+            @Override
+            public void prepareAcceptedView(EditPendingListResponseModel responseModel) {
+                Assertions.fail("User acceptance is unexpected.");
+            }
+
+            @Override
+            public void prepareRejectedView(EditPendingListResponseModel responseModel) {
+                Assertions.fail("User rejection is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                Assertions.assertEquals(error, "This user has cancelled their join request.");
+            }
+        };
+        group.removeFromRequests(username);
+        interactor = new EditPendingListInteractor(repository, presenter);
+        controller = new EditPendingListController(interactor);
+        controller.rejectOrAcceptUser(username, groupName, true);
     }
 
     @Test
@@ -100,16 +162,10 @@ public class EditPendingListInteractorTest {
         repository = new PendingListDataAccess(userMap, groupMap);
         interactor = new EditPendingListInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
-            EditPendingListRequestModel inputData = new EditPendingListRequestModel(username, groupName,
-                    false);
-            interactor.addOrRemoveUser(inputData);
+            controller = new EditPendingListController(interactor);
+            controller.rejectOrAcceptUser(username, groupName, true);
         });
         Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
-    }
-
-    @Test
-    public void testUserNotInRequests() {
-
     }
 
     @Test
@@ -118,9 +174,8 @@ public class EditPendingListInteractorTest {
         repository.updateUser(user);
         interactor = new EditPendingListInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
-            EditPendingListRequestModel inputData = new EditPendingListRequestModel(username, groupName,
-                    false);
-            interactor.addOrRemoveUser(inputData);
+            controller = new EditPendingListController(interactor);
+            controller.rejectOrAcceptUser(username, groupName, true);
         });
         Assertions.assertEquals("This group is not in this user's application list.", thrown.getMessage());
     }
@@ -133,9 +188,8 @@ public class EditPendingListInteractorTest {
         repository.updateGroup(group);
         interactor = new EditPendingListInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
-            EditPendingListRequestModel inputData = new EditPendingListRequestModel(username, groupName,
-                    false);
-            interactor.addOrRemoveUser(inputData);
+            controller = new EditPendingListController(interactor);
+            controller.rejectOrAcceptUser(username, groupName, true);
         });
         Assertions.assertEquals("This user is already in this group.", thrown.getMessage());
     }

@@ -32,45 +32,37 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         String groupName = requestModel.getGroupName();
         boolean pendingStatus = requestModel.getPendingStatus();
 
-        if (!dsGateway.groupIdentifierExists(groupName)) {
-            throw new RuntimeException("This group doesn't exist.");
-        }
-
-        if (!dsGateway.userIdentifierExists(username)) {
-            presenter.prepareFailView("This user no longer exists.");
-        }
-
         User user = dsGateway.getUser(username);
         Group group = dsGateway.getGroup(groupName);
 
-        if (!dsGateway.userInMemberRequests(username, groupName)) {
+        if (!dsGateway.groupIdentifierExists(groupName)) {
+            throw new RuntimeException("This group doesn't exist.");
+        } else if (!dsGateway.userIdentifierExists(username)) {
+            presenter.prepareFailView("This user no longer exists.");
+        } else if (!dsGateway.userInMemberRequests(username, groupName)) {
             presenter.prepareFailView("This user has cancelled their join request.");
-        }
-
-        if (!dsGateway.groupInApplications(groupName, username)) {
+        } else if (!dsGateway.groupInApplications(groupName, username)) {
             throw new RuntimeException("This group is not in this user's application list.");
-        }
-
-        if (dsGateway.groupInUser(groupName, username) || dsGateway.userInGroup(username, groupName)) {
+        } else if (dsGateway.groupInUser(groupName, username) || dsGateway.userInGroup(username, groupName)) {
             throw new RuntimeException("This user is already in this group.");
-        }
-
-        group.removeFromRequests(username);
-        user.removeApplication(groupName);
-
-        if (pendingStatus) {
-            user.addGroup(groupName);
-            group.addMember(username);
-        }
-
-        dsGateway.updateUser(user);
-        dsGateway.updateGroup(group);
-
-        EditPendingListResponseModel responseModel = new EditPendingListResponseModel(username, groupName);
-        if (pendingStatus) {
-            presenter.prepareAcceptedView(responseModel);
         } else {
-            presenter.prepareRejectedView(responseModel);
+            group.removeFromRequests(username);
+            user.removeApplication(groupName);
+
+            if (pendingStatus) {
+                user.addGroup(groupName);
+                group.addMember(username);
+            }
+
+            dsGateway.updateUser(user);
+            dsGateway.updateGroup(group);
+
+            EditPendingListResponseModel responseModel = new EditPendingListResponseModel(username, groupName);
+            if (pendingStatus) {
+                presenter.prepareAcceptedView(responseModel);
+            } else {
+                presenter.prepareRejectedView(responseModel);
+            }
         }
     }
 }

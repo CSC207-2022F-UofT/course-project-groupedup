@@ -27,17 +27,19 @@ public class ViewGroupMembersInteractor implements ViewGroupMembersInputBoundary
 
     /**
      * @param requestModel the request model for the view group members use case
-     * @return a list of usernames of the users in the group
      */
     @Override
-    public ViewGroupMembersResponseModel getGroupMembers(ViewGroupMembersRequestModel requestModel) {
+    public void getGroupMembers(ViewGroupMembersRequestModel requestModel) {
         String groupName = requestModel.getGroupName();
+        if (!dsGateway.groupIdentifierExists(groupName)) {
+            throw new RuntimeException("This group doesn't exist.");
+        }
         Group group = dsGateway.getGroup(groupName);
         HashMap<String, User> userMap = dsGateway.loadUsers();
 
         ArrayList<String> groupMembers = new ArrayList<>(group.getGroupMembers(userMap).keySet());
 
-        ViewGroupMembersResponseModel responseModel = new ViewGroupMembersResponseModel(groupMembers);
-        return presenter.prepareSuccessView(responseModel);
+        ViewGroupMembersResponseModel responseModel = new ViewGroupMembersResponseModel(groupName, groupMembers);
+        presenter.prepareSuccessView(responseModel);
     }
 }

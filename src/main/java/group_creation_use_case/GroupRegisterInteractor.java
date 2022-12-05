@@ -1,43 +1,91 @@
 package group_creation_use_case;
 
-import Entities.Group;
+import Entities.*;
+import UserRegistrationUsecase.NewUserDSGateway;
+import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+import edit_pending_list.EditPendingListDsGateway;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.HashMap;
 
+/**
+ * This interactor will execute the functionality of the group creation use case.
+ */
 public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     final GroupRegisterOutputBoundary groupPresenter;
     final GroupFactory groupFactory;
 
     final NewGroupDSGateway newGroupDSGateway;
 
+    final EditPendingListDsGateway editPendingListDsGateway;
+    final NewUserDSGateway newUserDSGateway;
+
     public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
         this.newGroupDSGateway = newGroupDSGateway;
         this.groupPresenter = groupPresenter;
         this.groupFactory = groupFactory;
-
+        this.editPendingListDsGateway = (EditPendingListDsGateway) newGroupDSGateway;
+        this.newUserDSGateway = (NewUserDSGateway) newGroupDSGateway;
     }
 
     /**
-     * Executes the Group Creation Use Case. Will create a Group and store it in the database
-     * if the Group doesn't already exist.
+     * Executes the Group Creation Use Case.
+     * Takes in a request model and checks if the group name is valid.
+     * If the group name is empty then it will get the presenter to display failure.
+     * If the group already exists in the database then the presenter will display failure.
+     * If the group doesn't already exist, a new group object will be created, saved to
+     * the database, and the presenter will display success.
      * @param requestModel
      * @return
      */
 
     @Override
-    public void create(GroupRegisterRequestModel requestModel) {
+    public boolean create(GroupRegisterRequestModel requestModel) {
         if (newGroupDSGateway.groupIdentifierExists(requestModel.getGroupName())){
             groupPresenter.prepareFailView("Group already exists.");
+            return false;
         } else if (requestModel.getGroupName().equals("")){
             groupPresenter.prepareFailView("Invalid group name.");
+            return false;
         }
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
+
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
+
+        CurrentUser.getInstance().getUser().addGroup(group.getGroupName());
+
+
+//  TESTING FOR VIEW PENDING LIST ----------------------------------------------------------------------------------
+        // SORRY IT WAS THE ONLY WAY pls comment this out instead of deleting it for now
+        String username = "sharon";
+
+        User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
+                    new UserPublicProfile());
+        User user1 = new NormalUser("aarya", "pww", "Aarya", "aarya@gmail.com",
+                    new UserPublicProfile());
+
+        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user, user.getUsername()));
+        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
+
+        group.addRequest(username);
+        group.addRequest("aarya");
+
+        String groupName = requestModel.getGroupName();
+
+        user.getApplicationsList().put(groupName, groupName);
+        user1.getApplicationsList().put(groupName, groupName);
+
+        editPendingListDsGateway.updateUser(user);
+        editPendingListDsGateway.updateUser(user1);
+        editPendingListDsGateway.updateGroup(group);
+//  -----------------------------------------------------------------------------------------------------------------
+
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         groupPresenter.prepareSuccessView(groupResponseModel);
+        return true;
     }
 }
 

@@ -4,17 +4,20 @@ import Entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pending_list_screens.*;
-import view_pending_list.*;
+import pending_list_screens.GroupMembersScreen;
+import pending_list_screens.GroupMembersScreenBoundary;
+import pending_list_screens.ViewGroupMembersController;
+import pending_list_screens.ViewGroupMembersPresenter;
+import view_group_members.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Tests for the view pending list use case
+ * Tests for the view group members use case
  */
 
-public class ViewPendingListTest {
+public class ViewGroupMembersTest {
     String username;
     String groupName;
     User user;
@@ -23,11 +26,11 @@ public class ViewPendingListTest {
     User testUser;
     HashMap<String, User> userMap;
     HashMap<String, Group> groupMap;
-    ViewPendingListDsGateway repository;
-    ViewPendingListInputBoundary interactor;
-    ViewPendingListOutputBoundary presenter;
-    ViewPendingListController controller;
-    PendingListScreenBoundary screen;
+    ViewGroupMembersDsGateway repository;
+    ViewGroupMembersInputBoundary interactor;
+    ViewGroupMembersOutputBoundary presenter;
+    ViewGroupMembersController controller;
+    GroupMembersScreenBoundary screen;
 
     @BeforeEach
     void beforeEach() {
@@ -44,37 +47,37 @@ public class ViewPendingListTest {
         userMap.put(username, user);
         groupMap = new HashMap<>();
         groupMap.put(groupName, group);
-        user.getApplicationsList().put(groupName, groupName);
-        group.addRequest(username);
+        user.addGroup(groupName);
+        group.addMember(username);
         repository = new PendingListDataAccess(userMap, groupMap);
 
-        screen = new PendingListScreen();
+        screen = new GroupMembersScreen();
     }
 
     @Test
-    public void testPendingListRetrieval() {
-        ArrayList<String> requests = new ArrayList<>();
-        requests.add(username);
-        ViewPendingListOutputBoundary presenter = new ViewPendingListPresenter(screen) {
+    public void testMembersListRetrieval() {
+        ArrayList<String> members = new ArrayList<>(group.getGroupMembers(userMap).keySet());
+        ViewGroupMembersOutputBoundary presenter = new ViewGroupMembersPresenter(screen) {
             @Override
-            public void prepareSuccessView(ViewPendingListResponseModel usernamesList) {
-                Assertions.assertEquals(usernamesList.getUsernamesList(), requests);
+            public void prepareSuccessView(ViewGroupMembersResponseModel usernamesList) {
+                Assertions.assertEquals(usernamesList.getGroupMembers(), members);
             }
         };
-        interactor = new ViewPendingListInteractor(repository, presenter);
-        controller = new ViewPendingListController(interactor);
-        controller.getUsernames(groupName);
+        interactor = new ViewGroupMembersInteractor(repository, presenter);
+        controller = new ViewGroupMembersController(interactor);
+        controller.getGroupMembers(groupName);
     }
 
     @Test
     public void testGroupDoesntExist() {
         groupMap = new HashMap<>();
         repository = new PendingListDataAccess(userMap, groupMap);
-        interactor = new ViewPendingListInteractor(repository, presenter);
+        interactor = new ViewGroupMembersInteractor(repository, presenter);
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
-            controller = new ViewPendingListController(interactor);
-            controller.getUsernames(groupName);
+            controller = new ViewGroupMembersController(interactor);
+            controller.getGroupMembers(groupName);
         });
         Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
     }
+
 }
