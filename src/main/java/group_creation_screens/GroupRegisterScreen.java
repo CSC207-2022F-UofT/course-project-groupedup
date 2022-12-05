@@ -24,6 +24,8 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     CardLayout cardLayout;
     JPanel screens;
 
+    Integer screenSize = 500;
+
 
     public GroupRegisterScreen(NewGroupPageScreen newGroupPageScreen, CardLayout cardLayout, JPanel screens) {
         this.newGroupPageScreen = newGroupPageScreen;
@@ -72,7 +74,7 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         this.add(groupName);
         this.add(registerGroup);
         this.add(cancel);
-        this.setSize(500, 500);
+        this.setSize(screenSize, screenSize);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 

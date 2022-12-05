@@ -22,6 +22,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
     JPanel screens;
 
     GroupRegisterController groupRegisterController;
+    Integer screenSize;
 
 
     public NewGroupPageScreen(CardLayout cardLayout, JPanel screens) {
@@ -67,7 +68,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         this.add(homePage);
         this.add(editGroup);
         this.add(pendingList);
-        this.setSize(500, 500);
+        this.setSize(screenSize, screenSize);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
