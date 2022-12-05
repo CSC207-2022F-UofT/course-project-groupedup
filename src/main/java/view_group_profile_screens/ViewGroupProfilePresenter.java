@@ -1,6 +1,5 @@
 package view_group_profile_screens;
 
-import cancel_application_screens.GroupProfileScreenBoundary;
 import view_group_profile_use_case.ViewGroupProfileOutputBoundary;
 import view_group_profile_use_case.ViewGroupProfileResponseModel;
 

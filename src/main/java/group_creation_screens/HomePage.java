@@ -1,8 +1,8 @@
 package group_creation_screens;
 import Entities.*;
 import cancel_application_screens.*;
-import view_group_profile_screens.ViewApplicationsListController;
-import view_group_profile_screens.ViewApplicationsListPresenter;
+import cancel_application_screens.ViewApplicationsListController;
+import cancel_application_screens.ViewApplicationsListPresenter;
 import view_user_applications_use_case.ViewApplicationsListDsGateway;
 import view_user_applications_use_case.ViewApplicationsListInputBoundary;
 import view_user_applications_use_case.ViewApplicationsListInteractor;
@@ -14,6 +14,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
+/**
+ * This is the HomePage which the User who is logged in will see.
+ * Here the matching algorithm will be displayed and the user can click
+ * the 'Create a group' button to create a new group, through the group
+ * creation use case.
+ *
+ */
 public class HomePage extends JPanel implements ActionListener{
     JButton groupCreation = new JButton("Create a group");
     JButton myApplications = new JButton("My Applications");
@@ -41,16 +48,17 @@ public class HomePage extends JPanel implements ActionListener{
     }
 
     /**
-     * React to a button click that results in evt.
+     * If the button which is clicked is the group creation button, then the
+     * group creation screen will show up.
+     *
+     * @param evt the event to be processed
      */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
 
         if (evt.getSource() == groupCreation) {
             this.cardLayout.show(screens, "groupRegisterScreen");
-        }
-
-        if (evt.getSource() == myApplications) {
+        } else if (evt.getSource() == myApplications) {
             // This is me making a fake data access for testing
             User testUser = new NormalUser("Bob", "testUser", "testUser", "testUser",
                     new UserPublicProfile());

@@ -48,20 +48,7 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
             outputBoundary.prepareFailureView("Group is not in \"My Groups\" list.");
             return;
         }
-//        if (Objects.equals(group.getGroupLeaderUsername(), user.getUsername())) {
-//            HashMap<String, User> userMap = new HashMap<>(dsGateway.loadUsers());
-//
-//            if (group.getGroupMembers(userMap).size() == 1) {
-//                dsGateway.deleteGroup(group.getGroupName());
-//                LeaveGroupResponseModel successModel = new LeaveGroupResponseModel(user.getUsername(),
-//                        group.getGroupName(), "Deleted Group");
-//                return outputBoundary.prepareSuccessView(successModel);
-//            }
-//
-//            LeaveGroupResponseModel groupLeaderModel = new LeaveGroupResponseModel(user.getUsername(),
-//                    group.getGroupName(), "Group Leader");
-//            return outputBoundary.prepareGroupLeaderView(groupLeaderModel);
-//        }
+
         user.removeGroup(group.getGroupName());
         group.removeMember(user.getUsername());
 

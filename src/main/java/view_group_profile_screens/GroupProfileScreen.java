@@ -1,4 +1,4 @@
-package cancel_application_screens;
+package view_group_profile_screens;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
      * @param username the username of the current user
      */
     public GroupProfileScreen(String username) {
-        setSize(400, 400);
+        setSize(400, 200);
         this.username = username;
 
         setVisible(false);
@@ -49,7 +49,6 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
     @Override
     public void initializeComponents() {
-
         this.textBox = new JTextArea();
 
         textBox.setLineWrap(true);
@@ -65,7 +64,7 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
     @Override
     public void setComponents() {
-
+        setTitle(this.groupName);
         textBox.setText(this.groupDescription + "\n\n");
 
         for(String s : this.groupPreferences.keySet()) {

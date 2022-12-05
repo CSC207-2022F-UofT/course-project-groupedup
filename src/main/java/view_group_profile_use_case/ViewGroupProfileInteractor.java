@@ -46,9 +46,5 @@ public class ViewGroupProfileInteractor implements ViewGroupProfileInputBoundary
 
             outputBoundary.prepareSuccessView(groupInfo);
         }
-
-
-
-
     }
 }

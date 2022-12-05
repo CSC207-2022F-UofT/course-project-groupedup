@@ -18,7 +18,6 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     CancelApplicationController cancelApplicationController;
     ViewGroupProfileController viewGroupProfileController;
     DefaultListModel<String> userApplicationsModel;
-//    GroupProfileScreenBoundary groupProfileScreen;
     JButton cancelApplicationButton;
     JButton viewGroupButton;
     String username;
@@ -29,8 +28,6 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
      */
     public ApplicationsListScreen(String username) {
         this.username = username;
-
-//        this.groupProfileScreen = new GroupProfileScreen(username);
 
         this.setSize(400, 500);
         setVisible(false);
@@ -72,12 +69,6 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     public void setCancelApplicationController(CancelApplicationController cancelApplicationController) {
         this.cancelApplicationController = cancelApplicationController;
     }
-
-//    @Override
-//    public void setViewApplicationsListController(ViewApplicationsListController viewApplicationsListController) {
-//        this.viewApplicationsListController = viewApplicationsListController;
-//        viewApplicationsListController.viewApplicationsList(username);
-//    }
 
     @Override
     public void view() {

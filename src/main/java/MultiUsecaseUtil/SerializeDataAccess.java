@@ -10,6 +10,8 @@ import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
 import leave_group_use_case.LeaveGroupDsGateway;
 import userloginusecase.LoginDSGateway;
+import view_group_profile_use_case.ViewGroupProfileDsGateway;
+import view_user_applications_use_case.ViewApplicationsListDsGateway;
 
 import java.io.*;
 import java.util.HashMap;
@@ -29,7 +31,8 @@ import java.util.HashMap;
  */
 
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
-        CancelApplicationDsGateway, LeaveGroupDsGateway, LoginDSGateway, EditPendingListDsGateway {
+        CancelApplicationDsGateway, LeaveGroupDsGateway, LoginDSGateway, EditPendingListDsGateway,
+        ViewGroupProfileDsGateway, ViewApplicationsListDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -146,33 +149,6 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
             throw new RuntimeException(e);
         }
     }
-
-//    @Override
-//    public void deleteGroup(String groupName) {
-//        OutputStream file;
-//        try {
-//            file = new FileOutputStream("database/group.ser");
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        OutputStream buffer = new BufferedOutputStream(file);
-//        ObjectOutput output;
-//        try {
-//            output = new ObjectOutputStream(buffer);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        // FYI this is the only difference between this and updateGroup (replace -> remove)
-//        this.groupMap.remove(groupName);
-//        try {
-//            output.writeObject(this.groupMap);
-//            output.close();
-//            buffer.close();
-//            file.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     public void saveNewUser(UserRegistrationDSRequestPackage userDSRequestModel){

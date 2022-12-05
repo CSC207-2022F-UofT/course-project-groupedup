@@ -12,7 +12,6 @@ public interface LeaveGroupDsGateway {
     boolean groupIdentifierExists(String groupName);
     User getUser(String username);
     Group getGroup(String groupName);
-//    void deleteGroup(String groupName);
 
     /**
      * Updates the current user after user's groups list has changed. Saves to repository.

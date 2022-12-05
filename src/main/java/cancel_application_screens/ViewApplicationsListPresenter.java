@@ -1,11 +1,14 @@
-package view_group_profile_screens;
+package cancel_application_screens;
 
 import Entities.*;
-import cancel_application_screens.*;
 import cancel_application_use_case.CancelApplicationDsGateway;
 import cancel_application_use_case.CancelApplicationInputBoundary;
 import cancel_application_use_case.CancelApplicationInteractor;
 import cancel_application_use_case.CancelApplicationOutputBoundary;
+import view_group_profile_screens.GroupProfileScreen;
+import view_group_profile_screens.GroupProfileScreenBoundary;
+import view_group_profile_screens.ViewGroupProfileController;
+import view_group_profile_screens.ViewGroupProfilePresenter;
 import view_group_profile_use_case.ViewGroupProfileDsGateway;
 import view_group_profile_use_case.ViewGroupProfileInputBoundary;
 import view_group_profile_use_case.ViewGroupProfileInteractor;

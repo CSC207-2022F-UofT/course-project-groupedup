@@ -2,6 +2,10 @@ package group_creation_use_case;
 
 import Entities.Group;
 
+/**
+ * A data bundle which is passed to the database. This is the information which
+ * should be stored in the database, after the group creation use case is completed.
+ */
 public class GroupRegisterDSRequestModel {
 
     private final Group group;
@@ -14,18 +18,11 @@ public class GroupRegisterDSRequestModel {
         this.groupName = groupName;
     }
 
-    /**
-     *
-     * @return the Group
-     */
+
     public Group getGroup() {
         return group;
     }
 
-    /**
-     *
-     * @return the Group's name
-     */
     public String getGroupName() {
         return groupName;
     }

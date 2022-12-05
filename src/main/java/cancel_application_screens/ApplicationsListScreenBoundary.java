@@ -15,8 +15,6 @@ public interface ApplicationsListScreenBoundary extends ListSelectionListener {
 
     void setCancelApplicationController(CancelApplicationController cancelApplicationController);
 
-//    void setViewApplicationsListController(ViewApplicationsListController viewApplicationsListController);
-
     void setViewGroupController(ViewGroupProfileController viewGroupProfileController);
 
     void view();

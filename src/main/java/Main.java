@@ -6,7 +6,10 @@ import MultiUsecaseUtil.SerializeDataAccess;
 import UserSignupLoginScreens.*;
 import UserRegistrationUsecase.*;
 import group_creation_screens.*;
-import group_creation_use_case.*;
+import group_creation_use_case.GroupFactory;
+import group_creation_use_case.GroupRegisterInputBoundary;
+import group_creation_use_case.GroupRegisterInteractor;
+import group_creation_use_case.GroupRegisterOutputBoundary;
 import userloginusecase.LoginInputBoundary;
 import userloginusecase.LoginInteractor;
 import userloginusecase.LoginOutputBoundary;
@@ -46,33 +49,22 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
-        NewGroupDSGateway dataAccess1 = new InMemoryFileGroup();
-        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
-        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
         GroupFactory groupFactory = new GroupFactory();
-        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess1, presenter, groupFactory);
+        NewGroupScreenBoundary newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens);
+
+        GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen, cardLayout, screens);
+        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterScreen);
+        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
         GroupRegisterController groupRegisterController = new GroupRegisterController(
                 interactor);
-        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
-        screens.add(groupRegisterScreen, "groupRegisterScreen");
+        groupRegisterScreen.setView(groupRegisterController);
 
+
+        newGroupPageScreen.setView(groupRegisterController);
+
+        // what does application.pack do? because if i comment it out then all the screens have more appropriate sizing
 //        application.pack();
         application.setVisible(true);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -85,12 +77,7 @@ public class Main {
 //                    userRegistrationInteractor);
 //        NewGroupDSGateway dataAccess = new InMemoryFileGroup();
 //
-//        GroupRegisterViewModel groupRegisterView = new GroupRegisterView(cardLayout, screens);
-//        GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterView);
-//        GroupFactory groupFactory = new GroupFactory();
-//        GroupRegisterInputBoundary interactor = new GroupRegisterInteractor(dataAccess, presenter, groupFactory);
-//        GroupRegisterController groupRegisterController = new GroupRegisterController(
-//                interactor);
+
 
 //
 //
@@ -108,9 +95,7 @@ public class Main {
 //
 //        HomePage homepageTest = new HomePage(cardLayout, screens);
 //
-//        GroupRegisterScreen groupRegisterScreen = new GroupRegisterScreen(groupRegisterController);
-//        screens.add(homepageTest, "homepageScreen");
-//        screens.add(groupRegisterScreen, "groupRegisterScreen");
+
 //        cardLayout.show(screens, "hompageScreen");
 //        application.pack();
 //        application.setVisible(true);
