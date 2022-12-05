@@ -60,27 +60,27 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 
 //  TESTING FOR VIEW PENDING LIST ----------------------------------------------------------------------------------
         // SORRY IT WAS THE ONLY WAY pls comment this out instead of deleting it for now
-        String username = "sharon";
-
-        User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
-                    new UserPublicProfile());
-        User user1 = new NormalUser("aarya", "pww", "Aarya", "aarya@gmail.com",
-                    new UserPublicProfile());
-
-        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user, user.getUsername()));
-        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
-
-        group.addRequest(username);
-        group.addRequest("aarya");
-
-        String groupName = requestModel.getGroupName();
-
-        user.getApplicationsList().put(groupName, groupName);
-        user1.getApplicationsList().put(groupName, groupName);
-
-        editPendingListDsGateway.updateUser(user);
-        editPendingListDsGateway.updateUser(user1);
-        editPendingListDsGateway.updateGroup(group);
+//        String username = "sharon";
+//
+//        User user = new NormalUser(username, "pw", "Sharon", "sharon@gmail.com",
+//                    new UserPublicProfile());
+//        User user1 = new NormalUser("aarya", "pww", "Aarya", "aarya@gmail.com",
+//                    new UserPublicProfile());
+//
+//        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user, user.getUsername()));
+//        newUserDSGateway.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
+//
+//        group.addRequest(username);
+//        group.addRequest("aarya");
+//
+//        String groupName = requestModel.getGroupName();
+//
+//        user.getApplicationsList().put(groupName, groupName);
+//        user1.getApplicationsList().put(groupName, groupName);
+//
+//        editPendingListDsGateway.updateUser(user);
+//        editPendingListDsGateway.updateUser(user1);
+//        editPendingListDsGateway.updateGroup(group);
 //  -----------------------------------------------------------------------------------------------------------------
 
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
