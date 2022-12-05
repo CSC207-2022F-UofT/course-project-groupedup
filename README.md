@@ -31,7 +31,10 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 - To run the program for the first time;
   - Navigate to Main.java under src/main/java,
   - Click the Run 'Main.java' button.
-- For each subsequent run; uncomment the "data access call for subsequent runs".
+- For each subsequent run; 
+  - comment the line under "initial call for data access",
+  - uncomment the line under "data access call for subsequent runs",
+  - Click the Run 'Main.java' button.
 - Once the program is run, the pop-up screen will allow you to register or login. You can navigate within the program to perform other features such as Create Group or Apply/Cancel application.
 
 ## Workflow Documents
