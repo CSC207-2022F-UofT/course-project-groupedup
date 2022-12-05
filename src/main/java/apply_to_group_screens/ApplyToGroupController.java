@@ -2,7 +2,6 @@ package apply_to_group_screens;
 
 import apply_to_group_use_case.ApplyToGroupInputBoundary;
 import apply_to_group_use_case.ApplyToGroupRequestModel;
-import apply_to_group_use_case.ApplyToGroupResponseModel;
 
 
 /**
@@ -19,7 +18,7 @@ public class ApplyToGroupController {
      * @param username the username of the current user
      * @param groupName the group's name the user is applying to
      */
-    void applyToGroup(String username, String groupName) {
+    public void applyToGroup(String username, String groupName) {
         ApplyToGroupRequestModel requestModel = new ApplyToGroupRequestModel(username, groupName);
 
         applyToGroupInput.applyToGroup(requestModel);

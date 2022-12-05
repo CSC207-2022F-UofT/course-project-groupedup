@@ -1,6 +1,11 @@
 import edit_pending_list.EditPendingListInputBoundary;
 import edit_pending_list.EditPendingListInteractor;
 import edit_pending_list.EditPendingListOutputBoundary;
+import matching_algorithm_screens.*;
+import matching_algorithm_use_case.MatchingAlgorithmInputBoundary;
+import matching_algorithm_use_case.MatchingAlgorithmInteractor;
+import matching_algorithm_use_case.MatchingAlgorithmOutputBoundary;
+import matching_algorithm_screens.HomeMatchesBoundary;
 import pending_list_screens.*;
 import view_group_members.*;
 import view_pending_list.ViewPendingListInputBoundary;
@@ -75,8 +80,16 @@ public class Main {
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
         MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername());
-        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
-        screens.add(homepageTest, "homepage");
+        HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
+        screens.add((JPanel)homepageTest, "homepage");
+
+        MatchingAlgorithmViewModel matchingAlgorithmViewModel = new MatchingAlgorithmView(homepageTest);
+        MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary =
+                new MatchesPresenter(matchingAlgorithmViewModel);
+        MatchingAlgorithmInputBoundary matchingAlgorithmInputBoundary =
+                new MatchingAlgorithmInteractor(matchingAlgorithmOutputBoundary, dataAccess);
+        MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
+        homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
 
         ViewGroupProfileOutputBoundary viewGroupProfilePresenter = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary viewGroupProfileInteractor = new ViewGroupProfileInteractor(dataAccess,
