@@ -129,7 +129,7 @@ public class EditGroupProfileScreen extends JPanel implements  EditGroupProfileS
         buttons.add(saveEdits);
         buttons.add(exit);
 
-        main.add(buttons, BorderLayout.SOUTH);
+        main.add(buttons, BorderLayout.CENTER);
 
         this.add(main);
 
