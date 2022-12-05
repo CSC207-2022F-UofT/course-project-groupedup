@@ -49,6 +49,7 @@ public class UserRegistrationScreen extends JPanel
 
     private void initializeComponents() {
         this.title = new JLabel("REGISTRATION SCREEN");
+        this.setSize(500, 500);
         this.title.setBounds(220, 100, 300, 100);
 
         this.name = new JTextField(15);
