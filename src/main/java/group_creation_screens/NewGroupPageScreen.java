@@ -28,7 +28,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
     JPanel screens;
     GroupRegisterController groupRegisterController;
 
-    Integer screenSize;
+    Integer SCREEN_SIZE = 500;
 
     ViewPendingListController viewPendingListController;
     ViewGroupMembersController viewGroupMembersController;
@@ -91,11 +91,10 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         this.add(homePage);
         this.add(editGroup);
         this.add(pendingList);
-        this.setSize(screenSize, screenSize);
+        this.setSize(SCREEN_SIZE, SCREEN_SIZE);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(membersList);
 
-        this.setSize(500, 500);
     }
 
     /**

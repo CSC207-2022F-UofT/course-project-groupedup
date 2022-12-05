@@ -37,6 +37,8 @@ public class HomePage extends JPanel implements ActionListener{
     JPanel screens;
     JLabel title = new JLabel("Welcome to Grouped Up!");
 
+    Integer screenSize = 500;
+
     public HomePage(CardLayout cardLayout, JPanel screens, String username){
         this.cardLayout = cardLayout;
         this.screens = screens;
@@ -53,7 +55,7 @@ public class HomePage extends JPanel implements ActionListener{
 
         this.applicationListScreen = new ApplicationsListScreen(username);
         this.myGroupsScreen = new MyGroupsScreen(username);
-        this.setSize(500, 500);
+        this.setSize(screenSize, screenSize);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
