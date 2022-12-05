@@ -2,35 +2,42 @@ package group_creation_screens;
 import group_creation_use_case.GroupRegisterOutputBoundary;
 import group_creation_use_case.GroupRegisterResponseModel;
 
-import javax.swing.*;
-import java.awt.*;
+
+/**
+ * Takes information/data from the interactor and will tell the UI
+ * what to display.
+ */
 
 public class GroupRegisterPresenter implements GroupRegisterOutputBoundary{
-    GroupRegisterViewModel groupRegisterViewModel;
+    GroupCreationScreenBoundary groupRegisterScreenBoundary;
 
 
-    public GroupRegisterPresenter(GroupRegisterViewModel groupRegisterViewModel){
-        this.groupRegisterViewModel = groupRegisterViewModel;
+    public GroupRegisterPresenter(GroupCreationScreenBoundary groupRegisterScreenBoundary ){
+        this.groupRegisterScreenBoundary = groupRegisterScreenBoundary;
 
     }
+    public GroupRegisterPresenter(){};
     /**
-     *
-     * @param groupResponseModel takes the response model data and presents it in the UI upon success
+     * Takes the response model data and calls the view interface to display success
+     * with the data from the response model. Since groupRegisterScreenBoundary is an interface,
+     * the presenter is not dependent on the view/UI.
+     * @param groupResponseModel
      *
      */
     @Override
     public void prepareSuccessView(GroupRegisterResponseModel groupResponseModel) {
-        groupRegisterViewModel.displaySuccess(groupResponseModel);
+        this.groupRegisterScreenBoundary.switchScreen(groupResponseModel.getGroupName());
 
     }
 
     /**
-     *
-     * @param error takes an error message and presents a failure screen/message in the UI upon failure
-     * @return
+     * Takes an error message and calls the view model interface to display failure
+     * with the data from the response model. Since groupRegisterScreenBoundary is an interface,
+     * the presenter is not dependent on the view/UI.
+     * @param error
      */
     @Override
     public void prepareFailView(String error) {
-        groupRegisterViewModel.displayFailure(error);
+        this.groupRegisterScreenBoundary.prepareFailView(error);
     }
 }

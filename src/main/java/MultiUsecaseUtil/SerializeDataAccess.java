@@ -7,8 +7,9 @@ import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
 import edit_pending_list.EditPendingListDsGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
-import matching_algorithm_use_case.MatchingAlgorithmDsGateWay;
 import userloginusecase.LoginDSGateway;
+import view_group_members.ViewGroupMembersDsGateway;
+import view_pending_list.ViewPendingListDsGateway;
 
 import java.io.*;
 import java.util.HashMap;
@@ -27,7 +28,8 @@ import java.util.HashMap;
  * so other saving methods that might not require throwing exceptions can be implemented later
  */
 
-public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway, EditPendingListDsGateway, MatchingAlgorithmDsGateWay {
+public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway,
+        EditPendingListDsGateway, ViewPendingListDsGateway, ViewGroupMembersDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
@@ -86,7 +88,8 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
             throw new RuntimeException(e);
         }
         Group newGroup = groupDSRequestModel.getGroup();
-        this.groupMap.put(newGroup.getGroupName(), newGroup);
+        String groupName = groupDSRequestModel.getGroupName();
+        this.groupMap.put(groupName, newGroup);
         try {
             output.writeObject(this.groupMap);
             output.close();
@@ -233,7 +236,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
 
     @Override
     public Group getGroup(String groupName) {
-        return groupMap.get(groupName);
+        return this.groupMap.get(groupName);
     }
 
 
@@ -309,7 +312,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     @Override
     public boolean userInMemberRequests(String username, String groupName) {
         Group group = getGroup(groupName);
-        return group.getMemberRequests(userMap).containsKey(groupName);
+        return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override

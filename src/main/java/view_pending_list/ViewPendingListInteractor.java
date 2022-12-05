@@ -26,18 +26,21 @@ public class ViewPendingListInteractor implements ViewPendingListInputBoundary {
     }
 
     /**
+     * Passes a list of users who've applied to the group to the presenter
      * @param requestModel the request model for the view pending list use case
-     * @return a list of usernames of the users who've applied to the group
      */
     @Override
-    public ViewPendingListResponseModel getUsernamesList(ViewPendingListRequestModel requestModel) {
+    public void getUsernamesList(ViewPendingListRequestModel requestModel) {
         String groupName = requestModel.getGroupName();
+        if (!dsGateway.groupIdentifierExists(groupName)) {
+            throw new RuntimeException("This group doesn't exist.");
+        }
         Group group = dsGateway.getGroup(groupName);
         HashMap<String, User> userMap = dsGateway.loadUsers();
 
         ArrayList<String> usernamesList = new ArrayList<>(group.getMemberRequests(userMap).keySet());
 
-        ViewPendingListResponseModel responseModel = new ViewPendingListResponseModel(usernamesList);
-        return presenter.prepareSuccessView(responseModel);
+        ViewPendingListResponseModel responseModel = new ViewPendingListResponseModel(groupName, usernamesList);
+        presenter.prepareSuccessView(responseModel);
     }
 }
