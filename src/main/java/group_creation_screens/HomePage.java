@@ -106,7 +106,6 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
             viewMyGroupsController.viewMyGroups(username);
         } else if (evt.getSource() == refreshMatches) {
             matchingAlgorithmController.matchingAlgorithm(username);
-            JOptionPane.showMessageDialog(null, "Matches Updated");
         }
     }
 
