@@ -18,16 +18,16 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 
     final NewGroupDSGateway newGroupDSGateway;
 
-    final EditPendingListDsGateway editPendingListDsGateway;
-    final NewUserDSGateway newUserDSGateway;
+//    final EditPendingListDsGateway editPendingListDsGateway;
+//    final NewUserDSGateway newUserDSGateway;
 
     public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
         this.newGroupDSGateway = newGroupDSGateway;
         this.groupPresenter = groupPresenter;
         this.groupFactory = groupFactory;
-        this.editPendingListDsGateway = (EditPendingListDsGateway) newGroupDSGateway;
-        this.newUserDSGateway = (NewUserDSGateway) newGroupDSGateway;
+//        this.editPendingListDsGateway = (EditPendingListDsGateway) newGroupDSGateway;
+//        this.newUserDSGateway = (NewUserDSGateway) newGroupDSGateway;
     }
 
     /**
