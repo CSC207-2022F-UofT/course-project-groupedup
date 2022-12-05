@@ -50,7 +50,7 @@ public class Main {
         registrationScreen.setView(registrationController);
 
         GroupFactory groupFactory = new GroupFactory();
-        NewGroupScreenBoundary newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens);
+        NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens);
 
         GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen, cardLayout, screens);
         GroupRegisterOutputBoundary presenter = new GroupRegisterPresenter(groupRegisterScreen);
@@ -58,8 +58,6 @@ public class Main {
         GroupRegisterController groupRegisterController = new GroupRegisterController(
                 interactor);
         groupRegisterScreen.setView(groupRegisterController);
-
-
         newGroupPageScreen.setView(groupRegisterController);
 
 
