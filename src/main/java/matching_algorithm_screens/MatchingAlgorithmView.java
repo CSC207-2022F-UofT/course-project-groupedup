@@ -37,6 +37,9 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
     @Override
     public void displayFailure(String error){
         JOptionPane.showMessageDialog(null, error);
+        DefaultListModel<String> matchDefaultList = new DefaultListModel<>();
+        JList<String> matchJList = new JList<>(matchDefaultList);
+        screen.setMatches(matchJList);
     }
 }
 
