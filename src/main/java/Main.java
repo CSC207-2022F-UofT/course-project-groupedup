@@ -123,22 +123,22 @@ public class Main {
         MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
         homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
 
-        ViewUserPublicProfileScreenBoundary viewUserPublicProfileScreen = new ViewUserPublicProfileScreen(cardLayout, screens);
+        ViewUserPublicProfileScreenBoundary viewUserPublicProfileScreen = new ViewUserPublicProfileScreen(screens, cardLayout);
         ViewUserPublicProfileOutputBoundary viewUserPublicProfilePresenter = new ViewUserPublicProfilePresenter(viewUserPublicProfileScreen);
         ViewUserPublicProfileInteractor viewUserPublicProfileInteractor = new ViewUserPublicProfileInteractor(dataAccess, viewUserPublicProfilePresenter);
         ViewUserPublicProfileController viewUserPublicProfileController = new ViewUserPublicProfileController(viewUserPublicProfileInteractor);
         viewUserPublicProfileScreen.setController(viewUserPublicProfileController);
         viewUserPublicProfileScreen.setUsername(user1.getUsername());
-        ((HomePage) homepageTest).setViewUserProfileController(viewUserPublicProfileController);
+        homepageTest.setViewUserProfileController(viewUserPublicProfileController);
         screens.add((Component) viewUserPublicProfileScreen, "viewUserProfileScreen");
 
-//        EditUserPublicProfileScreenBoundary editUserPublicProfileScreen = new EditUserPublicProfileScreen(cardLayout, screens);
-//        EditUserPublicProfileOutputBoundary editUserPublicProfilePresenter = new EditUserPublicProfilePresenter(editUserPublicProfileScreen);
-//        EditUserPublicProfileInteractor editUserPublicProfileInteractor = new EditUserPublicProfileInteractor(dataAccess, editUserPublicProfilePresenter);
-//        EditUserPublicProfileController editUserPublicProfileController = new EditUserPublicProfileController(editUserPublicProfileInteractor);
-//        editUserPublicProfileScreen.setController(editUserPublicProfileController);
-//        editUserPublicProfileScreen.setUsername(user1.getUsername());
-//        screens.add((Component) editUserPublicProfileScreen, "editUserProfileScreen");
+        EditUserPublicProfileScreenBoundary editUserPublicProfileScreen = new EditUserPublicProfileScreen(cardLayout, screens);
+        EditUserPublicProfileOutputBoundary editUserPublicProfilePresenter = new EditUserPublicProfilePresenter(editUserPublicProfileScreen);
+        EditUserPublicProfileInteractor editUserPublicProfileInteractor = new EditUserPublicProfileInteractor(dataAccess, editUserPublicProfilePresenter);
+        EditUserPublicProfileController editUserPublicProfileController = new EditUserPublicProfileController(editUserPublicProfileInteractor);
+        editUserPublicProfileScreen.setController(editUserPublicProfileController);
+        editUserPublicProfileScreen.setUsername(user1.getUsername());
+        screens.add((Component) editUserPublicProfileScreen, "editUserProfileScreen");
 
         ViewGroupProfileOutputBoundary viewGroupProfilePresenter = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary viewGroupProfileInteractor = new ViewGroupProfileInteractor(dataAccess,
