@@ -21,8 +21,8 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
 
     JButton submit = new JButton("Submit");
     JButton exit = new JButton("Exit");
-    JTextField bio = new JTextField("Enter your updated biography here.");
-    JTextField courseCodes = new JTextField("Enter the codes of the courses you are interested in here.");
+    JTextField bio = new JTextField();
+    JTextField courseCodes = new JTextField();
 
 
     public EditUserPublicProfileScreen(CardLayout cardLayout, JPanel screens) {
@@ -149,6 +149,7 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
 
     public JPanel buildMeetingTimeOptions() {
         JPanel meetingTime = new JPanel();
+        meetingTime.setLayout(new GridLayout(4,2));
         ButtonGroup meetingTimeOptions = new ButtonGroup();
         JRadioButton meetingTime1 = new JRadioButton("Monday");
         meetingTime1.addActionListener(this);
