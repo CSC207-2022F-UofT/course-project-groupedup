@@ -10,6 +10,10 @@ public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutp
         this.screen = screen;
     }
 
+    /**
+     * Displays success by building the user's profile screen.
+     * @param userPublicProfileInfo has the user's public profile information.
+     */
     @Override
     public void prepareSuccessView(ViewUserPublicProfileResponseModel userPublicProfileInfo) {
         screen.setBio(userPublicProfileInfo.getBio());
