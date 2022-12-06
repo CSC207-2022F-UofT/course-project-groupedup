@@ -98,7 +98,11 @@ public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalcul
      * Turn the respective group into a presentable String for the interactor with the Score
      * @return the score, course code, and the group name as a joint string
      */
-    public String toStringWithScore() {return score + " " + group.getProfile().getCourseCode() + ": "
+    public String toStringWithScore() {
+        if (group.getProfile().getCourseCode().isEmpty()){
+            return score + " no code: " + group.getGroupName();
+        }
+        return score + " " + group.getProfile().getCourseCode() + ": "
             + group.getGroupName(); }
 }
 

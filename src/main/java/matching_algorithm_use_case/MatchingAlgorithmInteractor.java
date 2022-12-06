@@ -17,8 +17,6 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
     final MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary;
     final MatchingAlgorithmDsGateWay matchingAlgorithmDsGateWay;
 
-    final String successMessage = "Matches Updated";
-    final String errorMessage = "No Matches Found";
 
     public MatchingAlgorithmInteractor(MatchingAlgorithmOutputBoundary presenter,
                                        MatchingAlgorithmDsGateWay dsGateWay){
@@ -34,6 +32,8 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
      */
     @Override
     public void matchGroups(MatchingAlgorithmRequestModel requestModel) {
+            MatchingAlgorithmMessage matchingAlgorithmMessage = new MatchingAlgorithmMessage();
+
             User currentUser = matchingAlgorithmDsGateWay.getUser(requestModel.getUsername());
             HashMap<String, Group> groupMap = matchingAlgorithmDsGateWay.loadGroups();
 
@@ -44,11 +44,11 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
             List<String> groupsAsString = userMatches.getMatches();
 
             if (groupsAsString.size() == 0) {
-                matchingAlgorithmOutputBoundary.prepareFailView(errorMessage);
+                matchingAlgorithmOutputBoundary.prepareFailView(matchingAlgorithmMessage.getNoMatchesFound());
                 return;
             }
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
-                    new MatchingAlgorithmResponseModel(successMessage, groupsAsString);
+                    new MatchingAlgorithmResponseModel(matchingAlgorithmMessage.getMatchesUpdated(), groupsAsString);
 
                 matchingAlgorithmOutputBoundary.prepareSuccessView(matchingAlgorithmResponseModel);
     }
