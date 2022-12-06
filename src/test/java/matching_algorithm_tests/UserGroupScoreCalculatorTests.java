@@ -17,7 +17,7 @@ public class UserGroupScoreCalculatorTests {
      * Test whether the calculator can caluclate the correct similarity score
      */
     @Test
-    public void checkScore(){
+    public void checkScoreOnHalfSimilar(){
         UserPublicProfile userPublicProfile = new UserPublicProfile();
         User user = new NormalUser("username", "password", "name", "emai@gmail.com",
                 userPublicProfile);
@@ -48,6 +48,73 @@ public class UserGroupScoreCalculatorTests {
         UserGroupScoreCalculator userGroupScoreCalculator = new UserGroupScoreCalculator(user, group);
         Assertions.assertTrue((Math.abs(userGroupScoreCalculator.getScore() - 0.50) <0.00001));
     }
+
+    /**
+     * Test whether a 1.0 is scored if similarities match
+     */
+    @Test
+    public void testScoreOnAllSimilar(){
+        UserPublicProfile userPublicProfile = new UserPublicProfile();
+        User user = new NormalUser("username", "password", "name", "emai@gmail.com",
+                userPublicProfile);
+        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser.setUser(user);
+
+        HashMap<String, String> preferences1 = new HashMap<>();
+        preferences1.put("Remote or In-Person", "Remote");
+        preferences1.put("Lays or Ruffles", "Ruffles");
+        preferences1.put("Chocolate", "Yes");
+        preferences1.put("Summer or Winter", "Summer");
+
+        user.getUserPublicProfile().setPreferences(preferences1);
+
+        GroupProfile groupProfile2 = new GroupProfile();
+        Group group2 = new NormalGroup("group2");
+        group2.setGroupProfile(groupProfile2);
+        group2.getProfile().setCourseCode("csc236");
+        group2.getProfile().setPreferences(preferences1);
+
+        UserGroupScoreCalculator userGroupScoreCalculator2 = new UserGroupScoreCalculator(user, group2);
+
+        Assertions.assertEquals(1.0, userGroupScoreCalculator2.getScore());
+    }
+
+    /**
+     * Test score if there are no shared preferences, expected 0.0
+     */
+    @Test
+    public void testScoreIfNoSimilarity(){
+        UserPublicProfile userPublicProfile = new UserPublicProfile();
+        User user = new NormalUser("username", "password", "name", "emai@gmail.com",
+                userPublicProfile);
+        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser.setUser(user);
+
+        HashMap<String, String> preferences1 = new HashMap<>();
+        preferences1.put("Remote or In-Person", "Remote");
+        preferences1.put("Lays or Ruffles", "Ruffles");
+        preferences1.put("Chocolate", "Yes");
+        preferences1.put("Summer or Winter", "Summer");
+
+        userPublicProfile.setPreferences(preferences1);
+
+        HashMap<String, String> preferences2 = new HashMap<>();
+        preferences1.put("Remote or In-Person", "In-Person");
+        preferences1.put("Lays or Ruffles", "Lays");
+        preferences1.put("Chocolate", "No");
+        preferences1.put("Neither", "Summer");
+
+        GroupProfile groupProfile2 = new GroupProfile();
+        Group group2 = new NormalGroup("group2");
+        group2.setGroupProfile(groupProfile2);
+        group2.getProfile().setPreferences(preferences2);
+
+        UserGroupScoreCalculator userGroupScoreCalculator2 = new UserGroupScoreCalculator(user, group2);
+
+        Assertions.assertEquals(0.0, userGroupScoreCalculator2.getScore());
+
+    }
+
 
     /**
      * Test whether the userGroupSimilarityCalculator instances can be compared
