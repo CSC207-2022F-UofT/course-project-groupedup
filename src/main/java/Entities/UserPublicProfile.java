@@ -2,9 +2,10 @@ package Entities;
 import java.io.Serializable;
 import java.util.HashMap;
 public class UserPublicProfile implements Serializable {
-    private String biography;
+    private String biography = "";
     private String coursePreferences = "";
     private HashMap<String, String> preferences;
+
     public UserPublicProfile(){
         HashMap<String, String> preferences = new HashMap<>();
         /*Prefilling in the preferences*/
@@ -13,7 +14,6 @@ public class UserPublicProfile implements Serializable {
         preferences.put("Meeting Time", "");
         this.preferences = preferences;
     }
-// HANNAH'S CODE FROM GITHUB SO THERE WILL BE NO CONFLICTS CAUSE WE NEVER MERGED HER STUFF
     public String getCoursePreferences() {
         return this.coursePreferences;
     }

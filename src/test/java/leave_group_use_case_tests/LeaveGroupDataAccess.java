@@ -1,4 +1,4 @@
-package leave_group_screens;
+package leave_group_use_case_tests;
 
 import Entities.Group;
 import Entities.User;
@@ -35,6 +35,11 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
     @Override
     public Group getGroup(String groupName) {
         return groupMap.get(groupName);
+    }
+
+    @Override
+    public boolean userIdentifierExists(String username) {
+        return userMap.containsKey(username);
     }
 
     @Override

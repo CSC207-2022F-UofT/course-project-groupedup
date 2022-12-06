@@ -4,6 +4,7 @@ package matching_algorithm_screens;
 import apply_to_group_screens.ApplyToGroupController;
 import cancel_application_screens.ViewApplicationsListController;
 import leave_group_screens.ViewMyGroupsController;
+import view_user_public_profile_screens.ViewUserPublicProfileController;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
@@ -22,4 +23,5 @@ public interface HomeMatchesBoundary extends ListSelectionListener {
     public void setViewMyGroupsController(ViewMyGroupsController viewMyGroupsController);
 
     public void applyToGroupController(ApplyToGroupController applyToGroupController);
+    public void setViewUserProfileController(ViewUserPublicProfileController viewUserPublicProfileController);
 }

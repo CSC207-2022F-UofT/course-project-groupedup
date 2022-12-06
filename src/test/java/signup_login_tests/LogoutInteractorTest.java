@@ -5,6 +5,7 @@ import Entities.NormalUser;
 import Entities.User;
 import Entities.UserPublicProfile;
 import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+import UserSignupLoginScreens.LogoutController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import userloginusecase.LoginInputPackage;
@@ -32,6 +33,7 @@ public class LogoutInteractorTest {
                 new UserPublicProfile());
         currentUser.setUser(newTestUser);
         LogoutInteractor testInteractor = new LogoutInteractor(presenter);
-        testInteractor.logout();
+        LogoutController testController = new LogoutController(testInteractor);
+        testController.logout();
     }
 }

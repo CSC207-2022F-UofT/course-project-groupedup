@@ -17,7 +17,7 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
 
     @Override
     public void displaySuccess(MatchingAlgorithmResponseModel matchingAlgorithmResponseModel) {
-        JOptionPane.showMessageDialog(null, matchingAlgorithmResponseModel.getMatchesUpdated());
+        JOptionPane.showMessageDialog(null, matchingAlgorithmResponseModel.getMatchesUpdatedMessage());
         List<String> groups = matchingAlgorithmResponseModel.getGroups();
 
         DefaultListModel<String> matchDefaultList = new DefaultListModel<>();
@@ -37,6 +37,9 @@ public class MatchingAlgorithmView implements MatchingAlgorithmViewModel {
     @Override
     public void displayFailure(String error){
         JOptionPane.showMessageDialog(null, error);
+        DefaultListModel<String> matchDefaultList = new DefaultListModel<>();
+        JList<String> matchJList = new JList<>(matchDefaultList);
+        screen.setMatches(matchJList);
     }
 }
 

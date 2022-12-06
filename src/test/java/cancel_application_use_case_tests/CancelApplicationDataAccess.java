@@ -1,4 +1,4 @@
-package cancel_application_screens;
+package cancel_application_use_case_tests;
 
 import Entities.Group;
 import Entities.User;
@@ -31,6 +31,11 @@ public class CancelApplicationDataAccess implements CancelApplicationDsGateway,
     @Override
     public User getUser(String username) {
         return userMap.get(username);
+    }
+
+    @Override
+    public boolean userIdentifierExists(String username) {
+        return userMap.containsKey(username);
     }
 
     @Override

@@ -13,6 +13,7 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
 
     final CancelApplicationDsGateway dsGateway;
     final CancelApplicationOutputBoundary outputBoundary;
+    final CancelApplicationErrorMessages errorMessages = new CancelApplicationErrorMessages();
 
     /**
      * The interactor for the cancelApplication use case.
@@ -32,32 +33,27 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
     public void cancelApplication(CancelApplicationRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
-            outputBoundary.prepareFailureView("Group does not exist.");
-            return;
+            throw new RuntimeException(errorMessages.getGroupDoesNotExist());
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInMemberRequests(user.getUsername(), group.getGroupName())) {
-            outputBoundary.prepareFailureView("User is not in group's pending list.");
-            return;
+            outputBoundary.prepareFailureView(errorMessages.getGroupRejectedApplication());
+        } else if (!dsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
+            throw new RuntimeException(errorMessages.getGroupNotInUser());
+        } else {
+            user.removeApplication(group.getGroupName());
+            group.removeFromRequests(user.getUsername());
+
+            dsGateway.updateUser(user);
+            dsGateway.updateGroup(group);
+
+            CancelApplicationResponseModel responseModel = new CancelApplicationResponseModel(user.getUsername(),
+                    group.getGroupName());
+
+            outputBoundary.prepareSuccessView(responseModel);
         }
-
-        if (!dsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
-            outputBoundary.prepareFailureView("Group is not in user's applications list.");
-            return;
-        }
-
-        user.removeApplication(group.getGroupName());
-        group.removeFromRequests(user.getUsername());
-
-        dsGateway.updateUser(user);
-        dsGateway.updateGroup(group);
-
-        CancelApplicationResponseModel responseModel = new CancelApplicationResponseModel(user.getUsername(),
-                group.getGroupName());
-
-        outputBoundary.prepareSuccessView(responseModel);
     }
 }
