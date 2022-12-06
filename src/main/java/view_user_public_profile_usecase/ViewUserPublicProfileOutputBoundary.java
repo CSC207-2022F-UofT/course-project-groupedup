@@ -6,5 +6,4 @@ public interface ViewUserPublicProfileOutputBoundary {
      * @param viewUserProfileResponse has the user's public profile information.
      */
     void prepareSuccessView(ViewUserPublicProfileResponseModel viewUserProfileResponse);
-    void prepareFailView(String message);
 }

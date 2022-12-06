@@ -2,8 +2,6 @@ package view_user_public_profile_screens;
 import view_user_public_profile_usecase.ViewUserPublicProfileOutputBoundary;
 import view_user_public_profile_usecase.ViewUserPublicProfileResponseModel;
 
-import javax.swing.*;
-
 
 public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutputBoundary {
     private final ViewUserPublicProfileScreenBoundary screen;
@@ -19,10 +17,5 @@ public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutp
         screen.setCourses(userPublicProfileInfo.getUserCoursePreferences());
         screen.setUserPreferences(userPublicProfileInfo.getUserPreferences());
         screen.build();
-    }
-
-    @Override
-    public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
     }
 }
