@@ -40,7 +40,5 @@ public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoun
         JScrollPane requestsScrollPane = new JScrollPane(membersList);
         this.add(requestsScrollPane, BorderLayout.CENTER);
         this.setVisible(true);
-        this.revalidate();
-        this.repaint();
     }
 }
