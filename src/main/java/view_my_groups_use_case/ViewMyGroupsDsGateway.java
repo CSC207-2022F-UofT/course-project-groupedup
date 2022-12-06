@@ -6,4 +6,5 @@ import Entities.User;
 public interface ViewMyGroupsDsGateway {
     User getUser(String username);
     Group getGroup(String groupName);
+    boolean userIdentifierExists(String username);
 }

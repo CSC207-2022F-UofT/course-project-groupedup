@@ -34,6 +34,11 @@ public class CancelApplicationDataAccess implements CancelApplicationDsGateway,
     }
 
     @Override
+    public boolean userIdentifierExists(String username) {
+        return userMap.containsKey(username);
+    }
+
+    @Override
     public Group getGroup(String groupname) {
         return groupMap.get(groupname);
     }

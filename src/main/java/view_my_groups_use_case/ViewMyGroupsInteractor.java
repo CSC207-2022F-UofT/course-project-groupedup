@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class ViewMyGroupsInteractor implements ViewMyGroupsInputBoundary {
     final ViewMyGroupsDsGateway dsGateway;
     final ViewMyGroupsOutputBoundary presenter;
+    final ViewMyGroupsErrorMessages errorMessages = new ViewMyGroupsErrorMessages();
 
     /**
      * @param dsGateway the data access interface
@@ -29,6 +30,11 @@ public class ViewMyGroupsInteractor implements ViewMyGroupsInputBoundary {
     @Override
     public void getMyGroupsList(ViewMyGroupsRequestModel requestModel) {
         String username = requestModel.getUsername();
+
+        if (!dsGateway.userIdentifierExists(username)) {
+            throw new RuntimeException(errorMessages.getUserDoesNotExist());
+        }
+
         User user = dsGateway.getUser(username);
 
         ArrayList<String> groupNames = new ArrayList<>(user.getGroups().keySet());

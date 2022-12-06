@@ -7,4 +7,6 @@ import Entities.User;
  */
 public interface ViewApplicationsListDsGateway {
     User getUser(String username);
+
+    boolean userIdentifierExists(String username);
 }

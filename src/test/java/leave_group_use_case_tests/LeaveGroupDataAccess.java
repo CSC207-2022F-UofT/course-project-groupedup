@@ -38,6 +38,11 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
     }
 
     @Override
+    public boolean userIdentifierExists(String username) {
+        return userMap.containsKey(username);
+    }
+
+    @Override
     public void updateUser(User user) {
         String username = user.getUsername();
         userMap.replace(username, user);
