@@ -65,7 +65,16 @@ public class Main {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLocationRelativeTo(null);
 
-        SerializeDataAccess dataAccess = new SerializeDataAccess();
+        /**
+         *  Initial call for data access
+         */
+        SerializeDataAccess dataAccess = new SerializeDataAccess("Initialize");
+
+        /**
+         *  Data access call for subsequent runs
+         */
+        // SerializeDataAccess dataAccess = new SerializeDataAccess();
+
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
 
