@@ -24,12 +24,11 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
     JButton membersList = new JButton("Group Members");
     JLabel groupNameText = new JLabel();
     String groupName;
-    //    PendingListScreenBoundary pendingListScreen;
     CardLayout cardLayout;
     JPanel screens;
     GroupRegisterController groupRegisterController;
 
-    Integer SCREEN_SIZE = 500;
+    static Integer SCREEN_SIZE = 500;
 
     ViewPendingListController viewPendingListController;
     ViewGroupMembersController viewGroupMembersController;
@@ -60,15 +59,11 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == homePage){
                 cardLayout.show(screens, "homepage");
-
-        }
-        else if (evt.getSource() == editGroup){
-            // CONNECT JULIA'S USE CASE
+        } else if (evt.getSource() == editGroup){
             editGroupScreen.setGroupName(groupName);
             cardLayout.show(screens, "editGroupScreen");
         }
         else if (evt.getSource() == pendingList){
-            // CONNECT WITH PENDING LIST
             viewPendingListController.getUsernames(groupName);
         }
         else if (evt.getSource() == membersList) {
@@ -112,7 +107,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
     /**
      * Initializes the screens controller and adds this screen to the cardLayout stack.
-     * @param groupRegisterController
+     * @param groupRegisterController the controller for the group register use case
      */
     public void setView(GroupRegisterController groupRegisterController) {
         this.groupRegisterController = groupRegisterController;
@@ -121,7 +116,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
     /**
      * Initializes the screens groupName attribute.
-     * @param groupName
+     * @param groupName the name of the new group
      */
     public void setGroupName(String groupName){
         this.groupName = groupName;
@@ -130,7 +125,7 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
     /**
      * Displays a pop-up error message.
-     * @param error
+     * @param error error message containing the reason for group creation use case failure
      */
     public void prepareFailView(String error) {
         JOptionPane.showMessageDialog(this, error);

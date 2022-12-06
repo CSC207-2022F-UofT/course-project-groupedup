@@ -21,14 +21,17 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     JButton cancelApplicationButton;
     JButton viewGroupButton;
     String username;
+    static String TITLE = "My Applications";
+    static int SCREEN_WIDTH = 400;
+    static int SCREEN_HEIGHT = 500;
 
     /**
      * Initializes an empty applications list for the current user.
      */
     public ApplicationsListScreen(String username) {
         this.username = username;
-        this.setSize(400, 500);
-        setTitle("My Applications");
+        this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        setTitle(TITLE);
         setVisible(false);
     }
 
@@ -52,11 +55,6 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     @Override
     public void setUserApplications(JList<String> userApplications) {
         this.userApplications = userApplications;
-    }
-
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override

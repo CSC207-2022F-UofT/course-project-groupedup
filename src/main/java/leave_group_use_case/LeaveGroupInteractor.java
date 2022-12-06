@@ -11,7 +11,7 @@ import Entities.User;
 
 public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     final LeaveGroupDsGateway dsGateway;
-    final LeaveGroupOutputBoundary outputBoundary;
+    final LeaveGroupOutputBoundary presenter;
 
     /**
      * The interactor for the leaveGroup use case.
@@ -22,7 +22,7 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
                                 LeaveGroupOutputBoundary outputBoundary) {
 
         this.dsGateway = dsGateway;
-        this.outputBoundary = outputBoundary;
+        this.presenter = outputBoundary;
     }
 
     /**
@@ -32,32 +32,29 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     public void leaveGroup(LeaveGroupRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
-            outputBoundary.prepareFailureView("Group does not exist.");
-            return;
+            throw new RuntimeException("This group does not exist.");
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
-            outputBoundary.prepareFailureView("User is not in group.");
-            return;
+            throw new RuntimeException("User is not in group.");
         }
 
         if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
-            outputBoundary.prepareFailureView("Group is not in \"My Groups\" list.");
-            return;
+            presenter.prepareFailureView("The group has already removed you from their members' list");
+        } else {
+            user.removeGroup(group.getGroupName());
+            group.removeMember(user.getUsername());
+
+            dsGateway.updateUser(user);
+            dsGateway.updateGroup(group);
+
+            LeaveGroupResponseModel responseModel = new LeaveGroupResponseModel(user.getUsername(),
+                    group.getGroupName());
+
+            presenter.prepareSuccessView(responseModel);
         }
-
-        user.removeGroup(group.getGroupName());
-        group.removeMember(user.getUsername());
-
-        dsGateway.updateUser(user);
-        dsGateway.updateGroup(group);
-
-        LeaveGroupResponseModel responseModel = new LeaveGroupResponseModel(user.getUsername(),
-                group.getGroupName());
-
-        outputBoundary.prepareSuccessView(responseModel);
     }
 }

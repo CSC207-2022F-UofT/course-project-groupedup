@@ -1,7 +1,10 @@
-import edit_group_profile_screens.*;
-import edit_group_profile_use_case.EditGroupProfileInputBoundary;
-import edit_group_profile_use_case.EditGroupProfileInteractor;
-import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
+import edit_group_profile_screens.EditGroupProfileController;
+import edit_group_profile_screens.EditGroupProfilePresenter;
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
+import edit_group_profile_screens.EditGroupProfileScreens;
+import edit_group_profile_use_case.*;
+//import edit_group_profile_use_case.EditGroupProfileInteractor;
+//import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
 import edit_pending_list.EditPendingListInputBoundary;
 import edit_pending_list.EditPendingListInteractor;
 import edit_pending_list.EditPendingListOutputBoundary;
@@ -15,7 +18,6 @@ import matching_algorithm_screens.*;
 import matching_algorithm_use_case.MatchingAlgorithmInputBoundary;
 import matching_algorithm_use_case.MatchingAlgorithmInteractor;
 import matching_algorithm_use_case.MatchingAlgorithmOutputBoundary;
-import matching_algorithm_screens.HomeMatchesBoundary;
 import pending_list_screens.*;
 import view_group_members.*;
 import view_pending_list.ViewPendingListInputBoundary;
@@ -87,6 +89,31 @@ public class Main {
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
 
+        // TESTING SERIALIZED DATA ACCESS FOR LEAVE GROUP AND CANCEL APPLICATION
+        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser.setUser(user1);
+
+        User bob = new NormalUser("bob", "bob", "bob", "bob", new UserPublicProfile());
+        currentUser.setUser(bob);
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(bob, bob.getUsername()));
+
+        Group group = new NormalGroup("Bob's group");
+        group.getProfile().setDescription("bobby's club.");
+        group.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group, group.getGroupName()));
+
+        Group group2 = new NormalGroup("Paul's Fan Club");
+        group2.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
+                " brown hair and blue eyes. I made this group because I think it would be nice to get together" +
+                " with abstract people and talk about things in the abstract sense. BTW i love art, especially" +
+                " drawing arrows :)");
+        group2.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group2, group2.getGroupName()));
+
+        user1.getApplicationsList().put("Bob's group", "Bob's group");
+        user1.getApplicationsList().put("Paul's Fan Club", "Paul's Fan Club");
+        dataAccess.updateUser(user1);
+
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);
         LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
@@ -112,8 +139,8 @@ public class Main {
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
         MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
-        HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
-        screens.add((JPanel)homepageTest, "homepage");
+        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
+        screens.add(homepageTest, "homepage");
 
         MatchingAlgorithmViewModel matchingAlgorithmViewModel = new MatchingAlgorithmView(homepageTest);
         MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary =
@@ -154,7 +181,6 @@ public class Main {
                 cancelApplicationPresenter);
         LeaveGroupOutputBoundary leaveGroupPresenter = new LeaveGroupPresenter();
         LeaveGroupInputBoundary leaveGroupInteractor = new LeaveGroupInteractor(dataAccess, leaveGroupPresenter);
-        // ADD EDIT GROUP PROFILE PRESENTER HERE
 
         ViewGroupProfileController viewGroupProfileController = new ViewGroupProfileController(viewGroupProfileInteractor);
         ViewApplicationsListController viewApplicationsListController = new ViewApplicationsListController(viewApplicationsInteractor);
@@ -165,6 +191,7 @@ public class Main {
         groupProfileScreen.setViewGroupProfileController(viewGroupProfileController);
         homepageTest.setViewMyGroupsController(viewMyGroupsController);
         homepageTest.setViewApplicationsListController(viewApplicationsListController);
+        homepageTest.setViewGroupProfileController(viewGroupProfileController);
         applicationsListScreen.setViewGroupController(viewGroupProfileController);
         applicationsListScreen.setCancelApplicationController(cancelApplicationController);
         myGroupsScreen.setViewGroupProfileController(viewGroupProfileController);

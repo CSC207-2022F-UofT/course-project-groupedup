@@ -11,8 +11,6 @@ import javax.swing.event.ListSelectionListener;
 public interface ApplicationsListScreenBoundary extends ListSelectionListener {
     void setUserApplications(JList<String> userApplications);
 
-    void setUsername(String username);
-
     void setUserApplicationsModel(DefaultListModel<String> userApplicationsModel);
 
     void setCancelApplicationController(CancelApplicationController cancelApplicationController);

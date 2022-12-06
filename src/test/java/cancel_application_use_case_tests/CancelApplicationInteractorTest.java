@@ -1,7 +1,8 @@
 package cancel_application_use_case_tests;
 
 import Entities.*;
-import cancel_application_screens.CancelApplicationDataAccess;
+import cancel_application_screens.CancelApplicationController;
+import cancel_application_screens.CancelApplicationPresenter;
 import cancel_application_use_case.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -76,26 +77,17 @@ public class CancelApplicationInteractorTest {
     }
 
     @Test
-    public void GroupNotFoundFailure() {
+    public void GroupDoesNotExistFailure() {
 
         CancelApplicationDsGateway repository = initialize();
-        CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
-            @Override
-            public void prepareFailureView(String error) {
-                Assertions.assertEquals("Group does not exist.", error);
-            }
-
-            @Override
-            public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
-                Assertions.fail("Use case success is unexpected.");
-            }
-        };
-
+        CancelApplicationOutputBoundary presenter = new CancelApplicationPresenter();
         CancelApplicationInputBoundary interactor = new CancelApplicationInteractor(repository, presenter);
-        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel("testUser2",
-                "asdf");
 
-        interactor.cancelApplication(inputData);
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            CancelApplicationController controller = new CancelApplicationController(interactor);
+            controller.cancelApplication("testUser2", "asdf");
+        });
+        Assertions.assertEquals("This group does not exist.", thrown.getMessage());
     }
 
     @Test
@@ -105,7 +97,7 @@ public class CancelApplicationInteractorTest {
         CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
             @Override
             public void prepareFailureView(String error) {
-                Assertions.assertEquals("User is not in group's pending list.", error);
+                Assertions.assertEquals("The group has already rejected your application.", error);
             }
 
             @Override
@@ -125,22 +117,14 @@ public class CancelApplicationInteractorTest {
     public void GroupNotInApplicationsFailure() {
 
         CancelApplicationDsGateway repository = initialize();
-        CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
-            @Override
-            public void prepareFailureView(String error) {
-                Assertions.assertEquals("Group is not in user's applications list.", error);
-            }
-
-            @Override
-            public void prepareSuccessView(CancelApplicationResponseModel responseModel) {
-                Assertions.fail("Use case success is unexpected.");
-            }
-        };
-
+        CancelApplicationOutputBoundary presenter = new CancelApplicationPresenter();
         CancelApplicationInputBoundary interactor = new CancelApplicationInteractor(repository, presenter);
-        CancelApplicationRequestModel inputData = new CancelApplicationRequestModel("testUser4",
-                "Bob's group");
 
-        interactor.cancelApplication(inputData);
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            CancelApplicationController controller = new CancelApplicationController(interactor);
+            controller.cancelApplication("testUser4", "Bob's group");
+        });
+
+        Assertions.assertEquals("Group is not in user's applications list.", thrown.getMessage());
     }
 }

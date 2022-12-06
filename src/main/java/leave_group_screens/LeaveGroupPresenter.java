@@ -28,6 +28,6 @@ public class LeaveGroupPresenter implements LeaveGroupOutputBoundary {
      */
     @Override
     public void prepareFailureView(String error) {
-        throw new LeaveGroupFailed(error);
+        JOptionPane.showMessageDialog(null, error);
     }
 }

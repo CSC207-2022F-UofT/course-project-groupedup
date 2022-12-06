@@ -1,23 +1,24 @@
-package leave_group_screens;
+package cancel_application_use_case_tests;
 
 import Entities.Group;
 import Entities.User;
-import leave_group_use_case.LeaveGroupDsGateway;
+import cancel_application_use_case.CancelApplicationDsGateway;
 import view_group_profile_use_case.ViewGroupProfileDsGateway;
-import view_my_groups_use_case.ViewMyGroupsDsGateway;
+import view_user_applications_use_case.ViewApplicationsListDsGateway;
 
 import java.util.HashMap;
 
 /**
- * Simple imitation of SerializedDataAccess used only for the purpose of testing
+ * Simple imitation of SerializedDataAccess used only for the purpose of testing.
  */
-public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
-        ViewMyGroupsDsGateway, ViewGroupProfileDsGateway {
 
-    private final HashMap<String, User> userMap;
-    private final HashMap<String, Group> groupMap;
+public class CancelApplicationDataAccess implements CancelApplicationDsGateway,
+        ViewApplicationsListDsGateway, ViewGroupProfileDsGateway {
 
-    public LeaveGroupDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
+    public HashMap<String, User> userMap;
+    public HashMap<String, Group> groupMap;
+
+    public CancelApplicationDataAccess(HashMap<String, User> users, HashMap<String, Group> groups) {
         this.userMap = users;
         this.groupMap = groups;
     }
@@ -33,8 +34,8 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
     }
 
     @Override
-    public Group getGroup(String groupName) {
-        return groupMap.get(groupName);
+    public Group getGroup(String groupname) {
+        return groupMap.get(groupname);
     }
 
     @Override
@@ -50,17 +51,16 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
     }
 
     @Override
-    public boolean userInGroup(String username, String groupName) {
+    public boolean userInMemberRequests(String username, String groupName) {
         Group group = groupMap.get(groupName);
-        return group.getGroupMembers(userMap).containsKey(username);
+        return group.getMemberRequests(userMap).containsKey(username);
     }
 
     @Override
-    public boolean groupInUser(String username, String groupName) {
+    public boolean groupInApplications(String groupName, String username) {
         User user = userMap.get(username);
-        return user.getGroups().containsKey(groupName);
+        return user.getApplicationsList().containsKey(groupName);
     }
-
     @Override
     public HashMap<String, User> loadUsers() {
         return userMap;

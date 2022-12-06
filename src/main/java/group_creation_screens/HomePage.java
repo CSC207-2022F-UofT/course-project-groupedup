@@ -6,6 +6,7 @@ import leave_group_screens.ViewMyGroupsController;
 import matching_algorithm_screens.HomeMatchesBoundary;
 import matching_algorithm_screens.MatchingAlgorithmController;
 import view_user_public_profile_screens.ViewUserPublicProfileController;
+import view_group_profile_screens.ViewGroupProfileController;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -36,12 +37,12 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     JScrollPane matchesScrollPane = new JScrollPane();
     JButton refreshMatches = new JButton("Refresh Matches");
     JLabel matchesLabel = new JLabel("My Matches: ");
-
     ViewApplicationsListController viewApplicationsListController;
     ViewMyGroupsController viewMyGroupsController;
+    ViewGroupProfileController viewGroupProfileController;
     CardLayout cardLayout;
     JPanel screens;
-    JLabel title = new JLabel("Welcome to Grouped Up!");
+    static JLabel TITLE = new JLabel("Welcome to Grouped Up!");
 
     public HomePage(CardLayout cardLayout, JPanel screens, String username) {
 
@@ -61,24 +62,18 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         refreshMatches.addActionListener(this);
         viewUserProfile.addActionListener(this);
 
-        this.add(title);
-        this.add(groupCreation);
-        this.add(myApplications);
-        this.add(myGroups);
-
         this.setSize(500, 500);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         this.setBackground(new Color(151, 175, 136));
+        this.add(TITLE);
 
-        this.add(title);
         this.add(groupCreation);
         this.add(myApplications);
         this.add(myGroups);
         this.add(viewUserProfile);
         this.add(refreshMatches);
-
         this.add(matchesLabel);
+
         buildScrollPane();
         this.add(refreshMatches);
     }
@@ -95,8 +90,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     }
 
     /**
-     * If the button which is clicked is the group creation button, then the
-     * group creation screen will show up.
+     * Switches screens or launches use case depending on which button is pressed.
      *
      * @param evt the event to be processed
      */
@@ -130,10 +124,9 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
             int x = JOptionPane.showOptionDialog(null, groupName,
                     "Click a button",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-
             if (x == 0){
-                JOptionPane.showMessageDialog(null, "Group Info");
-                //Aarya's stuff
+                viewGroupProfileController.viewGroup(groupName);
+                //Ipek's stuff
             } else if (x == 1){
                 applyToGroupController.applyToGroup(username, groupName);
             }
@@ -146,6 +139,10 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
 
     public void setViewMyGroupsController(ViewMyGroupsController viewMyGroupsController) {
         this.viewMyGroupsController = viewMyGroupsController;
+    }
+
+    public void setViewGroupProfileController(ViewGroupProfileController viewGroupProfileController) {
+        this.viewGroupProfileController = viewGroupProfileController;
     }
 
     public void setMatchingAlgorithmController(MatchingAlgorithmController matchingAlgorithmController){
