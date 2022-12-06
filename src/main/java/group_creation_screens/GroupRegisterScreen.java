@@ -1,5 +1,8 @@
 package group_creation_screens;
 
+
+import static javax.swing.JOptionPane.showMessageDialog;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +16,9 @@ import java.awt.event.ActionEvent;
  */
 
 public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBoundary {
-    NewGroupScreenBoundary newGroupPageScreen;
+
+    NewGroupPageScreen newGroupPageScreen;
+
     JTextField groupName = new JTextField(15);
 
     GroupRegisterController groupRegisterController;
@@ -23,7 +28,12 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     CardLayout cardLayout;
     JPanel screens;
 
-    public GroupRegisterScreen(NewGroupScreenBoundary newGroupPageScreen,CardLayout cardLayout, JPanel screens) {
+
+    Integer SCREEN_SIZE = 500;
+
+
+    public GroupRegisterScreen(NewGroupPageScreen newGroupPageScreen, CardLayout cardLayout, JPanel screens) {
+
         this.newGroupPageScreen = newGroupPageScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
@@ -40,12 +50,9 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
         if (evt.getSource() == registerGroup){
-            try {
+
                 this.groupRegisterController.create(groupName.getText());
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
         }
         else if (evt.getSource() == cancel){
             System.out.println("Click " + evt.getActionCommand());
@@ -53,6 +60,9 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         }
     }
 
+    /**
+     * Initializes the components of the screen and adds them to this JPanel.
+     */
     @Override
     public void build() {
         JLabel title = new JLabel("Enter your group's name: ");
@@ -66,19 +76,42 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         this.add(groupName);
         this.add(registerGroup);
         this.add(cancel);
-        this.setSize(500, 500);
-//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setSize(SCREEN_SIZE, SCREEN_SIZE);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
     }
 
+    /**
+     * Passes the group's name to the newGroupPageScreen.
+     * Will change the screen from this one to the newGroupPageScreen.
+     * @param groupName
+     */
     @Override
     public void switchScreen(String groupName) {
         newGroupPageScreen.setGroupName(groupName);
         this.cardLayout.show(screens, "newGroupPageScreen");
     }
 
+    /**
+     * This will initialize the screens controller and add this screen
+     * to the cardLayout stack.
+     * @param groupRegisterController
+     */
     @Override
     public void setView(GroupRegisterController groupRegisterController) {
         this.groupRegisterController = groupRegisterController;
         this.screens.add(this, "groupRegisterScreen");
     }
+
+
+    /**
+     * If the use case fails, the screen will display a failure pop up message.
+     * @param error
+     */
+    @Override
+    public void prepareFailView(String error) {
+        JOptionPane.showMessageDialog(this, error);
+    }
+
+
 }

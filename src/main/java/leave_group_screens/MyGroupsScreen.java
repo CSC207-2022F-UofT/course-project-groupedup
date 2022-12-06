@@ -1,5 +1,6 @@
 package leave_group_screens;
 
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
 import view_group_profile_screens.ViewGroupProfileController;
 
 import javax.swing.*;
@@ -18,20 +19,27 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
     DefaultListModel<String> myGroupsModel;
     LeaveGroupController leaveGroupController;
     ViewGroupProfileController viewGroupProfileController;
+    EditGroupProfileScreenBoundary editGroupScreen;
     JButton leaveGroupButton;
     JButton editGroupButton;
     JButton viewGroupButton;
     String username;
     HashMap<String, Boolean> groupAndStatus;
+    CardLayout cardLayout;
+    JPanel screens;
 
     /**
      * Initializes an empty groups list for the current user.
      * @param username the username of the current user
      */
-    public MyGroupsScreen(String username) {
+    public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username,
+                          EditGroupProfileScreenBoundary editGroupScreen) {
         setSize(400, 500);
         setTitle("My Groups");
+        this.cardLayout = cardLayout;
+        this.screens = screens;
         this.username = username;
+        this.editGroupScreen = editGroupScreen;
 
         setVisible(false);
     }
@@ -109,6 +117,12 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
         this.editGroupButton.addActionListener(new buttonPress());
         this.leaveGroupButton.addActionListener(new buttonPress());
 
+        if (this.myGroupsModel.size() == 0) {
+            this.viewGroupButton.setEnabled(false);
+            this.editGroupButton.setEnabled(false);
+            this.leaveGroupButton.setEnabled(false);
+        }
+
         buttons.add(viewGroupButton);
         buttons.add(editGroupButton);
         buttons.add(leaveGroupButton);
@@ -132,7 +146,8 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
             if (e.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
             } else if (e.getSource() == editGroupButton) {
-                // LINK SOHEE'S SCREEN
+                editGroupScreen.setGroupName(groupName);
+                cardLayout.show(screens, "editGroupScreen");
             } else if (e.getSource() == leaveGroupButton) {
                 myGroupsModel.remove(index);
                 groupAndStatus.remove(groupName);

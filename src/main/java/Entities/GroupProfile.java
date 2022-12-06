@@ -1,11 +1,11 @@
 package Entities;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GroupProfile implements Serializable {
     private String description;
-    private String courseCode;
+    private String courseCode = "";
     private HashMap<String, String> preferences;
 
     public GroupProfile(){

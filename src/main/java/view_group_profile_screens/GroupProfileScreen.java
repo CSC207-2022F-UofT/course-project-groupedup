@@ -4,22 +4,23 @@ import javax.swing.*;
 import java.util.HashMap;
 
 /**
- * The group profile screen.
+ * The group profile screen. Displays the group's description and preferences.
  */
 public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoundary {
     String groupDescription;
     HashMap<String, String> groupPreferences;
+    ViewGroupProfileController viewGroupProfileController;
     String groupName;
     String username;
     JTextArea textBox;
+    static int SCREEN_WIDTH = 400;
+    static int SCREEN_HEIGHT = 200;
 
     /**
      * Initializes an empty group profile screen.
-     * @param username the username of the current user
      */
-    public GroupProfileScreen(String username) {
-        setSize(400, 200);
-        this.username = username;
+    public GroupProfileScreen() {
+        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         setVisible(false);
         this.initializeComponents();
@@ -29,6 +30,16 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
     @Override
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public void setViewGroupProfileController(ViewGroupProfileController viewGroupProfileController) {
+        this.viewGroupProfileController = viewGroupProfileController;
     }
 
     @Override

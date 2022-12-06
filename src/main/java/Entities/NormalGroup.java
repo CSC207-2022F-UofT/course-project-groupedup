@@ -1,4 +1,5 @@
 package Entities;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -24,7 +25,6 @@ public class NormalGroup implements Serializable, Group {
     }
 
     /**
-     *
      * @return the group's unique group name
      */
     public String getGroupName() {
@@ -32,14 +32,14 @@ public class NormalGroup implements Serializable, Group {
     }
 
 
-
-   public GroupProfile getProfile() {
+    public GroupProfile getProfile() {
         return groupProfile;
     }
 
 
     /**
      * Removes the user from the list of the group's members
+     *
      * @param username
      */
     @Override
@@ -48,22 +48,19 @@ public class NormalGroup implements Serializable, Group {
     }
 
 
-
     /**
-     *
      * @param userMap a map (key: username, value: User) of all the existing Users in the system
      * @return a map of the group members' usernames to User objects
      */
     public HashMap<String, User> getGroupMembers(HashMap<String, User> userMap) {
         HashMap<String, User> membersMap = new HashMap<String, User>();
-        for (String key : this.groupMembers.keySet()){
+        for (String key : this.groupMembers.keySet()) {
             membersMap.put(key, userMap.get(key));
         }
         return membersMap;
     }
 
     /**
-     *
      * @return a hashmap (key: username, value: username) of the usernames of the Users in the Group.
      */
     public HashMap<String, String> getGroupMembersUsernames() {
@@ -71,7 +68,6 @@ public class NormalGroup implements Serializable, Group {
     }
 
     /**
-     *
      * @return a hashmap (key: username, value: username) of the usernames of the Users who requested
      * to be in the Group.
      */
@@ -81,13 +77,12 @@ public class NormalGroup implements Serializable, Group {
 
 
     /**
-     *
      * @param userMap a map (key: username, value: User) of all the existing Users in the system
      * @return a map (key: username, value: User) of the users who applied to be in this group
      */
     public HashMap<String, User> getMemberRequests(HashMap<String, User> userMap) {
         HashMap<String, User> requestersMap = new HashMap<String, User>();
-        for (String key : this.memberRequests.keySet()){
+        for (String key : this.memberRequests.keySet()) {
             requestersMap.put(key, userMap.get(key));
         }
         return requestersMap;
@@ -95,7 +90,6 @@ public class NormalGroup implements Serializable, Group {
 
 
     /**
-     *
      * @param username of the User who wants to be the new Group Leader
      * @return whether the Group Leader was successfully changed or not
      */
@@ -118,7 +112,6 @@ public class NormalGroup implements Serializable, Group {
 
 
     /**
-     *
      * @return the name of the User who is leading this group
      */
     @Override
@@ -132,7 +125,19 @@ public class NormalGroup implements Serializable, Group {
     }
 
     // added this for my test, will delete once I've merged with Ipek as she should've implemented this already
-    public void addRequest(String username) {memberRequests.put(username, username); }
+
+    public void addRequest(String username) {
+        memberRequests.put(username, username);
+    }
+
+    @Override
+    public void setGroupProfile(GroupProfile groupProfile) {
+        this.groupProfile = groupProfile;
+    }
+
+
+
 
     public void addMemberRequest(String username) {memberRequests.put(username, username);}
+
 }

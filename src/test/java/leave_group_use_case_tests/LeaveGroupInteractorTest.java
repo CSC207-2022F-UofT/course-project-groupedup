@@ -1,7 +1,8 @@
 package leave_group_use_case_tests;
 
 import Entities.*;
-import leave_group_screens.LeaveGroupDataAccess;
+import leave_group_screens.LeaveGroupController;
+import leave_group_screens.LeaveGroupPresenter;
 import leave_group_use_case.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -79,47 +80,31 @@ public class LeaveGroupInteractorTest {
     }
 
     @Test
-    public void GroupNotFoundFailure() {
+    public void GroupDoesNotExistFailure() {
 
         LeaveGroupDsGateway repository = initialize();
-        LeaveGroupOutputBoundary presenter = new LeaveGroupOutputBoundary() {
-            @Override
-            public void prepareFailureView(String error) {
-                Assertions.assertEquals("Group does not exist.", error);
-            }
-
-            @Override
-            public void prepareSuccessView(LeaveGroupResponseModel responseModel) {
-                Assertions.fail("Use case success is unexpected.");
-            }
-        };
-
+        LeaveGroupOutputBoundary presenter = new LeaveGroupPresenter();
         LeaveGroupInputBoundary interactor = new LeaveGroupInteractor(repository, presenter);
-        LeaveGroupRequestModel inputData = new LeaveGroupRequestModel("aarya", "asdf");
 
-        interactor.leaveGroup(inputData);
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            LeaveGroupController controller = new LeaveGroupController(interactor);
+            controller.leaveGroup("aarya", "asdf");
+        });
+        Assertions.assertEquals("This group does not exist.", thrown.getMessage());
     }
 
     @Test
     public void UserNotInGroupFailure() {
 
         LeaveGroupDsGateway repository = initialize();
-        LeaveGroupOutputBoundary presenter = new LeaveGroupOutputBoundary() {
-            @Override
-            public void prepareFailureView(String error) {
-                Assertions.assertEquals("User is not in group.", error);
-            }
-
-            @Override
-            public void prepareSuccessView(LeaveGroupResponseModel responseModel) {
-                Assertions.fail("Use case success is unexpected.");
-            }
-        };
-
+        LeaveGroupOutputBoundary presenter = new LeaveGroupPresenter();
         LeaveGroupInputBoundary interactor = new LeaveGroupInteractor(repository, presenter);
-        LeaveGroupRequestModel inputData = new LeaveGroupRequestModel("aarya", "Wee");
 
-        interactor.leaveGroup(inputData);
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            LeaveGroupController controller = new LeaveGroupController(interactor);
+            controller.leaveGroup("aarya", "Wee");
+        });
+        Assertions.assertEquals("User is not in group.", thrown.getMessage());
     }
 
     @Test
@@ -129,7 +114,8 @@ public class LeaveGroupInteractorTest {
         LeaveGroupOutputBoundary presenter = new LeaveGroupOutputBoundary() {
             @Override
             public void prepareFailureView(String error) {
-                Assertions.assertEquals("Group is not in \"My Groups\" list.", error);
+                Assertions.assertEquals("The group has already removed you from their members' list",
+                        error);
             }
             @Override
             public void prepareSuccessView(LeaveGroupResponseModel responseModel) {
