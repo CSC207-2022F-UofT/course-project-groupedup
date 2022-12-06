@@ -151,11 +151,6 @@ public class UserGroupScoreCalculatorTests {
         UserPublicProfile userPublicProfile = new UserPublicProfile();
         User user = new NormalUser("username", "password", "name", "emai@gmail.com",
                 userPublicProfile);
-        HashMap<String, String> preferences1 = new HashMap<>();
-        preferences1.put("Remote or In-Person", "Remote");
-        preferences1.put("Lays or Ruffles", "Ruffles");
-        preferences1.put("Chocolate", "Yes");
-        preferences1.put("Summer or Winter", "Summer");
 
         CurrentUser currentUser = CurrentUser.getInstance();
         currentUser.setUser(user);
@@ -165,5 +160,45 @@ public class UserGroupScoreCalculatorTests {
         UserGroupScoreCalculator userGroupScoreCalculator1 = new UserGroupScoreCalculator(user, group5);
 
         Assertions.assertEquals(1.0, userGroupScoreCalculator1.getScore());
+    }
+
+    /**
+     * Test the calculator's toString with score option
+     */
+    @Test
+    public void testStringWithScore(){
+        UserPublicProfile userPublicProfile = new UserPublicProfile();
+        User user = new NormalUser("username", "password", "name", "emai@gmail.com",
+                userPublicProfile);
+        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser.setUser(user);
+        HashMap<String, String> preferences1 = new HashMap<>();
+        preferences1.put("Remote or In-Person", "Remote");
+        preferences1.put("Lays or Ruffles", "Ruffles");
+        preferences1.put("Chocolate", "Yes");
+        preferences1.put("Summer or Winter", "Summer");
+
+        HashMap<String, String> preferences2 = new HashMap<>();
+        preferences2.put("Remote or In-Person", "In-Person");
+        preferences2.put("Lays or Ruffles", "Ruffles");
+        preferences2.put("Chocolate", "No");
+        preferences2.put("Summer or Winter", "Summer");
+
+
+        userPublicProfile.setPreferences(preferences1);
+        userPublicProfile.setCoursePreferences("csc207, csc236");
+
+
+        GroupProfile groupProfile = new GroupProfile();
+        groupProfile.setPreferences(preferences2);
+        Group group = new NormalGroup("group");
+        group.setGroupProfile(groupProfile);
+
+        UserGroupScoreCalculator userGroupScoreCalculator = new UserGroupScoreCalculator(user, group);
+        Assertions.assertEquals("0.5 no code: group", userGroupScoreCalculator.toStringWithScore());
+
+        group.getProfile().setCourseCode("csc258");
+
+        Assertions.assertEquals("0.5 csc258: group", userGroupScoreCalculator.toStringWithScore());
     }
 }
