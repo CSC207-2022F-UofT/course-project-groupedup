@@ -9,6 +9,7 @@ public interface EditUserPublicProfileScreenBoundary {
     JPanel buildTimeCommitmentOptions();
     JPanel buildLocationOptions();
     JPanel buildMeetingTimeOptions();
-    void buildProfileInfo();
+    void buildScrollPane();
+    JPanel buildProfileInfo();
 
 }

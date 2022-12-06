@@ -2,7 +2,6 @@ package group_creation_screens;
 
 import apply_to_group_screens.ApplyToGroupController;
 import cancel_application_screens.ViewApplicationsListController;
-import edit_user_public_profile_screens.EditUserPublicProfileController;
 import leave_group_screens.ViewMyGroupsController;
 import matching_algorithm_screens.HomeMatchesBoundary;
 import matching_algorithm_screens.MatchingAlgorithmController;
@@ -66,7 +65,6 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.add(groupCreation);
         this.add(myApplications);
         this.add(myGroups);
-        this.add(viewUserProfile);
 
         this.setSize(500, 500);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -77,6 +75,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.add(groupCreation);
         this.add(myApplications);
         this.add(myGroups);
+        this.add(viewUserProfile);
         this.add(refreshMatches);
 
         this.add(matchesLabel);

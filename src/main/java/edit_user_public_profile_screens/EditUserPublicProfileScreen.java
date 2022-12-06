@@ -30,7 +30,7 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.buildButtons();
-        this.buildProfileInfo();
+        this.buildScrollPane();
     }
 
 
@@ -56,14 +56,12 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
                 }
             }
 
-            this.editUserPublicProfileController.editedChanges(username, bio.getText(), courseCodes.getText(),
-                    this.time_commit, this.location, this.meeting_time);
-
-//            try{
-//
-//            } catch (Exception error) {
-//                JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
-//            }
+            try{
+                this.editUserPublicProfileController.editedChanges(username, bio.getText(), courseCodes.getText(),
+                        this.time_commit, this.location, this.meeting_time);
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
+            }
         }
 
 
@@ -107,10 +105,8 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
 
 
     public JPanel buildTimeCommitmentOptions() {
-
         JPanel timeCommitment = new JPanel();
         ButtonGroup timeCommitmentOptions = new ButtonGroup();
-
         JRadioButton timeCommitmentOption1 = new JRadioButton("0-2 hours");
         timeCommitmentOption1.addActionListener(this);
 
@@ -132,12 +128,10 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
         timeCommitmentButtons.add(timeCommitmentOption1);
         timeCommitmentButtons.add(timeCommitmentOption2);
         timeCommitmentButtons.add(timeCommitmentOption3);
-
         return timeCommitment;
     }
 
     public JPanel buildLocationOptions() {
-
         JPanel location = new JPanel();
         ButtonGroup locationOptions = new ButtonGroup();
         JRadioButton locationOnline = new JRadioButton("Online");
@@ -150,7 +144,6 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
         locationOptions.add(locationInPerson);
         locationButtons.add(locationOnline);
         locationButtons.add(locationInPerson);
-
         return location;
     }
 
@@ -178,7 +171,14 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
     }
 
     @Override
-    public void buildProfileInfo() {
+    public void buildScrollPane() {
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(buildProfileInfo());
+        this.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    @Override
+    public JPanel buildProfileInfo() {
         /*Adding options to change profile information*/
         JPanel profileInfo = new JPanel();
         profileInfo.setLayout(new GridLayout(5, 2));
@@ -214,6 +214,7 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
 
         profileInfo.add(meetingTimeLabel);
         profileInfo.add(buildMeetingTimeOptions());
-        this.add(profileInfo, BorderLayout.CENTER) ;
+
+        return profileInfo;
     }
 }
