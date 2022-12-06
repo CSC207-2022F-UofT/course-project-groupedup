@@ -5,6 +5,7 @@ import Entities.NormalUser;
 import Entities.User;
 import Entities.UserPublicProfile;
 import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
+import UserSignupLoginScreens.LoginController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import userloginusecase.LoginDSGateway;
@@ -44,8 +45,9 @@ public class LoginInteractorTest {
         LoginInputPackage test1 = new LoginInputPackage(testUsername2, password);
         // for testing user with usename is not found in data access
         LoginInputPackage test2 = new LoginInputPackage(testUsername2, password);
-        testInteractor.login(test1);
-        testInteractor.login(test2);
+        LoginController testController = new LoginController(testInteractor);
+        testController.login(test1);
+        testController.login(test2);
     }
     @Test
     public void checkUserProperlyLoggedIn(){
@@ -73,6 +75,8 @@ public class LoginInteractorTest {
                 new UserRegistrationDSRequestPackage(newTestUser, testUsername);
         dsGateway.saveNewUser(dsRequestPackage);
         LoginInteractor testInteractor = new LoginInteractor(dsGateway, presenter);
+        LoginController testController = new LoginController(testInteractor);
         LoginInputPackage test1 = new LoginInputPackage(testUsername, password);
+        testController.login(test1);
     }
 }

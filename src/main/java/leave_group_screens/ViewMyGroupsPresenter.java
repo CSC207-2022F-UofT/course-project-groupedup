@@ -6,11 +6,13 @@ import view_my_groups_use_case.ViewMyGroupsResponseModel;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The presenter class for the view my groups use case.
+ */
 public class ViewMyGroupsPresenter implements ViewMyGroupsOutputBoundary {
     private final MyGroupsScreenBoundary myGroupsScreen;
 
     /**
-     * The presenter class for the view my groups use case.
      * @param screen the initial empty groups list screen
      */
     public ViewMyGroupsPresenter(MyGroupsScreenBoundary screen) {

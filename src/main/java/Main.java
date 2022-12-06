@@ -1,6 +1,18 @@
+import edit_group_profile_screens.EditGroupProfileController;
+import edit_group_profile_screens.EditGroupProfilePresenter;
+import edit_group_profile_screens.EditGroupProfileScreenBoundary;
+import edit_group_profile_screens.EditGroupProfileScreens;
+import edit_group_profile_use_case.*;
+//import edit_group_profile_use_case.EditGroupProfileInteractor;
+//import edit_group_profile_use_case.EditGroupProfileOutputBoundary;
 import edit_pending_list.EditPendingListInputBoundary;
 import edit_pending_list.EditPendingListInteractor;
 import edit_pending_list.EditPendingListOutputBoundary;
+import matching_algorithm_screens.*;
+import matching_algorithm_use_case.MatchingAlgorithmInputBoundary;
+import matching_algorithm_use_case.MatchingAlgorithmInteractor;
+import matching_algorithm_use_case.MatchingAlgorithmOutputBoundary;
+import matching_algorithm_screens.HomeMatchesBoundary;
 import pending_list_screens.*;
 import view_group_members.*;
 import view_pending_list.ViewPendingListInputBoundary;
@@ -53,7 +65,16 @@ public class Main {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLocationRelativeTo(null);
 
-        SerializeDataAccess dataAccess = new SerializeDataAccess();
+        /**
+         *  Initial call for data access
+         */
+        SerializeDataAccess dataAccess = new SerializeDataAccess("Initialize");
+
+        /**
+         *  Data access call for subsequent runs
+         */
+        // SerializeDataAccess dataAccess = new SerializeDataAccess();
+
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
 
@@ -97,11 +118,26 @@ public class Main {
         UserRegistrationController registrationController = new UserRegistrationController(registrationInteractor);
         registrationScreen.setView(registrationController);
 
+        EditGroupProfileScreenBoundary editGroupScreen = new EditGroupProfileScreens(cardLayout, screens);
+        EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
+        EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
+        EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);
+        editGroupScreen.setView(editGroupController);
+        screens.add((Component) editGroupScreen, "editGroupScreen");
+
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
-        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername());
-        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
-        screens.add(homepageTest, "homepage");
+        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
+        HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
+        screens.add((JPanel)homepageTest, "homepage");
+
+        MatchingAlgorithmViewModel matchingAlgorithmViewModel = new MatchingAlgorithmView(homepageTest);
+        MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary =
+                new MatchesPresenter(matchingAlgorithmViewModel);
+        MatchingAlgorithmInputBoundary matchingAlgorithmInputBoundary =
+                new MatchingAlgorithmInteractor(matchingAlgorithmOutputBoundary, dataAccess);
+        MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
+        homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
 
         ViewGroupProfileOutputBoundary viewGroupProfilePresenter = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary viewGroupProfileInteractor = new ViewGroupProfileInteractor(dataAccess,
@@ -160,7 +196,7 @@ public class Main {
         pendingListScreen.setEditPendingListController(editPendingListController);
 
         NewGroupPageScreen newGroupPageScreen = new NewGroupPageScreen(cardLayout, screens,
-                viewPendingListController, viewGroupMembersController);
+                viewPendingListController, viewGroupMembersController, editGroupScreen);
 
         GroupCreationScreenBoundary groupRegisterScreen = new GroupRegisterScreen(newGroupPageScreen,
                 cardLayout, screens);
