@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-public class ViewUserPublicProfileScreen extends JFrame implements ActionListener, ViewUserPublicProfileScreenBoundary {
+public class ViewUserPublicProfileScreen extends JPanel implements ActionListener, ViewUserPublicProfileScreenBoundary {
     CardLayout cardLayout;
     JPanel screens;
 
@@ -24,7 +24,6 @@ public class ViewUserPublicProfileScreen extends JFrame implements ActionListene
         this.screens = screens;
         this.cardLayout = cardlayout;
         this.setSize(500,500);
-        this.setVisible(true);
     }
 
     @Override

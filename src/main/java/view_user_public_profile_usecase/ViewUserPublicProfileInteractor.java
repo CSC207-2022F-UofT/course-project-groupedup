@@ -28,7 +28,7 @@ public class ViewUserPublicProfileInteractor implements ViewUserPublicProfileInp
         /*Find User*/
         String username = requestModel.getUsername();
 
-        User user = userDSGateway.findUser(username);
+        User user = userDSGateway.getUser(username);
 
         ViewUserPublicProfileResponseModel successViewResponseModel = new ViewUserPublicProfileResponseModel(
                 user.getUsername(),

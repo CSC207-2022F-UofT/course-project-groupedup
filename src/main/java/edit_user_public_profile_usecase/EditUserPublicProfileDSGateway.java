@@ -6,7 +6,7 @@ import Entities.User;
  * This interface is used to access the database to save and find user.
  */
 public interface EditUserPublicProfileDSGateway {
-    void saveUser(EditUserPublicProfileDSRequestModel profileDSRequestModel);
-    User findUser(String username);
-    boolean userExists(String username);
+    void updateUser(User user);
+    User getUser(String username);
+    boolean userIdentifierExists(String username);
 }

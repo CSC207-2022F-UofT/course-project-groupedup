@@ -40,16 +40,14 @@ public class EditUserPublicProfileInteractor implements EditUserPublicProfileInp
 
 
         /*If all checks fail, find User to save new edits*/
-        if (userDSGateway.userExists(requestModel.getUsername())) {
-            User user = userDSGateway.findUser(requestModel.getUsername());
+        if (userDSGateway.userIdentifierExists(requestModel.getUsername())) {
+            User user = userDSGateway.getUser(requestModel.getUsername());
 
             user.getUserPublicProfile().setPreferences(requestModel.getPreferences());
             user.getUserPublicProfile().setCoursePreferences(requestModel.getCoursePreferences());
             user.getUserPublicProfile().setBiography(requestModel.getBio());
 
-            EditUserPublicProfileDSRequestModel DSRequestModel = new EditUserPublicProfileDSRequestModel(
-                    requestModel.getUsername(), user);
-            userDSGateway.saveUser(DSRequestModel);
+            userDSGateway.updateUser(user);
 
             /*Send new changes back to output boundary.*/
             EditUserPublicProfileResponseModel profileResponseModel = new EditUserPublicProfileResponseModel(

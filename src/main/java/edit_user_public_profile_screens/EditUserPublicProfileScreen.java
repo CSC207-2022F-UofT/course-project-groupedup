@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class EditUserPublicProfileScreen extends JFrame implements ActionListener, EditUserPublicProfileScreenBoundary {
+public class EditUserPublicProfileScreen extends JPanel implements ActionListener, EditUserPublicProfileScreenBoundary {
     CardLayout cardLayout;
     JPanel screens;
     EditUserPublicProfileController editUserPublicProfileController;
@@ -31,7 +31,6 @@ public class EditUserPublicProfileScreen extends JFrame implements ActionListene
         this.screens = screens;
         this.buildButtons();
         this.buildProfileInfo();
-        this.setVisible(true);
     }
 
 

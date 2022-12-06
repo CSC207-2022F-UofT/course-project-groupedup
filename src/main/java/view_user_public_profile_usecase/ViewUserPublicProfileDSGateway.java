@@ -6,5 +6,5 @@ import Entities.User;
  * Gateway to database which is used to find current user.
  */
 public interface ViewUserPublicProfileDSGateway {
-    User findUser(String username);
+    User getUser(String username);
 }
