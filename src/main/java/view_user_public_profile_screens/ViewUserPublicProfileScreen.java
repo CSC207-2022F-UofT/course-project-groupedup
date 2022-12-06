@@ -40,6 +40,7 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
 
     @Override
     public void build() {
+        this.removeAll();
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         /*Creating the top menu bar*/
@@ -70,6 +71,8 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         this.add(mainPanel);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -96,10 +99,4 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
     public void setUserPreferences(HashMap<String,String> userPreferences) {
         this.userPreferences = userPreferences;
     }
-
-//    @Override
-//    public void view() {
-//        this.build();
-////        this.setVisible(true);
-//    }
 }

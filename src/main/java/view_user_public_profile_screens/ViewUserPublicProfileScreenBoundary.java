@@ -10,5 +10,4 @@ public interface ViewUserPublicProfileScreenBoundary {
     void setCourses(String courses);
 
     void setUserPreferences(HashMap<String, String> preferences);
-//    void view();
 }
