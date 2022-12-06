@@ -18,7 +18,7 @@ public class MatchingAlgorithmUseCaseTest {
     /**
      * Test a successful implementation using the mock repository from in InMemomoryMatchesSuccess.
      * A successful result will remove any groups that either do not have the same course code, the user is
-     * a part of, or has already requested to join. Furthermore, there
+     * a part of, or has already requested to join. Furthermore, we test the success message if it is correct
      */
     @Test
     public void matchingAlgorithmInteractorSuccessTest(){
@@ -30,6 +30,7 @@ public class MatchingAlgorithmUseCaseTest {
                 List<String> expected = new ArrayList<>();
                 expected.add("csc236: group2");
                 expected.add("csc207: group1");
+                assertEquals("Matches Updated!", responseModel.getMatchesUpdatedMessage());
                 assertEquals(expected, responseModel.getGroups());
             }
 
@@ -62,6 +63,7 @@ public class MatchingAlgorithmUseCaseTest {
                 List<String> expected = new ArrayList<>();
                 expected.add("csc236: group2");
                 expected.add("csc207: group1");
+                assertEquals("Matches Updated!", responseModel.getMatchesUpdatedMessage());
                 assertEquals(expected, responseModel.getGroups());
             }
 
