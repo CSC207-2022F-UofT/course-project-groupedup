@@ -5,6 +5,7 @@ import cancel_application_screens.ViewApplicationsListController;
 import leave_group_screens.ViewMyGroupsController;
 import matching_algorithm_screens.HomeMatchesBoundary;
 import matching_algorithm_screens.MatchingAlgorithmController;
+import view_user_public_profile_screens.ViewUserPublicProfileController;
 import view_group_profile_screens.ViewGroupProfileController;
 
 import javax.swing.*;
@@ -25,9 +26,11 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     JButton groupCreation = new JButton("Create a group");
     JButton myApplications = new JButton("My Applications");
     JButton myGroups = new JButton("My Groups");
+    JButton viewUserProfile = new JButton("View User Profile");
     String username;
 
     MatchingAlgorithmController matchingAlgorithmController;
+    ViewUserPublicProfileController viewUserPublicController;
 
     ApplyToGroupController applyToGroupController;
     JList<String> matches = new JList<>();
@@ -57,6 +60,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         myApplications.addActionListener(this);
         myGroups.addActionListener(this);
         refreshMatches.addActionListener(this);
+        viewUserProfile.addActionListener(this);
 
         this.setSize(500, 500);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -66,6 +70,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.add(groupCreation);
         this.add(myApplications);
         this.add(myGroups);
+        this.add(viewUserProfile);
         this.add(refreshMatches);
         this.add(matchesLabel);
 
@@ -100,6 +105,9 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
             viewMyGroupsController.viewMyGroups(username);
         } else if (evt.getSource() == refreshMatches) {
             matchingAlgorithmController.matchingAlgorithm(username);
+        } else if (evt.getSource() == viewUserProfile) {
+            viewUserPublicController.viewProfile(username);
+            this.cardLayout.show(screens, "viewUserProfileScreen");
         }
     }
 
@@ -143,6 +151,10 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
 
     public void applyToGroupController(ApplyToGroupController applyToGroupController){
         this.applyToGroupController = applyToGroupController;
+    }
+
+    public void setViewUserProfileController(ViewUserPublicProfileController viewUserPublicController){
+        this.viewUserPublicController = viewUserPublicController;
     }
 
 }

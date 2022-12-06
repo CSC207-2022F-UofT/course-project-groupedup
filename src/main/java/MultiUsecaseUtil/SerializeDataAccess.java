@@ -9,6 +9,7 @@ import edit_group_profile_use_case.EditGroupProfileDsGateway;
 import edit_group_profile_use_case.EditGroupProfileDsRequestModel;
 import cancel_application_use_case.CancelApplicationDsGateway;
 import edit_pending_list.EditPendingListDsGateway;
+import edit_user_public_profile_usecase.EditUserPublicProfileDSGateway;
 import group_creation_use_case.GroupRegisterDSRequestModel;
 import group_creation_use_case.NewGroupDSGateway;
 import leave_group_use_case.LeaveGroupDsGateway;
@@ -19,6 +20,7 @@ import view_my_groups_use_case.ViewMyGroupsDsGateway;
 import view_user_applications_use_case.ViewApplicationsListDsGateway;
 import view_group_members.ViewGroupMembersDsGateway;
 import view_pending_list.ViewPendingListDsGateway;
+import view_user_public_profile_usecase.ViewUserPublicProfileDSGateway;
 
 import java.io.*;
 import java.util.HashMap;
@@ -40,7 +42,8 @@ import java.util.HashMap;
 public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway, LoginDSGateway,
         CancelApplicationDsGateway, LeaveGroupDsGateway, EditPendingListDsGateway, ViewPendingListDsGateway,
         ViewGroupMembersDsGateway, ViewApplicationsListDsGateway, ViewGroupProfileDsGateway,ViewMyGroupsDsGateway,
-        MatchingAlgorithmDsGateWay, EditGroupProfileDsGateway {
+        MatchingAlgorithmDsGateWay, EditGroupProfileDsGateway, EditUserPublicProfileDSGateway,
+        ViewUserPublicProfileDSGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(
