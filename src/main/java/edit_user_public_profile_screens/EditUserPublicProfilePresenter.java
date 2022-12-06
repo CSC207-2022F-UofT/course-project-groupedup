@@ -11,6 +11,10 @@ public class EditUserPublicProfilePresenter implements EditUserPublicProfileOutp
         this.editUserProfileScreenBoundary = editUserProfileScreenBoundary;
     }
 
+    /**
+     *
+     * @param EditedChanges This is the newly edited changes for the user public profile.
+     */
     @Override
     public void prepareSuccessView(EditUserPublicProfileResponseModel EditedChanges) {
          String username = EditedChanges.getUsername();
