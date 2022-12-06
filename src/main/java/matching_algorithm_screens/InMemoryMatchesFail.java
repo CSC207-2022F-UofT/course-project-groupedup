@@ -1,7 +1,7 @@
 package matching_algorithm_screens;
 
-import Entities.*;
-import matching_algorithm_use_case.MatchingAlgorithmDsGateWay;
+import entities.*;
+import use_cases.matching_algorithm_use_case.MatchingAlgorithmDsGateWay;
 
 import java.util.HashMap;
 

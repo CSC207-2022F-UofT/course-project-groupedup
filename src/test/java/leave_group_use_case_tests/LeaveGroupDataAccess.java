@@ -1,10 +1,10 @@
 package leave_group_use_case_tests;
 
-import Entities.Group;
-import Entities.User;
-import leave_group_use_case.LeaveGroupDsGateway;
-import view_group_profile_use_case.ViewGroupProfileDsGateway;
-import view_my_groups_use_case.ViewMyGroupsDsGateway;
+import entities.Group;
+import entities.User;
+import use_cases.leave_group_use_case.LeaveGroupDsGateway;
+import use_cases.view_group_profile_use_case.ViewGroupProfileDsGateway;
+import use_cases.view_my_groups_use_case.ViewMyGroupsDsGateway;
 
 import java.util.HashMap;
 

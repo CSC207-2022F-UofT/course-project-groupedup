@@ -1,6 +1,6 @@
 package UserSignupLoginScreens;
 
-import userloginusecase.LoginOutputBoundary;
+import use_cases.user_login_use_case.LoginOutputBoundary;
 
 import javax.swing.*;
 

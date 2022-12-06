@@ -1,6 +1,6 @@
 package matching_algorithm_screens;
 
-import matching_algorithm_use_case.MatchingAlgorithmResponseModel;
+import use_cases.matching_algorithm_use_case.MatchingAlgorithmResponseModel;
 
 /**
  * Creates a boundary between presenter and view

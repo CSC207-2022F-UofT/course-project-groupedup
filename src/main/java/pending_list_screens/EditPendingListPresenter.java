@@ -1,7 +1,7 @@
 package pending_list_screens;
 
-import edit_pending_list.EditPendingListResponseModel;
-import edit_pending_list.EditPendingListOutputBoundary;
+import use_cases.edit_pending_list_use_case.EditPendingListResponseModel;
+import use_cases.edit_pending_list_use_case.EditPendingListOutputBoundary;
 
 import javax.swing.*;
 

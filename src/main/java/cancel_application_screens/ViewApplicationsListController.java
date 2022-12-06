@@ -1,7 +1,7 @@
 package cancel_application_screens;
 
-import view_user_applications_use_case.ViewApplicationsListInputBoundary;
-import view_user_applications_use_case.ViewApplicationsListRequestModel;
+import use_cases.view_user_applications_use_case.ViewApplicationsListInputBoundary;
+import use_cases.view_user_applications_use_case.ViewApplicationsListRequestModel;
 
 /**
  * The controller that initiates the view applications use case.

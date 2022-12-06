@@ -1,9 +1,10 @@
 package signup_login_tests;
 
-import Entities.NormalUser;
-import Entities.User;
-import Entities.UserPublicProfile;
-import UserRegistrationUsecase.*;
+import use_cases.user_registration_use_case.*;
+import entities.NormalUser;
+import entities.User;
+import entities.UserPublicProfile;
+import user_registration_use_case.*;
 import UserSignupLoginScreens.UserRegistrationController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

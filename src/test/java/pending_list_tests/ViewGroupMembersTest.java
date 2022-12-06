@@ -1,14 +1,12 @@
 package pending_list_tests;
 
-import Entities.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pending_list_screens.GroupMembersScreen;
-import pending_list_screens.GroupMembersScreenBoundary;
 import pending_list_screens.ViewGroupMembersController;
-import pending_list_screens.ViewGroupMembersPresenter;
-import view_group_members.*;
+import use_cases.view_group_members_use_case.*;
+import view_group_members_use_case.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

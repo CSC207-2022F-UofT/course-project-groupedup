@@ -1,7 +1,8 @@
 package leave_group_use_case_tests;
 
-import Entities.*;
-import leave_group_screens.ViewMyGroupsController;
+import use_cases.view_my_groups_use_case.*;
+import entities.*;
+import controllers_presenters_and_screen_boundaries.leave_and_view_my_groups_adapters.ViewMyGroupsController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

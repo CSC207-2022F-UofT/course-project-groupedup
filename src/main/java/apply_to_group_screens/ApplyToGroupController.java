@@ -1,7 +1,7 @@
 package apply_to_group_screens;
 
-import apply_to_group_use_case.ApplyToGroupInputBoundary;
-import apply_to_group_use_case.ApplyToGroupRequestModel;
+import use_cases.apply_to_group_use_case.ApplyToGroupInputBoundary;
+import use_cases.apply_to_group_use_case.ApplyToGroupRequestModel;
 
 
 /**

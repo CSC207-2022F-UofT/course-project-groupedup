@@ -1,8 +1,9 @@
 package matching_algorithm_tests;
 
+import use_cases.matching_algorithm_use_case.*;
 import matching_algorithm_screens.InMemoryMatchesFail;
 import matching_algorithm_screens.InMemoryMatchesSuccess;
-import matching_algorithm_screens.MatchingAlgorithmController;
+import controllers_presenters_and_screen_boundaries.matching_algorithm_adapters.MatchingAlgorithmController;
 import matching_algorithm_use_case.*;
 import org.junit.jupiter.api.Test;
 

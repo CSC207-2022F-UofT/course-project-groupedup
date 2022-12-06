@@ -1,6 +1,6 @@
 package view_user_public_profile_screens;
-import view_user_public_profile_usecase.ViewUserPublicProfileOutputBoundary;
-import view_user_public_profile_usecase.ViewUserPublicProfileResponseModel;
+import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileOutputBoundary;
+import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileResponseModel;
 
 import javax.swing.*;
 

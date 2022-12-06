@@ -1,7 +1,7 @@
 package UserSignupLoginScreens;
 
 
-import userlogoutusecase.LogoutInputBoundary;
+import use_cases.user_logout_use_case.LogoutInputBoundary;
 /**
  * controller for the logout use case
  */

@@ -1,7 +1,7 @@
 package cancel_application_screens;
 
-import cancel_application_use_case.CancelApplicationOutputBoundary;
-import cancel_application_use_case.CancelApplicationResponseModel;
+import use_cases.cancel_application_use_case.CancelApplicationOutputBoundary;
+import use_cases.cancel_application_use_case.CancelApplicationResponseModel;
 
 import javax.swing.*;
 

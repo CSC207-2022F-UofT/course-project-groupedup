@@ -25,6 +25,7 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 ## Future Extensions
 - [ ] Delete Group feature (when the only person in the group requests to leave)
 - [ ] Search groups by groupName feature
+- [X] Logout use case (currently implemented but not linked and used)
 
 ## Instructions
 - To run the tests under individual use cases, click the "run test with code coverage" button.

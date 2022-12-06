@@ -1,8 +1,8 @@
 package apply_to_group_screens;
 
-import Entities.Group;
-import Entities.User;
-import apply_to_group_use_case.ApplyToGroupDsGateway;
+import entities.Group;
+import entities.User;
+import use_cases.apply_to_group_use_case.ApplyToGroupDsGateway;
 
 import java.util.HashMap;
 

@@ -1,7 +1,7 @@
 package UserSignupLoginScreens;
 
-import UserRegistrationUsecase.UserRegistrationInputBoundary;
-import UserRegistrationUsecase.UserRegistrationInputPackage;
+import use_cases.user_registration_use_case.UserRegistrationInputBoundary;
+import use_cases.user_registration_use_case.UserRegistrationInputPackage;
 /**
  * controller for the user registration use case
  */

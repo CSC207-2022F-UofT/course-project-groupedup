@@ -1,7 +1,7 @@
 package cancel_application_screens;
 
-import cancel_application_use_case.CancelApplicationInputBoundary;
-import cancel_application_use_case.CancelApplicationRequestModel;
+import use_cases.cancel_application_use_case.CancelApplicationInputBoundary;
+import use_cases.cancel_application_use_case.CancelApplicationRequestModel;
 
 /**
  * The controller that initiates the cancelApplication use case.

@@ -1,7 +1,7 @@
 package pending_list_screens;
 
-import view_group_members.ViewGroupMembersInputBoundary;
-import view_group_members.ViewGroupMembersRequestModel;
+import use_cases.view_group_members_use_case.ViewGroupMembersInputBoundary;
+import use_cases.view_group_members_use_case.ViewGroupMembersRequestModel;
 
 /**
  * The controller that initiates the view group members use case.

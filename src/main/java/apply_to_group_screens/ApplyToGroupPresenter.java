@@ -1,7 +1,7 @@
 package apply_to_group_screens;
 
-import apply_to_group_use_case.ApplyToGroupOutputBoundary;
-import apply_to_group_use_case.ApplyToGroupResponseModel;
+import use_cases.apply_to_group_use_case.ApplyToGroupOutputBoundary;
+import use_cases.apply_to_group_use_case.ApplyToGroupResponseModel;
 
 import javax.swing.*;
 public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {

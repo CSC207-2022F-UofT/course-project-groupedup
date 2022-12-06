@@ -1,8 +1,8 @@
 package matching_algorithm_tests;
 
 
-import Entities.*;
-import matching_algorithm_use_case.UserGroupScoreCalculator;
+import entities.*;
+import use_cases.matching_algorithm_use_case.UserGroupScoreCalculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

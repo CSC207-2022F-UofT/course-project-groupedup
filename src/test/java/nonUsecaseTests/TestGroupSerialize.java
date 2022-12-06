@@ -1,8 +1,8 @@
 package nonUsecaseTests;
 
-import Entities.Group;
-import group_creation_use_case.NewGroupDSGateway;
-import group_creation_use_case.GroupRegisterDSRequestModel;
+import entities.Group;
+import use_cases.group_creation_use_case.NewGroupDSGateway;
+import use_cases.group_creation_use_case.GroupRegisterDSRequestModel;
 
 import java.io.*;
 import java.util.HashMap;

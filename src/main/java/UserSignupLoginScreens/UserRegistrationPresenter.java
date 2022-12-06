@@ -1,7 +1,7 @@
 package UserSignupLoginScreens;
 
-import UserRegistrationUsecase.UserRegistrationOutputBoundary;
-import UserRegistrationUsecase.UserRegistrationOutputPackage;
+import use_cases.user_registration_use_case.UserRegistrationOutputBoundary;
+import use_cases.user_registration_use_case.UserRegistrationOutputPackage;
 
 import javax.swing.*;
 

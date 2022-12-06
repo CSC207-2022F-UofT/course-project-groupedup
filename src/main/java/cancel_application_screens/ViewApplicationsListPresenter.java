@@ -1,5 +1,7 @@
 package cancel_application_screens;
 
+import use_cases.view_user_applications_use_case.ViewApplicationsListOutputBoundary;
+import use_cases.view_user_applications_use_case.ViewApplicationsListResponseModel;
 import view_user_applications_use_case.*;
 
 import javax.swing.*;

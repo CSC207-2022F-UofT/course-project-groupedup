@@ -1,12 +1,11 @@
 package nonUsecaseTests;
 
-import Entities.CurrentUser;
-import Entities.NormalUser;
-import Entities.User;
-import Entities.UserPublicProfile;
+import entities.CurrentUser;
+import entities.NormalUser;
+import entities.User;
+import entities.UserPublicProfile;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 /**

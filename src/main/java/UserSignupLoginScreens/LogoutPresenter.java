@@ -1,6 +1,6 @@
 package UserSignupLoginScreens;
 
-import userlogoutusecase.LogoutOutputBoundary;
+import use_cases.user_logout_use_case.LogoutOutputBoundary;
 
 /**
  * presenter for the login use case

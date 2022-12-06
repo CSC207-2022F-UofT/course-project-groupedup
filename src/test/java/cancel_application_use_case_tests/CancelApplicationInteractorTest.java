@@ -1,6 +1,7 @@
 package cancel_application_use_case_tests;
 
-import Entities.*;
+import use_cases.cancel_application_use_case.*;
+import entities.*;
 import cancel_application_screens.CancelApplicationController;
 import cancel_application_screens.CancelApplicationPresenter;
 import cancel_application_use_case.*;

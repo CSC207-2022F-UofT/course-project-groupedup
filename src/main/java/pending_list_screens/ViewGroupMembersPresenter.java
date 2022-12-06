@@ -1,7 +1,7 @@
 package pending_list_screens;
 
-import view_group_members.ViewGroupMembersOutputBoundary;
-import view_group_members.ViewGroupMembersResponseModel;
+import use_cases.view_group_members_use_case.ViewGroupMembersOutputBoundary;
+import use_cases.view_group_members_use_case.ViewGroupMembersResponseModel;
 
 import javax.swing.*;
 import java.util.ArrayList;

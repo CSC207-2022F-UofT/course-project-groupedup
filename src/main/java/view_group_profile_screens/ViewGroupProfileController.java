@@ -1,7 +1,7 @@
 package view_group_profile_screens;
 
-import view_group_profile_use_case.ViewGroupProfileInputBoundary;
-import view_group_profile_use_case.ViewGroupProfileRequestModel;
+import use_cases.view_group_profile_use_case.ViewGroupProfileInputBoundary;
+import use_cases.view_group_profile_use_case.ViewGroupProfileRequestModel;
 
 /**
  * The controller that initiates the view group profile use case.

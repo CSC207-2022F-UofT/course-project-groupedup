@@ -1,7 +1,7 @@
 package pending_list_screens;
 
-import view_pending_list.ViewPendingListOutputBoundary;
-import view_pending_list.ViewPendingListResponseModel;
+import use_cases.view_pending_list_use_case.ViewPendingListOutputBoundary;
+import use_cases.view_pending_list_use_case.ViewPendingListResponseModel;
 
 import javax.swing.*;
 import java.util.ArrayList;

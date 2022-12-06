@@ -1,7 +1,7 @@
 package pending_list_screens;
 
-import edit_pending_list.EditPendingListInputBoundary;
-import edit_pending_list.EditPendingListRequestModel;
+import use_cases.edit_pending_list_use_case.EditPendingListInputBoundary;
+import use_cases.edit_pending_list_use_case.EditPendingListRequestModel;
 
 /**
  * The controller that initiates the edit pending list use case.

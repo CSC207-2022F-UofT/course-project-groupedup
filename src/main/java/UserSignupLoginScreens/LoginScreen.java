@@ -1,6 +1,6 @@
 package UserSignupLoginScreens;
 
-import userloginusecase.LoginInputPackage;
+import use_cases.user_login_use_case.LoginInputPackage;
 
 import javax.swing.*;
 import java.awt.*;

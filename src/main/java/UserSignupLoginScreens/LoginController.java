@@ -1,7 +1,7 @@
 package UserSignupLoginScreens;
 
-import userloginusecase.LoginInputBoundary;
-import userloginusecase.LoginInputPackage;
+import use_cases.user_login_use_case.LoginInputBoundary;
+import use_cases.user_login_use_case.LoginInputPackage;
 /**
  * controller for the login use case
  */
