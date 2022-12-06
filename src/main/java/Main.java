@@ -57,6 +57,31 @@ public class Main {
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
 
+        // TESTING SERIALIZED DATA ACCESS FOR LEAVE GROUP AND CANCEL APPLICATION
+        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser.setUser(user1);
+
+        User bob = new NormalUser("bob", "bob", "bob", "bob", new UserPublicProfile());
+        currentUser.setUser(bob);
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(bob, bob.getUsername()));
+
+        Group group = new NormalGroup("Bob's group");
+        group.getProfile().setDescription("bobby's club.");
+        group.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group, group.getGroupName()));
+
+        Group group2 = new NormalGroup("Paul's Fan Club");
+        group2.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
+                " brown hair and blue eyes. I made this group because I think it would be nice to get together" +
+                " with abstract people and talk about things in the abstract sense. BTW i love art, especially" +
+                " drawing arrows :)");
+        group2.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group2, group2.getGroupName()));
+
+        user1.getApplicationsList().put("Bob's group", "Bob's group");
+        user1.getApplicationsList().put("Paul's Fan Club", "Paul's Fan Club");
+        dataAccess.updateUser(user1);
+
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);
         LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
