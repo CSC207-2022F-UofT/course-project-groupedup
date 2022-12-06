@@ -87,7 +87,7 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
 
         /*Making screen*/
         JPanel menubar = new JPanel();
-        JLabel title = new JLabel("Edit " + username + "'s Public Profile");
+        JLabel title = new JLabel("Edit Public Profile");
         Font font = new Font("Century Gothic", Font.BOLD,20);
         title.setFont(font);
         menubar.add(title);
@@ -150,22 +150,42 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
     public JPanel buildMeetingTimeOptions() {
         JPanel meetingTime = new JPanel();
         ButtonGroup meetingTimeOptions = new ButtonGroup();
-        JRadioButton meetingTimeMorning = new JRadioButton("Morning");
-        meetingTimeMorning.addActionListener(this);
-        JRadioButton meetingTimeAfternoon = new JRadioButton("Afternoon");
-        meetingTimeAfternoon.addActionListener(this);
-        JRadioButton meetingTimeEvening = new JRadioButton("Evening");
-        meetingTimeEvening.addActionListener(this);
+        JRadioButton meetingTime1 = new JRadioButton("Monday");
+        meetingTime1.addActionListener(this);
+        JRadioButton meetingTime2 = new JRadioButton("Tuesday");
+        meetingTime2.addActionListener(this);
+        JRadioButton meetingTime3 = new JRadioButton("Wednesday");
+        meetingTime3.addActionListener(this);
+        JRadioButton meetingTime4 = new JRadioButton("Thursday");
+        meetingTime4.addActionListener(this);
+        JRadioButton meetingTime5 = new JRadioButton("Friday");
+        meetingTime5.addActionListener(this);
+        JRadioButton meetingTime6 = new JRadioButton("Saturday");
+        meetingTime6.addActionListener(this);
+        JRadioButton meetingTime7 = new JRadioButton("Sunday");
+        meetingTime7.addActionListener(this);
 
-        meetingTime.add(meetingTimeMorning);
-        meetingTime.add(meetingTimeAfternoon);
-        meetingTime.add(meetingTimeEvening);
-        meetingTimeOptions.add(meetingTimeMorning);
-        meetingTimeOptions.add(meetingTimeAfternoon);
-        meetingTimeOptions.add(meetingTimeEvening);
-        meetingTimeButtons.add(meetingTimeMorning);
-        meetingTimeButtons.add(meetingTimeAfternoon);
-        meetingTimeButtons.add(meetingTimeEvening);
+        meetingTime.add(meetingTime1);
+        meetingTime.add(meetingTime2);
+        meetingTime.add(meetingTime3);
+        meetingTime.add(meetingTime4);
+        meetingTime.add(meetingTime5);
+        meetingTime.add(meetingTime6);
+        meetingTime.add(meetingTime7);
+        meetingTimeOptions.add(meetingTime1);
+        meetingTimeOptions.add(meetingTime2);
+        meetingTimeOptions.add(meetingTime3);
+        meetingTimeOptions.add(meetingTime4);
+        meetingTimeOptions.add(meetingTime5);
+        meetingTimeOptions.add(meetingTime6);
+        meetingTimeOptions.add(meetingTime7);
+        meetingTimeButtons.add(meetingTime1);
+        meetingTimeButtons.add(meetingTime2);
+        meetingTimeButtons.add(meetingTime3);
+        meetingTimeButtons.add(meetingTime4);
+        meetingTimeButtons.add(meetingTime5);
+        meetingTimeButtons.add(meetingTime6);
+        meetingTimeButtons.add(meetingTime7);
 
         return meetingTime;
     }
