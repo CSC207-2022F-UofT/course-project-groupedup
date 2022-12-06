@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class ViewGroupProfileInteractor implements ViewGroupProfileInputBoundary {
     final ViewGroupProfileDsGateway dsGateway;
     final ViewGroupProfileOutputBoundary outputBoundary;
+    final ViewGroupProfileErrorMessages errorMessages = new ViewGroupProfileErrorMessages();
 
     /**
      * @param dsGateway the data access interface
@@ -30,7 +31,7 @@ public class ViewGroupProfileInteractor implements ViewGroupProfileInputBoundary
         String groupName = requestModel.getGroupName();
 
         if (!dsGateway.groupIdentifierExists(groupName)) {
-            throw new RuntimeException("This group does not exist");
+            throw new RuntimeException(errorMessages.getGroupDoesNotExist());
         } else {
             Group group = dsGateway.getGroup(groupName);
             GroupProfile groupProfile = group.getProfile();

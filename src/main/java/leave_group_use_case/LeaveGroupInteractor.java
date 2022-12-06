@@ -12,6 +12,7 @@ import Entities.User;
 public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     final LeaveGroupDsGateway dsGateway;
     final LeaveGroupOutputBoundary presenter;
+    final LeaveGroupErrorMessages errorMessages = new LeaveGroupErrorMessages();
 
     /**
      * The interactor for the leaveGroup use case.
@@ -32,18 +33,18 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     public void leaveGroup(LeaveGroupRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
-            throw new RuntimeException("This group does not exist.");
+            throw new RuntimeException(errorMessages.getGroupDoesNotExist());
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
-            throw new RuntimeException("User is not in group.");
+            throw new RuntimeException(errorMessages.getUserNotInGroup());
         }
 
         if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
-            presenter.prepareFailureView("The group has already removed you from their members' list");
+            presenter.prepareFailureView(errorMessages.getGroupNotInUser());
         } else {
             user.removeGroup(group.getGroupName());
             group.removeMember(user.getUsername());

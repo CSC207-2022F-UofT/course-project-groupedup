@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class ViewApplicationsListInteractor implements ViewApplicationsListInputBoundary {
     final ViewApplicationsListDsGateway dsGateway;
     final ViewApplicationsListOutputBoundary presenter;
+    final ViewApplicationsListErrorMessages errorMessages = new ViewApplicationsListErrorMessages();
 
     /**
      * @param dsGateway the data access interface
@@ -28,6 +29,11 @@ public class ViewApplicationsListInteractor implements ViewApplicationsListInput
     @Override
     public void getApplicationsList(ViewApplicationsListRequestModel requestModel) {
         String username = requestModel.getUsername();
+
+        if (!dsGateway.userIdentifierExists(username)) {
+            throw new RuntimeException(errorMessages.getUserDoesNotExist());
+        }
+
         User user = dsGateway.getUser(username);
 
         ArrayList<String> userApplications = new ArrayList<>(user.getApplicationsList().keySet());
