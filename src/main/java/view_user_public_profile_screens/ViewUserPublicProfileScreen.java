@@ -20,20 +20,21 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
     JButton edit = new JButton("Edit");
     JButton exit = new JButton("Exit");
 
-    public ViewUserPublicProfileScreen(CardLayout cardlayout, JPanel screens) {
+    public ViewUserPublicProfileScreen(JPanel screens, CardLayout cardlayout) {
         this.screens = screens;
         this.cardLayout = cardlayout;
         this.setSize(500,500);
+//        this.setVisible(false);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == edit) {
-            cardLayout.show(null, "editUserProfileScreen");
+            this.cardLayout.show(screens, "editUserProfileScreen");
         }
 
         if (e.getSource() == exit) {
-            cardLayout.show(null, "homepage");
+            this.cardLayout.show(screens, "homepage");
         }
     }
 
@@ -96,9 +97,9 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
         this.userPreferences = userPreferences;
     }
 
-    @Override
-    public void view() {
-        this.build();
-        this.setVisible(true);
-    }
+//    @Override
+//    public void view() {
+//        this.build();
+////        this.setVisible(true);
+//    }
 }

@@ -16,7 +16,8 @@ public class ViewUserPublicProfileResponseModel {
      * @param userCoursePreferences The user's current course preferences.
      * @param bio The user's current bio.
      */
-    ViewUserPublicProfileResponseModel(String username, HashMap<String, String> userPreferences,
+    ViewUserPublicProfileResponseModel(String username,
+                                       HashMap<String, String> userPreferences,
                                        String userCoursePreferences,
                                        String bio) {
         this.username = username;

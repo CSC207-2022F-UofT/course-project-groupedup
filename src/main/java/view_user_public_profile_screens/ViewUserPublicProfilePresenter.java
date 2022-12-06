@@ -18,7 +18,7 @@ public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutp
         screen.setUsername(userPublicProfileInfo.getUsername());
         screen.setCourses(userPublicProfileInfo.getUserCoursePreferences());
         screen.setUserPreferences(userPublicProfileInfo.getUserPreferences());
-        screen.view();
+        screen.build();
     }
 
     @Override

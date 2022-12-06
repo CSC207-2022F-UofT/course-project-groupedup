@@ -40,33 +40,35 @@ public class EditUserPublicProfileScreen extends JPanel implements ActionListene
 
             for (JToggleButton button: locationButtons) {
                 if (button.isSelected()) {
-                    this.location = button.getName();
+                    this.location = button.getText();
                 }
             }
 
             for (JToggleButton button: meetingTimeButtons) {
                 if (button.isSelected()) {
-                    this.meeting_time = button.getName();
+                    this.meeting_time = button.getText();
                 }
             }
 
             for (JToggleButton button: timeCommitmentButtons) {
                 if (button.isSelected()) {
-                    this.time_commit = button.getName();
+                    this.time_commit = button.getText();
                 }
             }
-        }
 
-        try{
             this.editUserPublicProfileController.editedChanges(username, bio.getText(), courseCodes.getText(),
                     this.time_commit, this.location, this.meeting_time);
-        } catch (Exception error) {
-            JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
+
+//            try{
+//
+//            } catch (Exception error) {
+//                JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
+//            }
         }
 
 
         if(e.getSource() == this.exit) {
-            cardLayout.show(screens,"ViewUserPublicProfileScreen");
+            cardLayout.show(screens,"homepage");
         }
     }
 
