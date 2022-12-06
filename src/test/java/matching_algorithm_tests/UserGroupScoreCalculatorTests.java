@@ -144,7 +144,7 @@ public class UserGroupScoreCalculatorTests {
     }
 
     /**
-     * Test similarity score if group and user have no preferences. In this case, it will return 1!
+     * Test similarity score if group and user have no preferences. In this case, it will return 1
      */
     @Test
     public void testIfBothHaveNoPreferences(){
