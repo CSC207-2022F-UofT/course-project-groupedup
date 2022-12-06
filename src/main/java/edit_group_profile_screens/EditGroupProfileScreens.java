@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class EditGroupProfileScreens extends JPanel implements  EditGroupProfileScreenBoundary{
+public class EditGroupProfileScreens extends JPanel implements edit_group_profile_screens.EditGroupProfileScreenBoundary {
     CardLayout cardLayout;
     JPanel screens;
     String groupName;

@@ -29,7 +29,7 @@ public class CancelApplicationPresenter implements CancelApplicationOutputBounda
      */
     @Override
     public void prepareFailureView(String error) {
-        throw new CancelApplicationFailed(error);
+        JOptionPane.showMessageDialog(null, error);
     }
 
 }

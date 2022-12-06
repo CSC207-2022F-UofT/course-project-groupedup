@@ -5,6 +5,7 @@ package view_my_groups_use_case;
  */
 public class ViewMyGroupsRequestModel {
     private final String username;
+
     public ViewMyGroupsRequestModel(String username) {
         this.username = username;
     }

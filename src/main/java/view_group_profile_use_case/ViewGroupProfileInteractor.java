@@ -42,7 +42,8 @@ public class ViewGroupProfileInteractor implements ViewGroupProfileInputBoundary
                 description = "This group has no description.";
             }
 
-            ViewGroupProfileResponseModel groupInfo = new ViewGroupProfileResponseModel(groupName, description, preferences);
+            ViewGroupProfileResponseModel groupInfo = new ViewGroupProfileResponseModel(groupName,
+                    description, preferences);
 
             outputBoundary.prepareSuccessView(groupInfo);
         }
