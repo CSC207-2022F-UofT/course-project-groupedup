@@ -5,6 +5,7 @@ import cancel_application_screens.ViewApplicationsListController;
 import leave_group_screens.ViewMyGroupsController;
 import matching_algorithm_screens.HomeMatchesBoundary;
 import matching_algorithm_screens.MatchingAlgorithmController;
+import view_group_profile_screens.ViewGroupProfileController;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -33,9 +34,9 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     JScrollPane matchesScrollPane = new JScrollPane();
     JButton refreshMatches = new JButton("Refresh Matches");
     JLabel matchesLabel = new JLabel("My Matches: ");
-
     ViewApplicationsListController viewApplicationsListController;
     ViewMyGroupsController viewMyGroupsController;
+    ViewGroupProfileController viewGroupProfileController;
     CardLayout cardLayout;
     JPanel screens;
     static JLabel TITLE = new JLabel("Welcome to Grouped Up!");
@@ -115,9 +116,8 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
             int x = JOptionPane.showOptionDialog(null, groupName,
                     "Click a button",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-
             if (x == 0){
-                JOptionPane.showMessageDialog(null, "Group Info");
+                viewGroupProfileController.viewGroup(groupName);
                 //Ipek's stuff
             } else if (x == 1){
                 applyToGroupController.applyToGroup(username, groupName);
@@ -131,6 +131,10 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
 
     public void setViewMyGroupsController(ViewMyGroupsController viewMyGroupsController) {
         this.viewMyGroupsController = viewMyGroupsController;
+    }
+
+    public void setViewGroupProfileController(ViewGroupProfileController viewGroupProfileController) {
+        this.viewGroupProfileController = viewGroupProfileController;
     }
 
     public void setMatchingAlgorithmController(MatchingAlgorithmController matchingAlgorithmController){

@@ -12,7 +12,6 @@ import matching_algorithm_screens.*;
 import matching_algorithm_use_case.MatchingAlgorithmInputBoundary;
 import matching_algorithm_use_case.MatchingAlgorithmInteractor;
 import matching_algorithm_use_case.MatchingAlgorithmOutputBoundary;
-import matching_algorithm_screens.HomeMatchesBoundary;
 import pending_list_screens.*;
 import view_group_members.*;
 import view_pending_list.ViewPendingListInputBoundary;
@@ -128,8 +127,8 @@ public class Main {
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
         MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
-        HomeMatchesBoundary homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
-        screens.add((JPanel)homepageTest, "homepage");
+        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
+        screens.add(homepageTest, "homepage");
 
         MatchingAlgorithmViewModel matchingAlgorithmViewModel = new MatchingAlgorithmView(homepageTest);
         MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary =
@@ -153,7 +152,6 @@ public class Main {
                 cancelApplicationPresenter);
         LeaveGroupOutputBoundary leaveGroupPresenter = new LeaveGroupPresenter();
         LeaveGroupInputBoundary leaveGroupInteractor = new LeaveGroupInteractor(dataAccess, leaveGroupPresenter);
-        // ADD EDIT GROUP PROFILE PRESENTER HERE
 
         ViewGroupProfileController viewGroupProfileController = new ViewGroupProfileController(viewGroupProfileInteractor);
         ViewApplicationsListController viewApplicationsListController = new ViewApplicationsListController(viewApplicationsInteractor);
@@ -164,6 +162,7 @@ public class Main {
         groupProfileScreen.setViewGroupProfileController(viewGroupProfileController);
         homepageTest.setViewMyGroupsController(viewMyGroupsController);
         homepageTest.setViewApplicationsListController(viewApplicationsListController);
+        homepageTest.setViewGroupProfileController(viewGroupProfileController);
         applicationsListScreen.setViewGroupController(viewGroupProfileController);
         applicationsListScreen.setCancelApplicationController(cancelApplicationController);
         myGroupsScreen.setViewGroupProfileController(viewGroupProfileController);
