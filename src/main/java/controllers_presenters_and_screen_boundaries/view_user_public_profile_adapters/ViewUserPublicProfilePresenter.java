@@ -2,8 +2,6 @@ package controllers_presenters_and_screen_boundaries.view_user_public_profile_ad
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileOutputBoundary;
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileResponseModel;
 
-import javax.swing.*;
-
 
 public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutputBoundary {
     private final ViewUserPublicProfileScreenBoundary screen;
@@ -12,6 +10,10 @@ public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutp
         this.screen = screen;
     }
 
+    /**
+     * Displays success by building the user's profile screen.
+     * @param userPublicProfileInfo has the user's public profile information.
+     */
     @Override
     public void prepareSuccessView(ViewUserPublicProfileResponseModel userPublicProfileInfo) {
         screen.setBio(userPublicProfileInfo.getBio());
@@ -19,10 +21,5 @@ public class ViewUserPublicProfilePresenter implements ViewUserPublicProfileOutp
         screen.setCourses(userPublicProfileInfo.getUserCoursePreferences());
         screen.setUserPreferences(userPublicProfileInfo.getUserPreferences());
         screen.build();
-    }
-
-    @Override
-    public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
     }
 }
