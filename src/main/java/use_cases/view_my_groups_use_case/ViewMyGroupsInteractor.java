@@ -1,6 +1,7 @@
 package use_cases.view_my_groups_use_case;
 
 import entities.Group;
+import entities.InteractorMessages;
 import entities.User;
 
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import java.util.HashMap;
 public class ViewMyGroupsInteractor implements ViewMyGroupsInputBoundary {
     final ViewMyGroupsDsGateway dsGateway;
     final ViewMyGroupsOutputBoundary presenter;
-    final ViewMyGroupsErrorMessages errorMessages = new ViewMyGroupsErrorMessages();
 
     /**
      * @param dsGateway the data access interface
@@ -32,7 +32,7 @@ public class ViewMyGroupsInteractor implements ViewMyGroupsInputBoundary {
         String username = requestModel.getUsername();
 
         if (!dsGateway.userIdentifierExists(username)) {
-            throw new RuntimeException(errorMessages.getUserDoesNotExist());
+            throw new RuntimeException(InteractorMessages.USER_DOES_NOT_EXIST);
         }
 
         User user = dsGateway.getUser(username);

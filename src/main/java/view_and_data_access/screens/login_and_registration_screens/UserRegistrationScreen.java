@@ -1,7 +1,7 @@
 package view_and_data_access.screens.login_and_registration_screens;
 
-import controllers_presenters_and_screen_boundaries.user_registration_adapters.UserRegistrationController;
-import controllers_presenters_and_screen_boundaries.user_registration_adapters.UserRegistrationScreenInterface;
+import interface_adapters.user_registration_adapters.UserRegistrationController;
+import interface_adapters.user_registration_adapters.UserRegistrationScreenInterface;
 import use_cases.user_registration_use_case.UserRegistrationInputPackage;
 
 import javax.swing.*;

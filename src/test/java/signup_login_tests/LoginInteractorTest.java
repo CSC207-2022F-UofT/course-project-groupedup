@@ -5,7 +5,7 @@ import entities.NormalUser;
 import entities.User;
 import entities.UserPublicProfile;
 import use_cases.user_registration_use_case.UserRegistrationDSRequestPackage;
-import controllers_presenters_and_screen_boundaries.login_adapters.LoginController;
+import interface_adapters.login_adapters.LoginController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import use_cases.user_login_use_case.LoginInputPackage;

@@ -2,6 +2,7 @@ package use_cases.view_group_profile_use_case;
 
 import entities.Group;
 import entities.GroupProfile;
+import entities.InteractorMessages;
 
 import java.util.HashMap;
 
@@ -12,7 +13,6 @@ import java.util.HashMap;
 public class ViewGroupProfileInteractor implements ViewGroupProfileInputBoundary {
     final ViewGroupProfileDsGateway dsGateway;
     final ViewGroupProfileOutputBoundary outputBoundary;
-    final ViewGroupProfileErrorMessages errorMessages = new ViewGroupProfileErrorMessages();
 
     /**
      * @param dsGateway the data access interface
@@ -31,7 +31,7 @@ public class ViewGroupProfileInteractor implements ViewGroupProfileInputBoundary
         String groupName = requestModel.getGroupName();
 
         if (!dsGateway.groupIdentifierExists(groupName)) {
-            throw new RuntimeException(errorMessages.getGroupDoesNotExist());
+            throw new RuntimeException(InteractorMessages.GROUP_DOES_NOT_EXIST);
         } else {
             Group group = dsGateway.getGroup(groupName);
             GroupProfile groupProfile = group.getProfile();

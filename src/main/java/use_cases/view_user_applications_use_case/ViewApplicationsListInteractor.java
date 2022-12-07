@@ -1,5 +1,6 @@
 package use_cases.view_user_applications_use_case;
 
+import entities.InteractorMessages;
 import entities.User;
 
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 public class ViewApplicationsListInteractor implements ViewApplicationsListInputBoundary {
     final ViewApplicationsListDsGateway dsGateway;
     final ViewApplicationsListOutputBoundary presenter;
-    final ViewApplicationsListErrorMessages errorMessages = new ViewApplicationsListErrorMessages();
 
     /**
      * @param dsGateway the data access interface
@@ -31,7 +31,7 @@ public class ViewApplicationsListInteractor implements ViewApplicationsListInput
         String username = requestModel.getUsername();
 
         if (!dsGateway.userIdentifierExists(username)) {
-            throw new RuntimeException(errorMessages.getUserDoesNotExist());
+            throw new RuntimeException(InteractorMessages.USER_DOES_NOT_EXIST);
         }
 
         User user = dsGateway.getUser(username);

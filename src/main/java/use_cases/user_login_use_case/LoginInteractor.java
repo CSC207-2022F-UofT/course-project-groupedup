@@ -1,6 +1,7 @@
 package use_cases.user_login_use_case;
 
 import entities.CurrentUser;
+import entities.InteractorMessages;
 
 /**
  * the interactor for logging in a user with user input credentials
@@ -17,7 +18,7 @@ public class LoginInteractor implements LoginInputBoundary{
     @Override
     public void login(LoginInputPackage userInput) {
         if(!loginDSGateway.userIdentifiersMatch(userInput.getUsername(), userInput.getPassword())){
-            loginOutputBoundary.prepareFailView("User credentials do not match, please try again.");
+            loginOutputBoundary.prepareFailView(InteractorMessages.INVALID_CREDENTIALS);
         } else{
             CurrentUser currentUser = CurrentUser.getInstance();
             currentUser.setUser(loginDSGateway.getUser(userInput.getUsername()));

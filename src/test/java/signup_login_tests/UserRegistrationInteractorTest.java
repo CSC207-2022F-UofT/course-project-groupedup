@@ -4,7 +4,7 @@ import use_cases.user_registration_use_case.*;
 import entities.NormalUser;
 import entities.User;
 import entities.UserPublicProfile;
-import controllers_presenters_and_screen_boundaries.user_registration_adapters.UserRegistrationController;
+import interface_adapters.user_registration_adapters.UserRegistrationController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

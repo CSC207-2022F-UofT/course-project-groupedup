@@ -1,7 +1,7 @@
 package view_and_data_access.screens.login_and_registration_screens;
 
-import controllers_presenters_and_screen_boundaries.login_adapters.LoginController;
-import controllers_presenters_and_screen_boundaries.login_adapters.LoginScreenInterface;
+import interface_adapters.login_adapters.LoginController;
+import interface_adapters.login_adapters.LoginScreenInterface;
 import use_cases.user_login_use_case.LoginInputPackage;
 
 import javax.swing.*;

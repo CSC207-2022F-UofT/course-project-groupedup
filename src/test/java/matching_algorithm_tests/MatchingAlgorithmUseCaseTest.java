@@ -1,9 +1,10 @@
 package matching_algorithm_tests;
 
+import entities.InteractorMessages;
 import use_cases.matching_algorithm_use_case.*;
 import view_and_data_access.screens.matching_algorithm_screens.InMemoryMatchesFail;
 import view_and_data_access.screens.matching_algorithm_screens.InMemoryMatchesSuccess;
-import controllers_presenters_and_screen_boundaries.matching_algorithm_adapters.MatchingAlgorithmController;
+import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -30,13 +31,13 @@ public class MatchingAlgorithmUseCaseTest {
                 List<String> expected = new ArrayList<>();
                 expected.add("csc236: group2");
                 expected.add("csc207: group1");
-                assertEquals("Matches Updated!", responseModel.getMatchesUpdatedMessage());
+                assertEquals(InteractorMessages.MATCHES_UPDATED, responseModel.getMatchesUpdatedMessage());
                 assertEquals(expected, responseModel.getGroups());
             }
 
             @Override
             public void prepareFailView(String error){
-                assertEquals("No Matches Found", error);
+                assertEquals(InteractorMessages.NO_MATCHES, error);
             }
         };
 
@@ -63,13 +64,13 @@ public class MatchingAlgorithmUseCaseTest {
                 List<String> expected = new ArrayList<>();
                 expected.add("csc236: group2");
                 expected.add("csc207: group1");
-                assertEquals("Matches Updated!", responseModel.getMatchesUpdatedMessage());
+                assertEquals(InteractorMessages.MATCHES_UPDATED, responseModel.getMatchesUpdatedMessage());
                 assertEquals(expected, responseModel.getGroups());
             }
 
             @Override
             public void prepareFailView(String error){
-                assertEquals("No Matches Found", error);
+                assertEquals(InteractorMessages.NO_MATCHES, error);
             }
         };
 

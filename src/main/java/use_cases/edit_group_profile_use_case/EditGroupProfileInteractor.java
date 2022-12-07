@@ -1,11 +1,11 @@
 package use_cases.edit_group_profile_use_case;
+import entities.InteractorMessages;
 import entities.NormalGroup;
 
 public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary {
 
     final EditGroupProfileDsGateway profileDSGateway;
     final EditGroupProfileOutputBoundary profileOutputBoundary;
-    final EditGroupProfileErrorMessages errorMessages = new EditGroupProfileErrorMessages();
 
     public EditGroupProfileInteractor(EditGroupProfileDsGateway profileDSGateway,
                                       EditGroupProfileOutputBoundary profileOutputBoundary) {
@@ -44,18 +44,13 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     @Override
     public boolean editGroup(EditGroupProfileRequestModel requestModel) {
-        EditGroupProfileResponseModel editFailResponseModel =
-                new EditGroupProfileResponseModel(requestModel.getGroupName(), requestModel.getPreferences(),
-                        requestModel.getCourseCode(),
-                        requestModel.getDescription(), "");
-
         if (!validateCourseCode(requestModel.getCourseCode())) {
-            profileOutputBoundary.prepareFailView(errorMessages.getInvalidCourseCodeFailureMessage());
+            profileOutputBoundary.prepareFailView(InteractorMessages.INVALID_COURSE_CODE);
             return false;
         }
 
         if (!profileDSGateway.existsByGroupName(requestModel.getGroupName())) {
-            profileOutputBoundary.prepareFailView(errorMessages.getGroupNotFoundFailureMessage());
+            profileOutputBoundary.prepareFailView(InteractorMessages.GROUP_DOES_NOT_EXIST);
             return false;
         } else {
 
@@ -70,7 +65,7 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
                     requestModel.getPreferences(),
                     requestModel.getCourseCode(),
                     requestModel.getDescription(),
-                    "Edits made successfully.");
+                    InteractorMessages.EDITS_SUCCESSFUL);
 
             profileOutputBoundary.prepareSuccessView(profileResponseModel);
             return true;

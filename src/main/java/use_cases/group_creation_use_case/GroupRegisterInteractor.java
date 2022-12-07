@@ -10,7 +10,6 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     final GroupFactory groupFactory;
 
     final NewGroupDSGateway newGroupDSGateway;
-    final GroupRegisterErrorMessages groupRegisterErrorMessages = new GroupRegisterErrorMessages();
 
     public GroupRegisterInteractor(NewGroupDSGateway newGroupDSGateway, GroupRegisterOutputBoundary groupPresenter,
                                    GroupFactory groupFactory){
@@ -33,10 +32,10 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
     @Override
     public boolean create(GroupRegisterRequestModel requestModel) {
         if (newGroupDSGateway.groupIdentifierExists(requestModel.getGroupName())){
-            groupPresenter.prepareFailView(groupRegisterErrorMessages.getGroupExistsFailureMessage());
+            groupPresenter.prepareFailView(InteractorMessages.GROUP_EXISTS);
             return false;
         } else if (requestModel.getGroupName().equals("")){
-            groupPresenter.prepareFailView(groupRegisterErrorMessages.getEmptyStringFailureMessage());
+            groupPresenter.prepareFailView(InteractorMessages.INVALID_GROUP_NAME);
             return false;
         }
         Group group = groupFactory.create(requestModel.getGroupName());

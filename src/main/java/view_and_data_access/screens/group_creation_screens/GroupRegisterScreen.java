@@ -1,10 +1,8 @@
 package view_and_data_access.screens.group_creation_screens;
 
 
-import controllers_presenters_and_screen_boundaries.group_register_adapters.GroupCreationScreenBoundary;
-import controllers_presenters_and_screen_boundaries.group_register_adapters.GroupRegisterController;
-
-import static javax.swing.JOptionPane.showMessageDialog;
+import interface_adapters.group_register_adapters.GroupCreationScreenBoundary;
+import interface_adapters.group_register_adapters.GroupRegisterController;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,7 @@
 package use_cases.cancel_application_use_case;
 
 import entities.Group;
+import entities.InteractorMessages;
 import entities.User;
 
 /**
@@ -13,7 +14,6 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
 
     final CancelApplicationDsGateway dsGateway;
     final CancelApplicationOutputBoundary outputBoundary;
-    final CancelApplicationErrorMessages errorMessages = new CancelApplicationErrorMessages();
 
     /**
      * The interactor for the cancelApplication use case.
@@ -33,16 +33,16 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
     public void cancelApplication(CancelApplicationRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
-            throw new RuntimeException(errorMessages.getGroupDoesNotExist());
+            throw new RuntimeException(InteractorMessages.GROUP_DOES_NOT_EXIST);
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInMemberRequests(user.getUsername(), group.getGroupName())) {
-            outputBoundary.prepareFailureView(errorMessages.getGroupRejectedApplication());
+            outputBoundary.prepareFailureView(InteractorMessages.GROUP_NOT_IN_APPLICATIONS);
         } else if (!dsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
-            throw new RuntimeException(errorMessages.getGroupNotInUser());
+            throw new RuntimeException(InteractorMessages.USER_NOT_IN_REQUESTS);
         } else {
             user.removeApplication(group.getGroupName());
             group.removeFromRequests(user.getUsername());

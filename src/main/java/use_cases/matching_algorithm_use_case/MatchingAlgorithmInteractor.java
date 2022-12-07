@@ -32,7 +32,6 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
      */
     @Override
     public void matchGroups(MatchingAlgorithmRequestModel requestModel) {
-            MatchingAlgorithmMessage matchingAlgorithmMessage = new MatchingAlgorithmMessage();
 
             User currentUser = matchingAlgorithmDsGateWay.getUser(requestModel.getUsername());
             HashMap<String, Group> groupMap = matchingAlgorithmDsGateWay.loadGroups();
@@ -44,11 +43,11 @@ public class MatchingAlgorithmInteractor implements MatchingAlgorithmInputBounda
             List<String> groupsAsString = userMatches.getMatches();
 
             if (groupsAsString.size() == 0) {
-                matchingAlgorithmOutputBoundary.prepareFailView(matchingAlgorithmMessage.getNoMatchesFound());
+                matchingAlgorithmOutputBoundary.prepareFailView(InteractorMessages.NO_MATCHES);
                 return;
             }
             MatchingAlgorithmResponseModel matchingAlgorithmResponseModel =
-                    new MatchingAlgorithmResponseModel(matchingAlgorithmMessage.getMatchesUpdated(), groupsAsString);
+                    new MatchingAlgorithmResponseModel(InteractorMessages.MATCHES_UPDATED, groupsAsString);
 
                 matchingAlgorithmOutputBoundary.prepareSuccessView(matchingAlgorithmResponseModel);
     }
