@@ -1,11 +1,10 @@
 package group_register_use_case_test;
 
-import Entities.*;
-import group_creation_screens.GroupRegisterPresenter;
-import group_creation_use_case.*;
+import use_cases.group_creation_use_case.*;
+import entities.*;
+import controllers_presenters_and_screen_boundaries.group_register_adapters.GroupRegisterPresenter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import group_creation_screens.InMemoryFileGroup;
 
 import static org.junit.jupiter.api.Assertions.*;
 

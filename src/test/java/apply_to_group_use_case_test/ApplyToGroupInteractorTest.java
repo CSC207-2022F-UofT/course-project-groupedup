@@ -1,8 +1,7 @@
 package apply_to_group_use_case_test;
 
-import Entities.*;
-import apply_to_group_use_case.*;
-import apply_to_group_screens.ApplyToGroupDataAccess;
+import use_cases.apply_to_group_use_case.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

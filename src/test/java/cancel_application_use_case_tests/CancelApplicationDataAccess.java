@@ -1,10 +1,10 @@
 package cancel_application_use_case_tests;
 
-import Entities.Group;
-import Entities.User;
-import cancel_application_use_case.CancelApplicationDsGateway;
-import view_group_profile_use_case.ViewGroupProfileDsGateway;
-import view_user_applications_use_case.ViewApplicationsListDsGateway;
+import entities.Group;
+import entities.User;
+import use_cases.cancel_application_use_case.CancelApplicationDsGateway;
+import use_cases.view_group_profile_use_case.ViewGroupProfileDsGateway;
+import use_cases.view_user_applications_use_case.ViewApplicationsListDsGateway;
 
 import java.util.HashMap;
 
@@ -31,6 +31,11 @@ public class CancelApplicationDataAccess implements CancelApplicationDsGateway,
     @Override
     public User getUser(String username) {
         return userMap.get(username);
+    }
+
+    @Override
+    public boolean userIdentifierExists(String username) {
+        return userMap.containsKey(username);
     }
 
     @Override
