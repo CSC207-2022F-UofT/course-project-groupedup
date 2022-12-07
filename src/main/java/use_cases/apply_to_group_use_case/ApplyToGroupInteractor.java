@@ -12,6 +12,7 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
     final ApplyToGroupOutputBoundary applyToGroupOutputBoundary;
 
     /**
+     * The interactor for the Apply to Group use case
      * @param applyToGroupDsGateway the data access interface
      * @param applyToGroupOutputBoundary the output boundary implemented by ApplyToGroupPresenter
      */
@@ -37,18 +38,20 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
         // Checks if the user and the group exists, might be redundant or not.
         // The decision depends on whether we want to implement additional checks or not.
 
-        if (!applyToGroupDsGateway.groupExistsByName(requestModel.getGroupName())) {
+        if (!applyToGroupDsGateway.groupIdentifierExists(requestModel.getGroupName())) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.GROUP_DOES_NOT_EXIST);
-        } else if (applyToGroupDsGateway.userInGroup(user.getUsername(), group.getGroupName()) ) {
+        } else if (applyToGroupDsGateway.userInGroup(user.getUsername(), group.getGroupName()) ||
+                applyToGroupDsGateway.groupInUser(group.getGroupName(), user.getUsername())) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.USER_IN_GROUP);
-        } else if (applyToGroupDsGateway.userInApplications(user.getUsername(), group.getGroupName())) {
+        } else if (applyToGroupDsGateway.userInMemberRequests(user.getUsername(), group.getGroupName()) ||
+                applyToGroupDsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.USER_IN_APPLICATIONS);
         } else {
             user.addApplication(group.getGroupName());
             group.addMemberRequest(user.getUsername());
 
-            applyToGroupDsGateway.updateUser(user.getUsername());
-            applyToGroupDsGateway.updateGroup(group.getGroupName());
+            applyToGroupDsGateway.updateUser(user);
+            applyToGroupDsGateway.updateGroup(group);
 
             ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user.getUsername(),
                     group.getGroupName());

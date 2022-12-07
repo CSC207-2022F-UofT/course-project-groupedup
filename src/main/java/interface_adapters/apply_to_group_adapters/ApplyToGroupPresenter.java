@@ -5,6 +5,10 @@ import use_cases.apply_to_group_use_case.ApplyToGroupOutputBoundary;
 import use_cases.apply_to_group_use_case.ApplyToGroupResponseModel;
 
 import javax.swing.*;
+
+/**
+ * Presenter class for the Apply to Group Use Case.
+ */
 public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
     /**
      * Shows a message confirming the user successfully applied to group
@@ -17,6 +21,9 @@ public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
         JOptionPane.showMessageDialog(null, user + "applied to " + group + ".");
     }
 
+    /**
+     * @param error error message containing the reason for use case failure
+     */
     @Override
     public void prepareFailView(String error) {
         throw new ApplyToGroupFailed(error);

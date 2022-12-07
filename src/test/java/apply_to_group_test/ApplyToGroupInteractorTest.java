@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 public class ApplyToGroupInteractorTest {
 
+    /**
+     * Populates testing repository with user and group entities
+     * @return populated repository for testing
+     */
     private ApplyToGroupDsGateway initialize() {
 
         User testUser = new NormalUser("Ipek", "dance",
@@ -56,9 +60,9 @@ public class ApplyToGroupInteractorTest {
             }
 
             @Override
-            public void prepareSuccessView(ApplyToGroupResponseModel user) {
-                String username = user.getUsername();
-                String groupName = user.getGroupName();
+            public void prepareSuccessView(ApplyToGroupResponseModel responseModel) {
+                String username = responseModel.getUsername();
+                String groupName = responseModel.getGroupName();
 
                 Group group = repo.getGroup(groupName);
 
@@ -88,7 +92,7 @@ public class ApplyToGroupInteractorTest {
             }
 
             @Override
-            public void prepareSuccessView(ApplyToGroupResponseModel user) {
+            public void prepareSuccessView(ApplyToGroupResponseModel responseModel) {
                 Assertions.fail("Use case success is unexpected.");
             }
         };
@@ -110,7 +114,7 @@ public class ApplyToGroupInteractorTest {
             }
 
             @Override
-            public void prepareSuccessView(ApplyToGroupResponseModel user) {
+            public void prepareSuccessView(ApplyToGroupResponseModel responseModel) {
                 Assertions.fail("Use case success is unexpected.");
             }
         };
@@ -134,7 +138,7 @@ public class ApplyToGroupInteractorTest {
             }
 
             @Override
-            public void prepareSuccessView(ApplyToGroupResponseModel user) {
+            public void prepareSuccessView(ApplyToGroupResponseModel responseModel) {
                 Assertions.fail("Use case success is unexpected.");
             }
         };
