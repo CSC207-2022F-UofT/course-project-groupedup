@@ -39,25 +39,20 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
 
         if (!applyToGroupDsGateway.groupExistsByName(requestModel.getGroupName())) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.GROUP_DOES_NOT_EXIST);
-        }
-
-        // Checks if the user is already a member of the group, or has applied, waiting for a response.
-        if (applyToGroupDsGateway.userInGroup(user.getUsername(), group.getGroupName()) ) {
+        } else if (applyToGroupDsGateway.userInGroup(user.getUsername(), group.getGroupName()) ) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.USER_IN_GROUP);
-        }
-
-        if (applyToGroupDsGateway.userInApplications(user.getUsername(), group.getGroupName())) {
+        } else if (applyToGroupDsGateway.userInApplications(user.getUsername(), group.getGroupName())) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.USER_IN_APPLICATIONS);
+        } else {
+            user.addApplication(group.getGroupName());
+            group.addMemberRequest(user.getUsername());
+
+            applyToGroupDsGateway.updateUser(user.getUsername());
+            applyToGroupDsGateway.updateGroup(group.getGroupName());
+
+            ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user.getUsername(),
+                    group.getGroupName());
+            applyToGroupOutputBoundary.prepareSuccessView(responseModel);
         }
-
-        user.addApplication(group.getGroupName());
-        group.addMemberRequest(user.getUsername());
-
-        applyToGroupDsGateway.updateUser(user.getUsername());
-        applyToGroupDsGateway.updateGroup(group.getGroupName());
-
-        ApplyToGroupResponseModel responseModel = new ApplyToGroupResponseModel(user.getUsername(),
-                group.getGroupName());
-        applyToGroupOutputBoundary.prepareSuccessView(responseModel);
     }
 }

@@ -26,7 +26,6 @@ public class ViewMyGroupsTest {
     ViewMyGroupsInputBoundary interactor;
     ViewMyGroupsOutputBoundary presenter;
     ViewMyGroupsController controller;
-    ViewMyGroupsErrorMessages errorMessages = new ViewMyGroupsErrorMessages();
 
     @BeforeEach
     void beforeEach() {
@@ -88,6 +87,6 @@ public class ViewMyGroupsTest {
             controller = new ViewMyGroupsController(interactor);
             controller.viewMyGroups(username);
         });
-        Assertions.assertEquals(errorMessages.getUserDoesNotExist(), thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.USER_DOES_NOT_EXIST, thrown.getMessage());
     }
 }

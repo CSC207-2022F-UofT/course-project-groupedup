@@ -32,7 +32,7 @@ public class ViewMyGroupsInteractor implements ViewMyGroupsInputBoundary {
         String username = requestModel.getUsername();
 
         if (!dsGateway.userIdentifierExists(username)) {
-            throw new RuntimeException(InteractorMessages.GROUP_DOES_NOT_EXIST);
+            throw new RuntimeException(InteractorMessages.USER_DOES_NOT_EXIST);
         }
 
         User user = dsGateway.getUser(username);

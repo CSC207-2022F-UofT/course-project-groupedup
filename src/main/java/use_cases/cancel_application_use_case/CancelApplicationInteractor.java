@@ -42,7 +42,7 @@ public class CancelApplicationInteractor implements CancelApplicationInputBounda
         if (!dsGateway.userInMemberRequests(user.getUsername(), group.getGroupName())) {
             outputBoundary.prepareFailureView(InteractorMessages.GROUP_NOT_IN_APPLICATIONS);
         } else if (!dsGateway.groupInApplications(group.getGroupName(), user.getUsername())) {
-            throw new RuntimeException(InteractorMessages.GROUP_NOT_IN_USER);
+            throw new RuntimeException(InteractorMessages.USER_NOT_IN_REQUESTS);
         } else {
             user.removeApplication(group.getGroupName());
             group.removeFromRequests(user.getUsername());

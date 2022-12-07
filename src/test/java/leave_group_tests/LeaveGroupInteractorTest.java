@@ -90,7 +90,7 @@ public class LeaveGroupInteractorTest {
             LeaveGroupController controller = new LeaveGroupController(interactor);
             controller.leaveGroup("aarya", "asdf");
         });
-        Assertions.assertEquals("This group does not exist.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, thrown.getMessage());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class LeaveGroupInteractorTest {
             LeaveGroupController controller = new LeaveGroupController(interactor);
             controller.leaveGroup("aarya", "Wee");
         });
-        Assertions.assertEquals("User is not in group.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.USER_NOT_IN_GROUP, thrown.getMessage());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class LeaveGroupInteractorTest {
         LeaveGroupOutputBoundary presenter = new LeaveGroupOutputBoundary() {
             @Override
             public void prepareFailureView(String error) {
-                Assertions.assertEquals("The group has already removed you from their members' list",
+                Assertions.assertEquals(InteractorMessages.GROUP_NOT_IN_USER,
                         error);
             }
             @Override

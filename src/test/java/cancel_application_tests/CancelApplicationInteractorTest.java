@@ -87,7 +87,7 @@ public class CancelApplicationInteractorTest {
             CancelApplicationController controller = new CancelApplicationController(interactor);
             controller.cancelApplication("testUser2", "asdf");
         });
-        Assertions.assertEquals("This group does not exist.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, thrown.getMessage());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class CancelApplicationInteractorTest {
         CancelApplicationOutputBoundary presenter = new CancelApplicationOutputBoundary() {
             @Override
             public void prepareFailureView(String error) {
-                Assertions.assertEquals("The group has already rejected your application.", error);
+                Assertions.assertEquals(InteractorMessages.GROUP_NOT_IN_APPLICATIONS, error);
             }
 
             @Override
@@ -125,6 +125,6 @@ public class CancelApplicationInteractorTest {
             controller.cancelApplication("testUser4", "Bob's group");
         });
 
-        Assertions.assertEquals("Group is not in user's applications list.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.USER_NOT_IN_REQUESTS, thrown.getMessage());
     }
 }

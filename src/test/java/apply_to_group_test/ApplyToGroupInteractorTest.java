@@ -84,7 +84,7 @@ public class ApplyToGroupInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals("Group does not exist.", error);
+                Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, error);
             }
 
             @Override
@@ -106,7 +106,7 @@ public class ApplyToGroupInteractorTest {
         ApplyToGroupOutputBoundary outputBoundary = new ApplyToGroupOutputBoundary() {
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals("User is already in group.", error);
+                Assertions.assertEquals(InteractorMessages.USER_IN_GROUP, error);
             }
 
             @Override
@@ -130,7 +130,7 @@ public class ApplyToGroupInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals("User has already applied to the group.", error);
+                Assertions.assertEquals(InteractorMessages.USER_IN_APPLICATIONS, error);
             }
 
             @Override

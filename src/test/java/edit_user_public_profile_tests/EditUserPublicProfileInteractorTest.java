@@ -1,8 +1,5 @@
 package edit_user_public_profile_tests;
-import entities.CurrentUser;
-import entities.NormalUser;
-import entities.User;
-import entities.UserPublicProfile;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import use_cases.edit_user_public_profile_use_case.*;
@@ -201,12 +198,12 @@ public class EditUserPublicProfileInteractorTest {
         EditUserPublicProfileOutputBoundary presenter = new EditUserPublicProfileOutputBoundary() {
             @Override
             public void prepareSuccessView(EditUserPublicProfileResponseModel EditedChanges) {
-                Assertions.fail("User Profile passed even though user was not found.");
+                Assertions.fail(InteractorMessages.USER_DOES_NOT_EXIST);
             }
 
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals(error, "User was not found. Please try logging in again.");
+                Assertions.assertEquals(error, InteractorMessages.USER_DOES_NOT_EXIST);
             }
         };
 

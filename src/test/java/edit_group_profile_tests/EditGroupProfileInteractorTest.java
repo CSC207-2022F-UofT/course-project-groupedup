@@ -75,7 +75,7 @@ class EditGroupProfileInteractorTest {
         EditGroupProfileOutputBoundary presenter = new EditGroupProfileOutputBoundary() {
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals("Group does not exist.", error);
+                Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, error);
             }
 
             @Override
@@ -101,7 +101,7 @@ class EditGroupProfileInteractorTest {
         EditGroupProfileOutputBoundary presenter = new EditGroupProfileOutputBoundary() {
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals("Invalid Course Code Entered.", error);
+                Assertions.assertEquals(InteractorMessages.INVALID_COURSE_CODE, error);
             }
 
             @Override

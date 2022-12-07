@@ -10,7 +10,6 @@ import use_cases.view_user_applications_use_case.ViewApplicationsListInputBounda
 import use_cases.view_user_applications_use_case.ViewApplicationsListInteractor;
 import use_cases.view_user_applications_use_case.ViewApplicationsListOutputBoundary;
 import use_cases.view_user_applications_use_case.ViewApplicationsListResponseModel;
-import use_cases.view_user_applications_use_case.ViewApplicationsListErrorMessages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +30,6 @@ public class ViewApplicationsListTest {
     ViewApplicationsListController controller;
     ViewApplicationsListInputBoundary interactor;
     ViewApplicationsListOutputBoundary presenter;
-    ViewApplicationsListErrorMessages errorMessages = new ViewApplicationsListErrorMessages();
 
     @BeforeEach
     void beforeEach() {
@@ -89,6 +87,6 @@ public class ViewApplicationsListTest {
             controller = new ViewApplicationsListController(interactor);
             controller.viewApplicationsList(username);
         });
-        Assertions.assertEquals(errorMessages.getUserDoesNotExist(), thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.USER_DOES_NOT_EXIST, thrown.getMessage());
     }
 }

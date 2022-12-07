@@ -72,7 +72,7 @@ public class ViewGroupMembersTest {
             controller = new ViewGroupMembersController(interactor);
             controller.getGroupMembers(groupName);
         });
-        Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, thrown.getMessage());
     }
 
 }
