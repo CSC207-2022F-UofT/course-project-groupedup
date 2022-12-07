@@ -16,7 +16,7 @@ public class EditUserPublicProfileInteractor implements EditUserPublicProfileInp
     }
 
     /**
-     *
+     * Save edits allows the user to update their public profile.
      * @param requestModel the request model for the edit user's public profile use case.
      */
     @Override
@@ -30,12 +30,14 @@ public class EditUserPublicProfileInteractor implements EditUserPublicProfileInp
             }
         }
 
-        if (requestModel.getCoursePreferences().equals("")) { /*Returning a failed view when preferences are left blank*/
+        /*Returning a failed view when course preferences are left blank*/
+        if (requestModel.getCoursePreferences().equals("")) {
             profileOutputBoundary.prepareFailView("Course preferences was left blank.");
             failed = true;
         }
 
-        if (requestModel.getBio().equals("")) { /*Returning a failed view when profile bio is left blank*/
+        /*Returning a failed view when profile bio is left blank*/
+        if (requestModel.getBio().equals("")) {
             profileOutputBoundary.prepareFailView("Biography was left blank.");
             failed = true;
         }
