@@ -2,8 +2,8 @@ package cancel_application_use_case_tests;
 
 import use_cases.cancel_application_use_case.*;
 import entities.*;
-import cancel_application_screens.CancelApplicationController;
-import cancel_application_screens.CancelApplicationPresenter;
+import controllers_presenters_and_screen_boundaries.cancel_application_adapters.CancelApplicationController;
+import controllers_presenters_and_screen_boundaries.cancel_application_adapters.CancelApplicationPresenter;
 import cancel_application_use_case.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

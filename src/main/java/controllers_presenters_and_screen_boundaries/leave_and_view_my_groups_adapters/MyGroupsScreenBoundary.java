@@ -1,7 +1,6 @@
 package controllers_presenters_and_screen_boundaries.leave_and_view_my_groups_adapters;
 
-import controllers_presenters_and_screen_boundaries.leave_and_view_my_groups_adapters.LeaveGroupController;
-import view_group_profile_screens.ViewGroupProfileController;
+import controllers_presenters_and_screen_boundaries.view_group_profile_adapters.ViewGroupProfileController;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;

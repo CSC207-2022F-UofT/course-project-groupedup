@@ -2,8 +2,8 @@ package view_and_data_access.screens.group_creation_screens;
 
 import controllers_presenters_and_screen_boundaries.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 import controllers_presenters_and_screen_boundaries.group_register_adapters.GroupRegisterController;
-import pending_list_screens.*;
-import pending_list_screens.ViewGroupMembersController;
+import controllers_presenters_and_screen_boundaries.pending_list_adapters.ViewPendingListController;
+import controllers_presenters_and_screen_boundaries.pending_list_adapters.ViewGroupMembersController;
 
 import javax.swing.*;
 import java.awt.*;

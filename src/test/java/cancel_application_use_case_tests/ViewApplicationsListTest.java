@@ -2,7 +2,7 @@ package cancel_application_use_case_tests;
 
 
 import entities.*;
-import cancel_application_screens.ViewApplicationsListController;
+import controllers_presenters_and_screen_boundaries.cancel_application_adapters.ViewApplicationsListController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

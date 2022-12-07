@@ -6,7 +6,7 @@ import edit_pending_list_use_case.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pending_list_screens.EditPendingListController;
+import controllers_presenters_and_screen_boundaries.pending_list_adapters.EditPendingListController;
 
 import java.util.HashMap;
 

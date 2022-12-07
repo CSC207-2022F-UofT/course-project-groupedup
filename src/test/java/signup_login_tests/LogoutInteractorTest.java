@@ -4,7 +4,7 @@ import entities.CurrentUser;
 import entities.NormalUser;
 import entities.User;
 import entities.UserPublicProfile;
-import UserSignupLoginScreens.LogoutController;
+import controllers_presenters_and_screen_boundaries.logout_adapters.LogoutController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import use_cases.user_logout_use_case.LogoutInteractor;
