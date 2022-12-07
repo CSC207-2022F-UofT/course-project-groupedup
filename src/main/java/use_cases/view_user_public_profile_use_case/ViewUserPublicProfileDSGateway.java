@@ -6,5 +6,6 @@ import entities.User;
  * Gateway to database which is used to find current user.
  */
 public interface ViewUserPublicProfileDSGateway {
+    boolean userIdentifierExists(String username);
     User getUser(String username);
 }
