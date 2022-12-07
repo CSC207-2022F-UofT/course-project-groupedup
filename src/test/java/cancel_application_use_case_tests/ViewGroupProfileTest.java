@@ -1,11 +1,11 @@
 package cancel_application_use_case_tests;
 
-import Entities.*;
+import use_cases.view_group_profile_use_case.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view_group_profile_screens.ViewGroupProfileController;
-import view_group_profile_use_case.*;
+import controllers_presenters_and_screen_boundaries.view_group_profile_adapters.ViewGroupProfileController;
 
 import java.util.HashMap;
 

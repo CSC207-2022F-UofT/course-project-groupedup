@@ -1,11 +1,11 @@
 package pending_list_tests;
 
-import Entities.*;
+import controllers_presenters_and_screen_boundaries.pending_list_adapters.ViewPendingListController;
+import use_cases.view_pending_list_use_case.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pending_list_screens.*;
-import view_pending_list.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

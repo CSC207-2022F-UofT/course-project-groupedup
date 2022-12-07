@@ -1,15 +1,14 @@
 package edit_group_profile_use_case_tests;
 
-import Entities.*;
-import edit_group_profile_screens.EditGroupProfileDataAccess;
-import edit_group_profile_use_case.*;
+import use_cases.edit_group_profile_use_case.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
 class TestEditGroupProfileInteractor {
-    private edit_group_profile_use_case.EditGroupProfileDsGateway initialize() {
+    private EditGroupProfileDsGateway initialize() {
         User testUser = new NormalUser("Julia", "testUser", "testUser", "testUser",
                 new UserPublicProfile());
 

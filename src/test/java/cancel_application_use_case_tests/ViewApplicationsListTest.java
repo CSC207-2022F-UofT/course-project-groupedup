@@ -1,16 +1,16 @@
 package cancel_application_use_case_tests;
 
 
-import Entities.*;
-import cancel_application_screens.ViewApplicationsListController;
+import entities.*;
+import controllers_presenters_and_screen_boundaries.cancel_application_adapters.ViewApplicationsListController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view_user_applications_use_case.ViewApplicationsListInputBoundary;
-import view_user_applications_use_case.ViewApplicationsListInteractor;
-import view_user_applications_use_case.ViewApplicationsListOutputBoundary;
-import view_user_applications_use_case.ViewApplicationsListResponseModel;
-import view_user_applications_use_case.ViewApplicationsListErrorMessages;
+import use_cases.view_user_applications_use_case.ViewApplicationsListInputBoundary;
+import use_cases.view_user_applications_use_case.ViewApplicationsListInteractor;
+import use_cases.view_user_applications_use_case.ViewApplicationsListOutputBoundary;
+import use_cases.view_user_applications_use_case.ViewApplicationsListResponseModel;
+import use_cases.view_user_applications_use_case.ViewApplicationsListErrorMessages;
 
 import java.util.ArrayList;
 import java.util.HashMap;

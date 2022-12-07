@@ -1,9 +1,8 @@
 
 package nonUsecaseTests;
 
-import Entities.*;
-import group_creation_use_case.GroupRegisterDSRequestModel;
-import nonUsecaseTests.TestGroupSerialize;
+import entities.*;
+import use_cases.group_creation_use_case.GroupRegisterDSRequestModel;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

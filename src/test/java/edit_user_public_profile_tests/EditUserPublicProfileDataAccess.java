@@ -1,6 +1,6 @@
 package edit_user_public_profile_tests;
-import Entities.User;
-import edit_user_public_profile_usecase.EditUserPublicProfileDSGateway;
+import entities.User;
+import use_cases.edit_user_public_profile_use_case.EditUserPublicProfileDSGateway;
 
 import java.util.HashMap;
 

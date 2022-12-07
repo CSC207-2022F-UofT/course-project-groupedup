@@ -1,11 +1,11 @@
 package edit_user_public_profile_tests;
-import Entities.CurrentUser;
-import Entities.NormalUser;
-import Entities.User;
-import Entities.UserPublicProfile;
-import edit_user_public_profile_usecase.*;
+import entities.CurrentUser;
+import entities.NormalUser;
+import entities.User;
+import entities.UserPublicProfile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import use_cases.edit_user_public_profile_use_case.*;
 
 import java.util.HashMap;
 
