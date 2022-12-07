@@ -2,7 +2,6 @@ package controllers_presenters_and_screen_boundaries.cancel_application_adapters
 
 import use_cases.view_user_applications_use_case.ViewApplicationsListOutputBoundary;
 import use_cases.view_user_applications_use_case.ViewApplicationsListResponseModel;
-import view_user_applications_use_case.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
