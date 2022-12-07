@@ -23,6 +23,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     JButton cancelApplicationButton;
     JButton viewGroupButton;
     String username;
+    JScrollPane applicationsScrollPane = new JScrollPane();
     static String TITLE = "My Applications";
     static int SCREEN_WIDTH = 400;
     static int SCREEN_HEIGHT = 500;
@@ -57,6 +58,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     @Override
     public void setUserApplications(JList<String> userApplications) {
         this.userApplications = userApplications;
+        this.applicationsScrollPane.setViewportView(userApplications);
     }
 
     @Override
@@ -107,7 +109,6 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
     @Override
     public void buildScrollPane() {
-        JScrollPane applicationsScrollPane = new JScrollPane(userApplications);
         this.add(applicationsScrollPane, BorderLayout.CENTER);
     }
 

@@ -29,6 +29,7 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
     HashMap<String, Boolean> groupAndStatus;
     CardLayout cardLayout;
     JPanel screens;
+    JScrollPane scrollPane = new JScrollPane();
 
     /**
      * Initializes an empty groups list for the current user.
@@ -77,6 +78,7 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
     @Override
     public void setMyGroups(JList<String> myGroups) {
         this.myGroups = myGroups;
+        this.scrollPane.setViewportView(myGroups);
     }
 
     @Override
@@ -135,8 +137,8 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
 
     @Override
     public void buildScrollPane() {
-        JScrollPane applicationsScrollPane = new JScrollPane(myGroups);
-        this.add(applicationsScrollPane, BorderLayout.CENTER);
+        scrollPane.setViewportView(myGroups);
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     private class buttonPress implements ActionListener {

@@ -23,7 +23,7 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
     DefaultListModel<String> memberRequestsModel;
     JButton acceptButton, rejectButton;
     String groupName;
-
+    JScrollPane requestsScrollPane = new JScrollPane();
     public PendingListScreen() {
         setTitle("Member Requests");
         setSize(300, 300);
@@ -46,11 +46,13 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
     }
 
     @Override
-    public void setGroupName(String groupName) { this.groupName = groupName; }
+    public void setGroupName(String groupName) { this.groupName = groupName;
+    }
 
     @Override
     public void setMemberRequests(JList<String> memberRequestsList) {
         this.memberRequests = memberRequestsList;
+        this.requestsScrollPane.setViewportView(memberRequestsList);
     }
 
     @Override
@@ -102,7 +104,6 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
     @Override
     public void buildScrollPane() {
-        JScrollPane requestsScrollPane = new JScrollPane(memberRequests);
         this.add(requestsScrollPane, BorderLayout.CENTER);
     }
 

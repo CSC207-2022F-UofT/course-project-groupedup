@@ -11,6 +11,7 @@ public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoun
     ViewGroupMembersController viewGroupMembersController;
     DefaultListModel<String> membersListModel;
     String groupName;
+    JScrollPane requestsScrollPane = new JScrollPane();
 
     public GroupMembersScreen() {
         setTitle("Group Members");
@@ -26,6 +27,7 @@ public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoun
     @Override
     public void setMembersList(JList<String> membersList) {
         this.membersList = membersList;
+        this.requestsScrollPane.setViewportView(membersList);
     }
 
     @Override
@@ -40,7 +42,6 @@ public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoun
 
     @Override
     public void view() {
-        JScrollPane requestsScrollPane = new JScrollPane(membersList);
         this.add(requestsScrollPane, BorderLayout.CENTER);
         this.setVisible(true);
     }
