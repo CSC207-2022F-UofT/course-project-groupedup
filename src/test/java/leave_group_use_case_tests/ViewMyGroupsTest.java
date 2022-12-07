@@ -6,7 +6,6 @@ import controllers_presenters_and_screen_boundaries.leave_and_view_my_groups_ada
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view_my_groups_use_case.*;
 
 import java.util.HashMap;
 

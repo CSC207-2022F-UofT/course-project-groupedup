@@ -3,7 +3,6 @@ package group_register_use_case_test;
 import use_cases.group_creation_use_case.*;
 import entities.*;
 import controllers_presenters_and_screen_boundaries.group_register_adapters.GroupRegisterPresenter;
-import group_creation_use_case.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

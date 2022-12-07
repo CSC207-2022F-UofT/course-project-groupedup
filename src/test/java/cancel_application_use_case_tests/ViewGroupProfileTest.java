@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import controllers_presenters_and_screen_boundaries.view_group_profile_adapters.ViewGroupProfileController;
-import view_group_profile_use_case.*;
 
 import java.util.HashMap;
 

@@ -2,7 +2,6 @@ package pending_list_tests;
 
 import use_cases.edit_pending_list_use_case.*;
 import entities.*;
-import edit_pending_list_use_case.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

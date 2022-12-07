@@ -1,8 +1,7 @@
 package edit_group_profile_use_case_tests;
 
-import use_cases.edit_group_profile_use_case.EditGroupProfileDsGateway;
+import use_cases.edit_group_profile_use_case.*;
 import entities.*;
-import use_cases.edit_group_profile_use_case.EditGroupProfileDataAccess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
