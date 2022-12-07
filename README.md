@@ -25,6 +25,7 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 ## Future Extensions
 - [ ] Delete Group feature (when the only person in the group requests to leave)
 - [ ] Search groups by groupName feature
+- [X] Logout use case (currently implemented but not linked and used)
 
 ## Instructions
 - To run the tests under individual use cases, click the "run test with code coverage" button.
@@ -35,6 +36,7 @@ You can find our **workflow documents** under the Projects tab: where we have ou
   - comment the line under "initial call for data access",
   - uncomment the line under "data access call for subsequent runs",
   - Click the Run 'Main.java' button.
+  - This is to ensure that the serialization files work properly.
 - Once the program is run, the pop-up screen will allow you to register or login. You can navigate within the program to perform other features such as Create Group or Apply/Cancel application.
 
 ## Workflow Documents

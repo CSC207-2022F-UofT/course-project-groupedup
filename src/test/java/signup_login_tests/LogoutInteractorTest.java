@@ -1,18 +1,14 @@
 package signup_login_tests;
 
-import Entities.CurrentUser;
-import Entities.NormalUser;
-import Entities.User;
-import Entities.UserPublicProfile;
-import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
-import UserSignupLoginScreens.LogoutController;
+import entities.CurrentUser;
+import entities.NormalUser;
+import entities.User;
+import entities.UserPublicProfile;
+import interface_adapters.logout_adapters.LogoutController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import userloginusecase.LoginInputPackage;
-import userloginusecase.LoginInteractor;
-import userloginusecase.LoginOutputBoundary;
-import userlogoutusecase.LogoutInteractor;
-import userlogoutusecase.LogoutOutputBoundary;
+import use_cases.user_logout_use_case.LogoutInteractor;
+import use_cases.user_logout_use_case.LogoutOutputBoundary;
 
 public class LogoutInteractorTest {
     @Test

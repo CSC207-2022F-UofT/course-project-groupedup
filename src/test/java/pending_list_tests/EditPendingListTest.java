@@ -1,12 +1,11 @@
 package pending_list_tests;
 
-import Entities.*;
-import edit_pending_list.*;
+import use_cases.edit_pending_list_use_case.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pending_list_screens.EditPendingListController;
-import pending_list_screens.EditPendingListPresenter;
+import interface_adapters.pending_list_adapters.EditPendingListController;
 
 import java.util.HashMap;
 
@@ -123,7 +122,7 @@ public class EditPendingListTest {
 
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals(error, "This user no longer exists.");
+                Assertions.assertEquals(error, InteractorMessages.USER_DOES_NOT_EXIST);
             }
         };
         username = "null";
@@ -147,7 +146,7 @@ public class EditPendingListTest {
 
             @Override
             public void prepareFailView(String error) {
-                Assertions.assertEquals(error, "This user has cancelled their join request.");
+                Assertions.assertEquals(error, InteractorMessages.USER_NOT_IN_REQUESTS);
             }
         };
         group.removeFromRequests(username);
@@ -165,7 +164,7 @@ public class EditPendingListTest {
             controller = new EditPendingListController(interactor);
             controller.rejectOrAcceptUser(username, groupName, true);
         });
-        Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, thrown.getMessage());
     }
 
     @Test
@@ -177,7 +176,7 @@ public class EditPendingListTest {
             controller = new EditPendingListController(interactor);
             controller.rejectOrAcceptUser(username, groupName, true);
         });
-        Assertions.assertEquals("This group is not in this user's application list.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.GROUP_NOT_IN_APPLICATIONS, thrown.getMessage());
     }
 
     @Test
@@ -191,6 +190,6 @@ public class EditPendingListTest {
             controller = new EditPendingListController(interactor);
             controller.rejectOrAcceptUser(username, groupName, true);
         });
-        Assertions.assertEquals("This user is already in this group.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.USER_IN_GROUP, thrown.getMessage());
     }
 }

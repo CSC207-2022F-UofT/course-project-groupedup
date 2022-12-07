@@ -1,10 +1,10 @@
 package pending_list_tests;
 
-import Entities.Group;
-import Entities.User;
-import edit_pending_list.EditPendingListDsGateway;
-import view_group_members.ViewGroupMembersDsGateway;
-import view_pending_list.ViewPendingListDsGateway;
+import entities.Group;
+import entities.User;
+import use_cases.edit_pending_list_use_case.EditPendingListDsGateway;
+import use_cases.view_group_members_use_case.ViewGroupMembersDsGateway;
+import use_cases.view_pending_list_use_case.ViewPendingListDsGateway;
 
 import java.util.HashMap;
 

@@ -1,9 +1,9 @@
 package signup_login_tests;
 
-import Entities.User;
-import UserRegistrationUsecase.NewUserDSGateway;
-import UserRegistrationUsecase.UserRegistrationDSRequestPackage;
-import userloginusecase.LoginDSGateway;
+import entities.User;
+import use_cases.user_registration_use_case.NewUserDSGateway;
+import use_cases.user_registration_use_case.UserRegistrationDSRequestPackage;
+import use_cases.user_login_use_case.LoginDSGateway;
 
 import java.util.HashMap;
 

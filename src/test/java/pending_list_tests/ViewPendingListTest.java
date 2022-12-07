@@ -1,11 +1,11 @@
 package pending_list_tests;
 
-import Entities.*;
+import interface_adapters.pending_list_adapters.ViewPendingListController;
+import use_cases.view_pending_list_use_case.*;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pending_list_screens.*;
-import view_pending_list.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,12 +58,6 @@ public class ViewPendingListTest {
                 Assertions.assertEquals(usernamesList.getUsernamesList(), requests);
             }
         };
-//        ViewPendingListOutputBoundary presenter = new ViewPendingListPresenter(screen) {
-//            @Override
-//            public void prepareSuccessView(ViewPendingListResponseModel usernamesList) {
-//                Assertions.assertEquals(usernamesList.getUsernamesList(), requests);
-//            }
-//        };
         interactor = new ViewPendingListInteractor(repository, presenter);
         controller = new ViewPendingListController(interactor);
         controller.getUsernames(groupName);
@@ -78,6 +72,6 @@ public class ViewPendingListTest {
             controller = new ViewPendingListController(interactor);
             controller.getUsernames(groupName);
         });
-        Assertions.assertEquals("This group doesn't exist.", thrown.getMessage());
+        Assertions.assertEquals(InteractorMessages.GROUP_DOES_NOT_EXIST, thrown.getMessage());
     }
 }
