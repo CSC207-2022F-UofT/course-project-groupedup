@@ -1,5 +1,6 @@
 package use_cases.edit_user_public_profile_use_case;
 
+import entities.InteractorMessages;
 import entities.User;
 
 /**
@@ -25,20 +26,20 @@ public class EditUserPublicProfileInteractor implements EditUserPublicProfileInp
         /*Returning a failed view when preferences are left blank*/
         for (String p: requestModel.getPreferences().values()) {
             if (p.equals("")) {
-                profileOutputBoundary.prepareFailView("Preferences was left blank.");
+                profileOutputBoundary.prepareFailView(InteractorMessages.PREFERENCES_BLANK);
                 failed = true;
             }
         }
 
         /*Returning a failed view when course preferences are left blank*/
         if (requestModel.getCoursePreferences().equals("")) {
-            profileOutputBoundary.prepareFailView("Course preferences was left blank.");
+            profileOutputBoundary.prepareFailView(InteractorMessages.COURSE_PREFERENCES_BLANK);
             failed = true;
         }
 
         /*Returning a failed view when profile bio is left blank*/
         if (requestModel.getBio().equals("")) {
-            profileOutputBoundary.prepareFailView("Biography was left blank.");
+            profileOutputBoundary.prepareFailView(InteractorMessages.BIO_BLANK);
             failed = true;
         }
 
@@ -60,13 +61,13 @@ public class EditUserPublicProfileInteractor implements EditUserPublicProfileInp
                         requestModel.getPreferences(),
                         requestModel.getCoursePreferences(),
                         requestModel.getBio(),
-                        "Edits successfully saved.");
+                        InteractorMessages.EDITS_SUCCESSFUL);
 
                 profileOutputBoundary.prepareSuccessView(profileResponseModel);
 
             } else {
                 /*If the user is not found.*/
-                profileOutputBoundary.prepareFailView("User was not found. Please try logging in again.");
+                profileOutputBoundary.prepareFailView(InteractorMessages.USER_DOES_NOT_EXIST);
             }
         }
     }

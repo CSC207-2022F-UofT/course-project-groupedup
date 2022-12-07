@@ -1,6 +1,7 @@
 package use_cases.leave_group_use_case;
 
 import entities.Group;
+import entities.InteractorMessages;
 import entities.User;
 
 /**
@@ -12,7 +13,6 @@ import entities.User;
 public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     final LeaveGroupDsGateway dsGateway;
     final LeaveGroupOutputBoundary presenter;
-    final LeaveGroupErrorMessages errorMessages = new LeaveGroupErrorMessages();
 
     /**
      * The interactor for the leaveGroup use case.
@@ -33,18 +33,18 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
     public void leaveGroup(LeaveGroupRequestModel requestModel) {
 
         if (!dsGateway.groupIdentifierExists(requestModel.getGroupName())) {
-            throw new RuntimeException(errorMessages.getGroupDoesNotExist());
+            throw new RuntimeException(InteractorMessages.GROUP_DOES_NOT_EXIST);
         }
 
         User user = dsGateway.getUser(requestModel.getUsername());
         Group group = dsGateway.getGroup(requestModel.getGroupName());
 
         if (!dsGateway.userInGroup(user.getUsername(), group.getGroupName())) {
-            throw new RuntimeException(errorMessages.getUserNotInGroup());
+            throw new RuntimeException(InteractorMessages.USER_NOT_IN_GROUP);
         }
 
         if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
-            presenter.prepareFailureView(errorMessages.getGroupNotInUser());
+            presenter.prepareFailureView(InteractorMessages.GROUP_NOT_IN_USER);
         } else {
             user.removeGroup(group.getGroupName());
             group.removeMember(user.getUsername());

@@ -1,7 +1,7 @@
 package view_and_data_access.screens.matching_algorithm_screens;
 
-import controllers_presenters_and_screen_boundaries.matching_algorithm_adapters.HomeMatchesBoundary;
-import controllers_presenters_and_screen_boundaries.matching_algorithm_adapters.MatchingAlgorithmScreenBoundary;
+import interface_adapters.matching_algorithm_adapters.HomeMatchesBoundary;
+import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmScreenBoundary;
 import use_cases.matching_algorithm_use_case.MatchingAlgorithmResponseModel;
 
 import javax.swing.*;

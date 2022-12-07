@@ -1,5 +1,6 @@
 package use_cases.user_registration_use_case;
 
+import entities.InteractorMessages;
 import entities.User;
 import entities.UserPublicProfile;
 
@@ -22,11 +23,11 @@ public class UserRegistrationInteractor implements UserRegistrationInputBoundary
     @Override
     public void create(UserRegistrationInputPackage userInput) {
         if (newUserDSGateway.userIdentifierExists(userInput.getUsername())){
-            userRegistrationOutputBoundary.prepareFailView("User already exists.");
+            userRegistrationOutputBoundary.prepareFailView(InteractorMessages.USER_EXISTS);
         } else if (!userInput.getPassword().equals(userInput.getRepeatPassword())){
-            userRegistrationOutputBoundary.prepareFailView("Passwords don't match.");
+            userRegistrationOutputBoundary.prepareFailView(InteractorMessages.PASSWORDS_DONT_MATCH);
         } else if (!userFactory.checkValidPassword(userInput.getPassword())){
-            userRegistrationOutputBoundary.prepareFailView("User password must have more than 5 characters.");
+            userRegistrationOutputBoundary.prepareFailView(InteractorMessages.PASSWORD_TOO_SHORT);
         } else {
             UserPublicProfile publicProfile = new UserPublicProfile();
             User newUser = userFactory.create(userInput.getUsername(), userInput.getPassword(),

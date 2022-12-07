@@ -1,6 +1,7 @@
 package use_cases.edit_pending_list_use_case;
 
 import entities.Group;
+import entities.InteractorMessages;
 import entities.User;
 
 /**
@@ -36,15 +37,15 @@ public class EditPendingListInteractor implements EditPendingListInputBoundary {
         Group group = dsGateway.getGroup(groupName);
 
         if (!dsGateway.groupIdentifierExists(groupName)) {
-            throw new RuntimeException("This group doesn't exist.");
+            throw new RuntimeException(InteractorMessages.GROUP_DOES_NOT_EXIST);
         } else if (!dsGateway.userIdentifierExists(username)) {
-            presenter.prepareFailView("This user no longer exists.");
+            presenter.prepareFailView(InteractorMessages.USER_DOES_NOT_EXIST);
         } else if (!dsGateway.userInMemberRequests(username, groupName)) {
-            presenter.prepareFailView("This user has cancelled their join request.");
+            presenter.prepareFailView(InteractorMessages.USER_NOT_IN_REQUESTS);
         } else if (!dsGateway.groupInApplications(groupName, username)) {
-            throw new RuntimeException("This group is not in this user's application list.");
+            throw new RuntimeException(InteractorMessages.GROUP_NOT_IN_APPLICATIONS);
         } else if (dsGateway.groupInUser(groupName, username) || dsGateway.userInGroup(username, groupName)) {
-            throw new RuntimeException("This user is already in this group.");
+            throw new RuntimeException(InteractorMessages.USER_IN_GROUP);
         } else {
             group.removeFromRequests(username);
             user.removeApplication(groupName);

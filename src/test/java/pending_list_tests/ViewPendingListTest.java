@@ -1,6 +1,6 @@
 package pending_list_tests;
 
-import controllers_presenters_and_screen_boundaries.pending_list_adapters.ViewPendingListController;
+import interface_adapters.pending_list_adapters.ViewPendingListController;
 import use_cases.view_pending_list_use_case.*;
 import entities.*;
 import org.junit.jupiter.api.Assertions;

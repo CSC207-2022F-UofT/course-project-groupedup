@@ -1,6 +1,7 @@
 package use_cases.view_group_members_use_case;
 
 import entities.Group;
+import entities.InteractorMessages;
 import entities.User;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ViewGroupMembersInteractor implements ViewGroupMembersInputBoundary
     public void getGroupMembers(ViewGroupMembersRequestModel requestModel) {
         String groupName = requestModel.getGroupName();
         if (!dsGateway.groupIdentifierExists(groupName)) {
-            throw new RuntimeException("This group doesn't exist.");
+            throw new RuntimeException(InteractorMessages.GROUP_DOES_NOT_EXIST);
         }
         Group group = dsGateway.getGroup(groupName);
         HashMap<String, User> userMap = dsGateway.loadUsers();

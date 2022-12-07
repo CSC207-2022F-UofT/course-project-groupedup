@@ -1,6 +1,6 @@
 package view_and_data_access.screens.apply_to_group_screens;
 
-import controllers_presenters_and_screen_boundaries.apply_to_group_adapters.ApplyToGroupController;
+import interface_adapters.apply_to_group_adapters.ApplyToGroupController;
 
 import javax.swing.*;
 
