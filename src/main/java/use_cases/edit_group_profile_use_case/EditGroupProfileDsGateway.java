@@ -1,4 +1,6 @@
 package use_cases.edit_group_profile_use_case;
+
+import entities.Group;
 import entities.NormalGroup;
 
 public interface EditGroupProfileDsGateway {
@@ -9,7 +11,7 @@ public interface EditGroupProfileDsGateway {
      * @return whether the Group exists or not.
      */
     NormalGroup findGroup(String groupName);
-    void saveGroupProfile(EditGroupProfileDsRequestModel requestModel);
+    void updateGroup(Group group);
     /**
      * Saves an edited group profile to the database.
      * @param EditGroupProfileDsRequestModel the group information to save.

@@ -2,6 +2,7 @@ package view_and_data_access.screens.login_and_registration_screens;
 
 import interface_adapters.login_adapters.LoginController;
 import interface_adapters.login_adapters.LoginScreenInterface;
+import interface_adapters.matching_algorithm_adapters.HomeMatchesBoundary;
 import use_cases.user_login_use_case.LoginInputPackage;
 
 import javax.swing.*;
@@ -31,7 +32,10 @@ public class LoginScreen extends JPanel implements ActionListener, LoginScreenIn
     private CardLayout cardLayout;
     private LoginController loginController;
 
-    public LoginScreen(JPanel screens, CardLayout cardLayout) {
+    private HomeMatchesBoundary homeScreen;
+
+    public LoginScreen(JPanel screens, CardLayout cardLayout, HomeMatchesBoundary homeScreen) {
+        this.homeScreen = homeScreen;
         this.screens = screens;
         this.cardLayout = cardLayout;
         this.initializeComponents();
@@ -81,7 +85,7 @@ public class LoginScreen extends JPanel implements ActionListener, LoginScreenIn
             LoginInputPackage inputPackage =
                     new LoginInputPackage(username.getText(), String.valueOf(password.getPassword()));
             this.loginController.login(inputPackage);
-//            this.matchController.asdsadhjksdjkhfdshjkfsdjkfdjskfkjhsdf
+
         }
         else if (evt.getSource() == this.goToRegistrationButton){
             this.cardLayout.show(screens, "user registration");
@@ -90,6 +94,7 @@ public class LoginScreen extends JPanel implements ActionListener, LoginScreenIn
 
     @Override
     public void switchScreen(String screenName) {
+        this.homeScreen.setUsername(username.getText());
         this.cardLayout.show(screens, screenName);
     }
 

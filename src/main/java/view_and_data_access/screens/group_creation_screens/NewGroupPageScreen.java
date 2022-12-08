@@ -128,9 +128,6 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
      */
     public void prepareFailView(String error) {
         JOptionPane.showMessageDialog(this, error);
-
     }
-
-
 
 }

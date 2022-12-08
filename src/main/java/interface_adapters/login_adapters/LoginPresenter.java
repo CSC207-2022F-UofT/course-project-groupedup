@@ -1,5 +1,6 @@
 package interface_adapters.login_adapters;
 
+import entities.CurrentUser;
 import use_cases.user_login_use_case.LoginOutputBoundary;
 
 import javax.swing.*;
@@ -15,11 +16,12 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView() {
+    public void prepareSuccessView(String username) {
         JOptionPane.showMessageDialog(null, "You are logged in :^)");
         /*
          * go to the screen for homepage, the screen name is "homepage"
          */
+
         this.loginScreen.switchScreen("homepage");
     }
 

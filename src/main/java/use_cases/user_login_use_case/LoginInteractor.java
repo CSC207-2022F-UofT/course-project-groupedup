@@ -22,7 +22,7 @@ public class LoginInteractor implements LoginInputBoundary{
         } else{
             CurrentUser currentUser = CurrentUser.getInstance();
             currentUser.setUser(loginDSGateway.getUser(userInput.getUsername()));
-            loginOutputBoundary.prepareSuccessView();
+            loginOutputBoundary.prepareSuccessView(userInput.getUsername());
         }
     }
 }

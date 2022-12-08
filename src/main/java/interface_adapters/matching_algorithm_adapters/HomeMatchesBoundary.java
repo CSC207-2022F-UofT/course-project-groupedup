@@ -24,4 +24,7 @@ public interface HomeMatchesBoundary extends ListSelectionListener {
 
     void setApplyToGroupController(ApplyToGroupController applyToGroupController);
     void setViewUserProfileController(ViewUserPublicProfileController viewUserPublicProfileController);
-}
+
+    void setUsername(String username);
+    }
+

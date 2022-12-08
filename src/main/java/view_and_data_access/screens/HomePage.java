@@ -149,12 +149,15 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     }
 
 
-
     public void setViewUserProfileController(ViewUserPublicProfileController viewUserPublicController){
         this.viewUserPublicController = viewUserPublicController;
     }
 
     public void setApplyToGroupController(ApplyToGroupController applyToGroupController) {
         this.applyToGroupController = applyToGroupController;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 }
