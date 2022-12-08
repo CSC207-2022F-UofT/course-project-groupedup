@@ -39,7 +39,32 @@ You can find our **workflow documents** under the Projects tab: where we have ou
   - This is to ensure that the serialization files work properly.
 - Once the program is run, the pop-up screen will allow you to register or login. You can navigate within the program to perform other features such as Create Group or Apply/Cancel application.
 
+## Changes made in response to Milestone 4 feedback
+-  Functionality: every use case and UI is completely finished. The screens were implemented using CardLayout and JPanels. All the screens between the use cases are connected and the screens are also properly connected to the backend. 
+-  Pull Requests: each have descriptions regarding their content
+-  Testing: Each use case interactor has tests (see test section of README for coverage details)
+-  Code Organization: refactored all the package names to follow convention (lowercases and underscores). Reorganized the packages so they are seperated by layers of clean architecture (entities, use cases, interface adapters, view/database) and then seperated by use case within those layers as well. Removed the gradle files from the repo.
+-  Github Features: Added issues for making tests/including Javadoc
+-  Clean Architecture: All presenters do not return ResponseModels and they directly change the UI to abide by CA.
+-  Code Style and Documentation: Every member included Javadoc on all public classes and methods. Naming conventions were fixed.
+-  Design Patterns & Code Smells: Added Javadoc to explain purpose/future extension of Group Factory as suggested by TA in online meeting. Strategy pattern was used for matching algorithm. Hard coded failure/sucess messages were fixed by making a Class which has getter methods for String attribute message. No more hard coded strings in use cases.
+
+## Test Coverage for each feature's use case package
+- [X] Group Creation Use Case:
+- [X] Matching Algorithm Use Case: 
+- [X]
+- [X]
+- [X]
+- [X]
+- [X]
+- [X]
+
+## How we made use of GitHub
+- [X]
+
 ## Workflow Documents
 With our workflow documents, you can see our many pull requests, their assignees, reviewers, and progress. We use this to see which pull requests are ready for review and which are just to submit progress on features.
 ## Application Plan:
 https://drive.google.com/file/d/18PkmSlkVMP6b8YZGq7eBeu2o6UZ3q98n/view?usp=drivesdk
+## UI Design:
+https://docs.google.com/document/d/1-kXhyQLfrXeKBL2xqtFvdb_CC7MByZT_Sg_0k9GiqfY/edit?usp=sharing
