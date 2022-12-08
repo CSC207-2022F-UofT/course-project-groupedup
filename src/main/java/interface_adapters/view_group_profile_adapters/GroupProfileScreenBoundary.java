@@ -11,7 +11,6 @@ public interface GroupProfileScreenBoundary {
     void setViewGroupProfileController(ViewGroupProfileController viewGroupProfileController);
     void setGroupDescription(String description);
     void setGroupPreferences(HashMap<String, String> preferences);
-    void view();
     void initializeComponents();
     void buildScrollPane();
     void setComponents();

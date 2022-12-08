@@ -136,6 +136,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             if (x == 0){
                 viewGroupProfileController.viewGroup(groupName);
+                cardLayout.show(screens, "groupProfileScreen");
             } else if (x == 1){
                 applyToGroupController.applyToGroup(username, groupName);
             }

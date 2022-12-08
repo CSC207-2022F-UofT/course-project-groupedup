@@ -4,30 +4,43 @@ import interface_adapters.view_group_profile_adapters.GroupProfileScreenBoundary
 import interface_adapters.view_group_profile_adapters.ViewGroupProfileController;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 /**
  * The group profile screen. Displays the group's description and preferences.
  */
-public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoundary {
+public class GroupProfileScreen extends JPanel implements GroupProfileScreenBoundary {
     String groupDescription;
     HashMap<String, String> groupPreferences;
     ViewGroupProfileController viewGroupProfileController;
     String groupName;
     String username;
+    JLabel groupNameLabel = new JLabel();
     JTextArea textBox;
-    static int SCREEN_WIDTH = 400;
-    static int SCREEN_HEIGHT = 200;
+    CardLayout cardLayout;
+    JScrollPane scrollPane = new JScrollPane();
+    JPanel screens;
+    JButton back = new JButton("Back");
+    static int SCREEN_WIDTH = 500;
+    static int SCREEN_HEIGHT = 500;
 
     /**
      * Initializes an empty group profile screen.
      */
-    public GroupProfileScreen() {
-        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    public GroupProfileScreen(CardLayout cardLayout, JPanel screens) {
 
-        setVisible(false);
+        this.cardLayout = cardLayout;
+        this.screens = screens;
+        this.setBackground(new Color(182,202,218));
+        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        back.addActionListener(new buttonPress());
+        this.add(back);
         this.initializeComponents();
         this.buildScrollPane();
+
     }
 
     @Override
@@ -55,30 +68,28 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
         this.groupPreferences = preferences;
     }
 
-    @Override
-    public void view() {
-        this.setComponents();
-        this.setVisible(true);
-    }
 
     @Override
     public void initializeComponents() {
+        this.add(groupNameLabel);
         this.textBox = new JTextArea();
+        this.textBox.setSize(200,200);
 
         textBox.setLineWrap(true);
         textBox.setEditable(false);
+
     }
 
     @Override
     public void buildScrollPane() {
-        JScrollPane scrollPane = new JScrollPane(textBox);
+        scrollPane.setViewportView(textBox);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane);
     }
 
     @Override
     public void setComponents() {
-        setTitle(this.groupName);
+        groupNameLabel.setText(groupName);
         textBox.setText(this.groupDescription + "\n\n");
 
         for(String s : this.groupPreferences.keySet()) {
@@ -87,5 +98,17 @@ public class GroupProfileScreen extends JFrame implements GroupProfileScreenBoun
 
         textBox.setLineWrap(true);
         textBox.setEditable(false);
+        scrollPane.setViewportView(textBox);
+
+    }
+
+    private class buttonPress implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == back) {
+                cardLayout.show(screens, "homepage");
+            }
+
+        }
     }
 }

@@ -130,6 +130,7 @@ public class ApplicationsListScreen extends JPanel implements ApplicationsListSc
 
             if (evt.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
+                cardLayout.show(screens, "groupProfileScreen");
             } else if (evt.getSource() == cancelApplicationButton) {
                 userApplicationsModel.remove(index);
                 int numApplications = userApplicationsModel.getSize();

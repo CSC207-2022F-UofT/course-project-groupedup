@@ -155,6 +155,7 @@ public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, Li
 
             if (e.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
+                cardLayout.show(screens, "groupProfileScreen");
             } else if (e.getSource() == editGroupButton) {
                 newGroupPageScreen.setGroupName(groupName);
                 cardLayout.show(screens, "newGroupPageScreen");

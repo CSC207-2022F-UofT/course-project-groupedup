@@ -156,7 +156,8 @@ public class Main {
         editGroupScreen.setView(editGroupController);
         screens.add((Component) editGroupScreen, "editGroupScreen");
 
-        GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
+        GroupProfileScreen groupProfileScreen = new GroupProfileScreen(cardLayout, screens);
+        screens.add(groupProfileScreen, "groupProfileScreen");
         ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(CurrentUser.getInstance().getUser().getUsername(), cardLayout,
                 screens);
         screens.add(applicationsListScreen, "applicationListScreen");
