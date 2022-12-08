@@ -149,7 +149,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.matchingAlgorithmController = matchingAlgorithmController;
     }
 
-    public void applyToGroupController(ApplyToGroupController applyToGroupController){
+    public void setApplyToGroupController(ApplyToGroupController applyToGroupController){
         this.applyToGroupController = applyToGroupController;
     }
 

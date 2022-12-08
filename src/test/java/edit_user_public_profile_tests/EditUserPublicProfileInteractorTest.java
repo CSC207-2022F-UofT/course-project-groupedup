@@ -22,7 +22,7 @@ public class EditUserPublicProfileInteractorTest {
         HashMap<String, User> userMap = new HashMap<>();
         userMap.put(testUser.getUsername(), testUser);
 
-        return new EditUserPublicProfileDataAccess(userMap);
+        return new UserPublicProfileDataAccess(userMap);
     }
 
     @Test

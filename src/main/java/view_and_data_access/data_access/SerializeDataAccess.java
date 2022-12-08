@@ -3,6 +3,7 @@ package view_and_data_access.data_access;
 import entities.Group;
 import entities.NormalGroup;
 import entities.User;
+import use_cases.apply_to_group_use_case.ApplyToGroupDsGateway;
 import use_cases.user_registration_use_case.NewUserDSGateway;
 import use_cases.user_registration_use_case.UserRegistrationDSRequestPackage;
 import use_cases.edit_group_profile_use_case.EditGroupProfileDsGateway;
@@ -43,7 +44,7 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         CancelApplicationDsGateway, LeaveGroupDsGateway, EditPendingListDsGateway, ViewPendingListDsGateway,
         ViewGroupMembersDsGateway, ViewApplicationsListDsGateway, ViewGroupProfileDsGateway,ViewMyGroupsDsGateway,
         MatchingAlgorithmDsGateWay, EditGroupProfileDsGateway, EditUserPublicProfileDSGateway,
-        ViewUserPublicProfileDSGateway {
+        ViewUserPublicProfileDSGateway, ApplyToGroupDsGateway {
 
     /**
      * initialize a new map every time program opens, not elegant :(

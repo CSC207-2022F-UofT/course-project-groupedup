@@ -1,3 +1,5 @@
+import interface_adapters.apply_to_group_adapters.ApplyToGroupController;
+import interface_adapters.apply_to_group_adapters.ApplyToGroupPresenter;
 import interface_adapters.cancel_application_adapters.CancelApplicationController;
 import interface_adapters.cancel_application_adapters.CancelApplicationPresenter;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListController;
@@ -24,6 +26,9 @@ import interface_adapters.pending_list_adapters.*;
 import interface_adapters.user_registration_adapters.UserRegistrationController;
 import interface_adapters.user_registration_adapters.UserRegistrationPresenter;
 import interface_adapters.user_registration_adapters.UserRegistrationScreenInterface;
+import use_cases.apply_to_group_use_case.ApplyToGroupInputBoundary;
+import use_cases.apply_to_group_use_case.ApplyToGroupInteractor;
+import use_cases.apply_to_group_use_case.ApplyToGroupOutputBoundary;
 import use_cases.cancel_application_use_case.CancelApplicationInputBoundary;
 import use_cases.cancel_application_use_case.CancelApplicationInteractor;
 import use_cases.cancel_application_use_case.CancelApplicationOutputBoundary;
@@ -53,6 +58,7 @@ import use_cases.view_pending_list_use_case.ViewPendingListInputBoundary;
 import use_cases.view_pending_list_use_case.ViewPendingListInteractor;
 import use_cases.view_pending_list_use_case.ViewPendingListOutputBoundary;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfilePresenter;
+import view_and_data_access.screens.apply_to_group_screens.ApplyToGroupScreen;
 import view_and_data_access.screens.user_public_profile_screens.EditUserPublicProfileScreen;
 import view_and_data_access.screens.HomePage;
 import view_and_data_access.screens.group_list_screens.MyGroupsScreen;
@@ -177,6 +183,8 @@ public class Main {
         MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
         homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
 
+
+
         ViewUserPublicProfileScreenBoundary viewUserPublicProfileScreen = new ViewUserPublicProfileScreen(screens, cardLayout);
         ViewUserPublicProfileOutputBoundary viewUserPublicProfilePresenter = new ViewUserPublicProfilePresenter(viewUserPublicProfileScreen);
         ViewUserPublicProfileInteractor viewUserPublicProfileInteractor = new ViewUserPublicProfileInteractor(dataAccess, viewUserPublicProfilePresenter);
@@ -193,6 +201,11 @@ public class Main {
         editUserPublicProfileScreen.setController(editUserPublicProfileController);
         editUserPublicProfileScreen.setUsername(user1.getUsername());
         screens.add((Component) editUserPublicProfileScreen, "editUserProfileScreen");
+
+        ApplyToGroupOutputBoundary applyToGroupPresenter = new ApplyToGroupPresenter();
+        ApplyToGroupInputBoundary applyToGroupInteractor = new ApplyToGroupInteractor(dataAccess, applyToGroupPresenter);
+        ApplyToGroupController applyToGroupController = new ApplyToGroupController(applyToGroupInteractor);
+        homepageTest.setApplyToGroupController(applyToGroupController);
 
         ViewGroupProfileOutputBoundary viewGroupProfilePresenter = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary viewGroupProfileInteractor = new ViewGroupProfileInteractor(dataAccess,
