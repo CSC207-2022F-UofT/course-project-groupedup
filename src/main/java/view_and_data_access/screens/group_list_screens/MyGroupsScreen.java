@@ -1,9 +1,9 @@
 package view_and_data_access.screens.group_list_screens;
 
-import interface_adapters.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 import interface_adapters.leave_and_view_my_groups_adapters.LeaveGroupController;
 import interface_adapters.leave_and_view_my_groups_adapters.MyGroupsScreenBoundary;
 import interface_adapters.view_group_profile_adapters.ViewGroupProfileController;
+import view_and_data_access.screens.group_creation_screens.NewGroupPageScreen;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -21,7 +21,7 @@ public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, Li
     DefaultListModel<String> myGroupsModel = new DefaultListModel<>();
     LeaveGroupController leaveGroupController;
     ViewGroupProfileController viewGroupProfileController;
-    EditGroupProfileScreenBoundary editGroupScreen;
+    NewGroupPageScreen newGroupPageScreen;
     JButton backToHomePage;
     JButton leaveGroupButton;
     JButton editGroupButton;
@@ -38,15 +38,13 @@ public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, Li
      * Initializes an empty groups list for the current user.
      * @param username the username of the current user
      */
-    public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username,
-                          EditGroupProfileScreenBoundary editGroupScreen) {
+    public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username) {
         this.setBackground(new Color(182,202,218));
         this.setSize(500, 500);
         this.add(new JLabel("My Groups"));
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.username = username;
-        this.editGroupScreen = editGroupScreen;
         this.setSize(SCREEN_SIZE, SCREEN_SIZE);
         this.buildButtons();
         this.buildScrollPane();
@@ -88,6 +86,11 @@ public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, Li
     }
 
     @Override
+    public void setNewGroupPageScreen(NewGroupPageScreen newGroupPageScreen){
+        this.newGroupPageScreen = newGroupPageScreen;
+    }
+
+    @Override
     public void setMyGroupsModel(DefaultListModel<String> myGroupsModel) {
         this.myGroupsModel = myGroupsModel;
     }
@@ -106,7 +109,6 @@ public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, Li
     public void setGroupStatusMapping(HashMap<String, Boolean> groupAndStatus) {
         this.groupAndStatus = groupAndStatus;
     }
-
 
 
     @Override
@@ -154,8 +156,8 @@ public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, Li
             if (e.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
             } else if (e.getSource() == editGroupButton) {
-                editGroupScreen.setGroupName(groupName);
-                cardLayout.show(screens, "editGroupScreen");
+                newGroupPageScreen.setGroupName(groupName);
+                cardLayout.show(screens, "newGroupPageScreen");
             } else if (e.getSource() == leaveGroupButton) {
                 myGroupsModel.remove(index);
                 groupAndStatus.remove(groupName);

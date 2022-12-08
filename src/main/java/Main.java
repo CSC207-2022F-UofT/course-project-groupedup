@@ -21,6 +21,8 @@ import interface_adapters.leave_and_view_my_groups_adapters.ViewMyGroupsPresente
 import interface_adapters.login_adapters.LoginController;
 import interface_adapters.login_adapters.LoginPresenter;
 import interface_adapters.login_adapters.LoginScreenInterface;
+import interface_adapters.logout_adapters.LogoutController;
+import interface_adapters.logout_adapters.LogoutPresenter;
 import interface_adapters.matching_algorithm_adapters.MatchesPresenter;
 import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
 import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmScreenBoundary;
@@ -62,6 +64,9 @@ import use_cases.matching_algorithm_use_case.MatchingAlgorithmOutputBoundary;
 import use_cases.user_login_use_case.LoginInputBoundary;
 import use_cases.user_login_use_case.LoginInteractor;
 import use_cases.user_login_use_case.LoginOutputBoundary;
+import use_cases.user_logout_use_case.LogoutInputBoundary;
+import use_cases.user_logout_use_case.LogoutInteractor;
+import use_cases.user_logout_use_case.LogoutOutputBoundary;
 import use_cases.user_registration_use_case.*;
 import use_cases.view_group_members_use_case.ViewGroupMembersInputBoundary;
 import use_cases.view_group_members_use_case.ViewGroupMembersInteractor;
@@ -119,6 +124,7 @@ public class Main {
                 new UserPublicProfile());
 
         CurrentUser.getInstance().setUser(userLeader);
+
         /**
          *  Initial call for data access
          */
@@ -128,7 +134,9 @@ public class Main {
          *  Data access call for subsequent runs
          */
         SerializeDataAccess dataAccess = new SerializeDataAccess();
-
+        LogoutOutputBoundary logoutPresenter = new LogoutPresenter();
+        LogoutInputBoundary logoutInputBoundary = new LogoutInteractor(logoutPresenter);
+        LogoutController logoutController = new LogoutController(logoutInputBoundary);
 
 
 
@@ -153,10 +161,11 @@ public class Main {
                 screens);
         screens.add(applicationsListScreen, "applicationListScreen");
 
-        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, CurrentUser.getInstance().getUser().getUsername(), editGroupScreen);
+        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, CurrentUser.getInstance().getUser().getUsername());
         screens.add(myGroupsScreen, "myGroupsScreen");
         HomePage homepageTest = new HomePage(cardLayout, screens, CurrentUser.getInstance().getUser().getUsername());
         screens.add(homepageTest, "homepage");
+        homepageTest.setLogoutController(logoutController);
 
         MatchingAlgorithmScreenBoundary matchingAlgorithmScreenBoundary = new MatchingAlgorithmScreen(homepageTest);
         MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary =
@@ -258,7 +267,7 @@ public class Main {
         groupRegisterScreen.setView(groupRegisterController);
 
         newGroupPageScreen.setView(groupRegisterController);
-
+        myGroupsScreen.setNewGroupPageScreen(newGroupPageScreen);
 
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout, homepageTest);
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);

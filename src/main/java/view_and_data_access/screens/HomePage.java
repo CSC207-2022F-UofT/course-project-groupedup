@@ -3,6 +3,7 @@ package view_and_data_access.screens;
 import interface_adapters.apply_to_group_adapters.ApplyToGroupController;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListController;
 import interface_adapters.leave_and_view_my_groups_adapters.ViewMyGroupsController;
+import interface_adapters.logout_adapters.LogoutController;
 import interface_adapters.matching_algorithm_adapters.HomeMatchesBoundary;
 import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
@@ -34,10 +35,13 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     JList<String> matches = new JList<>();
     JScrollPane matchesScrollPane = new JScrollPane();
     JButton refreshMatches = new JButton("Refresh Matches");
+
+    JButton logOut = new JButton("Logout");
     JLabel matchesLabel = new JLabel("My Matches: ");
     ViewApplicationsListController viewApplicationsListController;
     ViewMyGroupsController viewMyGroupsController;
     ViewGroupProfileController viewGroupProfileController;
+    LogoutController logoutController;
     CardLayout cardLayout;
     JPanel screens;
     static JLabel TITLE = new JLabel("Welcome to Grouped Up!");
@@ -59,6 +63,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         myGroups.addActionListener(this);
         refreshMatches.addActionListener(this);
         viewUserProfile.addActionListener(this);
+        logOut.addActionListener(this);
 
         this.setSize(500, 500);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -69,11 +74,11 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.add(myApplications);
         this.add(myGroups);
         this.add(viewUserProfile);
-        this.add(refreshMatches);
         this.add(matchesLabel);
 
         buildScrollPane();
         this.add(refreshMatches);
+        this.add(logOut);
     }
     public void setMatches(JList<String> matches) {
         this.matches = matches;
@@ -108,6 +113,11 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         } else if (evt.getSource() == viewUserProfile) {
             viewUserPublicController.viewProfile(username);
             this.cardLayout.show(screens, "viewUserProfileScreen");
+        } else if (evt.getSource() == logOut){
+            matches = new JList<>();
+            matchesScrollPane.setViewportView(matches);
+            logoutController.logout();
+            this.cardLayout.show(screens, "login page");
         }
     }
 
@@ -155,6 +165,10 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
 
     public void setApplyToGroupController(ApplyToGroupController applyToGroupController) {
         this.applyToGroupController = applyToGroupController;
+    }
+
+    public void setLogoutController(LogoutController logoutController){
+        this.logoutController = logoutController;
     }
 
     public void setUsername(String username){
