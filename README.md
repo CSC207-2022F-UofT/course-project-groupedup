@@ -1,7 +1,7 @@
 # GroupedUp
 
 This is the repository for group 47 in tutorial 0201. 
-The purpose of our application is to create an app for UofT students to find groups! There are 8 features: login/logout, create group, edit user or group profile, Apply/Leave/Cancel/Approve group application, and find groups through our Matching Algorithm.
+The purpose of our application is to create an app for UofT students to find group project members! There are 8 features: login/logout, create group, edit user or group profile, Apply/Leave/Cancel/Approve group application, and find groups through our Matching Algorithm.
 
 You can find our **workflow documents** under the Projects tab: where we have our pull request history and backlog.
 
