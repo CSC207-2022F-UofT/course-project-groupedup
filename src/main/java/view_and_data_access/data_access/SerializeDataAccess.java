@@ -4,8 +4,10 @@ import entities.Group;
 import entities.NormalGroup;
 import entities.User;
 import use_cases.apply_to_group_use_case.ApplyToGroupDsGateway;
-import use_cases.cancel_application_use_case.CancelApplicationDsGateway;
+import use_cases.user_registration_use_case.NewUserDSGateway;
+import use_cases.user_registration_use_case.UserRegistrationDSRequestPackage;
 import use_cases.edit_group_profile_use_case.EditGroupProfileDsGateway;
+import use_cases.cancel_application_use_case.CancelApplicationDsGateway;
 import use_cases.edit_pending_list_use_case.EditPendingListDsGateway;
 import use_cases.edit_user_public_profile_use_case.EditUserPublicProfileDSGateway;
 import use_cases.group_creation_use_case.GroupRegisterDSRequestModel;
@@ -13,13 +15,11 @@ import use_cases.group_creation_use_case.NewGroupDSGateway;
 import use_cases.leave_group_use_case.LeaveGroupDsGateway;
 import use_cases.matching_algorithm_use_case.MatchingAlgorithmDsGateWay;
 import use_cases.user_login_use_case.LoginDSGateway;
-import use_cases.user_registration_use_case.NewUserDSGateway;
-import use_cases.user_registration_use_case.UserRegistrationDSRequestPackage;
-import use_cases.view_group_members_use_case.ViewGroupMembersDsGateway;
 import use_cases.view_group_profile_use_case.ViewGroupProfileDsGateway;
 import use_cases.view_my_groups_use_case.ViewMyGroupsDsGateway;
-import use_cases.view_pending_list_use_case.ViewPendingListDsGateway;
 import use_cases.view_user_applications_use_case.ViewApplicationsListDsGateway;
+import use_cases.view_group_members_use_case.ViewGroupMembersDsGateway;
+import use_cases.view_pending_list_use_case.ViewPendingListDsGateway;
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileDSGateway;
 
 import java.io.*;
@@ -350,6 +350,4 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
         Group group = this.groupMap.get(groupName);
         return (NormalGroup) group;
     }
-
-
 }

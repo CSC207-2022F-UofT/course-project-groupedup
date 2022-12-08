@@ -1,5 +1,4 @@
 package use_cases.edit_group_profile_use_case;
-
 import entities.Group;
 import entities.NormalGroup;
 

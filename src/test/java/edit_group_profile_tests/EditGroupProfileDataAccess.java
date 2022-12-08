@@ -1,8 +1,6 @@
-package edit_group_profile_tests;
-
+package use_cases.edit_group_profile_use_case;
 import entities.Group;
 import entities.NormalGroup;
-import use_cases.edit_group_profile_use_case.EditGroupProfileDsGateway;
 
 import java.util.HashMap;
 
@@ -30,8 +28,9 @@ public class EditGroupProfileDataAccess implements EditGroupProfileDsGateway {
     }
 
     @Override
-    public void updateGroup(Group group){
-        this.groupMap.replace(group.getGroupName(), group);
-    }
+    public void updateGroup(Group group) {
+        String groupName = group.getGroupName();
+        groupMap.replace(groupName, group);
 
+    }
 }
