@@ -37,7 +37,6 @@ public class PendingListScreen extends JPanel implements PendingListScreenBounda
         setSize(500, 500);
         this.buildButtons();
         this.buildScrollPane();
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 

@@ -124,12 +124,11 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()){
-            JList<String> list = (JList<String>) e.getSource();
-            String matchTitle = list.getSelectedValue();
+            String matchTitle = matches.getSelectedValue();
             int index = matchTitle.indexOf(':');
             String groupName = matchTitle.substring(index + 2);
-            //Present group view screen based off of group name
 
+            //Present group view screen based off of group name
             String[] options = {"view", "apply"};
             int x = JOptionPane.showOptionDialog(null, groupName,
                     "Click a button",
