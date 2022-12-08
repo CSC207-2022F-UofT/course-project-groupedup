@@ -4,7 +4,7 @@ import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import interface_adapters.pending_list_adapters.ViewGroupMembersController;
+import interface_adapters.view_group_members_adapters.ViewGroupMembersController;
 import pending_list_tests.PendingListDataAccess;
 import use_cases.view_group_members_use_case.*;
 
