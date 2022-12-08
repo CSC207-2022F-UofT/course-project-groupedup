@@ -3,7 +3,7 @@ package use_cases.edit_group_profile_use_case;
 import java.util.HashMap;
 
 /**
- * A data bundle which is passed to the database.
+ * A data bundle which is passed to the database, used primarily for test purposes
  */
 
 public class EditGroupProfileDsRequestModel {

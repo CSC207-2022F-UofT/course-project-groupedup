@@ -25,7 +25,7 @@ public class LoginInteractorTest {
         }
         LoginOutputBoundary presenter = new LoginOutputBoundary() {
             @Override
-            public void prepareSuccessView() {
+            public void prepareSuccessView(String username) {
                 Assertions.fail("Use case failure is unexpected.");
             }
 
@@ -59,7 +59,7 @@ public class LoginInteractorTest {
         }
         LoginOutputBoundary presenter = new LoginOutputBoundary() {
             @Override
-            public void prepareSuccessView() {
+            public void prepareSuccessView(String username) {
                 Assertions.assertEquals(currentUser.getUser().getUsername(), testUsername);
             }
 

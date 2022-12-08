@@ -44,6 +44,28 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     @Override
     public boolean editGroup(EditGroupProfileRequestModel requestModel) {
+        boolean preferenceSuccess = true;
+
+        if (requestModel.getCourseCode().equals("")) {
+            profileOutputBoundary.prepareFailView(InteractorMessages.COURSE_BLANK);
+            return false;
+        }
+
+        if (requestModel.getDescription().equals("")) {
+            profileOutputBoundary.prepareFailView(InteractorMessages.DESCRIPTION_BLANK);
+            return false;
+        }
+
+        for (String preference: requestModel.getPreferences().values()) {
+            if (preference.equals("")) {
+                preferenceSuccess = false;
+            }
+        }
+        if (!preferenceSuccess) {
+            profileOutputBoundary.prepareFailView(InteractorMessages.PREFERENCES_BLANK);
+            return false;
+        }
+
         if (!validateCourseCode(requestModel.getCourseCode())) {
             profileOutputBoundary.prepareFailView(InteractorMessages.INVALID_COURSE_CODE);
             return false;
@@ -59,13 +81,13 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
             group.getProfile().setCourseCode(requestModel.getCourseCode());
             group.getProfile().setDescription(requestModel.getDescription());
 
-
             EditGroupProfileResponseModel profileResponseModel = new EditGroupProfileResponseModel(
                     requestModel.getGroupName(),
                     requestModel.getPreferences(),
                     requestModel.getCourseCode(),
                     requestModel.getDescription(),
                     InteractorMessages.EDITS_SUCCESSFUL);
+            profileDSGateway.updateGroup(group);
 
             profileOutputBoundary.prepareSuccessView(profileResponseModel);
             return true;

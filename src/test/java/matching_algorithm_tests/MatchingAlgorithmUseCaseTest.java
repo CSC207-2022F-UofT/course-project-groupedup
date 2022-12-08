@@ -5,8 +5,6 @@ import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmControlle
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import use_cases.matching_algorithm_use_case.*;
-import view_and_data_access.screens.matching_algorithm_screens.InMemoryMatchesFail;
-import view_and_data_access.screens.matching_algorithm_screens.InMemoryMatchesSuccess;
 
 import java.util.ArrayList;
 import java.util.List;

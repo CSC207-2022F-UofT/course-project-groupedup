@@ -1,4 +1,4 @@
-package view_and_data_access.screens.matching_algorithm_screens;
+package matching_algorithm_tests;
 
 import entities.*;
 import use_cases.matching_algorithm_use_case.MatchingAlgorithmDsGateWay;

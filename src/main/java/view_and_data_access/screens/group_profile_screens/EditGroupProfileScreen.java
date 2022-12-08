@@ -1,4 +1,5 @@
 package view_and_data_access.screens.group_profile_screens;
+
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileController;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 
@@ -32,11 +33,9 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
      * The User can then click on the 'Exit' button if they want to go back to the group profile main page
      * Otherwise, they can enter/change their preferences and click on the 'Save Changes' button to save their changes.
      */
-    // hahahahahahahaha
 
     public EditGroupProfileScreen(CardLayout cardLayout, JPanel screens) {
-        this.setSize(400, 500);
-        //this.editGroupController = editGroupController;
+        this.setSize(400, 200);
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.build();
@@ -55,41 +54,30 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
 
             for(JRadioButton button: locationList) {
                 if (button.isSelected()) {
-                    String buttonSelected = button.getText();
-                    if (buttonSelected.equals("Online") | buttonSelected.equals("In-Person")) {
-                        this.location = buttonSelected;
-                    }
+                    this.location = button.getText();
+
                 }
             }
             for (JRadioButton button : meetingTimeList) {
                 if (button.isSelected()) {
-                    String buttonSelected = button.getText();
-                    if (buttonSelected.equals("Monday") | buttonSelected.equals("Tuesday")
-                            | buttonSelected.equals("Wednesday") | buttonSelected.equals("Thursday")
-                            | buttonSelected.equals("Friday") | buttonSelected.equals("Saturday")
-                            | buttonSelected.equals("Sunday")) {
-                        this.meeting_time = buttonSelected;
-                    }
+                    this.meeting_time = button.getText();
                 }
             }
             for (JRadioButton button : timeCommitList) {
                 if (button.isSelected()) {
-                    String buttonSelected = button.getText();
-                    if (buttonSelected.equals("0-2 hours") | buttonSelected.equals("2-4 hours")
-                            | buttonSelected.equals("5+ hours")) {
-                        this.time_commit = buttonSelected;
+                    this.time_commit = button.getText();
                     }
                 }
-            }
             try{
                 this.editGroupController.editedChanges(this.groupName, description.getText(),
                         this.time_commit, this.location, this.meeting_time, courseCode.getText());
-            } catch (Exception e) {
+            } catch (Exception error) {
                 JOptionPane.showMessageDialog(this, "Failure to Save Changes!");
             }
         } else if (evt.getSource() == this.exit) {
             System.out.println("Click " + evt.getActionCommand());
             cardLayout.show(screens,"newGroupPageScreen");
+
         }
 
     }
@@ -98,8 +86,9 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         JLabel title = new JLabel("Edit Group Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel descriptionText = new JLabel("Group Description: ");
-        JLabel courseCodeText = new JLabel("Course Code: ");
+        JLabel descriptionText = new JLabel("Group Description: ", SwingConstants.CENTER);
+        descriptionText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel courseCodeText = new JLabel("Course Code: ", SwingConstants.CENTER);
 
         exit.addActionListener(this);
         saveEdits.addActionListener(this);
@@ -108,35 +97,34 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         ButtonGroup b2 = new ButtonGroup();
         ButtonGroup b3 = new ButtonGroup();
 
-        JPanel main = new JPanel();
-        main.setLayout(new BorderLayout());
+        this.setLayout(new BoxLayout(this, 1));
         JPanel buttons = new JPanel();
-        JPanel menubar = new JPanel();
+        JPanel descriptionPanel = new JPanel();
+        JPanel coursePanel = new JPanel();
 
         descriptionText.setText("Group Description: " + description.getText());
         courseCodeText.setText("Course Code: " + courseCode.getText());
 
         buttons.add(title);
 
-        menubar.add(descriptionText);
-        menubar.add(description);
+        descriptionPanel.add(descriptionText);
+        descriptionPanel.add(description);
 
-        menubar.add(courseCodeText);
-        menubar.add(courseCode);
+        coursePanel.add(courseCodeText);
+        coursePanel.add(courseCode);
 
         buttons.add(saveEdits);
         buttons.add(exit);
 
-        main.add(buttons, BorderLayout.CENTER);
-
-        this.add(main);
+        this.add(buttons, BorderLayout.NORTH);
 
         JPanel preferences = new JPanel();
-        preferences.setLayout(new GridLayout(3, 2));
+        preferences.setLayout(new GridLayout(4, 2));
 
         /*Adding options*/
-        JLabel locationLabel = new JLabel("Location: ");
+        JLabel locationLabel = new JLabel("Location: ", SwingConstants.CENTER);
         JPanel locationOptions = new JPanel();
+        locationOptions.setLayout(new GridLayout(1, 2));
         JRadioButton locationOption1 = new JRadioButton("Online");
         JRadioButton locationOption2 = new JRadioButton("In-Person");
         b1.add(locationOption1);
@@ -146,8 +134,9 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         locationList.add(locationOption1);
         locationList.add(locationOption2);
 
-        JLabel meetingTimeLabel = new JLabel("Meeting Time: ");
+        JLabel meetingTimeLabel = new JLabel("Meeting Time: ", SwingConstants.CENTER);
         JPanel meetingTimeOptions = new JPanel();
+        meetingTimeOptions.setLayout(new GridLayout(4, 2));
         JRadioButton meetingTimeOption1 = new JRadioButton("Monday");
         JRadioButton meetingTimeOption2 = new JRadioButton("Tuesday");
         JRadioButton meetingTimeOption3 = new JRadioButton("Wednesday");
@@ -177,8 +166,9 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         meetingTimeList.add(meetingTimeOption6);
         meetingTimeList.add(meetingTimeOption7);
 
-        JLabel timeCommitmentLabel = new JLabel("Time Commitment: ");
+        JLabel timeCommitmentLabel = new JLabel("Time Commitment: ", SwingConstants.CENTER);
         JPanel timeCommitmentOptions = new JPanel();
+        timeCommitmentOptions.setLayout(new GridLayout(1, 2));
         JRadioButton timeCommitmentOption1 = new JRadioButton("0-2 hours");
         JRadioButton timeCommitmentOption2 = new JRadioButton("2-4 hours");
         JRadioButton timeCommitmentOption3 = new JRadioButton("5+ hours");
@@ -201,8 +191,10 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         preferences.add(timeCommitmentLabel);
         preferences.add(timeCommitmentOptions);
 
+        this.add(descriptionPanel, BorderLayout.SOUTH);
+        this.add(coursePanel, BorderLayout.SOUTH);
         this.add(preferences, BorderLayout.CENTER);
-        this.add(menubar, BorderLayout.CENTER);
+
     }
 
     @Override
@@ -212,7 +204,30 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
     }
 
     @Override
+    public void setEditGroupController(EditGroupProfileController editGroupController) {
+        this.editGroupController = editGroupController;
+    }
+
+    @Override
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    @Override
+    public void resetFields() {
+        this.groupName = "";
+        this.courseCode.setText("");
+        this.description.setText("");
+
+        for(JRadioButton button: locationList) {
+            button.setSelected(false);
+        }
+        for (JRadioButton button : meetingTimeList) {
+            button.setSelected(false);
+        }
+        for (JRadioButton button : timeCommitList) {
+            button.setSelected(false);
+        }
+    }
+
 }
