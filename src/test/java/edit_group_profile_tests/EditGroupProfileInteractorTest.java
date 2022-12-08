@@ -190,6 +190,7 @@ class EditGroupProfileInteractorTest {
         EditGroupProfileInputBoundary interactor = new EditGroupProfileInteractor(repository, presenter);
 
         interactor.editGroup(requestModel);
+
     }
 
 }
