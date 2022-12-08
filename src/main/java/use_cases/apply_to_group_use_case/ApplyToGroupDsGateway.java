@@ -39,3 +39,4 @@ public interface ApplyToGroupDsGateway {
     boolean groupInApplications(String groupName, String username);
 
 }
+

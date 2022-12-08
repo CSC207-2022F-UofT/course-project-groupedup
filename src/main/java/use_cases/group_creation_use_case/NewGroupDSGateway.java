@@ -1,6 +1,7 @@
 package use_cases.group_creation_use_case;
 
 import entities.Group;
+import entities.User;
 
 import java.util.HashMap;
 
@@ -23,6 +24,7 @@ public interface NewGroupDSGateway{
      */
     HashMap<String, Group> loadGroups();
 
+    void updateUser(User user);
     /**
      *
      * @param groupName

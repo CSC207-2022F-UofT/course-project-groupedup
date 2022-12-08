@@ -10,6 +10,9 @@ public interface EditGroupProfileScreenBoundary extends ActionListener {
 
     void setGroupName(String groupName);
 
+    void resetFields();
     void setView(EditGroupProfileController editGroupProfileController);
     void setEditGroupController(EditGroupProfileController editGroupProfileController);
+
+
 }

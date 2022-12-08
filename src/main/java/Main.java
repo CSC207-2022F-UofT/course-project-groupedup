@@ -1,3 +1,4 @@
+import entities.*;
 import interface_adapters.apply_to_group_adapters.ApplyToGroupController;
 import interface_adapters.apply_to_group_adapters.ApplyToGroupPresenter;
 import interface_adapters.cancel_application_adapters.CancelApplicationController;
@@ -5,6 +6,7 @@ import interface_adapters.cancel_application_adapters.CancelApplicationPresenter
 import interface_adapters.cancel_application_adapters.ViewApplicationsListController;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListPresenter;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileController;
+import interface_adapters.edit_group_profile_adapters.EditGroupProfilePresenter;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 import interface_adapters.edit_user_public_profile_adapters.EditUserPublicProfileController;
 import interface_adapters.edit_user_public_profile_adapters.EditUserPublicProfilePresenter;
@@ -19,13 +21,25 @@ import interface_adapters.leave_and_view_my_groups_adapters.ViewMyGroupsPresente
 import interface_adapters.login_adapters.LoginController;
 import interface_adapters.login_adapters.LoginPresenter;
 import interface_adapters.login_adapters.LoginScreenInterface;
+import interface_adapters.logout_adapters.LogoutController;
+import interface_adapters.logout_adapters.LogoutPresenter;
 import interface_adapters.matching_algorithm_adapters.MatchesPresenter;
 import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
 import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmScreenBoundary;
-import interface_adapters.pending_list_adapters.*;
+import interface_adapters.pending_list_adapters.EditPendingListController;
+import interface_adapters.pending_list_adapters.EditPendingListPresenter;
+import interface_adapters.pending_list_adapters.ViewPendingListController;
+import interface_adapters.pending_list_adapters.ViewPendingListPresenter;
 import interface_adapters.user_registration_adapters.UserRegistrationController;
 import interface_adapters.user_registration_adapters.UserRegistrationPresenter;
 import interface_adapters.user_registration_adapters.UserRegistrationScreenInterface;
+import interface_adapters.view_group_members_adapters.ViewGroupMembersController;
+import interface_adapters.view_group_members_adapters.ViewGroupMembersPresenter;
+import interface_adapters.view_group_profile_adapters.ViewGroupProfileController;
+import interface_adapters.view_group_profile_adapters.ViewGroupProfilePresenter;
+import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
+import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfilePresenter;
+import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileScreenBoundary;
 import use_cases.apply_to_group_use_case.ApplyToGroupInputBoundary;
 import use_cases.apply_to_group_use_case.ApplyToGroupInteractor;
 import use_cases.apply_to_group_use_case.ApplyToGroupOutputBoundary;
@@ -50,50 +64,46 @@ import use_cases.matching_algorithm_use_case.MatchingAlgorithmOutputBoundary;
 import use_cases.user_login_use_case.LoginInputBoundary;
 import use_cases.user_login_use_case.LoginInteractor;
 import use_cases.user_login_use_case.LoginOutputBoundary;
+import use_cases.user_logout_use_case.LogoutInputBoundary;
+import use_cases.user_logout_use_case.LogoutInteractor;
+import use_cases.user_logout_use_case.LogoutOutputBoundary;
 import use_cases.user_registration_use_case.*;
 import use_cases.view_group_members_use_case.ViewGroupMembersInputBoundary;
 import use_cases.view_group_members_use_case.ViewGroupMembersInteractor;
 import use_cases.view_group_members_use_case.ViewGroupMembersOutputBoundary;
-import use_cases.view_pending_list_use_case.ViewPendingListInputBoundary;
-import use_cases.view_pending_list_use_case.ViewPendingListInteractor;
-import use_cases.view_pending_list_use_case.ViewPendingListOutputBoundary;
-import interface_adapters.edit_group_profile_adapters.EditGroupProfilePresenter;
-import view_and_data_access.screens.apply_to_group_screens.ApplyToGroupScreen;
-import view_and_data_access.screens.user_public_profile_screens.EditUserPublicProfileScreen;
-import view_and_data_access.screens.HomePage;
-import view_and_data_access.screens.group_list_screens.MyGroupsScreen;
-import view_and_data_access.screens.group_profile_screens.EditGroupProfileScreen;
-import view_and_data_access.screens.group_creation_screens.GroupRegisterScreen;
-import view_and_data_access.screens.group_creation_screens.NewGroupPageScreen;
-import view_and_data_access.screens.login_and_registration_screens.LoginScreen;
-import view_and_data_access.screens.login_and_registration_screens.UserRegistrationScreen;
-import view_and_data_access.screens.matching_algorithm_screens.MatchingAlgorithmScreen;
-import view_and_data_access.screens.group_list_screens.ApplicationsListScreen;
-import view_and_data_access.screens.group_list_screens.GroupMembersScreen;
-import view_and_data_access.screens.group_list_screens.PendingListScreen;
-import entities.*;
-import view_and_data_access.data_access.SerializeDataAccess;
-import view_and_data_access.screens.group_profile_screens.GroupProfileScreen;
-import interface_adapters.view_group_profile_adapters.ViewGroupProfileController;
-import interface_adapters.view_group_profile_adapters.ViewGroupProfilePresenter;
 import use_cases.view_group_profile_use_case.ViewGroupProfileInputBoundary;
 import use_cases.view_group_profile_use_case.ViewGroupProfileInteractor;
 import use_cases.view_group_profile_use_case.ViewGroupProfileOutputBoundary;
 import use_cases.view_my_groups_use_case.ViewMyGroupsInputBoundary;
 import use_cases.view_my_groups_use_case.ViewMyGroupsInteractor;
 import use_cases.view_my_groups_use_case.ViewMyGroupsOutputBoundary;
+import use_cases.view_pending_list_use_case.ViewPendingListInputBoundary;
+import use_cases.view_pending_list_use_case.ViewPendingListInteractor;
+import use_cases.view_pending_list_use_case.ViewPendingListOutputBoundary;
 import use_cases.view_user_applications_use_case.ViewApplicationsListInputBoundary;
 import use_cases.view_user_applications_use_case.ViewApplicationsListInteractor;
 import use_cases.view_user_applications_use_case.ViewApplicationsListOutputBoundary;
-import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
-import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfilePresenter;
-import view_and_data_access.screens.user_public_profile_screens.ViewUserPublicProfileScreen;
-import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileScreenBoundary;
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileInteractor;
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileOutputBoundary;
+import view_and_data_access.data_access.SerializeDataAccess;
+import view_and_data_access.screens.HomePage;
+import view_and_data_access.screens.group_creation_screens.GroupRegisterScreen;
+import view_and_data_access.screens.group_creation_screens.NewGroupPageScreen;
+import view_and_data_access.screens.group_list_screens.ApplicationsListScreen;
+import view_and_data_access.screens.group_list_screens.GroupMembersScreen;
+import view_and_data_access.screens.group_list_screens.MyGroupsScreen;
+import view_and_data_access.screens.group_list_screens.PendingListScreen;
+import view_and_data_access.screens.group_profile_screens.EditGroupProfileScreen;
+import view_and_data_access.screens.group_profile_screens.GroupProfileScreen;
+import view_and_data_access.screens.login_and_registration_screens.LoginScreen;
+import view_and_data_access.screens.login_and_registration_screens.UserRegistrationScreen;
+import view_and_data_access.screens.matching_algorithm_screens.MatchingAlgorithmScreen;
+import view_and_data_access.screens.user_public_profile_screens.EditUserPublicProfileScreen;
+import view_and_data_access.screens.user_public_profile_screens.ViewUserPublicProfileScreen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -108,50 +118,27 @@ public class Main {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLocationRelativeTo(null);
 
+        CurrentUser currentUser = CurrentUser.getInstance();
+
+        User userLeader = new NormalUser("userLeader", "userLeader", "userLeader", "userLeader",
+                new UserPublicProfile());
+
+        CurrentUser.getInstance().setUser(userLeader);
+
         /**
          *  Initial call for data access
          */
-        SerializeDataAccess dataAccess = new SerializeDataAccess("Initialize");
+        //SerializeDataAccess dataAccess = initialize(userLeader);
 
         /**
          *  Data access call for subsequent runs
          */
-        // SerializeDataAccess dataAccess = new SerializeDataAccess();
+        SerializeDataAccess dataAccess = new SerializeDataAccess();
+        LogoutOutputBoundary logoutPresenter = new LogoutPresenter();
+        LogoutInputBoundary logoutInputBoundary = new LogoutInteractor(logoutPresenter);
+        LogoutController logoutController = new LogoutController(logoutInputBoundary);
 
-        User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
-        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
 
-        // TESTING SERIALIZED DATA ACCESS FOR LEAVE GROUP AND CANCEL APPLICATION
-        CurrentUser currentUser = CurrentUser.getInstance();
-        currentUser.setUser(user1);
-
-        User bob = new NormalUser("bob", "bob", "bob", "bob", new UserPublicProfile());
-        currentUser.setUser(bob);
-        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(bob, bob.getUsername()));
-
-        Group group = new NormalGroup("Bob's group");
-        group.getProfile().setDescription("bobby's club.");
-        group.addRequest(user1.getUsername());
-        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group, group.getGroupName()));
-
-        Group group2 = new NormalGroup("Paul's Fan Club");
-        group2.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
-                " brown hair and blue eyes. I made this group because I think it would be nice to get together" +
-                " with abstract people and talk about things in the abstract sense. BTW i love art, especially" +
-                " drawing arrows :)");
-        group2.addRequest(user1.getUsername());
-        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group2, group2.getGroupName()));
-
-        user1.getApplicationsList().put("Bob's group", "Bob's group");
-        user1.getApplicationsList().put("Paul's Fan Club", "Paul's Fan Club");
-        dataAccess.updateUser(user1);
-
-        LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
-        LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);
-        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
-        LoginController loginController = new LoginController(loginInteractor);
-        loginScreen.setView(loginController);
-        cardLayout.show(screens, "login page");
 
         UserRegistrationScreenInterface registrationScreen = new UserRegistrationScreen(screens, cardLayout);
         UserRegistrationOutputBoundary registrationPresenter = new UserRegistrationPresenter(registrationScreen);
@@ -169,11 +156,17 @@ public class Main {
         editGroupScreen.setView(editGroupController);
         screens.add((Component) editGroupScreen, "editGroupScreen");
 
-        GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
-        ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
-        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
-        HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
+        GroupProfileScreen groupProfileScreen = new GroupProfileScreen(cardLayout, screens);
+        screens.add(groupProfileScreen, "groupProfileScreen");
+        ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(CurrentUser.getInstance().getUser().getUsername(), cardLayout,
+                screens);
+        screens.add(applicationsListScreen, "applicationListScreen");
+
+        MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, CurrentUser.getInstance().getUser().getUsername());
+        screens.add(myGroupsScreen, "myGroupsScreen");
+        HomePage homepageTest = new HomePage(cardLayout, screens, CurrentUser.getInstance().getUser().getUsername());
         screens.add(homepageTest, "homepage");
+        homepageTest.setLogoutController(logoutController);
 
         MatchingAlgorithmScreenBoundary matchingAlgorithmScreenBoundary = new MatchingAlgorithmScreen(homepageTest);
         MatchingAlgorithmOutputBoundary matchingAlgorithmOutputBoundary =
@@ -183,14 +176,17 @@ public class Main {
         MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
         homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
 
-
+        ApplyToGroupOutputBoundary applyToGroupPresenter = new ApplyToGroupPresenter();
+        ApplyToGroupInputBoundary applyToGroupInteractor = new ApplyToGroupInteractor(dataAccess, applyToGroupPresenter);
+        ApplyToGroupController applyToGroupController = new ApplyToGroupController(applyToGroupInteractor);
+        homepageTest.setApplyToGroupController(applyToGroupController);
 
         ViewUserPublicProfileScreenBoundary viewUserPublicProfileScreen = new ViewUserPublicProfileScreen(screens, cardLayout);
         ViewUserPublicProfileOutputBoundary viewUserPublicProfilePresenter = new ViewUserPublicProfilePresenter(viewUserPublicProfileScreen);
         ViewUserPublicProfileInteractor viewUserPublicProfileInteractor = new ViewUserPublicProfileInteractor(dataAccess, viewUserPublicProfilePresenter);
         ViewUserPublicProfileController viewUserPublicProfileController = new ViewUserPublicProfileController(viewUserPublicProfileInteractor);
         viewUserPublicProfileScreen.setController(viewUserPublicProfileController);
-        viewUserPublicProfileScreen.setUsername(user1.getUsername());
+        viewUserPublicProfileScreen.setUsername(CurrentUser.getInstance().getUser().getUsername());
         homepageTest.setViewUserProfileController(viewUserPublicProfileController);
         screens.add((Component) viewUserPublicProfileScreen, "viewUserProfileScreen");
 
@@ -199,13 +195,8 @@ public class Main {
         EditUserPublicProfileInteractor editUserPublicProfileInteractor = new EditUserPublicProfileInteractor(dataAccess, editUserPublicProfilePresenter);
         EditUserPublicProfileController editUserPublicProfileController = new EditUserPublicProfileController(editUserPublicProfileInteractor);
         editUserPublicProfileScreen.setController(editUserPublicProfileController);
-        editUserPublicProfileScreen.setUsername(user1.getUsername());
+        editUserPublicProfileScreen.setUsername(CurrentUser.getInstance().getUser().getUsername());
         screens.add((Component) editUserPublicProfileScreen, "editUserProfileScreen");
-
-        ApplyToGroupOutputBoundary applyToGroupPresenter = new ApplyToGroupPresenter();
-        ApplyToGroupInputBoundary applyToGroupInteractor = new ApplyToGroupInteractor(dataAccess, applyToGroupPresenter);
-        ApplyToGroupController applyToGroupController = new ApplyToGroupController(applyToGroupInteractor);
-        homepageTest.setApplyToGroupController(applyToGroupController);
 
         ViewGroupProfileOutputBoundary viewGroupProfilePresenter = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary viewGroupProfileInteractor = new ViewGroupProfileInteractor(dataAccess,
@@ -239,7 +230,8 @@ public class Main {
 
         GroupFactory groupFactory = new GroupFactory();
 
-        PendingListScreen pendingListScreen = new PendingListScreen();
+        PendingListScreen pendingListScreen = new PendingListScreen(cardLayout, screens);
+        screens.add(pendingListScreen,"pendingListScreen");
         ViewPendingListOutputBoundary viewPendingListPresenter = new ViewPendingListPresenter(pendingListScreen);
         ViewPendingListInputBoundary viewPendingListInteractor = new ViewPendingListInteractor(
                 dataAccess, viewPendingListPresenter);
@@ -248,7 +240,8 @@ public class Main {
         pendingListScreen.setViewPendingListController(viewPendingListController);
 
 
-        GroupMembersScreen groupMembersScreen = new GroupMembersScreen();
+        GroupMembersScreen groupMembersScreen = new GroupMembersScreen(cardLayout, screens);
+        screens.add(groupMembersScreen, "groupMembersScreen");
         ViewGroupMembersOutputBoundary viewGroupMembersPresenter = new ViewGroupMembersPresenter(groupMembersScreen);
         ViewGroupMembersInputBoundary viewGroupMembersInteractor = new ViewGroupMembersInteractor(
                 dataAccess, viewGroupMembersPresenter);
@@ -275,9 +268,82 @@ public class Main {
         groupRegisterScreen.setView(groupRegisterController);
 
         newGroupPageScreen.setView(groupRegisterController);
+        myGroupsScreen.setNewGroupPageScreen(newGroupPageScreen);
+
+        LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout, homepageTest);
+        LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);
+        LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
+        LoginController loginController = new LoginController(loginInteractor);
+        loginScreen.setView(loginController);
+        cardLayout.show(screens, "login page");
 
         //application.pack();
         application.setVisible(true);
 
+
+
+    }
+
+    public static SerializeDataAccess initialize(User userLeader){
+        SerializeDataAccess dataAccess = new SerializeDataAccess("Initialize");
+        CurrentUser currentUser = CurrentUser.getInstance();
+
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(userLeader, userLeader.getUsername()));
+        currentUser.setUser(userLeader);
+
+        Group group1 = new NormalGroup("Jonathan's Fan Club!!");
+        group1.getProfile().setDescription("Jonathan is goat");
+        group1.addMember(userLeader.getUsername());
+        group1.setGroupLeader(userLeader.getUsername());
+        HashMap<String, String> preferences1 = new HashMap<>();
+        preferences1.put("Location", "Online");
+        preferences1.put("Meeting Time", "Tuesday");
+        preferences1.put("Time Commitment","0-2 hours");
+        group1.getProfile().setPreferences(preferences1);
+        group1.getProfile().setCourseCode("csc207");
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group1, group1.getGroupName()));
+
+        Group group2 = new NormalGroup("Rui's Disciples");
+        group2.getProfile().setDescription("Rui is a legend");
+        group2.addMember(userLeader.getUsername());
+        group2.setGroupLeader(userLeader.getUsername());
+        HashMap<String, String> preferences2 = new HashMap<>();
+        preferences2.put("Location", "In-Person");
+        preferences2.put("Meeting Time", "Friday");
+        preferences2.put("Time Commitment","2-4 hours");
+        group2.getProfile().setPreferences(preferences2);
+        group2.getProfile().setCourseCode("csc236");
+
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group2, group2.getGroupName()));
+
+
+        User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
+
+        // TESTING SERIALIZED DATA ACCESS FOR LEAVE GROUP AND CANCEL APPLICATION
+        currentUser = CurrentUser.getInstance();
+        currentUser.setUser(user1);
+
+        User bob = new NormalUser("bob", "bob", "bob", "bob", new UserPublicProfile());
+        currentUser.setUser(bob);
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(bob, bob.getUsername()));
+
+        Group group = new NormalGroup("Bob's group");
+        group.getProfile().setDescription("bobby's club.");
+        group.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group, group.getGroupName()));
+
+
+        Group group3 = new NormalGroup("Clean Architecture's Fan Club");
+        group3.getProfile().setDescription("Fans of clean architecture and SOLID principles only!" +
+                " (no filthy architectures allowed)");
+        group3.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group3, group3.getGroupName()));
+
+        user1.getApplicationsList().put("Bob's group", "Bob's group");
+        user1.getApplicationsList().put("Paul's Fan Club", "Paul's Fan Club");
+        dataAccess.updateUser(user1);
+
+        return dataAccess;
     }
 }

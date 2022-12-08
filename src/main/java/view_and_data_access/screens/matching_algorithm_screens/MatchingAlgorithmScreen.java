@@ -23,6 +23,7 @@ public class MatchingAlgorithmScreen implements MatchingAlgorithmScreenBoundary 
         List<String> groups = matchingAlgorithmResponseModel.getGroups();
 
         DefaultListModel<String> matchDefaultList = new DefaultListModel<>();
+
         for(String g : groups){
             matchDefaultList.addElement(g);
         }

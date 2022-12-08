@@ -17,7 +17,6 @@ public interface ApplicationsListScreenBoundary extends ListSelectionListener {
 
     void setViewGroupController(ViewGroupProfileController viewGroupProfileController);
 
-    void view();
 
     void buildButtons();
 

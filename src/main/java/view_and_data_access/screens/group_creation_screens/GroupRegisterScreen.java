@@ -34,7 +34,6 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
 
 
     public GroupRegisterScreen(NewGroupPageScreen newGroupPageScreen, CardLayout cardLayout, JPanel screens) {
-
         this.newGroupPageScreen = newGroupPageScreen;
         this.cardLayout = cardLayout;
         this.screens = screens;
@@ -72,14 +71,12 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
         registerGroup.addActionListener(this);
 
         cancel.addActionListener(this);
-
         this.add(title);
         this.add(groupName);
         this.add(registerGroup);
         this.add(cancel);
         this.setSize(SCREEN_SIZE, SCREEN_SIZE);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
     }
 
     /**
@@ -113,6 +110,5 @@ public class GroupRegisterScreen extends JPanel implements GroupCreationScreenBo
     public void prepareFailView(String error) {
         JOptionPane.showMessageDialog(this, error);
     }
-
 
 }

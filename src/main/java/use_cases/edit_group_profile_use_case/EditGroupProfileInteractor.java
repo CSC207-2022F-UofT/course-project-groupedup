@@ -87,6 +87,7 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
                     requestModel.getCourseCode(),
                     requestModel.getDescription(),
                     InteractorMessages.EDITS_SUCCESSFUL);
+            profileDSGateway.updateGroup(group);
 
             profileOutputBoundary.prepareSuccessView(profileResponseModel);
             return true;

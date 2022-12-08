@@ -1,4 +1,4 @@
-package interface_adapters.pending_list_adapters;
+package interface_adapters.view_group_members_adapters;
 
 import use_cases.view_group_members_use_case.ViewGroupMembersInputBoundary;
 import use_cases.view_group_members_use_case.ViewGroupMembersRequestModel;

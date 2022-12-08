@@ -17,7 +17,7 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
      * @param applyToGroupOutputBoundary the output boundary implemented by ApplyToGroupPresenter
      */
     public ApplyToGroupInteractor(ApplyToGroupDsGateway applyToGroupDsGateway,
-                                ApplyToGroupOutputBoundary applyToGroupOutputBoundary) {
+                                  ApplyToGroupOutputBoundary applyToGroupOutputBoundary) {
 
         this.applyToGroupDsGateway = applyToGroupDsGateway;
         this.applyToGroupOutputBoundary = applyToGroupOutputBoundary;

@@ -1,8 +1,9 @@
 package non_use_case_tests;
 
 import entities.Group;
-import use_cases.group_creation_use_case.NewGroupDSGateway;
+import entities.User;
 import use_cases.group_creation_use_case.GroupRegisterDSRequestModel;
+import use_cases.group_creation_use_case.NewGroupDSGateway;
 
 import java.io.*;
 import java.util.HashMap;
@@ -99,6 +100,11 @@ public class GroupSerializeTest implements NewGroupDSGateway {
         } catch (RuntimeException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void updateUser(User user){
+
     }
 
 }

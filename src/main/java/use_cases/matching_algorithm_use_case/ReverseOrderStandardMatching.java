@@ -26,6 +26,7 @@ public class ReverseOrderStandardMatching implements MatchingAlgorithmStrategy {
             UserGroupScoreCalculator scoreCalculator = new UserGroupScoreCalculator(this.user, g);
             userGroupScoreCalculatorList.add(scoreCalculator);
         }
+        userGroupScoreCalculatorList.sort(null);
         userGroupScoreCalculatorList.sort(Collections.reverseOrder());
 
         List<String> matches = new ArrayList<>(0);
@@ -41,11 +42,20 @@ public class ReverseOrderStandardMatching implements MatchingAlgorithmStrategy {
      */
     public void cutByCourseCodeAndMemberList() {
         groups.removeIf(g -> (g.getProfile().getCourseCode().isEmpty()));
+
         if (!user.getUserPublicProfile().getCoursePreferences().isEmpty()){
             groups.removeIf(g ->
                     !(this.user.getUserPublicProfile().getCoursePreferences().contains(g.getProfile().getCourseCode())));
         }
-        groups.removeIf(g -> !(g.getGroupMembersUsernames().containsKey(this.user.getUsername())));
+//        for(Group g: groups ){
+//            if(g.getGroupMembersUsernames().containsKey(this.user.getUsername())){
+//                groups.remove(g);
+//            } else if (g.getMemberRequestsUsernames().containsKey(this.user.getUsername())){
+//                groups.remove(g);
+//            }
+//        }
+
+        groups.removeIf(g -> (g.getGroupMembersUsernames().containsKey(this.user.getUsername())));
         groups.removeIf(g -> (g.getMemberRequestsUsernames().containsKey(this.user.getUsername())));
     }
     }

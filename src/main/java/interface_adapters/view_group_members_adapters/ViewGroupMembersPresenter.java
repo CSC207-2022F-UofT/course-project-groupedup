@@ -1,5 +1,6 @@
-package interface_adapters.pending_list_adapters;
+package interface_adapters.view_group_members_adapters;
 
+import interface_adapters.view_group_members_adapters.GroupMembersScreenBoundary;
 import use_cases.view_group_members_use_case.ViewGroupMembersOutputBoundary;
 import use_cases.view_group_members_use_case.ViewGroupMembersResponseModel;
 
@@ -35,6 +36,6 @@ public class ViewGroupMembersPresenter implements ViewGroupMembersOutputBoundary
         screen.setGroupName(groupMembers.getGroupName());
         screen.setMembersList(membersList);
         screen.setMembersListModel(membersListModel);
-        screen.view();
+
     }
 }

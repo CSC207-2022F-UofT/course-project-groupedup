@@ -3,6 +3,7 @@ package view_and_data_access.screens;
 import interface_adapters.apply_to_group_adapters.ApplyToGroupController;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListController;
 import interface_adapters.leave_and_view_my_groups_adapters.ViewMyGroupsController;
+import interface_adapters.logout_adapters.LogoutController;
 import interface_adapters.matching_algorithm_adapters.HomeMatchesBoundary;
 import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
@@ -28,18 +29,19 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     JButton myGroups = new JButton("My Groups");
     JButton viewUserProfile = new JButton("View User Profile");
     String username;
-
     MatchingAlgorithmController matchingAlgorithmController;
     ViewUserPublicProfileController viewUserPublicController;
-
     ApplyToGroupController applyToGroupController;
     JList<String> matches = new JList<>();
     JScrollPane matchesScrollPane = new JScrollPane();
     JButton refreshMatches = new JButton("Refresh Matches");
+
+    JButton logOut = new JButton("Logout");
     JLabel matchesLabel = new JLabel("My Matches: ");
     ViewApplicationsListController viewApplicationsListController;
     ViewMyGroupsController viewMyGroupsController;
     ViewGroupProfileController viewGroupProfileController;
+    LogoutController logoutController;
     CardLayout cardLayout;
     JPanel screens;
     static JLabel TITLE = new JLabel("Welcome to Grouped Up!");
@@ -61,6 +63,7 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         myGroups.addActionListener(this);
         refreshMatches.addActionListener(this);
         viewUserProfile.addActionListener(this);
+        logOut.addActionListener(this);
 
         this.setSize(500, 500);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -71,11 +74,11 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.add(myApplications);
         this.add(myGroups);
         this.add(viewUserProfile);
-        this.add(refreshMatches);
         this.add(matchesLabel);
 
         buildScrollPane();
         this.add(refreshMatches);
+        this.add(logOut);
     }
     public void setMatches(JList<String> matches) {
         this.matches = matches;
@@ -101,32 +104,38 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
             this.cardLayout.show(screens, "groupRegisterScreen");
         } else if (evt.getSource() == myApplications) {
             viewApplicationsListController.viewApplicationsList(username);
+            this.cardLayout.show(screens, "applicationListScreen");
         } else if (evt.getSource() == myGroups) {
             viewMyGroupsController.viewMyGroups(username);
+            this.cardLayout.show(screens, "myGroupsScreen");
         } else if (evt.getSource() == refreshMatches) {
             matchingAlgorithmController.matchingAlgorithm(username);
         } else if (evt.getSource() == viewUserProfile) {
             viewUserPublicController.viewProfile(username);
             this.cardLayout.show(screens, "viewUserProfileScreen");
+        } else if (evt.getSource() == logOut){
+            matches = new JList<>();
+            matchesScrollPane.setViewportView(matches);
+            logoutController.logout();
+            this.cardLayout.show(screens, "login page");
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()){
-            JList<String> list = (JList<String>) e.getSource();
-            String matchTitle = list.getSelectedValue();
+            String matchTitle = matches.getSelectedValue();
             int index = matchTitle.indexOf(':');
             String groupName = matchTitle.substring(index + 2);
-            //Present group view screen based off of group name
 
+            //Present group view screen based off of group name
             String[] options = {"view", "apply"};
             int x = JOptionPane.showOptionDialog(null, groupName,
                     "Click a button",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             if (x == 0){
                 viewGroupProfileController.viewGroup(groupName);
-                //Ipek's stuff
+                cardLayout.show(screens, "groupProfileScreen");
             } else if (x == 1){
                 applyToGroupController.applyToGroup(username, groupName);
             }
@@ -149,12 +158,20 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.matchingAlgorithmController = matchingAlgorithmController;
     }
 
-    public void setApplyToGroupController(ApplyToGroupController applyToGroupController){
-        this.applyToGroupController = applyToGroupController;
-    }
 
     public void setViewUserProfileController(ViewUserPublicProfileController viewUserPublicController){
         this.viewUserPublicController = viewUserPublicController;
     }
 
+    public void setApplyToGroupController(ApplyToGroupController applyToGroupController) {
+        this.applyToGroupController = applyToGroupController;
+    }
+
+    public void setLogoutController(LogoutController logoutController){
+        this.logoutController = logoutController;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
+    }
 }

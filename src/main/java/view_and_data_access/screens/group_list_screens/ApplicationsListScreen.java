@@ -14,27 +14,41 @@ import java.awt.event.ActionListener;
 /**
  * The user's applications list screen.
  */
-public class ApplicationsListScreen extends JFrame implements ApplicationsListScreenBoundary, ListSelectionListener {
+public class ApplicationsListScreen extends JPanel implements ApplicationsListScreenBoundary, ListSelectionListener {
 
-    JList<String> userApplications;
+    JList<String> userApplications = new JList<>();
     CancelApplicationController cancelApplicationController;
     ViewGroupProfileController viewGroupProfileController;
-    DefaultListModel<String> userApplicationsModel;
+    DefaultListModel<String> userApplicationsModel = new DefaultListModel<>();
     JButton cancelApplicationButton;
     JButton viewGroupButton;
+    JButton backToHomePage;
     String username;
+    JScrollPane applicationsScrollPane = new JScrollPane();
+
+    CardLayout cardLayout;
+
+    JPanel screens;
     static String TITLE = "My Applications";
-    static int SCREEN_WIDTH = 400;
+    static int SCREEN_WIDTH = 500;
     static int SCREEN_HEIGHT = 500;
+
+
 
     /**
      * Initializes an empty applications list for the current user.
      */
-    public ApplicationsListScreen(String username) {
+    public ApplicationsListScreen(String username, CardLayout cardLayout, JPanel screens) {
+        this.cardLayout = cardLayout;
+        this.screens = screens;
+        this.setBackground(new Color(182,202,218));
         this.username = username;
         this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        setTitle(TITLE);
-        setVisible(false);
+        this.add(new JLabel(TITLE));
+
+        this.buildButtons();
+        this.buildScrollPane();
+
     }
 
     /**
@@ -57,6 +71,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
     @Override
     public void setUserApplications(JList<String> userApplications) {
         this.userApplications = userApplications;
+        this.applicationsScrollPane.setViewportView(userApplications);
     }
 
     @Override
@@ -74,12 +89,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
         this.cancelApplicationController = cancelApplicationController;
     }
 
-    @Override
-    public void view() {
-        this.buildButtons();
-        this.buildScrollPane();
-        this.setVisible(true);
-    }
+
 
     @Override
     public void buildButtons() {
@@ -88,7 +98,9 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
         this.viewGroupButton = new JButton("View Group");
         this.cancelApplicationButton = new JButton("Cancel Application");
+        this.backToHomePage = new JButton("Home Page");
 
+        this.backToHomePage.addActionListener(new ViewOrLeave());
         this.viewGroupButton.addActionListener(new ViewOrLeave());
         this.cancelApplicationButton.addActionListener(new ViewOrLeave());
 
@@ -96,7 +108,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
             cancelApplicationButton.setEnabled(false);
             viewGroupButton.setEnabled(false);
         }
-
+        buttons.add(backToHomePage);
         buttons.add(viewGroupButton);
         buttons.add(cancelApplicationButton);
         buttons.add(new JSeparator(SwingConstants.VERTICAL));
@@ -107,7 +119,6 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
     @Override
     public void buildScrollPane() {
-        JScrollPane applicationsScrollPane = new JScrollPane(userApplications);
         this.add(applicationsScrollPane, BorderLayout.CENTER);
     }
 
@@ -119,6 +130,7 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
 
             if (evt.getSource() == viewGroupButton) {
                 viewGroupProfileController.viewGroup(groupName);
+                cardLayout.show(screens, "groupProfileScreen");
             } else if (evt.getSource() == cancelApplicationButton) {
                 userApplicationsModel.remove(index);
                 int numApplications = userApplicationsModel.getSize();
@@ -133,6 +145,8 @@ public class ApplicationsListScreen extends JFrame implements ApplicationsListSc
                 userApplications.setSelectedIndex(index);
                 userApplications.ensureIndexIsVisible(index);
                 cancelApplicationController.cancelApplication(username, groupName);
+            } else if (evt.getSource() == backToHomePage){
+                cardLayout.show(screens,"homepage");
             }
         }
     }

@@ -28,12 +28,12 @@ public class ViewApplicationsListPresenter implements ViewApplicationsListOutput
 
         JList<String> userApplications = new JList<>(userApplicationsModel);
         userApplications.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        userApplications.setSelectedIndex(0);
+        userApplications.setSelectedIndex(-1);
         userApplications.addListSelectionListener(applicationListScreen);
         userApplications.setVisibleRowCount(5);
 
         applicationListScreen.setUserApplications(userApplications);
         applicationListScreen.setUserApplicationsModel(userApplicationsModel);
-        applicationListScreen.view();
+
     }
 }

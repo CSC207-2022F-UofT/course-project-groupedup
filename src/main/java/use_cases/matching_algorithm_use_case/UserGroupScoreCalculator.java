@@ -27,7 +27,6 @@ public class UserGroupScoreCalculator implements Comparable<UserGroupScoreCalcul
     private final User user;
     private final Group group;
     private final Double score;
-
     public UserGroupScoreCalculator(User user, Group group){
         this.user = user;
         this.group = group;

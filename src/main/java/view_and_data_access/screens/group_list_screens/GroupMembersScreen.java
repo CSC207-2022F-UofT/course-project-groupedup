@@ -1,21 +1,35 @@
 package view_and_data_access.screens.group_list_screens;
 
-import interface_adapters.pending_list_adapters.GroupMembersScreenBoundary;
-import interface_adapters.pending_list_adapters.ViewGroupMembersController;
+import interface_adapters.view_group_members_adapters.GroupMembersScreenBoundary;
+import interface_adapters.view_group_members_adapters.ViewGroupMembersController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoundary {
-    JList<String> membersList;
+public class GroupMembersScreen extends JPanel implements GroupMembersScreenBoundary {
+    JList<String> membersList = new JList<>();
     ViewGroupMembersController viewGroupMembersController;
-    DefaultListModel<String> membersListModel;
+    DefaultListModel<String> membersListModel = new DefaultListModel<>();
     String groupName;
+    JScrollPane requestsScrollPane = new JScrollPane();
+    CardLayout cardLayout;
+    JPanel screens;
+    JButton backToGroupProfile;
 
-    public GroupMembersScreen() {
-        setTitle("Group Members");
-        setSize(300, 300);
-        this.setVisible(false);
+    public GroupMembersScreen(CardLayout cardLayout, JPanel screens) {
+        this.cardLayout = cardLayout;
+        this.screens = screens;
+        this.add(new JLabel("Group Members"));
+        this.setBackground( new Color(197,180,227));
+        setSize(500, 500);
+        requestsScrollPane.setSize(50, 50);
+        this.add(requestsScrollPane, BorderLayout.CENTER);
+        backToGroupProfile = new JButton("Back to Group Profile");
+        backToGroupProfile.addActionListener(new buttonPress());
+        this.add(backToGroupProfile);
+
     }
 
     @Override
@@ -26,6 +40,7 @@ public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoun
     @Override
     public void setMembersList(JList<String> membersList) {
         this.membersList = membersList;
+        this.requestsScrollPane.setViewportView(membersList);
     }
 
     @Override
@@ -38,10 +53,15 @@ public class GroupMembersScreen extends JFrame implements GroupMembersScreenBoun
         this.viewGroupMembersController = viewGroupMembersController;
     }
 
-    @Override
-    public void view() {
-        JScrollPane requestsScrollPane = new JScrollPane(membersList);
-        this.add(requestsScrollPane, BorderLayout.CENTER);
-        this.setVisible(true);
+
+    private class buttonPress implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == backToGroupProfile) {
+                cardLayout.show(screens,"newGroupPageScreen");
+            }
+
+        }
     }
 }
+

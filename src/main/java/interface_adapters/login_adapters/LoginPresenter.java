@@ -15,7 +15,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView() {
+    public void prepareSuccessView(String username) {
         JOptionPane.showMessageDialog(null, "You are logged in :^)");
         /*
          * go to the screen for homepage, the screen name is "homepage"

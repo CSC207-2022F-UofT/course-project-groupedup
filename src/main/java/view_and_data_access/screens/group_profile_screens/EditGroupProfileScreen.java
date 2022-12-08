@@ -1,4 +1,5 @@
 package view_and_data_access.screens.group_profile_screens;
+
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileController;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 
@@ -76,6 +77,7 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         } else if (evt.getSource() == this.exit) {
             System.out.println("Click " + evt.getActionCommand());
             cardLayout.show(screens,"newGroupPageScreen");
+
         }
 
     }
@@ -124,7 +126,7 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         JPanel locationOptions = new JPanel();
         locationOptions.setLayout(new GridLayout(1, 2));
         JRadioButton locationOption1 = new JRadioButton("Online");
-        JRadioButton locationOption2 = new JRadioButton("In-person");
+        JRadioButton locationOption2 = new JRadioButton("In-Person");
         b1.add(locationOption1);
         b1.add(locationOption2);
         locationOptions.add(locationOption1);
@@ -210,4 +212,22 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    @Override
+    public void resetFields() {
+        this.groupName = "";
+        this.courseCode.setText("");
+        this.description.setText("");
+
+        for(JRadioButton button: locationList) {
+            button.setSelected(false);
+        }
+        for (JRadioButton button : meetingTimeList) {
+            button.setSelected(false);
+        }
+        for (JRadioButton button : timeCommitList) {
+            button.setSelected(false);
+        }
+    }
+
 }

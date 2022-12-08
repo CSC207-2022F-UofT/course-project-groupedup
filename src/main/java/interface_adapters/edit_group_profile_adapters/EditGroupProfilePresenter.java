@@ -20,6 +20,7 @@ public class EditGroupProfilePresenter implements EditGroupProfileOutputBoundary
     @Override
     public void prepareSuccessView(EditGroupProfileResponseModel editedChanges) {
         JOptionPane.showMessageDialog(null, "Successfully Edited Group Profile!");
+        editGroupProfileScreenBoundary.resetFields();
     }
 
     /**
