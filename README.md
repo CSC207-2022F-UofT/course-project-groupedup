@@ -50,7 +50,7 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 -  Design Patterns & Code Smells: Added Javadoc to explain purpose/future extension of Group Factory as suggested by TA in online meeting. Strategy pattern was used for matching algorithm. Hard coded failure/sucess messages were fixed by making a Class which has getter methods for String attribute message. No more hard coded strings in use cases.
 
 ## Test Coverage for each feature's use case package
-- Edit User Public Profile Use Case: 100% classes, 75% line coverage. Some lines were not tested due to them being getter and setter methods.
+- Edit User Public Profile Use Case: 100% classes, 75% line coverage. The only files that don't have 100% line testing were EditUserPublicProfileResponseModel, EditUserPublicProfileRequestModel because all methods were simply getter and setter methods. Same with View User Public Profile case, the line testing coverage is 88% since the response's model's getter and setter methods are not tested.
 - Otherwise, everybody's use case has 100% test coverage for classes, methods, and lines.
 
 
