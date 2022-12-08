@@ -7,7 +7,6 @@ import use_cases.apply_to_group_use_case.ApplyToGroupDsGateway;
 import use_cases.user_registration_use_case.NewUserDSGateway;
 import use_cases.user_registration_use_case.UserRegistrationDSRequestPackage;
 import use_cases.edit_group_profile_use_case.EditGroupProfileDsGateway;
-import use_cases.edit_group_profile_use_case.EditGroupProfileDsRequestModel;
 import use_cases.cancel_application_use_case.CancelApplicationDsGateway;
 import use_cases.edit_pending_list_use_case.EditPendingListDsGateway;
 import use_cases.edit_user_public_profile_use_case.EditUserPublicProfileDSGateway;
@@ -350,13 +349,5 @@ public class SerializeDataAccess implements NewGroupDSGateway, NewUserDSGateway,
     public NormalGroup findGroup(String groupName) {
         Group group = this.groupMap.get(groupName);
         return (NormalGroup) group;
-    }
-
-    @Override
-    public void saveGroupProfile(EditGroupProfileDsRequestModel requestModel) {
-        Group group = this.groupMap.get(requestModel.getGroupName());
-        group.getProfile().setPreferences(requestModel.getPreferences());
-        group.getProfile().setCourseCode(requestModel.getCourseCode());
-        group.getProfile().setDescription(requestModel.getDescription());
     }
 }

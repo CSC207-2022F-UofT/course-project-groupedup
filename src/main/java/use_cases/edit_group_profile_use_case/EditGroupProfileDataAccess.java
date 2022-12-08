@@ -1,8 +1,6 @@
 package use_cases.edit_group_profile_use_case;
 import entities.Group;
 import entities.NormalGroup;
-import use_cases.edit_group_profile_use_case.EditGroupProfileDsGateway;
-import use_cases.edit_group_profile_use_case.EditGroupProfileDsRequestModel;
 
 import java.util.HashMap;
 
@@ -30,11 +28,9 @@ public class EditGroupProfileDataAccess implements EditGroupProfileDsGateway {
     }
 
     @Override
-    public void saveGroupProfile(EditGroupProfileDsRequestModel requestModel) {
-        Group group = this.groupMap.get(requestModel.getGroupName());
-        group.getProfile().setPreferences(requestModel.getPreferences());
-        group.getProfile().setCourseCode(requestModel.getCourseCode());
-        group.getProfile().setDescription(requestModel.getDescription());
+    public void updateGroup(Group group) {
+        String groupName = group.getGroupName();
+        groupMap.replace(groupName, group);
 
     }
 }
