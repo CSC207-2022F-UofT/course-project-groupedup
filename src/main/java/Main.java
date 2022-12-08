@@ -140,6 +140,37 @@ public class Main {
         user1.getApplicationsList().put("Paul's Fan Club", "Paul's Fan Club");
         dataAccess.updateUser(user1);
 
+        User banana = new NormalUser("banana", "banana", "Jordan", "banana", new UserPublicProfile());
+        currentUser.setUser(banana);
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(banana, banana.getUsername()));
+
+        User apple = new NormalUser("apple", "apple", "Jeffrey", "apple", new UserPublicProfile());
+        currentUser.setUser(apple);
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(apple, apple.getUsername()));
+
+        User pear = new NormalUser("pear", "pear", "Joshua", "pear", new UserPublicProfile());
+        currentUser.setUser(pear);
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(pear, pear.getUsername()));
+
+        currentUser.setUser(user1);
+        Group group3 = new NormalGroup("CSC207 Group");
+        group3.getProfile().setDescription("Hi looking for 207 members!");
+        dataAccess.updateGroup(group3);
+        group3.addMember("test");
+        group3.addMember("banana");
+        group3.addMember("apple");
+        group3.addMember("pear");
+        user1.addGroup("CSC207 Group");
+        banana.addGroup("CSC207 Group");
+        apple.addGroup("CSC207 Group");
+        pear.addGroup("CSC207 Group");
+
+        Group group4 = new NormalGroup("John's group!");
+        group4.getProfile().setDescription("Hi looking for 207 members!");
+        dataAccess.updateGroup(group4);
+        user1.addGroup("John's group!");
+        group4.addMember("test");
+
         LoginScreenInterface loginScreen = new LoginScreen(screens, cardLayout);
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginScreen);
         LoginInputBoundary loginInteractor = new LoginInteractor(dataAccess, loginPresenter);
