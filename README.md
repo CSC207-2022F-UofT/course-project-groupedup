@@ -55,7 +55,9 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 
 
 ## How we made use of GitHub
-- 
+- Specific labels for use case, backend, future-implementation, front end, refractor, and testing pull request/issues
+- Used the project feature to keep track of which issues and pull requests needed reviews or implementation and also to track progress
+- NOTE: towards the end of the project, we had group work sessions and reviewed our code in person so the later pull requests don't have as many comments
 
 ## Workflow Documents
 With our workflow documents, you can see our many pull requests, their assignees, reviewers, and progress. We use this to see which pull requests are ready for review and which are just to submit progress on features.
