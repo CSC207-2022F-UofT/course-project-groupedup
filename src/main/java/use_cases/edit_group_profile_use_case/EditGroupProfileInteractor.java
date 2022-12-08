@@ -59,7 +59,6 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
             group.getProfile().setCourseCode(requestModel.getCourseCode());
             group.getProfile().setDescription(requestModel.getDescription());
 
-
             EditGroupProfileResponseModel profileResponseModel = new EditGroupProfileResponseModel(
                     requestModel.getGroupName(),
                     requestModel.getPreferences(),
