@@ -124,7 +124,8 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()){
-            String matchTitle = matches.getSelectedValue();
+            JList<String> list = (JList<String>) e.getSource();
+            String matchTitle = list.getSelectedValue();
             int index = matchTitle.indexOf(':');
             String groupName = matchTitle.substring(index + 2);
 
