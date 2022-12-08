@@ -50,17 +50,11 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 -  Design Patterns & Code Smells: Added Javadoc to explain purpose/future extension of Group Factory as suggested by TA in online meeting. Strategy pattern was used for matching algorithm. Hard coded failure/sucess messages were fixed by making a Class which has getter methods for String attribute message. No more hard coded strings in use cases.
 
 ## Test Coverage for each feature's use case package
-- [X] Group Creation Use Case:
-- [X] Matching Algorithm Use Case: 
-- [X]
-- [X]
-- [X]
-- [X]
-- [X]
-- [X]
+- 
+
 
 ## How we made use of GitHub
-- [X]
+- 
 
 ## Workflow Documents
 With our workflow documents, you can see our many pull requests, their assignees, reviewers, and progress. We use this to see which pull requests are ready for review and which are just to submit progress on features.
