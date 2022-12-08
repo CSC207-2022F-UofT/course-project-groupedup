@@ -128,12 +128,12 @@ public class Main {
         /**
          *  Initial call for data access
          */
-        //SerializeDataAccess dataAccess = initialize(userLeader);
+        SerializeDataAccess dataAccess = initialize(userLeader);
 
         /**
          *  Data access call for subsequent runs
          */
-        SerializeDataAccess dataAccess = new SerializeDataAccess();
+        //SerializeDataAccess dataAccess = new SerializeDataAccess();
         LogoutOutputBoundary logoutPresenter = new LogoutPresenter();
         LogoutInputBoundary logoutInputBoundary = new LogoutInteractor(logoutPresenter);
         LogoutController logoutController = new LogoutController(logoutInputBoundary);
@@ -197,7 +197,7 @@ public class Main {
         editUserPublicProfileScreen.setController(editUserPublicProfileController);
         editUserPublicProfileScreen.setUsername(CurrentUser.getInstance().getUser().getUsername());
         screens.add((Component) editUserPublicProfileScreen, "editUserProfileScreen");
-
+        viewUserPublicProfileScreen.setEditUserPublicProfileScreenBoundary(editUserPublicProfileScreen);
         ViewGroupProfileOutputBoundary viewGroupProfilePresenter = new ViewGroupProfilePresenter(groupProfileScreen);
         ViewGroupProfileInputBoundary viewGroupProfileInteractor = new ViewGroupProfileInteractor(dataAccess,
                 viewGroupProfilePresenter);

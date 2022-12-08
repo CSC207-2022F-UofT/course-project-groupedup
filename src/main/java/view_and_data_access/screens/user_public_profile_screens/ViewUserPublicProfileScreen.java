@@ -1,5 +1,6 @@
 package view_and_data_access.screens.user_public_profile_screens;
 
+import interface_adapters.edit_user_public_profile_adapters.EditUserPublicProfileScreenBoundary;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileScreenBoundary;
 
@@ -16,7 +17,7 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
     String bio;
     String courses;
     HashMap<String, String> userPreferences;
-
+    EditUserPublicProfileScreenBoundary editUserPublicProfileScreenBoundary;
     ViewUserPublicProfileController controller;
 
     JButton edit = new JButton("Edit");
@@ -32,6 +33,7 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == edit) {
+            this.editUserPublicProfileScreenBoundary.setUsername(username);
             this.cardLayout.show(screens, "editUserProfileScreen");
         }
 
@@ -100,5 +102,10 @@ public class ViewUserPublicProfileScreen extends JPanel implements ActionListene
     @Override
     public void setUserPreferences(HashMap<String,String> userPreferences) {
         this.userPreferences = userPreferences;
+    }
+
+    @Override
+    public void setEditUserPublicProfileScreenBoundary(EditUserPublicProfileScreenBoundary editUserPublicProfileScreenBoundary){
+        this.editUserPublicProfileScreenBoundary = editUserPublicProfileScreenBoundary;
     }
 }
