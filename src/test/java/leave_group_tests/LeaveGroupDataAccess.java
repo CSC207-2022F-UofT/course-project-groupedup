@@ -61,7 +61,7 @@ public class LeaveGroupDataAccess implements LeaveGroupDsGateway,
     }
 
     @Override
-    public boolean groupInUser(String username, String groupName) {
+    public boolean groupInUser(String groupName, String username) {
         User user = userMap.get(username);
         return user.getGroups().containsKey(groupName);
     }

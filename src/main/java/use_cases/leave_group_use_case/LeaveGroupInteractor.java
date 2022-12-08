@@ -43,7 +43,7 @@ public class LeaveGroupInteractor implements LeaveGroupInputBoundary {
             throw new RuntimeException(InteractorMessages.USER_NOT_IN_GROUP);
         }
 
-        if (!dsGateway.groupInUser(user.getUsername(), group.getGroupName())) {
+        if (!dsGateway.groupInUser(group.getGroupName(), user.getUsername())) {
             presenter.prepareFailureView(InteractorMessages.GROUP_NOT_IN_USER);
         } else {
             user.removeGroup(group.getGroupName());

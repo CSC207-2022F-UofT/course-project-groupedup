@@ -165,6 +165,7 @@ public class Main {
         EditGroupProfileOutputBoundary presenter2 = new EditGroupProfilePresenter(editGroupScreen);
         EditGroupProfileInputBoundary interactor2 = new EditGroupProfileInteractor(dataAccess, presenter2);
         EditGroupProfileController editGroupController = new EditGroupProfileController(interactor2);
+        editGroupScreen.setEditGroupController(editGroupController);
         editGroupScreen.setView(editGroupController);
         screens.add((Component) editGroupScreen, "editGroupScreen");
 

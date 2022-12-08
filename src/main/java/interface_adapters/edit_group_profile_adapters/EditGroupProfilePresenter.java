@@ -27,6 +27,5 @@ public class EditGroupProfilePresenter implements EditGroupProfileOutputBoundary
      */
     @Override
     public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, "Unsuccessful Edit!");
-    }
+        JOptionPane.showMessageDialog(null, error);}
 }

@@ -22,4 +22,6 @@ public class InteractorMessages {
     public static final String PREFERENCES_BLANK = "Preferences was left blank.";
     public static final String COURSE_PREFERENCES_BLANK = "Course preferences was left blank.";
     public static final String BIO_BLANK = "Biography was left blank.";
+    public static final String COURSE_BLANK = "Course Code was left blank.";
+    public static final String DESCRIPTION_BLANK = "Group Description was left blank";
 }
