@@ -41,7 +41,6 @@ class EditGroupProfileInteractorTest {
         EditGroupProfileOutputBoundary presenter = new EditGroupProfileOutputBoundary() {
             @Override
             public void prepareSuccessView(EditGroupProfileResponseModel responseModel) {
-                //String groupName = responseModel.getGroupName();
 
                 Assertions.assertEquals(group.getProfile().getCourseCode(), "CSC236");
                 Assertions.assertEquals(group.getProfile().getDescription(),
@@ -117,6 +116,80 @@ class EditGroupProfileInteractorTest {
 
         interactor.editGroup(inputData);
 
+    }
+
+    @Test
+    public void descriptionBlankFailure() {
+
+        EditGroupProfileDsGateway repository = initialize();
+
+        EditGroupProfileOutputBoundary presenter = new EditGroupProfileOutputBoundary() {
+            @Override
+            public void prepareSuccessView(EditGroupProfileResponseModel responseModel) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+            @Override
+            public void prepareFailView(String error) {
+                Assertions.assertEquals(error, InteractorMessages.DESCRIPTION_BLANK);
+            }
+        };
+
+        EditGroupProfileRequestModel requestModel = new EditGroupProfileRequestModel("Julia's Group", "",
+                "2-4 hours", "In-Person", "Monday", "CSC236");
+
+        EditGroupProfileInputBoundary interactor = new EditGroupProfileInteractor(repository, presenter);
+
+        interactor.editGroup(requestModel);
+    }
+
+    @Test
+    public void courseBlankFailure() {
+
+        EditGroupProfileDsGateway repository = initialize();
+
+        EditGroupProfileOutputBoundary presenter = new EditGroupProfileOutputBoundary() {
+            @Override
+            public void prepareSuccessView(EditGroupProfileResponseModel responseModel) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+            @Override
+            public void prepareFailView(String error) {
+                Assertions.assertEquals(error, InteractorMessages.COURSE_BLANK);
+            }
+        };
+
+        EditGroupProfileRequestModel requestModel = new EditGroupProfileRequestModel("Julia's Group",
+                "Welcome to Julia's group!", "2-4 hours",
+                "In-Person", "Monday", "");
+
+        EditGroupProfileInputBoundary interactor = new EditGroupProfileInteractor(repository, presenter);
+
+        interactor.editGroup(requestModel);
+    }
+
+    @Test
+    public void preferencesBlankFailure() {
+
+        EditGroupProfileDsGateway repository = initialize();
+
+        EditGroupProfileOutputBoundary presenter = new EditGroupProfileOutputBoundary() {
+            @Override
+            public void prepareSuccessView(EditGroupProfileResponseModel responseModel) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+            @Override
+            public void prepareFailView(String error) {
+                Assertions.assertEquals(error, InteractorMessages.PREFERENCES_BLANK);
+            }
+        };
+
+        EditGroupProfileRequestModel requestModel = new EditGroupProfileRequestModel("Julia's Group",
+                "Welcome to Julia's group!", "",
+                "In-Person", "Monday", "CSC236");
+
+        EditGroupProfileInputBoundary interactor = new EditGroupProfileInteractor(repository, presenter);
+
+        interactor.editGroup(requestModel);
     }
 
 }

@@ -44,6 +44,28 @@ public class EditGroupProfileInteractor implements EditGroupProfileInputBoundary
 
     @Override
     public boolean editGroup(EditGroupProfileRequestModel requestModel) {
+        boolean preferenceSuccess = true;
+
+        if (requestModel.getCourseCode().equals("")) {
+            profileOutputBoundary.prepareFailView(InteractorMessages.COURSE_BLANK);
+            return false;
+        }
+
+        if (requestModel.getDescription().equals("")) {
+            profileOutputBoundary.prepareFailView(InteractorMessages.DESCRIPTION_BLANK);
+            return false;
+        }
+
+        for (String preference: requestModel.getPreferences().values()) {
+            if (preference.equals("")) {
+                preferenceSuccess = false;
+            }
+        }
+        if (!preferenceSuccess) {
+            profileOutputBoundary.prepareFailView(InteractorMessages.PREFERENCES_BLANK);
+            return false;
+        }
+
         if (!validateCourseCode(requestModel.getCourseCode())) {
             profileOutputBoundary.prepareFailView(InteractorMessages.INVALID_COURSE_CODE);
             return false;
