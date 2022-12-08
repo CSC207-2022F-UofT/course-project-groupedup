@@ -29,7 +29,6 @@ class EditGroupProfileInteractorTest {
         HashMap<String, Group> groups = new HashMap<>();
         groups.put("Julia's group", group);
         EditGroupProfileDataAccess dataAccess = new EditGroupProfileDataAccess(groups);
-
         return dataAccess;
     }
 
