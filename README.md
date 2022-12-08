@@ -51,6 +51,7 @@ You can find our **workflow documents** under the Projects tab: where we have ou
 
 ## Test Coverage for each feature's use case package
 - Edit User Public Profile Use Case: 100% classes, 75% line coverage. Some lines were not tested due to them being getter and setter methods.
+- Otherwise, everybody's use case has 100% test coverage for classes, methods, and lines.
 
 
 ## How we made use of GitHub
