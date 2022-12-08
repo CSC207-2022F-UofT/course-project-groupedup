@@ -20,7 +20,7 @@ public interface MyGroupsScreenBoundary extends ListSelectionListener {
 
     void setGroupStatusMapping(HashMap<String, Boolean> groupAndStatus);
 
-    void view();
+
 
     void buildButtons();
 

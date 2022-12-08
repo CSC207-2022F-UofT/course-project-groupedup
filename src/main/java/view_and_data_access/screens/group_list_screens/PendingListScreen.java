@@ -15,20 +15,30 @@ import java.awt.event.ActionListener;
  * The pending list screen.
  */
 
-public class PendingListScreen extends JFrame implements PendingListScreenBoundary, ListSelectionListener {
+public class PendingListScreen extends JPanel implements PendingListScreenBoundary, ListSelectionListener {
 
-    JList<String> memberRequests;
+    JList<String> memberRequests = new JList<>();
     EditPendingListController editPendingListController;
     ViewPendingListController viewPendingListController;
-    DefaultListModel<String> memberRequestsModel;
+    DefaultListModel<String> memberRequestsModel = new DefaultListModel<>();
     JButton acceptButton, rejectButton;
     String groupName;
+
     JScrollPane requestsScrollPane = new JScrollPane();
-    public PendingListScreen() {
-        setTitle("Member Requests");
-        setSize(300, 300);
+    CardLayout cardLayout;
+    JPanel screens;
+
+    JButton backToGroupProfile;
+    public PendingListScreen(CardLayout cardLayout, JPanel screens) {
+        this.setBackground( new Color(197,180,227));
+        this.cardLayout = cardLayout;
+        this.screens = screens;
+        this.add(new JLabel("Member Requests"));
+        setSize(500, 500);
+        this.buildButtons();
+        this.buildScrollPane();
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(false);
+
     }
 
     @Override
@@ -69,26 +79,20 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
         this.viewPendingListController = viewPendingListController;
     }
 
-    @Override
-    public void view() {
-        this.buildButtons();
-        this.buildScrollPane();
-        this.setVisible(true);
-        this.revalidate();
-        this.repaint();
-    }
 
     @Override
     public void buildButtons() {
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
 
+        this.backToGroupProfile = new JButton("Back to Group Profile");
         this.acceptButton = new JButton("Accept");
         this.rejectButton = new JButton("Reject");
 
         this.acceptButton.addActionListener(new AcceptOrReject());
         this.rejectButton.addActionListener(new AcceptOrReject());
-
+        this.backToGroupProfile.addActionListener(new buttonPress());
+        buttons.add(backToGroupProfile);
         buttons.add(acceptButton);
         buttons.add(new JSeparator(SwingConstants.VERTICAL));
         buttons.add(Box.createHorizontalStrut(5));
@@ -132,6 +136,15 @@ public class PendingListScreen extends JFrame implements PendingListScreenBounda
 
             } else if (evt.getSource() == rejectButton) {
                 editPendingListController.rejectOrAcceptUser(username, groupName, false);
+            }
+        }
+    }
+
+    private class buttonPress implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == backToGroupProfile) {
+                cardLayout.show(screens,"newGroupPageScreen");
             }
         }
     }

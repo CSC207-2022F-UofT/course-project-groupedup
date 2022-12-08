@@ -16,12 +16,13 @@ import java.util.HashMap;
 /**
  * The user's groups list screen.
  */
-public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, ListSelectionListener {
-    JList<String> myGroups;
-    DefaultListModel<String> myGroupsModel;
+public class MyGroupsScreen extends JPanel implements MyGroupsScreenBoundary, ListSelectionListener {
+    JList<String> myGroups = new JList<>();
+    DefaultListModel<String> myGroupsModel = new DefaultListModel<>();
     LeaveGroupController leaveGroupController;
     ViewGroupProfileController viewGroupProfileController;
     EditGroupProfileScreenBoundary editGroupScreen;
+    JButton backToHomePage;
     JButton leaveGroupButton;
     JButton editGroupButton;
     JButton viewGroupButton;
@@ -31,20 +32,25 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
     JPanel screens;
     JScrollPane scrollPane = new JScrollPane();
 
+    Integer SCREEN_SIZE = 500;
+
     /**
      * Initializes an empty groups list for the current user.
      * @param username the username of the current user
      */
     public MyGroupsScreen(CardLayout cardLayout, JPanel screens, String username,
                           EditGroupProfileScreenBoundary editGroupScreen) {
-        setSize(400, 500);
-        setTitle("My Groups");
+        this.setBackground(new Color(182,202,218));
+        this.setSize(500, 500);
+        this.add(new JLabel("My Groups"));
         this.cardLayout = cardLayout;
         this.screens = screens;
         this.username = username;
         this.editGroupScreen = editGroupScreen;
+        this.setSize(SCREEN_SIZE, SCREEN_SIZE);
+        this.buildButtons();
+        this.buildScrollPane();
 
-        setVisible(false);
     }
 
     /**
@@ -101,12 +107,7 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
         this.groupAndStatus = groupAndStatus;
     }
 
-    @Override
-    public void view() {
-        this.buildButtons();
-        this.buildScrollPane();
-        this.setVisible(true);
-    }
+
 
     @Override
     public void buildButtons() {
@@ -116,10 +117,12 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
         this.viewGroupButton = new JButton("View Group");
         this.editGroupButton = new JButton("Edit Group");
         this.leaveGroupButton = new JButton("Leave Group");
+        this.backToHomePage = new JButton("Home Page");
 
         this.viewGroupButton.addActionListener(new buttonPress());
         this.editGroupButton.addActionListener(new buttonPress());
         this.leaveGroupButton.addActionListener(new buttonPress());
+        this.backToHomePage.addActionListener(new buttonPress());
 
         if (this.myGroupsModel.size() == 0) {
             this.viewGroupButton.setEnabled(false);
@@ -130,6 +133,7 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
         buttons.add(viewGroupButton);
         buttons.add(editGroupButton);
         buttons.add(leaveGroupButton);
+        buttons.add(backToHomePage);
         buttons.add(Box.createHorizontalStrut(5));
         buttons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.add(buttons, BorderLayout.PAGE_END);
@@ -165,10 +169,11 @@ public class MyGroupsScreen extends JFrame implements MyGroupsScreenBoundary, Li
                 } else if (index == numGroups) {
                     index--;
                 }
-
                 myGroups.setSelectedIndex(index);
                 myGroups.ensureIndexIsVisible(index);
                 leaveGroupController.leaveGroup(username, groupName);
+            } else if (e.getSource() == backToHomePage){
+                cardLayout.show(screens, "homepage");
             }
 
         }

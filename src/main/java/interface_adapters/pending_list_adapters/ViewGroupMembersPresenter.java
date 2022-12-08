@@ -35,6 +35,6 @@ public class ViewGroupMembersPresenter implements ViewGroupMembersOutputBoundary
         screen.setGroupName(groupMembers.getGroupName());
         screen.setMembersList(membersList);
         screen.setMembersListModel(membersListModel);
-        screen.view();
+
     }
 }

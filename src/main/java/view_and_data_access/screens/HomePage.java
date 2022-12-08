@@ -101,8 +101,10 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
             this.cardLayout.show(screens, "groupRegisterScreen");
         } else if (evt.getSource() == myApplications) {
             viewApplicationsListController.viewApplicationsList(username);
+            this.cardLayout.show(screens, "applicationListScreen");
         } else if (evt.getSource() == myGroups) {
             viewMyGroupsController.viewMyGroups(username);
+            this.cardLayout.show(screens, "myGroupsScreen");
         } else if (evt.getSource() == refreshMatches) {
             matchingAlgorithmController.matchingAlgorithm(username);
         } else if (evt.getSource() == viewUserProfile) {
@@ -126,7 +128,6 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             if (x == 0){
                 viewGroupProfileController.viewGroup(groupName);
-                //Ipek's stuff
             } else if (x == 1){
                 applyToGroupController.applyToGroup(username, groupName);
             }

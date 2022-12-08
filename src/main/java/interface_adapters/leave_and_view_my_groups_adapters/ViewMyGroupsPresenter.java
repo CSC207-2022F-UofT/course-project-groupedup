@@ -30,13 +30,14 @@ public class ViewMyGroupsPresenter implements ViewMyGroupsOutputBoundary {
 
         JList<String> myGroups = new JList<>(myGroupsModel);
         myGroups.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        myGroups.setSelectedIndex(0);
+        myGroups.setSelectedIndex(-1);
         myGroups.addListSelectionListener(myGroupsScreen);
-        myGroups.setVisibleRowCount(5);
-
+        if(groupNames.size() == 0) {
+            JOptionPane.showMessageDialog(null, "no groups");
+        }
         myGroupsScreen.setMyGroups(myGroups);
         myGroupsScreen.setMyGroupsModel(myGroupsModel);
         myGroupsScreen.setGroupStatusMapping(groupAndStatus.getGroupAndStatus());
-        myGroupsScreen.view();
+
     }
 }

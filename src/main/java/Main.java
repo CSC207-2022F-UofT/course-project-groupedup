@@ -1,8 +1,10 @@
+import entities.*;
 import interface_adapters.cancel_application_adapters.CancelApplicationController;
 import interface_adapters.cancel_application_adapters.CancelApplicationPresenter;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListController;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListPresenter;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileController;
+import interface_adapters.edit_group_profile_adapters.EditGroupProfilePresenter;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 import interface_adapters.edit_user_public_profile_adapters.EditUserPublicProfileController;
 import interface_adapters.edit_user_public_profile_adapters.EditUserPublicProfilePresenter;
@@ -24,6 +26,11 @@ import interface_adapters.pending_list_adapters.*;
 import interface_adapters.user_registration_adapters.UserRegistrationController;
 import interface_adapters.user_registration_adapters.UserRegistrationPresenter;
 import interface_adapters.user_registration_adapters.UserRegistrationScreenInterface;
+import interface_adapters.view_group_profile_adapters.ViewGroupProfileController;
+import interface_adapters.view_group_profile_adapters.ViewGroupProfilePresenter;
+import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
+import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfilePresenter;
+import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileScreenBoundary;
 import use_cases.cancel_application_use_case.CancelApplicationInputBoundary;
 import use_cases.cancel_application_use_case.CancelApplicationInteractor;
 import use_cases.cancel_application_use_case.CancelApplicationOutputBoundary;
@@ -49,42 +56,35 @@ import use_cases.user_registration_use_case.*;
 import use_cases.view_group_members_use_case.ViewGroupMembersInputBoundary;
 import use_cases.view_group_members_use_case.ViewGroupMembersInteractor;
 import use_cases.view_group_members_use_case.ViewGroupMembersOutputBoundary;
-import use_cases.view_pending_list_use_case.ViewPendingListInputBoundary;
-import use_cases.view_pending_list_use_case.ViewPendingListInteractor;
-import use_cases.view_pending_list_use_case.ViewPendingListOutputBoundary;
-import interface_adapters.edit_group_profile_adapters.EditGroupProfilePresenter;
-import view_and_data_access.screens.user_public_profile_screens.EditUserPublicProfileScreen;
-import view_and_data_access.screens.HomePage;
-import view_and_data_access.screens.group_list_screens.MyGroupsScreen;
-import view_and_data_access.screens.group_profile_screens.EditGroupProfileScreen;
-import view_and_data_access.screens.group_creation_screens.GroupRegisterScreen;
-import view_and_data_access.screens.group_creation_screens.NewGroupPageScreen;
-import view_and_data_access.screens.login_and_registration_screens.LoginScreen;
-import view_and_data_access.screens.login_and_registration_screens.UserRegistrationScreen;
-import view_and_data_access.screens.matching_algorithm_screens.MatchingAlgorithmScreen;
-import view_and_data_access.screens.group_list_screens.ApplicationsListScreen;
-import view_and_data_access.screens.group_list_screens.GroupMembersScreen;
-import view_and_data_access.screens.group_list_screens.PendingListScreen;
-import entities.*;
-import view_and_data_access.data_access.SerializeDataAccess;
-import view_and_data_access.screens.group_profile_screens.GroupProfileScreen;
-import interface_adapters.view_group_profile_adapters.ViewGroupProfileController;
-import interface_adapters.view_group_profile_adapters.ViewGroupProfilePresenter;
 import use_cases.view_group_profile_use_case.ViewGroupProfileInputBoundary;
 import use_cases.view_group_profile_use_case.ViewGroupProfileInteractor;
 import use_cases.view_group_profile_use_case.ViewGroupProfileOutputBoundary;
 import use_cases.view_my_groups_use_case.ViewMyGroupsInputBoundary;
 import use_cases.view_my_groups_use_case.ViewMyGroupsInteractor;
 import use_cases.view_my_groups_use_case.ViewMyGroupsOutputBoundary;
+import use_cases.view_pending_list_use_case.ViewPendingListInputBoundary;
+import use_cases.view_pending_list_use_case.ViewPendingListInteractor;
+import use_cases.view_pending_list_use_case.ViewPendingListOutputBoundary;
 import use_cases.view_user_applications_use_case.ViewApplicationsListInputBoundary;
 import use_cases.view_user_applications_use_case.ViewApplicationsListInteractor;
 import use_cases.view_user_applications_use_case.ViewApplicationsListOutputBoundary;
-import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
-import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfilePresenter;
-import view_and_data_access.screens.user_public_profile_screens.ViewUserPublicProfileScreen;
-import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileScreenBoundary;
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileInteractor;
 import use_cases.view_user_public_profile_use_case.ViewUserPublicProfileOutputBoundary;
+import view_and_data_access.data_access.SerializeDataAccess;
+import view_and_data_access.screens.HomePage;
+import view_and_data_access.screens.group_creation_screens.GroupRegisterScreen;
+import view_and_data_access.screens.group_creation_screens.NewGroupPageScreen;
+import view_and_data_access.screens.group_list_screens.ApplicationsListScreen;
+import view_and_data_access.screens.group_list_screens.GroupMembersScreen;
+import view_and_data_access.screens.group_list_screens.MyGroupsScreen;
+import view_and_data_access.screens.group_list_screens.PendingListScreen;
+import view_and_data_access.screens.group_profile_screens.EditGroupProfileScreen;
+import view_and_data_access.screens.group_profile_screens.GroupProfileScreen;
+import view_and_data_access.screens.login_and_registration_screens.LoginScreen;
+import view_and_data_access.screens.login_and_registration_screens.UserRegistrationScreen;
+import view_and_data_access.screens.matching_algorithm_screens.MatchingAlgorithmScreen;
+import view_and_data_access.screens.user_public_profile_screens.EditUserPublicProfileScreen;
+import view_and_data_access.screens.user_public_profile_screens.ViewUserPublicProfileScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -163,8 +163,12 @@ public class Main {
         screens.add((Component) editGroupScreen, "editGroupScreen");
 
         GroupProfileScreen groupProfileScreen = new GroupProfileScreen();
-        ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername());
+        ApplicationsListScreen applicationsListScreen = new ApplicationsListScreen(user1.getUsername(), cardLayout,
+                screens);
+        screens.add(applicationsListScreen, "applicationListScreen");
+
         MyGroupsScreen myGroupsScreen = new MyGroupsScreen(cardLayout, screens, user1.getUsername(), editGroupScreen);
+        screens.add(myGroupsScreen, "myGroupsScreen");
         HomePage homepageTest = new HomePage(cardLayout, screens, user1.getUsername());
         screens.add(homepageTest, "homepage");
 
@@ -175,6 +179,7 @@ public class Main {
                 new MatchingAlgorithmInteractor(matchingAlgorithmOutputBoundary, dataAccess);
         MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
         homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
+
 
         ViewUserPublicProfileScreenBoundary viewUserPublicProfileScreen = new ViewUserPublicProfileScreen(screens, cardLayout);
         ViewUserPublicProfileOutputBoundary viewUserPublicProfilePresenter = new ViewUserPublicProfilePresenter(viewUserPublicProfileScreen);
@@ -225,7 +230,8 @@ public class Main {
 
         GroupFactory groupFactory = new GroupFactory();
 
-        PendingListScreen pendingListScreen = new PendingListScreen();
+        PendingListScreen pendingListScreen = new PendingListScreen(cardLayout, screens);
+        screens.add(pendingListScreen,"pendingListScreen");
         ViewPendingListOutputBoundary viewPendingListPresenter = new ViewPendingListPresenter(pendingListScreen);
         ViewPendingListInputBoundary viewPendingListInteractor = new ViewPendingListInteractor(
                 dataAccess, viewPendingListPresenter);
@@ -234,7 +240,8 @@ public class Main {
         pendingListScreen.setViewPendingListController(viewPendingListController);
 
 
-        GroupMembersScreen groupMembersScreen = new GroupMembersScreen();
+        GroupMembersScreen groupMembersScreen = new GroupMembersScreen(cardLayout, screens);
+        screens.add(groupMembersScreen, "groupMembersScreen");
         ViewGroupMembersOutputBoundary viewGroupMembersPresenter = new ViewGroupMembersPresenter(groupMembersScreen);
         ViewGroupMembersInputBoundary viewGroupMembersInteractor = new ViewGroupMembersInteractor(
                 dataAccess, viewGroupMembersPresenter);

@@ -35,14 +35,13 @@ public class ViewPendingListPresenter implements ViewPendingListOutputBoundary {
 
         JList<String> memberRequests = new JList<>(memberRequestsModel);
         memberRequests.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        memberRequests.setSelectedIndex(0);
+        memberRequests.setSelectedIndex(-1);
         memberRequests.addListSelectionListener(screen);
         memberRequests.setVisibleRowCount(5);
 
         screen.setGroupName(usernamesList.getGroupName());
         screen.setMemberRequests(memberRequests);
         screen.setMemberRequestsModel(memberRequestsModel);
-        screen.view();
     }
 
 }

@@ -41,7 +41,8 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
         Group group = groupFactory.create(requestModel.getGroupName());
         GroupRegisterDSRequestModel groupDSRequestModel = new GroupRegisterDSRequestModel(group, group.getGroupName());
         newGroupDSGateway.saveNewGroups(groupDSRequestModel);
-        CurrentUser.getInstance().getUser().addGroup(group.getGroupName());
+        CurrentUser.getInstance().getUser().getGroups().put(group.getGroupName(), group.getGroupName());
+        newGroupDSGateway.updateUser(CurrentUser.getInstance().getUser());
         GroupRegisterResponseModel groupResponseModel = new GroupRegisterResponseModel(group.getGroupName());
         groupPresenter.prepareSuccessView(groupResponseModel);
         return true;

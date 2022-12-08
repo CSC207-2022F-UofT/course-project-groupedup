@@ -66,9 +66,11 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
         }
         else if (evt.getSource() == pendingList){
             viewPendingListController.getUsernames(groupName);
+            cardLayout.show(screens, "pendingListScreen");
         }
         else if (evt.getSource() == membersList) {
             viewGroupMembersController.getGroupMembers(groupName);
+            cardLayout.show(screens, "groupMembersScreen");
         }
     }
 
@@ -80,10 +82,6 @@ public class NewGroupPageScreen extends JPanel implements ActionListener {
 
         homePage.addActionListener(this);
         editGroup.addActionListener(this);
-        pendingList.addActionListener(this);
-
-        editGroup.addActionListener(this);
-
         pendingList.addActionListener(this);
 
         membersList.addActionListener(this);

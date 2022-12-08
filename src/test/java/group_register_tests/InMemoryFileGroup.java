@@ -1,5 +1,5 @@
 package group_register_tests;
-
+import entities.User;
 import entities.Group;
 import entities.NormalGroup;
 import use_cases.group_creation_use_case.GroupRegisterDSRequestModel;
@@ -47,4 +47,8 @@ public class InMemoryFileGroup implements NewGroupDSGateway {
     public boolean groupIdentifierExists(String groupName) {
         return groups.containsKey(groupName);
     }
+
+    @Override
+    public void updateUser(User user){};
+
 }

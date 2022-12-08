@@ -11,5 +11,4 @@ public interface GroupMembersScreenBoundary {
 
     void setViewGroupMembersController(ViewGroupMembersController viewGroupMembersController);
 
-    void view();
 }
