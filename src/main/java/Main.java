@@ -334,11 +334,9 @@ public class Main {
         dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group, group.getGroupName()));
 
 
-        Group group3 = new NormalGroup("Paul's Fan Club");
-        group3.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
-                " brown hair and blue eyes. I made this group because I think it would be nice to get together" +
-                " with abstract people and talk about things in the abstract sense. BTW i love art, especially" +
-                " drawing arrows :)");
+        Group group3 = new NormalGroup("Clean Architecture's Fan Club");
+        group3.getProfile().setDescription("Fans of clean architecture and SOLID principles only!" +
+                " (no filthy architectures allowed)");
         group3.addRequest(user1.getUsername());
         dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group3, group3.getGroupName()));
 
