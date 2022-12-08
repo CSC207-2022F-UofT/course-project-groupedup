@@ -26,7 +26,7 @@ public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
      */
     @Override
     public void prepareFailView(String error) {
-        throw new ApplyToGroupFailed(error);
+        JOptionPane.showMessageDialog(null, error);
     }
 
 }
