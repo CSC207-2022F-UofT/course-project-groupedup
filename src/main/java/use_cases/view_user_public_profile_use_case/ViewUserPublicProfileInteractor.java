@@ -1,4 +1,5 @@
 package use_cases.view_user_public_profile_use_case;
+import entities.InteractorMessages;
 import entities.User;
 
 /**
@@ -25,19 +26,22 @@ public class ViewUserPublicProfileInteractor implements ViewUserPublicProfileInp
      */
     @Override
     public void showUserProfile(ViewUserPublicProfileRequestModel requestModel) {
-        /*Find User*/
         String username = requestModel.getUsername();
+        if (userDSGateway.userIdentifierExists(username)) {
+            /*Find User*/
+            User user = userDSGateway.getUser(username);
 
-        User user = userDSGateway.getUser(username);
+            ViewUserPublicProfileResponseModel successViewResponseModel = new ViewUserPublicProfileResponseModel(
+                    user.getUsername(),
+                    user.getUserPublicProfile().getPreferences(),
+                    user.getUserPublicProfile().getCoursePreferences(),
+                    user.getUserPublicProfile().getBiography());
 
-        ViewUserPublicProfileResponseModel successViewResponseModel = new ViewUserPublicProfileResponseModel(
-                user.getUsername(),
-                user.getUserPublicProfile().getPreferences(),
-                user.getUserPublicProfile().getCoursePreferences(),
-                user.getUserPublicProfile().getBiography());
-
-        /*Return response model with userPublicProfile information*/
-        viewUserProfileOutputBoundary.prepareSuccessView(successViewResponseModel);
+            /*Return response model with userPublicProfile information*/
+            viewUserProfileOutputBoundary.prepareSuccessView(successViewResponseModel);
+        } else {
+            throw new RuntimeException(InteractorMessages.USER_DOES_NOT_EXIST);
+        }
     }
 }
 
