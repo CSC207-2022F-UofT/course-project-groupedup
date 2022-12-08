@@ -1,11 +1,12 @@
 package matching_algorithm_tests;
 
 import entities.InteractorMessages;
+import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import use_cases.matching_algorithm_use_case.*;
 import view_and_data_access.screens.matching_algorithm_screens.InMemoryMatchesFail;
 import view_and_data_access.screens.matching_algorithm_screens.InMemoryMatchesSuccess;
-import interface_adapters.matching_algorithm_adapters.MatchingAlgorithmController;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MatchingAlgorithmUseCaseTest {
 
             @Override
             public void prepareFailView(String error){
-                assertEquals(InteractorMessages.NO_MATCHES, error);
+                Assertions.fail("Unexpected fail");
             }
         };
 
@@ -64,13 +65,12 @@ public class MatchingAlgorithmUseCaseTest {
                 List<String> expected = new ArrayList<>();
                 expected.add("csc236: group2");
                 expected.add("csc207: group1");
-                assertEquals(InteractorMessages.MATCHES_UPDATED, responseModel.getMatchesUpdatedMessage());
-                assertEquals(expected, responseModel.getGroups());
+                Assertions.fail("Unexpected Success");
             }
 
             @Override
-            public void prepareFailView(String error){
-                assertEquals(InteractorMessages.NO_MATCHES, error);
+            public void prepareFailView(String error){assertEquals(InteractorMessages.NO_MATCHES, error);
+
             }
         };
 

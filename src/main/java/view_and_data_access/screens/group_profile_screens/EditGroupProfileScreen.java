@@ -56,7 +56,7 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
             for(JRadioButton button: locationList) {
                 if (button.isSelected()) {
                     String buttonSelected = button.getText();
-                    if (buttonSelected.equals("Online") | buttonSelected.equals("In-person")) {
+                    if (buttonSelected.equals("Online") | buttonSelected.equals("In-Person")) {
                         this.location = buttonSelected;
                     }
                 }
@@ -138,7 +138,7 @@ public class EditGroupProfileScreen extends JPanel implements EditGroupProfileSc
         JLabel locationLabel = new JLabel("Location: ");
         JPanel locationOptions = new JPanel();
         JRadioButton locationOption1 = new JRadioButton("Online");
-        JRadioButton locationOption2 = new JRadioButton("In-person");
+        JRadioButton locationOption2 = new JRadioButton("In-Person");
         b1.add(locationOption1);
         b1.add(locationOption2);
         locationOptions.add(locationOption1);

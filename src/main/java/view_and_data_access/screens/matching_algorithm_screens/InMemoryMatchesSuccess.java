@@ -26,6 +26,7 @@ public class InMemoryMatchesSuccess implements MatchingAlgorithmDsGateWay {
         preferences1.put("Chocolate", "Yes");
         preferences1.put("Summer or Winter", "Summer");
         user.getUserPublicProfile().setCoursePreferences("csc236, csc207");
+        user.getUserPublicProfile().setPreferences(preferences1);
         this.user = user;
 
         return user;
@@ -33,6 +34,9 @@ public class InMemoryMatchesSuccess implements MatchingAlgorithmDsGateWay {
 
     @Override
     public HashMap<String, Group> loadGroups() {
+        User groupLeader = new NormalUser("groupLeader", "pass","leader", "@leader",
+                new UserPublicProfile());
+
         CurrentUser currentUser = CurrentUser.getInstance();
         currentUser.setUser(user);
         HashMap<String, String> preferences1 = new HashMap<>();
@@ -54,47 +58,55 @@ public class InMemoryMatchesSuccess implements MatchingAlgorithmDsGateWay {
         preferences3.put("Test" , "Test");
 
 
-        GroupProfile groupProfile1 = new GroupProfile();
-        groupProfile1.setPreferences(preferences2);
-        groupProfile1.setCourseCode("csc207");
         Group group1 = new NormalGroup("group1");
-        group1.setGroupProfile(groupProfile1);
+        group1.getProfile().setPreferences(preferences2);
+        group1.getProfile().setCourseCode("csc207");
+        group1.addMember("leader");
+        group1.setGroupLeader("leader");
+        group1.removeMember("username");
 
-        GroupProfile groupProfile2 = new GroupProfile();
+
         Group group2 = new NormalGroup("group2");
-        group2.setGroupProfile(groupProfile2);
         group2.getProfile().setCourseCode("csc236");
         group2.getProfile().setPreferences(preferences1);
+        group2.addMember("leader");
+        group2.setGroupLeader("leader");
+        group2.removeMember("username");
 
-        GroupProfile groupProfile3 = new GroupProfile();
+        //test if wrong course code was removed
         Group group3 = new NormalGroup("group3");
-        group3.setGroupProfile(groupProfile3);
         group3.getProfile().setCourseCode("csc258");
         group3.getProfile().setPreferences(preferences3);
+        group3.addMember("leader");
+        group3.setGroupLeader("leader");
+        group3.removeMember("username");
 
-        GroupProfile groupProfile4 = new GroupProfile();
+        //Test if no course code was removed
         Group group4 = new NormalGroup("group 4");
-        group4.setGroupProfile(groupProfile4);
+
 
         //Test if the user is a member is removed
-        GroupProfile groupProfile5 = new GroupProfile();
         Group group5 = new NormalGroup("group 5");
         group5.addMember("username");
-        group5.setGroupProfile(groupProfile5);
+        group5.getProfile().setCourseCode("csc236");
         group5.getProfile().setPreferences(preferences1);
+        group5.addMember("leader");
+        group5.setGroupLeader("leader");
+
 
         //Test if the user has already requested to join group is removed
-        GroupProfile groupProfile6 = new GroupProfile();
         Group group6 = new NormalGroup("group 6");
         group6.addMemberRequest("username");
-        group6.setGroupProfile(groupProfile6);
+        group6.getProfile().setCourseCode("csc236");
         group6.getProfile().setPreferences(preferences1);
+        group6.addMember("leader");
+        group6.setGroupLeader("leader");
+        group6.removeMember("username");
 
         //Test if user as group leader is removed
-        GroupProfile groupProfile7 = new GroupProfile();
-        Group group7 = new NormalGroup("group 6");
+        Group group7 = new NormalGroup("group 7");
+        group7.getProfile().setCourseCode("csc236");
         group7.setGroupLeader("username");
-        group7.setGroupProfile(groupProfile7);
         group7.getProfile().setPreferences(preferences1);
 
 

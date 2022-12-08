@@ -12,7 +12,6 @@ import java.util.HashMap;
 public class ViewUserPublicProfileScreen extends JPanel implements ActionListener, ViewUserPublicProfileScreenBoundary {
     CardLayout cardLayout;
     JPanel screens;
-
     String username;
     String bio;
     String courses;

@@ -54,7 +54,6 @@ public class GroupMembersScreen extends JPanel implements GroupMembersScreenBoun
     }
 
 
-
     private class buttonPress implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -1,4 +1,6 @@
 import entities.*;
+import interface_adapters.apply_to_group_adapters.ApplyToGroupController;
+import interface_adapters.apply_to_group_adapters.ApplyToGroupPresenter;
 import interface_adapters.cancel_application_adapters.CancelApplicationController;
 import interface_adapters.cancel_application_adapters.CancelApplicationPresenter;
 import interface_adapters.cancel_application_adapters.ViewApplicationsListController;
@@ -31,6 +33,9 @@ import interface_adapters.view_group_profile_adapters.ViewGroupProfilePresenter;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileController;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfilePresenter;
 import interface_adapters.view_user_public_profile_adapters.ViewUserPublicProfileScreenBoundary;
+import use_cases.apply_to_group_use_case.ApplyToGroupInputBoundary;
+import use_cases.apply_to_group_use_case.ApplyToGroupInteractor;
+import use_cases.apply_to_group_use_case.ApplyToGroupOutputBoundary;
 import use_cases.cancel_application_use_case.CancelApplicationInputBoundary;
 import use_cases.cancel_application_use_case.CancelApplicationInteractor;
 import use_cases.cancel_application_use_case.CancelApplicationOutputBoundary;
@@ -88,6 +93,7 @@ import view_and_data_access.screens.user_public_profile_screens.ViewUserPublicPr
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -111,12 +117,43 @@ public class Main {
          *  Data access call for subsequent runs
          */
         // SerializeDataAccess dataAccess = new SerializeDataAccess();
+        User userLeader = new NormalUser("userLeader", "userLeader", "userLeader", "userLeader",
+                new UserPublicProfile());
+        dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(userLeader, userLeader.getUsername()));
+        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser.setUser(userLeader);
+
+        Group group1 = new NormalGroup("Jonathan's Fan Club!!");
+        group1.getProfile().setDescription("Jonathan is goat");
+        group1.addMember(userLeader.getUsername());
+        group1.setGroupLeader(userLeader.getUsername());
+        HashMap<String, String> preferences1 = new HashMap<>();
+        preferences1.put("Location", "Online");
+        preferences1.put("Meeting Time", "Tuesday");
+        preferences1.put("Time Commitment","0-2 hours");
+        group1.getProfile().setPreferences(preferences1);
+        group1.getProfile().setCourseCode("csc207");
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group1, group1.getGroupName()));
+
+        Group group2 = new NormalGroup("Rui's Disciples");
+        group2.getProfile().setDescription("Rui is a legend");
+        group2.addMember(userLeader.getUsername());
+        group2.setGroupLeader(userLeader.getUsername());
+        HashMap<String, String> preferences2 = new HashMap<>();
+        preferences2.put("Location", "In-Person");
+        preferences2.put("Meeting Time", "Friday");
+        preferences2.put("Time Commitment","2-4 hours");
+        group2.getProfile().setPreferences(preferences2);
+        group2.getProfile().setCourseCode("csc236");
+
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group2, group2.getGroupName()));
+
 
         User user1 = new NormalUser("test", "test", "test", "test", new UserPublicProfile());
         dataAccess.saveNewUser(new UserRegistrationDSRequestPackage(user1, user1.getUsername()));
 
         // TESTING SERIALIZED DATA ACCESS FOR LEAVE GROUP AND CANCEL APPLICATION
-        CurrentUser currentUser = CurrentUser.getInstance();
+        currentUser = CurrentUser.getInstance();
         currentUser.setUser(user1);
 
         User bob = new NormalUser("bob", "bob", "bob", "bob", new UserPublicProfile());
@@ -128,13 +165,14 @@ public class Main {
         group.addRequest(user1.getUsername());
         dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group, group.getGroupName()));
 
-        Group group2 = new NormalGroup("Paul's Fan Club");
-        group2.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
+
+        Group group3 = new NormalGroup("Paul's Fan Club");
+        group3.getProfile().setDescription("Hi guys. My name is Paul Gries and I am 52 years old and I have" +
                 " brown hair and blue eyes. I made this group because I think it would be nice to get together" +
                 " with abstract people and talk about things in the abstract sense. BTW i love art, especially" +
                 " drawing arrows :)");
-        group2.addRequest(user1.getUsername());
-        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group2, group2.getGroupName()));
+        group3.addRequest(user1.getUsername());
+        dataAccess.saveNewGroups(new GroupRegisterDSRequestModel(group3, group3.getGroupName()));
 
         user1.getApplicationsList().put("Bob's group", "Bob's group");
         user1.getApplicationsList().put("Paul's Fan Club", "Paul's Fan Club");
@@ -180,6 +218,10 @@ public class Main {
         MatchingAlgorithmController matchingAlgorithmController = new MatchingAlgorithmController(matchingAlgorithmInputBoundary);
         homepageTest.setMatchingAlgorithmController(matchingAlgorithmController);
 
+        ApplyToGroupOutputBoundary applyToGroupPresenter = new ApplyToGroupPresenter();
+        ApplyToGroupInputBoundary applyToGroupInteractor = new ApplyToGroupInteractor(dataAccess, applyToGroupPresenter);
+        ApplyToGroupController applyToGroupController = new ApplyToGroupController(applyToGroupInteractor);
+        homepageTest.setApplyToGroupController(applyToGroupController);
 
         ViewUserPublicProfileScreenBoundary viewUserPublicProfileScreen = new ViewUserPublicProfileScreen(screens, cardLayout);
         ViewUserPublicProfileOutputBoundary viewUserPublicProfilePresenter = new ViewUserPublicProfilePresenter(viewUserPublicProfileScreen);

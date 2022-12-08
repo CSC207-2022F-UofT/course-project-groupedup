@@ -28,10 +28,8 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
     JButton myGroups = new JButton("My Groups");
     JButton viewUserProfile = new JButton("View User Profile");
     String username;
-
     MatchingAlgorithmController matchingAlgorithmController;
     ViewUserPublicProfileController viewUserPublicController;
-
     ApplyToGroupController applyToGroupController;
     JList<String> matches = new JList<>();
     JScrollPane matchesScrollPane = new JScrollPane();
@@ -150,12 +148,13 @@ public class HomePage extends JPanel implements ActionListener, HomeMatchesBound
         this.matchingAlgorithmController = matchingAlgorithmController;
     }
 
-    public void applyToGroupController(ApplyToGroupController applyToGroupController){
-        this.applyToGroupController = applyToGroupController;
-    }
+
 
     public void setViewUserProfileController(ViewUserPublicProfileController viewUserPublicController){
         this.viewUserPublicController = viewUserPublicController;
     }
 
+    public void setApplyToGroupController(ApplyToGroupController applyToGroupController) {
+        this.applyToGroupController = applyToGroupController;
+    }
 }

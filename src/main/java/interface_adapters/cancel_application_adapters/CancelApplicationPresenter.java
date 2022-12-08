@@ -28,8 +28,7 @@ public class CancelApplicationPresenter implements CancelApplicationOutputBounda
      * @param error error message containing the reason for cancel application use case failure
      */
     @Override
-    public void prepareFailureView(String error) {
+    public void prepareFailureView(String error){
         JOptionPane.showMessageDialog(null, error);
     }
-
 }

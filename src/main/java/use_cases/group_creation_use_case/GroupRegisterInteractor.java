@@ -50,13 +50,3 @@ public class GroupRegisterInteractor implements GroupRegisterInputBoundary{
 }
 
 
-
-
-
-
-
-
-
-
-
-

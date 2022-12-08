@@ -14,7 +14,7 @@ public class ApplyToGroupPresenter implements ApplyToGroupOutputBoundary {
     public void prepareSuccessView(ApplyToGroupResponseModel userApplication) {
         String user = userApplication.getUsername();
         String group = userApplication.getGroupName();
-        JOptionPane.showMessageDialog(null, user + "applied to " + group + ".");
+        JOptionPane.showMessageDialog(null, user + " applied to " + group + ".");
     }
 
     @Override

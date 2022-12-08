@@ -14,6 +14,7 @@ import java.util.HashMap;
  * should not depend on the UI.
  */
 public class InMemoryFileGroup implements NewGroupDSGateway {
+    private User user;
     private HashMap<String, Group> groups = new HashMap<>();
 
     public InMemoryFileGroup(){};
@@ -49,6 +50,8 @@ public class InMemoryFileGroup implements NewGroupDSGateway {
     }
 
     @Override
-    public void updateUser(User user){};
+    public void updateUser(User user){
+
+    };
 
 }

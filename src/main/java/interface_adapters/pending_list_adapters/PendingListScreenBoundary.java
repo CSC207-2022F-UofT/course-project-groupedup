@@ -18,7 +18,6 @@ public interface PendingListScreenBoundary extends ListSelectionListener {
 
     void setViewPendingListController(ViewPendingListController viewPendingListController);
 
-
     void buildButtons();
 
     void buildScrollPane();

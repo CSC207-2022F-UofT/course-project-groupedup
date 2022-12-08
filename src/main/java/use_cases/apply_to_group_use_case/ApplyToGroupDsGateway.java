@@ -16,24 +16,27 @@ public interface ApplyToGroupDsGateway {
     /**
      * @return a hashmap of all saved users, mapping username to user object
      */
-    HashMap<String, User> getUserMap();
+    HashMap<String, User> loadUsers();
 
-    boolean groupExistsByName(String groupName);
+    boolean groupIdentifierExists(String groupName);
 
     /**
      * Updates the user's applications list within the repository.
-     * @param username the name of the user
+     * @param user class
      */
-    void updateUser(String username);
+    void updateUser(User user);
 
     /**
      * Updates the group's pending list within the repository.
-     * @param groupName the name of the group
+     * @param group class
      */
-    void updateGroup(String groupName);
-
-    HashMap<String, User> loadUsers();
+    void updateGroup(Group group);
 
     boolean userInGroup(String username, String groupName);
-    boolean userInApplications(String username, String groupName);
+    boolean groupInUser(String groupName, String username);
+
+    boolean userInMemberRequests(String username, String groupName);
+    boolean groupInApplications(String groupName, String username);
+
 }
+

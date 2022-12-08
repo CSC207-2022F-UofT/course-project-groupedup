@@ -25,7 +25,7 @@ public class EditUserPublicProfileController {
                                                      String timeCommitment, String location, String meetingTime) {
 
         EditUserPublicProfileRequestModel requestModel = new EditUserPublicProfileRequestModel(username,
-                bio, courseCode, timeCommitment, location, meetingTime);
+                bio, courseCode, location, meetingTime, timeCommitment);
 
         editUserProfileInput.saveEdits(requestModel);
     }
