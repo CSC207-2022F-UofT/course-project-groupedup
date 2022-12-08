@@ -1,6 +1,5 @@
 package interface_adapters.apply_to_group_adapters;
 
-import view_and_data_access.screens.apply_to_group_screens.ApplyToGroupFailed;
 import use_cases.apply_to_group_use_case.ApplyToGroupOutputBoundary;
 import use_cases.apply_to_group_use_case.ApplyToGroupResponseModel;
 

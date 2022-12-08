@@ -35,8 +35,6 @@ public class ApplyToGroupInteractor implements ApplyToGroupInputBoundary {
         Group group = applyToGroupDsGateway.getGroup(requestModel.getGroupName());
 
         // Exceptions
-        // Checks if the user and the group exists, might be redundant or not.
-        // The decision depends on whether we want to implement additional checks or not.
 
         if (!applyToGroupDsGateway.groupIdentifierExists(requestModel.getGroupName())) {
             applyToGroupOutputBoundary.prepareFailView(InteractorMessages.GROUP_DOES_NOT_EXIST);
