@@ -1,7 +1,7 @@
 package view_and_data_access.screens.group_list_screens;
 
-import interface_adapters.pending_list_adapters.GroupMembersScreenBoundary;
-import interface_adapters.pending_list_adapters.ViewGroupMembersController;
+import interface_adapters.view_group_members_adapters.GroupMembersScreenBoundary;
+import interface_adapters.view_group_members_adapters.ViewGroupMembersController;
 
 import javax.swing.*;
 import java.awt.*;

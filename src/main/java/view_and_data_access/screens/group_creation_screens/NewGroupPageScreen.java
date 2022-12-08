@@ -3,7 +3,7 @@ package view_and_data_access.screens.group_creation_screens;
 import interface_adapters.edit_group_profile_adapters.EditGroupProfileScreenBoundary;
 import interface_adapters.group_register_adapters.GroupRegisterController;
 import interface_adapters.pending_list_adapters.ViewPendingListController;
-import interface_adapters.pending_list_adapters.ViewGroupMembersController;
+import interface_adapters.view_group_members_adapters.ViewGroupMembersController;
 
 import javax.swing.*;
 import java.awt.*;

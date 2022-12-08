@@ -1,4 +1,6 @@
-package interface_adapters.pending_list_adapters;
+package interface_adapters.view_group_members_adapters;
+
+import interface_adapters.view_group_members_adapters.ViewGroupMembersController;
 
 import javax.swing.*;
 
