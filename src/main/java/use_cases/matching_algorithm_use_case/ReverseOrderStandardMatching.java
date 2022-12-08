@@ -47,14 +47,6 @@ public class ReverseOrderStandardMatching implements MatchingAlgorithmStrategy {
             groups.removeIf(g ->
                     !(this.user.getUserPublicProfile().getCoursePreferences().contains(g.getProfile().getCourseCode())));
         }
-//        for(Group g: groups ){
-//            if(g.getGroupMembersUsernames().containsKey(this.user.getUsername())){
-//                groups.remove(g);
-//            } else if (g.getMemberRequestsUsernames().containsKey(this.user.getUsername())){
-//                groups.remove(g);
-//            }
-//        }
-
         groups.removeIf(g -> (g.getGroupMembersUsernames().containsKey(this.user.getUsername())));
         groups.removeIf(g -> (g.getMemberRequestsUsernames().containsKey(this.user.getUsername())));
     }
